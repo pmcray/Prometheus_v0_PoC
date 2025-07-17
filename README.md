@@ -1,7 +1,7 @@
 
 # Project Prometheus v0 PoC
 
-This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform a code refactoring task while being governed by principles of causal reasoning and internal safety.
+This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI, based on the ideas described in I.J. Good's seminal 1965 paper, "Speculations Concerning the First Ultraintelligent Machine". A copy of the paper can be found in the docs repository. This PoC demonstrates a multi-agent framework that can perform a code refactoring task while being governed by principles of causal reasoning and internal safety.
 
 ## Core Principles
 
