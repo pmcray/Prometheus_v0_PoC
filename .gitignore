@@ -1,3 +1,18 @@
-
 # Environment variables
 .env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+
+# BFG Repo-Cleaner files
+bfg*.jar
+replacements.txt
+*.bfg-report/
+Prometheus_v0_PoC.git/
