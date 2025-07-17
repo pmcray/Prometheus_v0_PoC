@@ -24,7 +24,8 @@ logging.getLogger().addHandler(console_handler)
 # This is a placeholder for where you would securely get your API key
 # For this example, we're retrieving it from an environment variable
 # In a real-world scenario, use a secret manager.
-API_KEY = os.environ.get("GOOGLE_API_KEY", "***REMOVED***")
+load_dotenv()
+API_KEY = os.environ.get("GOOGLE_API_KEY")
 
 def main():
     # 1. Instantiate Agents
