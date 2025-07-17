@@ -1,2 +1,5 @@
 google-generativeai
 numpy
+pytest
+ipykernel
+python-dotenv

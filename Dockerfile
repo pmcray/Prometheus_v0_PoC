@@ -1,5 +1,5 @@
 # Use an official NVIDIA L4T base image for Jetson
-FROM nvcr.io/nvidia/l4t-base:r35.4.1
+FROM nvcr.io/nvidia/l4t-jetpack:r36.2.0
 
 # Set the working directory in the container
 WORKDIR /app
