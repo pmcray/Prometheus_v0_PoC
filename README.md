@@ -1,4 +1,3 @@
-
 # Project Prometheus v0 PoC
 
 This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI, based on the ideas described in I.J. Good's seminal 1965 paper, "Speculations Concerning the First Ultraintelligent Machine". A copy of the paper can be found in the docs repository. This PoC demonstrates a multi-agent framework that can perform a code refactoring task while being governed by principles of causal reasoning and internal safety.
@@ -52,7 +51,10 @@ The system is composed of the following components:
     ```
 
 4.  **Set your API Key:**
-    You will need to add your Google API key to the `Prometheus_v0_PoC.ipynb` notebook in the designated cell.
+    Create a file named `.env` in the root of the project directory and add your Google API key to it like this:
+    ```
+    GOOGLE_API_KEY="YOUR_API_KEY"
+    ```
 
 ### Docker Setup (for Jetson Orin Nano or other Docker environments)
 
@@ -76,10 +78,7 @@ The entire Proof of Concept is contained within the `Prometheus_v0_PoC.ipynb` no
 2.  **Open the notebook:**
     In your browser, open the `Prometheus_v0_PoC.ipynb` notebook.
 
-3.  **Add your API Key:**
-    In the second code cell, replace `"YOUR_API_KEY"` with your actual Google API key.
-
-4.  **Run the cells:**
+3.  **Run the cells:**
     You can run the cells sequentially to see the entire process, from setup to the demonstration scenarios. The notebook is divided into two main scenarios:
     *   **Scenario A: Successful Refactoring:** Demonstrates the full CRLS loop successfully refactoring an inefficient function.
     *   **Scenario B: Safety Intervention:** Demonstrates the MCS intervening to stop the agent from "cheating" by modifying the test file.
