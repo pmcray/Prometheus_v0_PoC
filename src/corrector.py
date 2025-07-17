@@ -1,10 +1,13 @@
-
 class CorrectorAgent:
     def correct(self, original_code, failed_code, critique):
         """
         Generates a new prompt for the CoderAgent based on the critique.
         """
-        print("CorrectorAgent: Received critique -", critique.reason)
+        # The critique may be a string or a CausalCritique object.
+        # For this version, we'll just use the string representation.
+        critique_reason = str(critique)
+        
+        print("CorrectorAgent: Received critique -", critique_reason)
         
         prompt = f"""The previous attempt to refactor the code failed.
         
@@ -18,7 +21,7 @@ Failed Code:
 {failed_code}
 ```
 
-Causal Critique: {critique.reason}
+Causal Critique: {critique_reason}
 
 Please try again to refactor the code, taking the critique into account.
 The goal is to improve the time complexity of the code.
