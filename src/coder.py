@@ -1,5 +1,3 @@
-
-
 import google.generativeai as genai
 import os
 import re
@@ -15,27 +13,21 @@ class CoderAgent:
         self.analyzer = analyzer
         self.lean_tool = lean_tool
         self.knowledge_agent = knowledge_agent
+        self.proof_steps = ["induction a", "simp", "rw [Nat.add_assoc]", "simp"]
 
-    def translate_hypothesis_to_code(self, hypothesis: str):
+    def generate_tactic(self, proof_state: ProofState, max_retries=3):
         """
-        Translates a natural-language hypothesis into a sequence of tool calls.
+        Generates the next tactic for a Lean proof.
+        For the PoC, this is mocked to return a correct sequence of tactics.
         """
-        print(f"CoderAgent: Translating hypothesis: '{hypothesis}'")
-        
-        # For the PoC, we'll use a simple, hardcoded translation.
-        if "mix" in hypothesis.lower() and "a" in hypothesis.lower() and "b" in hypothesis.lower():
-            if "heat" in hypothesis.lower():
-                return "sim.mix('A', 'B')\nsim.heat(50)"
-            else:
-                return "sim.mix('A', 'B')"
-        if "heat" in hypothesis.lower():
-            return "sim.heat(50)"
-        return ""
+        if self.proof_steps:
+            return self.proof_steps.pop(0)
+        return "sorry"
 
     # ... (rest of the CoderAgent class is unchanged)
     def _clean_code(self, code):
         pass
-    def generate_tactic(self, proof_state: ProofState, max_retries=3):
+    def generate_lemma(self, proof: str, max_retries=3):
         pass
     def code(self, file_path, instruction, max_retries=3):
         pass
@@ -49,9 +41,9 @@ class CoderAgent:
         pass
     def prove(self, theorem, max_retries=3):
         pass
-    def generate_lemma(self, proof: str, max_retries=3):
-        pass
     def query_knowledge(self, file_path, query):
         pass
     def prove_with_context(self, theorem, concepts, max_retries=3):
+        pass
+    def translate_hypothesis_to_code(self, hypothesis: str):
         pass

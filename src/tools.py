@@ -7,6 +7,8 @@ import os
 import re
 import shutil
 from pypdf import PdfReader
+from src.proof_tree import ProofNode
+from src.auditor_agent import AuditorAgent
 
 class Tool:
     pass
@@ -92,3 +94,17 @@ class PDFTool(Tool):
         except Exception as e:
             logging.error(f"PDFTool: Error extracting text from {file_path}: {e}")
             return None
+
+class AuditTool(Tool):
+    def use(self, data_structure, context):
+        """
+        Summarizes a complex data structure.
+        For the PoC, this is a simple wrapper around the AuditorAgent.
+        """
+        logging.info("AuditTool: Summarizing data structure.")
+        # In a real system, this tool would be more generic.
+        # For now, it's tightly coupled to the AuditorAgent's functionality.
+        if isinstance(data_structure, ProofTree):
+            auditor = AuditorAgent(os.environ.get("GOOGLE_API_KEY"))
+            return auditor.generate_audit_trail(data_structure, context)
+        return "AuditTool: Unsupported data structure."
