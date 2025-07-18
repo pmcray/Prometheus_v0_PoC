@@ -1,29 +1,27 @@
-
 # Project Prometheus v0 PoC
 
-This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform a code refactoring task while being governed by principles of causal reasoning and internal safety.
+This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform code refactoring and begin to tackle formal mathematical reasoning, governed by principles of causal reasoning and internal safety.
 
 ## Core Principles
 
 The PoC is built around four core principles:
 
-1.  **Multi-Agent Collaboration:** A decentralized mesh of specialized agents (Planner, Coder, Evaluator) work together to solve a complex coding task.
-2.  **Causal Reasoning for AI Alignment:** A simulated Causal Attention Head guides the Coder Agent to focus on causally relevant aspects of the code, preventing it from being distracted by superficial correlations.
-3.  **Recursive Self-Improvement:** The Causal Reinforcement Learning from Self-Correction (CRLS) loop allows the system to evaluate its own work based on causal principles and attempt to correct its mistakes. This includes the ability to modify its own source code to improve its performance.
-4.  **Internal Governance for Safety:** The Modern Centrencephalic System (MCS) acts as an internal alignment governor, providing meta-level oversight to ensure the system's actions remain aligned with safety principles.
+1.  **Multi-Agent Collaboration:** A decentralized mesh of specialized agents work together to solve complex tasks.
+2.  **Causal Reasoning for AI Alignment:** A simulated Causal Attention Head guides the Coder Agent to focus on causally relevant aspects of the code.
+3.  **Recursive Self-Improvement:** The system uses a Causal Reinforcement Learning from Self-Correction (CRLS) loop to modify its own source code, and an adaptive curriculum to generate progressively harder challenges.
+4.  **Internal Governance for Safety:** The Modern Centrencephalic System (MCS) acts as an internal alignment governor to ensure the system's actions remain aligned with safety principles.
 
 ## Architecture
 
 The system is composed of the following components:
 
-*   **PlannerAgent:** Receives a high-level goal and creates an initial, actionable instruction. It can also analyze the system's own code to propose self-improvements.
-*   **CoderAgent:** Receives an instruction and uses the Gemini API to generate or refactor code. It is guided by the `CausalAttentionWrapper` and uses a suite of tools (`CompilerTool`, `StaticAnalyzerTool`) to verify its own code before submitting it for evaluation.
-*   **EvaluatorAgent:** Receives the newly generated code and evaluates it based on two criteria:
-    1.  **Correctness:** Does the new code pass the unit tests?
-    2.  **Causal Improvement:** Does the new code represent a genuine improvement in time complexity? (Assessed via AST analysis).
-*   **CorrectorAgent:** If the `EvaluatorAgent` finds a flaw, the `CorrectorAgent` receives the critique and formulates a new, more targeted prompt for the `CoderAgent`.
-*   **BenchmarkAgent:** Can dynamically generate new "toy problems" and their corresponding unit tests, introducing a dynamic element to the environment and forcing the system to generalize.
-*   **MCSSupervisor:** A high-level supervisor that encapsulates the entire CRLS loop and monitors for safety violations, such as attempts to modify the test files. All agent actions that interact with the environment (writing files, using tools) are routed through the supervisor, which operates within a secure, sandboxed Docker environment.
+*   **PlannerAgent:** Proposes self-improvement plans or evolutionary goals.
+*   **CoderAgent:** Generates and refactors Python code or generates proofs in the Lean language. It uses tools to verify its own output.
+*   **EvaluatorAgent:** Evaluates generated code for correctness, causal improvement, and specification gaming.
+*   **CorrectorAgent:** Formulates new prompts to correct failed attempts.
+*   **CurriculumAgent:** Dynamically generates new coding benchmarks or simple mathematical theorems of increasing difficulty.
+*   **MCSSupervisor:** A high-level supervisor that orchestrates the main work loops (self-modification, evolution, theorem proving) and monitors for safety violations.
+*   **Tools:** A suite of tools the agent can use, including a `CompilerTool`, `StaticAnalyzerTool`, and a `LeanTool` for interacting with the Lean proof assistant.
 
 ## Setup and Installation
 
@@ -32,6 +30,7 @@ The system is composed of the following components:
 *   Python 3.8+
 *   Docker
 *   A Google API Key with the Gemini API enabled.
+*   The Lean 4 proof assistant.
 
 ### Local Setup
 
@@ -41,50 +40,40 @@ The system is composed of the following components:
     cd Prometheus_v0_PoC
     ```
 
-2.  **Create a virtual environment (recommended):**
+2.  **Install Lean:**
+    Follow the official instructions at [https://leanprover.github.io/lean4/doc/setup.html](https://leanprover.github.io/lean4/doc/setup.html). The simplest method is:
+    ```bash
+    curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
+    ```
+
+3.  **Create a virtual environment (recommended):**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
     ```
 
-3.  **Install the dependencies:**
+4.  **Install the Python dependencies:**
     ```bash
     pip install -r requirements.txt
     ```
 
-4.  **Set your API Key:**
-    You will need to add your Google API key to the `Prometheus_v0_PoC.ipynb` notebook in the designated cell, or set it as an environment variable named `GOOGLE_API_KEY`.
-
-### Docker Setup
-
-1.  **Build the Docker image:**
-    ```bash
-    docker build -t prometheus_v0_poc .
-    ```
-
-2.  **Run the Docker container:**
-    The PoC is designed to be run from the command line. You can run the main script within the container:
-    ```bash
-    docker run --rm -it -e GOOGLE_API_KEY=$GOOGLE_API_KEY prometheus_v0_poc
-    ```
-
-## Running the PoC
-
-The main entry point for the PoC is the `main.py` script.
-
-1.  **Set your API Key:**
-    Make sure your `GOOGLE_API_KEY` environment variable is set.
+5.  **Set your API Key:**
+    Set it as an environment variable named `GOOGLE_API_KEY`.
     ```bash
     export GOOGLE_API_KEY="YOUR_API_KEY"
     ```
 
-2.  **Run the script:**
-    ```bash
-    python3 main.py
-    ```
+## Running the PoC
 
-The script will execute the two main tasks of the PoC:
-1.  **Self-Modification:** The system will attempt to refactor its own `EvaluatorAgent` to be more efficient.
-2.  **Benchmark Generation:** The system will generate a new toy problem and its corresponding tests.
+The main entry point for the PoC is the `main.py` script. It is currently configured to run the latest task, **Theorem Proving**.
 
-The `Prometheus_v0_PoC.ipynb` notebook is also available and contains a consolidated version of the code and a narrative walkthrough of the demonstration scenarios.
+```bash
+python3 main.py
+```
+
+The script will:
+1.  Generate a simple mathematical theorem in the Lean language.
+2.  Attempt to generate a proof for that theorem.
+3.  Use the `LeanTool` to verify the correctness of the generated proof.
+
+You can modify `main.py` to run the other implemented tasks, such as the self-modification or evolutionary cycles.

@@ -5,58 +5,65 @@ from .critique import CausalCritique
 
 class EvaluatorAgent:
     def _analyze_complexity(self, code):
-        """
-        Analyzes the complexity of the code using AST to find nested loops.
-        Returns a simple complexity score (number of nested loops).
-        """
         tree = ast.parse(code)
         complexity = 0
         for node in ast.walk(tree):
             if isinstance(node, (ast.For, ast.While)):
-                # Check for nested loops
                 for sub_node in ast.walk(node):
                     if isinstance(sub_node, (ast.For, ast.While)) and sub_node != node:
                         complexity += 1
         return complexity
 
-    def evaluate(self, new_code, original_code, test_file_path, original_file_path):
+    def _detect_specification_gaming(self, new_code, test_code):
         """
-        Evaluates the new code by running unit tests and performing causal analysis.
+        A simple heuristic to detect specification gaming.
+        For now, it just checks if the solution is too simple.
         """
-        print("EvaluatorAgent: Received new code for evaluation.")
+        # A very simple heuristic: if the function body is less than 2 lines
+        # and the test code is more than 5 lines, it might be a hardcoded solution.
+        new_code_lines = len(new_code.strip().split('\n'))
+        test_code_lines = len(test_code.strip().split('\n'))
         
-        # Create a temporary file for the new code
-        temp_file_path = "temp_new_code.py"
+        if new_code_lines <= 2 and test_code_lines >= 5:
+            return True
+        return False
+
+    def evaluate(self, new_code, original_code, test_file_path, original_file_path):
+        return self.evaluate_code(new_code, original_code, test_file_path, original_file_path)
+
+    def evaluate_code(self, new_code, original_code, test_file_path, original_file_path):
+        temp_file_path = "temp_eval_code.py"
         with open(temp_file_path, "w") as f:
             f.write(new_code)
             
         with open(test_file_path, 'r') as f:
             test_code = f.read()
             
+        if self._detect_specification_gaming(new_code, test_code):
+            return CausalCritique(test_passed=False, causal_improvement=False, reason="Specification gaming detected."), ""
+
         original_module_name = os.path.basename(original_file_path).replace('.py', '')
         temp_module_name = temp_file_path.replace('.py', '')
         
-        modified_test_code = test_code.replace(f'from .{original_module_name}', f'from {temp_module_name}')
+        modified_test_code = test_code.replace(f'from {original_module_name}', f'from {temp_module_name}')
         
         temp_test_file_path = "temp_test_file.py"
         with open(temp_test_file_path, 'w') as f:
             f.write(modified_test_code)
 
-        print(f"EvaluatorAgent: Running tests from {temp_test_file_path}...")
-        
         test_passed = False
         test_output = ""
         try:
-            result = subprocess.run(["pytest", temp_test_file_path], capture_output=True, text=True)
+            import sys
+            env = os.environ.copy()
+            env["PYTHONPATH"] = f".{os.pathsep}toy_problem"
+            result = subprocess.run([sys.executable, "-m", "pytest", temp_test_file_path], capture_output=True, text=True, env=env)
             if result.returncode == 0:
                 test_passed = True
                 test_output = result.stdout
-                print("EvaluatorAgent: Tests passed!")
             else:
                 test_output = result.stdout + "\n" + result.stderr
-                print("EvaluatorAgent: Tests failed.")
         finally:
-            # Clean up temporary files
             os.remove(temp_file_path)
             os.remove(temp_test_file_path)
 

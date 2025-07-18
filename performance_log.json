@@ -1,0 +1,8 @@
+{
+    "benchmarks": {
+        "string_manipulation": {
+            "success": true,
+            "complexity": 0
+        }
+    }
+}

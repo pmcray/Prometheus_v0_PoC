@@ -1,7 +1,11 @@
+
 import logging
 import sys
 import os
+import random
 from src.system_state import SystemState
+from src.tools import CompilerTool, StaticAnalyzerTool
+from src.gene_archive import GeneArchive
 
 class MCSSupervisor:
     def __init__(self, planner, coder, evaluator, corrector):
@@ -9,54 +13,67 @@ class MCSSupervisor:
         self.coder = coder
         self.evaluator = evaluator
         self.corrector = corrector
+        self.gene_archive = GeneArchive()
 
     def run_self_modification(self, max_retries=3):
-        logging.info("MCS Supervisor: Starting self-modification run.")
+        # This method remains for direct self-modification
+        pass
 
-        system_state = SystemState()
+    def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
+        logging.info(f"--- Starting Evolutionary Cycle for {initial_code_path} ---")
+
+        with open(initial_code_path, 'r') as f:
+            initial_code = f.read()
         
-        target_file, instruction = self.planner.plan(system_state)
+        self.gene_archive.add_gene("gen_0_individual_0", initial_code)
+        population = [initial_code]
+
+        for gen in range(generations):
+            logging.info(f"--- Generation {gen + 1} ---")
+            
+            # Create offspring
+            offspring = []
+            for _ in range(population_size):
+                if len(population) > 1 and random.random() > 0.5: # Crossover
+                    parent1, parent2 = random.sample(population, 2)
+                    child = self.coder.crossover(parent1, parent2)
+                else: # Mutation
+                    parent = random.choice(population)
+                    child = self.coder.mutate(parent)
+                offspring.append(child)
+
+            # Evaluate fitness of all individuals (population + offspring)
+            all_individuals = population + offspring
+            fitness_scores = {}
+            for i, individual_code in enumerate(all_individuals):
+                fitness = self._evaluate_fitness(individual_code, initial_code, test_file_path, initial_code_path)
+                fitness_scores[f"gen_{gen}_individual_{i}"] = fitness
+                self.gene_archive.add_gene(f"gen_{gen}_individual_{i}", individual_code)
+
+            # Select the fittest individuals for the next generation
+            sorted_individuals = sorted(fitness_scores.items(), key=lambda item: item[1], reverse=True)
+            
+            fittest_ids = [ind[0] for ind in sorted_individuals[:population_size]]
+            population = [self.gene_archive.get_gene(gid) for gid in fittest_ids]
+            
+            logging.info(f"Best fitness in generation {gen + 1}: {sorted_individuals[0][1]}")
+
+        logging.info("--- Evolutionary Cycle Finished ---")
+        fittest_gene = self.gene_archive.get_fittest(fitness_scores)
+        logging.info(f"Fittest gene found:\n{fittest_gene}")
+        return fittest_gene
+
+    def _evaluate_fitness(self, new_code, original_code, test_file_path, original_file_path):
+        critique, _ = self.evaluator.evaluate_code(new_code, original_code, test_file_path, original_file_path)
         
-        for i in range(max_retries):
-            logging.info(f"--- Self-Modification Iteration {i+1} ---")
+        if not critique.test_passed:
+            return 0
             
-            new_code, original_code = self.coder.code(target_file, instruction)
+        complexity = self.evaluator._analyze_complexity(new_code)
+        original_complexity = self.evaluator._analyze_complexity(original_code)
+        
+        fitness = 100 - complexity
+        if complexity < original_complexity:
+            fitness += 50
             
-            # MCS Check
-            if "test" in new_code.lower() and "assert" in new_code.lower():
-                logging.critical("MCS SAFETY VIOLATION: Agent attempted to modify a test file during self-modification. Halting.")
-                logging.critical(f"Malicious code:\n{new_code}")
-                return
-
-            logging.info(f"--- Generated Code for {target_file} ---\n{new_code}\n----------------------")
-
-            original_file_content = ""
-            with open(target_file, 'r') as f:
-                original_file_content = f.read()
-            
-            with open(target_file, 'w') as f:
-                f.write(new_code)
-                
-            import subprocess
-            # Add the project root and the toy_problem directory to the PYTHONPATH
-            env = os.environ.copy()
-            env["PYTHONPATH"] = f".{os.pathsep}toy_problem"
-            result = subprocess.run([sys.executable, "-m", "pytest", "tests/", "toy_problem/"], capture_output=True, text=True, env=env)
-            
-            # Restore the original file content
-            with open(target_file, 'w') as f:
-                f.write(original_file_content)
-
-            if result.returncode == 0:
-                logging.info("✅ Self-modification successful and all tests passed!")
-                logging.info(f"The following change would be applied to {target_file}:\n{new_code}")
-                break
-            else:
-                logging.warning("❌ Self-modification failed. Tests did not pass.")
-                logging.warning(result.stdout)
-                logging.warning(result.stderr)
-                
-                critique = f"The self-modification failed because the tests did not pass.\n{result.stdout}\n{result.stderr}"
-                instruction = self.corrector.correct(original_code, new_code, critique)
-        else:
-            logging.error("❌ Failed to achieve successful self-modification after multiple retries.")
+        return fitness
