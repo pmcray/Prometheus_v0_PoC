@@ -10,6 +10,8 @@ from src.proof_tree import ProofTree
 from src.strategy_archive import StrategyArchive
 from src.toy_chemistry_sim import ToyChemistrySim
 from src.performance_logger import PerformanceLogger
+import multiprocessing
+from src.agent_templates import HypothesisGenerator, DataAnalyzer, CodeImplementer
 
 class MCSSupervisor:
     def __init__(self, planner, coder, evaluator, corrector, lean_tool: LeanTool, strategy_archive: StrategyArchive, performance_logger: PerformanceLogger, knowledge_agent):
@@ -24,51 +26,39 @@ class MCSSupervisor:
         self.knowledge_agent = knowledge_agent
         self.compute_budget = 999 # Default budget
 
-    def run_proof_tree_search(self, theorem, max_steps=20):
-        logging.info(f"--- Starting Proof Tree Search for theorem: {theorem} with a budget of {self.compute_budget} calls ---")
+    def run_dynamic_circuit(self, goal):
+        logging.info(f"--- Starting Dynamic Circuit Execution for goal: {goal} ---")
         
-        initial_state, _ = self.lean_tool.start_proof(theorem)
-        proof_tree = ProofTree(initial_state)
-        
-        for i in range(max_steps):
-            logging.info(f"--- Search Step {i+1} ---")
-            
-            if self.compute_budget <= 0:
-                logging.error("❌ Compute budget exhausted. Halting.")
-                return None, None
+        # 1. Form the circuit
+        circuit_definition = self.planner.form_circuit(goal)
+        if not circuit_definition:
+            logging.error("Planner failed to form a circuit. Halting.")
+            return
 
-            current_node = self.planner.choose_next_step(proof_tree, self.strategy_archive, theorem, budget=self.compute_budget)
+        # 2. Execute the circuit
+        for stage, agent_templates in circuit_definition.items():
+            logging.info(f"--- Executing Stage: {stage} ---")
+            logging.info(f"Instantiating agents: {agent_templates}")
             
-            if not current_node:
-                logging.warning("No more nodes to expand. Proof search failed.")
-                return None, None
+            # In a real system, we would dynamically instantiate and orchestrate these agents.
+            # For the PoC, we'll just log the process.
+            if "KnowledgeAgent" in agent_templates:
+                logging.info("Simulating literature review...")
+            
+            if "HypothesisGenerator" in agent_templates:
+                logging.info("Simulating experimentation...")
 
-            proof_so_far = self._reconstruct_proof(proof_tree, current_node, theorem)
-            
-            self.compute_budget -= 1 # Decrement budget for the CoderAgent call
-            tactic = self.coder.generate_tactic(current_node.state)
-            logging.info(f"Generated Tactic: {tactic}")
-
-            new_state, _ = self.lean_tool.apply_tactic(proof_so_far, tactic)
-            
-            new_node = proof_tree.add_node(new_state, tactic, current_node)
-            
-            if new_node.is_solved:
-                logging.info("✅ Proof complete!")
-                final_proof = self._reconstruct_proof(proof_tree, new_node, theorem)
-                return final_proof, proof_tree
-            
-        logging.error("❌ Failed to prove the theorem within the step limit.")
-        return None, proof_tree
-
-    def _reconstruct_proof(self, proof_tree, node, theorem):
-        path = proof_tree.get_proof_path(node)
-        proof_str = theorem + " := by\n"
-        for tactic in path:
-            proof_str += "  " + tactic + ",\n"
-        return proof_str
+        logging.info("--- Dynamic Circuit Execution Finished ---")
 
     # ... (rest of the MCSSupervisor class is unchanged)
+    def run_parallel_experiments(self, goal):
+        pass
+    def _run_single_experiment(self, hypothesis):
+        pass
+    def run_proof_tree_search(self, theorem, max_steps=20):
+        pass
+    def _reconstruct_proof(self, proof_tree, node, theorem):
+        pass
     def run_self_modification(self, plan):
         pass
     def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
@@ -82,5 +72,4 @@ class MCSSupervisor:
     def run_experimental_cycle(self, goal, max_steps=5):
         pass
     def run_unified_cycle(self):
-        pass
         pass

@@ -1,4 +1,3 @@
-
 import subprocess
 import os
 import ast
@@ -13,45 +12,27 @@ class EvaluatorAgent:
         self.model = genai.GenerativeModel('gemini-1.5-flash')
         self.lean_tool = lean_tool
 
-    def summarize_proof_strategy(self, proof_tree: ProofTree, theorem: str):
+    def compare_results(self, results):
         """
-        Summarizes the strategy of a successful proof.
+        Compares the results of parallel experiments to find the best one.
         """
-        print("EvaluatorAgent: Summarizing successful proof strategy.")
+        print("EvaluatorAgent: Comparing results of parallel experiments.")
         
-        # Find the successful node
-        successful_node = self._find_solved_node(proof_tree.root)
-        if not successful_node:
-            return "Could not find a successful proof path to summarize."
-            
-        tactics = proof_tree.get_proof_path(successful_node)
+        best_result = None
+        max_c = -1
         
-        prompt = f"""
-        You are an expert in the Lean theorem prover.
-        The following theorem was successfully proven with the given sequence of tactics.
-        
-        Theorem:
-        {theorem}
-        
-        Sequence of Tactics:
-        {tactics}
-        
-        Please provide a one-sentence, high-level summary of the proof strategy.
-        For example: "The proof was solved by first using induction on the primary variable, then simplifying the goals."
-        """
-        response = self.model.generate_content(prompt)
-        return response.text.strip()
-
-    def _find_solved_node(self, node):
-        if node.is_solved:
-            return node
-        for child in node.children:
-            solved = self._find_solved_node(child)
-            if solved:
-                return solved
-        return None
+        for result in results:
+            if result["result"]["C"] > max_c:
+                max_c = result["result"]["C"]
+                best_result = result
+                
+        return best_result["hypothesis"]
 
     # ... (rest of the EvaluatorAgent class is unchanged)
+    def summarize_proof_strategy(self, proof_tree: ProofTree, theorem: str):
+        pass
+    def _find_solved_node(self, node):
+        pass
     def critique_failed_proof(self, failed_tactics, lean_error):
         pass
     def verify_lemma(self, original_proof: str, lemma: str, coder):
