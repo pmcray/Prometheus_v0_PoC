@@ -14,12 +14,18 @@ class CoderAgent:
         self.lean_tool = lean_tool
         self.knowledge_agent = knowledge_agent
 
-    def query_knowledge(self, file_path, query):
+    def translate_hypothesis_to_code(self, hypothesis: str):
         """
-        A simple wrapper for the CoderAgent to query the KnowledgeAgent.
+        Translates a natural-language hypothesis into a sequence of tool calls.
         """
-        print(f"CoderAgent: Querying knowledge about '{file_path}'.")
-        return self.knowledge_agent.query_knowledge(file_path, query)
+        print(f"CoderAgent: Translating hypothesis: '{hypothesis}'")
+        
+        # For the PoC, we'll use a simple, hardcoded translation.
+        if "mix" in hypothesis.lower() and "a" in hypothesis.lower() and "b" in hypothesis.lower():
+            return "sim.mix('A', 'B')"
+        if "heat" in hypothesis.lower():
+            return "sim.heat(50)"
+        return ""
 
     # ... (rest of the CoderAgent class is unchanged)
     def _clean_code(self, code):
@@ -39,4 +45,8 @@ class CoderAgent:
     def prove(self, theorem, max_retries=3):
         pass
     def generate_lemma(self, proof: str, max_retries=3):
+        pass
+    def query_knowledge(self, file_path, query):
+        pass
+    def prove_with_context(self, theorem, concepts, max_retries=3):
         pass

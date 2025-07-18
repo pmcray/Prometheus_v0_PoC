@@ -13,64 +13,40 @@ class KnowledgeAgent:
         self.pdf_tool = pdf_tool
         self.structured_knowledge = {}
 
-    def ingest_paper(self, file_path):
+    def extract_theorem_and_concepts(self, file_path):
         """
-        Ingests a scientific paper from a PDF, extracts the text, and structures it.
+        Extracts a formal theorem and key concepts from a PDF.
         """
-        print(f"KnowledgeAgent: Ingesting paper from {file_path}")
+        print(f"KnowledgeAgent: Extracting theorem and concepts from {file_path}")
         text = self.pdf_tool.use(file_path)
         if not text:
-            return False
-        
+            return None
+            
         prompt = f"""
-        You are a research assistant. Your task is to read the following text from a scientific paper
-        and structure its key findings into a JSON object.
-        
-        The JSON object should have the following fields:
-        - "title": The title of the paper.
-        - "hypothesis": A one-sentence summary of the paper's main hypothesis.
-        - "method": A one-sentence summary of the methodology used.
-        - "results": A one-sentence summary of the key results.
+        You are a research assistant. Your task is to read the following text and extract the formal theorem and a list of key mathematical concepts.
         
         Text:
         {text}
         
-        Please provide only the JSON object.
+        Please provide the output as a JSON object with two keys:
+        - "theorem": The formal statement of the theorem.
+        - "concepts": A list of key mathematical concepts mentioned in the text.
         """
-        
         response = self.model.generate_content(prompt)
         try:
-            # Clean the response to get only the JSON
             json_str = re.search(r"\{.*\}", response.text, re.DOTALL).group(0)
-            self.structured_knowledge[file_path] = json.loads(json_str)
-            print("KnowledgeAgent: Successfully structured knowledge from paper.")
-            return True
+            return json.loads(json_str)
         except (AttributeError, json.JSONDecodeError) as e:
-            print(f"KnowledgeAgent: Error structuring knowledge: {e}")
-            return False
-
-    def query_knowledge(self, file_path, query):
-        """
-        Queries the structured knowledge for a given paper.
-        """
-        if file_path not in self.structured_knowledge:
-            return "I have not yet ingested that paper."
-        
-        knowledge = self.structured_knowledge[file_path]
-        
-        # For the PoC, we'll just use the LLM to answer the query based on the JSON.
-        prompt = f"""
-        You are a research assistant. Answer the following query based on the provided structured knowledge.
-        
-        Knowledge:
-        {json.dumps(knowledge, indent=4)}
-        
-        Query: {query}
-        """
-        response = self.model.generate_content(prompt)
-        return response.text.strip()
+            print(f"KnowledgeAgent: Error extracting theorem and concepts: {e}")
+            return None
 
     # ... (rest of the class is unchanged)
+    def deconstruct_proof(self, proof: str):
+        pass
+    def ingest_paper(self, file_path):
+        pass
+    def query_knowledge(self, file_path, query):
+        pass
     def read_proof(self, file_path):
         pass
     def _clean_code(self, code):

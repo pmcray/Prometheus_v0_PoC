@@ -1,6 +1,7 @@
+
 # Project Prometheus v0 PoC
 
-This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform code refactoring, tackle formal mathematical reasoning, and begin to ingest and reason about scientific literature.
+This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform code refactoring, tackle formal mathematical reasoning, and begin to conduct autonomous experiments in a simulated environment.
 
 ## Core Principles
 
@@ -15,13 +16,12 @@ The PoC is built around four core principles:
 
 The system is composed of the following components:
 
-*   **PlannerAgent:** Proposes high-level goals and guides the search strategy in complex domains.
-*   **CoderAgent:** Generates Python code, Lean proofs, and can query the `KnowledgeAgent`.
+*   **PlannerAgent:** Proposes high-level goals, guides proof searches, and generates scientific hypotheses.
+*   **CoderAgent:** Generates Python code, Lean proofs, and translates natural-language hypotheses into executable experiments.
 *   **EvaluatorAgent:** Evaluates code, verifies proofs, and generates critiques of failed strategies.
-*   **CorrectorAgent:** Formulates new prompts to correct failed attempts.
-*   **KnowledgeAgent:** Ingests and structures knowledge from formal proofs and scientific papers (via PDF).
-*   **MCSSupervisor:** Orchestrates the main work loops and monitors for safety violations.
-*   **Tools:** A suite of tools including a `CompilerTool`, `StaticAnalyzerTool`, `LeanTool`, and a `PDFTool`.
+*   **KnowledgeAgent:** Ingests and structures knowledge from formal proofs and scientific papers.
+*   **MCSSupervisor:** Orchestrates the main work loops (self-modification, evolution, theorem proving, experimentation) and monitors for safety violations.
+*   **Tools:** A suite of tools including a `CompilerTool`, `StaticAnalyzerTool`, `LeanTool`, `PDFTool`, and a `ToyChemistrySim` for simulated experiments.
 *   **Archives & Logs:** `GeneArchive`, `StrategyArchive`, and `PerformanceLogger` to enable learning and memory.
 
 ## Setup and Installation
@@ -32,7 +32,7 @@ The system is composed of the following components:
 *   Docker
 *   A Google API Key with the Gemini API enabled.
 *   The Lean 4 proof assistant.
-*   Pandoc (for generating the sample PDF).
+*   Pandoc.
 
 ### Local Setup
 
@@ -64,15 +64,16 @@ The system is composed of the following components:
 
 ## Running the PoC
 
-The main entry point is `main.py`. It is currently configured to run the latest task, **Simulated Literature Review**.
+The main entry point is `main.py`. It is currently configured to run the latest task, **Simulated Laboratory Environment**.
 
 ```bash
 python3 main.py
 ```
 
 The script will:
-1.  Ingest a sample scientific abstract from a PDF.
-2.  Structure the key findings into a JSON object.
-3.  Answer a question about the paper's conclusion based on the structured knowledge.
+1.  Initialize a simulated chemistry environment.
+2.  The `PlannerAgent` will propose hypotheses to maximize a target chemical.
+3.  The `CoderAgent` will translate these hypotheses into experiments.
+4.  The `MCSSupervisor` will run the experiments and feed the results back to the `PlannerAgent`, demonstrating a closed-loop scientific discovery process.
 
 You can modify `main.py` to run the other implemented tasks.

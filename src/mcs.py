@@ -1,5 +1,4 @@
 
-
 import logging
 import sys
 import os
@@ -9,6 +8,7 @@ from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
 from src.gene_archive import GeneArchive
 from src.proof_tree import ProofTree
 from src.strategy_archive import StrategyArchive
+from src.toy_chemistry_sim import ToyChemistrySim
 
 class MCSSupervisor:
     def __init__(self, planner, coder, evaluator, corrector, lean_tool: LeanTool, strategy_archive: StrategyArchive):
@@ -20,55 +20,51 @@ class MCSSupervisor:
         self.lean_tool = lean_tool
         self.strategy_archive = strategy_archive
 
-    def run_proof_tree_search(self, theorem, max_steps=20):
-        logging.info(f"--- Starting Proof Tree Search for theorem: {theorem} ---")
+    def run_experimental_cycle(self, goal, max_steps=5):
+        logging.info(f"--- Starting Experimental Cycle with goal: {goal} ---")
         
-        initial_state, _ = self.lean_tool.start_proof(theorem)
-        proof_tree = ProofTree(initial_state)
-        critiques = []
-
+        sim = ToyChemistrySim()
+        experiment_results = []
+        
         for i in range(max_steps):
-            logging.info(f"--- Search Step {i+1} ---")
+            logging.info(f"--- Experiment Step {i+1} ---")
             
-            current_node = self.planner.choose_next_step(proof_tree, self.strategy_archive, theorem)
+            # 1. Propose a hypothesis
+            plan = self.planner.plan(goal, experiment_results)
             
-            if not current_node:
-                logging.warning("No more nodes to expand. Proof search failed.")
-                return None
-
-            proof_so_far = self._reconstruct_proof(proof_tree, current_node, theorem)
-            tactic = self.coder.generate_tactic(current_node.state)
-            logging.info(f"Generated Tactic: {tactic}")
-
-            new_state, _ = self.lean_tool.apply_tactic(proof_so_far, tactic)
+            # 2. Translate hypothesis to code
+            code = self.coder.translate_hypothesis_to_code(plan["hypothesis"])
             
-            new_node = proof_tree.add_node(new_state, tactic, current_node)
+            # 3. Execute the experiment
+            logging.info(f"Executing code:\n{code}")
+            # In a real system, this would be a sandboxed execution.
+            # For the PoC, we'll just exec it.
+            exec_globals = {"sim": sim}
+            exec(code, exec_globals)
             
-            if new_node.is_solved:
-                logging.info("✅ Proof complete!")
-                strategy = self.evaluator.summarize_proof_strategy(proof_tree, theorem)
-                self.strategy_archive.add_strategy(theorem, strategy)
-                final_proof = self._reconstruct_proof(proof_tree, new_node, theorem)
-                return final_proof
+            # 4. Record the outcome
+            outcome = sim.get_state()
+            experiment_results.append(outcome)
+            logging.info(f"Experiment outcome: {outcome}")
             
-            if "error" in new_state.raw_state.lower():
-                # ... (critique generation unchanged)
-                pass
-
-        logging.error("❌ Failed to prove the theorem within the step limit.")
-        return None
-
-    def _reconstruct_proof(self, proof_tree, node, theorem):
-        path = proof_tree.get_proof_path(node)
-        proof_str = theorem + " := by\n"
-        for tactic in path:
-            proof_str += "  " + tactic + ",\n"
-        return proof_str
+            # Check for success
+            if outcome["C"] >= 150:
+                logging.info("✅ Goal achieved! Successfully maximized the concentration of C.")
+                return True
+                
+        logging.error("❌ Failed to achieve the goal within the step limit.")
+        return False
 
     # ... (rest of the MCSSupervisor class is unchanged)
+    def run_proof_tree_search(self, theorem, max_steps=20):
+        pass
+    def _reconstruct_proof(self, proof_tree, node, theorem):
+        pass
     def run_self_modification(self, max_retries=3):
         pass
     def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
         pass
     def _evaluate_fitness(self, new_code, original_code, test_file_path, original_file_path):
+        pass
+    def run_lemma_discovery(self, plan):
         pass
