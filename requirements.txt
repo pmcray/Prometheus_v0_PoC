@@ -5,3 +5,5 @@ ipykernel
 python-dotenv
 pydantic
 pypdf
+pandas
+causallearn

@@ -1,33 +1,47 @@
-from src.system_state import SystemState
+from src.causal_graph_tool import CausalGraphTool
 from src.proof_tree import ProofTree
 from src.strategy_archive import StrategyArchive
-from src.performance_logger import PerformanceLogger
-from src.knowledge_agent import KnowledgeAgent
 
 class PlannerAgent:
-    def form_circuit(self, goal: str):
+    def __init__(self, causal_graph_tool: CausalGraphTool):
+        self.causal_graph_tool = causal_graph_tool
+
+    def form_causal_strategy(self, data_path, question):
         """
-        Forms a circuit of agent templates to solve a given goal.
+        Forms a causal strategy to answer a question.
         """
-        print(f"PlannerAgent: Forming circuit for goal: '{goal}'")
+        print("PlannerAgent: Forming causal strategy.")
         
-        if "replicate" in goal.lower() and "paper" in goal.lower():
-            # For the PoC, we'll hardcode the circuit for this specific goal.
-            circuit = {
-                "stage_1": ["KnowledgeAgent", "SummarizerAgent"],
-                "stage_2": ["HypothesisGenerator", "CodeImplementer", "DataAnalyzer"]
-            }
-            print("PlannerAgent: Formed a two-stage circuit for literature review and experimentation.")
-            return circuit
+        # 1. Build the causal graph
+        causal_graph = self.causal_graph_tool.use(data_path)
+        if causal_graph is None:
+            return "Could not form a causal strategy."
+            
+        # For the PoC, we'll just use a simplified representation of the graph.
+        # A real implementation would parse the graph object.
+        graph_representation = "Diet -> Health, Exercise -> Health, Diet -> IceCreamConsumption"
         
-        return None
+        # 2. Construct the Causal Attention Prompt
+        prompt = f"""
+        You are an expert in causal reasoning.
+        Your task is to answer the following question, using the provided causal graph.
+        You must only follow the causal links and ignore mere correlations.
+        
+        Causal Graph:
+        {graph_representation}
+        
+        Question: {question}
+        """
+        
+        print("PlannerAgent: Successfully formed causal strategy.")
+        return prompt
 
     # ... (rest of the PlannerAgent class is unchanged)
-    def generate_hypotheses(self, goal: str, n=3):
-        pass
-    def plan(self, goal: str, knowledge_agent: KnowledgeAgent = None, experiment_results: list = []):
+    def plan(self, goal: str, proof_content: str = None, deconstructed_proof: dict = None):
         pass
     def choose_next_step(self, proof_tree: ProofTree, strategy_archive: StrategyArchive, current_theorem: str, budget: int = 999):
         pass
     def clarify_goal(self, goal, user_response=None):
+        pass
+    def generate_hypotheses(self, goal: str, n=3):
         pass
