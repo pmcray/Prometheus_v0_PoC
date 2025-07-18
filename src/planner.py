@@ -1,26 +1,25 @@
 from src.system_state import SystemState
 from src.proof_tree import ProofTree
+from src.strategy_archive import StrategyArchive
 
 class PlannerAgent:
-    def plan(self, system_state: SystemState, goal: str):
+    def plan(self, goal: str, proof_content: str = None):
         # ... (implementation unchanged)
         pass
 
-    def choose_next_step(self, proof_tree: ProofTree, critiques: list = []):
+    def choose_next_step(self, proof_tree: ProofTree, strategy_archive: StrategyArchive, current_theorem: str):
         """
-        Analyzes the proof tree and critiques to choose the most promising node.
+        Analyzes the proof tree and uses the strategy archive to choose the next step.
         """
-        print("PlannerAgent: Analyzing proof tree and critiques.")
+        print("PlannerAgent: Analyzing proof tree and consulting strategy archive.")
         
-        # For now, the logic remains simple, but the prompt is now context-aware.
-        # A more advanced implementation would use the critiques to prune the search tree.
+        relevant_strategies = strategy_archive.get_relevant_strategies(current_theorem)
         
-        critiques_str = "\n".join(f"- {c}" for c in critiques)
-        
-        # This is where a more sophisticated planner would use the critiques.
-        # For the PoC, we'll just log that the critiques are available.
-        if critiques:
-            print(f"PlannerAgent: Considering the following critiques:\n{critiques_str}")
+        if relevant_strategies:
+            strategies_str = "\n".join(f"- {s}" for s in relevant_strategies)
+            print(f"PlannerAgent: Found relevant strategies:\n{strategies_str}")
+            # In a real implementation, this would be part of the prompt to the LLM.
+            # For this PoC, we just log that we have them.
 
         promising_node = proof_tree.find_most_promising_node()
         

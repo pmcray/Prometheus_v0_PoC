@@ -1,0 +1,6 @@
+
+**Title: A Novel Approach to Abstractive Text Summarization using Reinforcement Learning**
+
+**Abstract:**
+
+This paper introduces a novel framework for abstractive text summarization using a deep reinforcement learning model. Traditional sequence-to-sequence models often suffer from issues of factual inconsistency and repetition. To address these limitations, we propose a model that incorporates a factual consistency checker as part of its reward function. The model is trained to generate summaries that are not only fluent and coherent but also factually aligned with the source document. Our experiments on the CNN/DailyMail dataset show that our model significantly outperforms baseline models in terms of ROUGE scores and human evaluations of factual consistency. The key innovation is the integration of a differentiable factual consistency module, which allows for end-to-end training and provides a more stable and effective reward signal. We believe this approach represents a significant step towards more reliable and trustworthy text summarization systems.
