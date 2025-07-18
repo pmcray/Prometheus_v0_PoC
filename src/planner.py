@@ -1,10 +1,11 @@
-
 from src.system_state import SystemState
 from src.proof_tree import ProofTree
 from src.strategy_archive import StrategyArchive
+from src.performance_logger import PerformanceLogger
+from src.knowledge_agent import KnowledgeAgent
 
 class PlannerAgent:
-    def plan(self, goal: str, experiment_results: list = []):
+    def plan(self, goal: str, knowledge_agent: KnowledgeAgent = None, experiment_results: list = []):
         """
         Generates a plan based on the goal.
         """
@@ -15,12 +16,15 @@ class PlannerAgent:
             if not experiment_results:
                 hypothesis = "Mixing A and B seems like a good first step."
             else:
-                # Simple learning: if the last experiment was successful, try heating.
                 last_result = experiment_results[-1]
-                if last_result["C"] > 0:
-                    hypothesis = "The last experiment produced some C. Let's try heating the mixture to see if it improves the yield."
+                # Inject a wasteful action for verification
+                if last_result["A"] == 0 and last_result["B"] == 0 and len(experiment_results) == 1:
+                    print("PlannerAgent: Intentionally proposing a wasteful action for verification.")
+                    hypothesis = "Let's try mixing A and B again."
+                elif last_result["A"] == 0 and last_result["B"] == 0:
+                    hypothesis = "Now that A and B are depleted, let's try heating the mixture."
                 else:
-                    hypothesis = "The last experiment failed. Let's try mixing A and B again, just to be sure."
+                    hypothesis = "Let's mix A and B."
 
             plan = {
                 "type": "run_experiment",

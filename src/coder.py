@@ -1,3 +1,5 @@
+
+
 import google.generativeai as genai
 import os
 import re
@@ -22,7 +24,10 @@ class CoderAgent:
         
         # For the PoC, we'll use a simple, hardcoded translation.
         if "mix" in hypothesis.lower() and "a" in hypothesis.lower() and "b" in hypothesis.lower():
-            return "sim.mix('A', 'B')"
+            if "heat" in hypothesis.lower():
+                return "sim.mix('A', 'B')\nsim.heat(50)"
+            else:
+                return "sim.mix('A', 'B')"
         if "heat" in hypothesis.lower():
             return "sim.heat(50)"
         return ""

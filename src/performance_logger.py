@@ -17,7 +17,7 @@ class PerformanceLogger:
             with open(self.log_file, 'r') as f:
                 return json.load(f)
         else:
-            return {"benchmarks": {}}
+            return {"benchmarks": {}, "experiments": {}}
 
     def _save_log(self):
         """
@@ -26,26 +26,33 @@ class PerformanceLogger:
         with open(self.log_file, 'w') as f:
             json.dump(self.log, f, indent=4)
 
-    def log_benchmark(self, benchmark_name, success, complexity):
+    def log_experiment(self, experiment_name, success, steps):
         """
-        Logs the result of a benchmark run.
+        Logs the result of an experimental run.
         """
-        self.log["benchmarks"][benchmark_name] = {
+        if "experiments" not in self.log:
+            self.log["experiments"] = {}
+            
+        self.log["experiments"][experiment_name] = {
             "success": success,
-            "complexity": complexity
+            "steps": steps
         }
         self._save_log()
-        logging.info(f"Logged benchmark '{benchmark_name}': success={success}, complexity={complexity}")
+        logging.info(f"Logged experiment '{experiment_name}': success={success}, steps={steps}")
 
-    def get_last_solved_complexity(self):
+    def get_last_experiment_steps(self):
         """
-        Returns the complexity of the most recently solved benchmark.
+        Returns the number of steps from the most recent experiment.
         """
-        solved_benchmarks = [
-            b for b in self.log["benchmarks"].values() if b["success"]
-        ]
-        if not solved_benchmarks:
-            return 0
+        if not self.log["experiments"]:
+            return 999 # Return a high number if no experiments have been run
         
-        # For simplicity, we'll just return the max complexity of any solved benchmark
-        return max(b["complexity"] for b in solved_benchmarks)
+        # Get the last experiment in the log
+        last_experiment = list(self.log["experiments"].values())[-1]
+        return last_experiment["steps"]
+
+    # ... (rest of the class is unchanged)
+    def log_benchmark(self, benchmark_name, success, complexity):
+        pass
+    def get_last_solved_complexity(self):
+        pass

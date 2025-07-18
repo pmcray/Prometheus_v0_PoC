@@ -1,3 +1,4 @@
+
 import google.generativeai as genai
 import os
 import re
@@ -13,32 +14,23 @@ class KnowledgeAgent:
         self.pdf_tool = pdf_tool
         self.structured_knowledge = {}
 
-    def extract_theorem_and_concepts(self, file_path):
+    def ingest_rules(self, file_path):
         """
-        Extracts a formal theorem and key concepts from a PDF.
+        Ingests the rules of a simulation from a PDF.
         """
-        print(f"KnowledgeAgent: Extracting theorem and concepts from {file_path}")
+        print(f"KnowledgeAgent: Ingesting rules from {file_path}")
         text = self.pdf_tool.use(file_path)
         if not text:
-            return None
-            
-        prompt = f"""
-        You are a research assistant. Your task is to read the following text and extract the formal theorem and a list of key mathematical concepts.
+            return False
         
-        Text:
-        {text}
-        
-        Please provide the output as a JSON object with two keys:
-        - "theorem": The formal statement of the theorem.
-        - "concepts": A list of key mathematical concepts mentioned in the text.
-        """
+        prompt = f"Summarize the rules described in this text in one sentence: {text}"
         response = self.model.generate_content(prompt)
-        try:
-            json_str = re.search(r"\{.*\}", response.text, re.DOTALL).group(0)
-            return json.loads(json_str)
-        except (AttributeError, json.JSONDecodeError) as e:
-            print(f"KnowledgeAgent: Error extracting theorem and concepts: {e}")
-            return None
+        self.structured_knowledge["rules"] = response.text.strip()
+        print("KnowledgeAgent: Successfully ingested rules.")
+        return True
+
+    def get_rules(self):
+        return self.structured_knowledge.get("rules", "No rules have been ingested.")
 
     # ... (rest of the class is unchanged)
     def deconstruct_proof(self, proof: str):

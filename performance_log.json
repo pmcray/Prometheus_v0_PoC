@@ -4,5 +4,15 @@
             "success": true,
             "complexity": 0
         }
+    },
+    "experiments": {
+        "initial_experiment": {
+            "success": false,
+            "steps": 5
+        },
+        "verification_experiment": {
+            "success": true,
+            "steps": 2
+        }
     }
 }
