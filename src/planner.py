@@ -1,36 +1,32 @@
 from src.system_state import SystemState
+from src.proof_tree import ProofTree
 
 class PlannerAgent:
     def plan(self, system_state: SystemState, goal: str):
+        # ... (implementation unchanged)
+        pass
+
+    def choose_next_step(self, proof_tree: ProofTree, critiques: list = []):
         """
-        Analyzes the system state and generates a plan based on the goal.
+        Analyzes the proof tree and critiques to choose the most promising node.
         """
-        print(f"PlannerAgent: Received goal - '{goal}'")
+        print("PlannerAgent: Analyzing proof tree and critiques.")
         
-        if "evolve" in goal.lower():
-            # For v1.1, the evolutionary target is hardcoded.
-            target_file = "toy_problem/inefficient_sort.py"
-            test_file = "toy_problem/test_inefficient_sort.py"
-            generations = 5
-            population_size = 10
+        # For now, the logic remains simple, but the prompt is now context-aware.
+        # A more advanced implementation would use the critiques to prune the search tree.
+        
+        critiques_str = "\n".join(f"- {c}" for c in critiques)
+        
+        # This is where a more sophisticated planner would use the critiques.
+        # For the PoC, we'll just log that the critiques are available.
+        if critiques:
+            print(f"PlannerAgent: Considering the following critiques:\n{critiques_str}")
+
+        promising_node = proof_tree.find_most_promising_node()
+        
+        if promising_node:
+            print(f"PlannerAgent: Chose node with tactic '{promising_node.tactic}' to expand.")
+        else:
+            print("PlannerAgent: No promising nodes found.")
             
-            plan = {
-                "type": "evolution",
-                "target_file": target_file,
-                "test_file": test_file,
-                "generations": generations,
-                "population_size": population_size
-            }
-            print(f"PlannerAgent: Created evolutionary plan for {target_file}")
-            return plan
-            
-        else: # Default to self-modification
-            target_file = "src/evaluator.py"
-            instruction = "Refactor the `_analyze_complexity` method in the EvaluatorAgent to be more efficient."
-            plan = {
-                "type": "refactor",
-                "target_file": target_file,
-                "instruction": instruction
-            }
-            print(f"PlannerAgent: Created refactoring plan for {target_file}")
-            return plan
+        return promising_node

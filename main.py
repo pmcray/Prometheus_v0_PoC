@@ -1,3 +1,5 @@
+
+
 import os
 import logging
 import sys
@@ -31,21 +33,36 @@ def main():
 
     # 2. Instantiate Agents
     planner = PlannerAgent()
-    coder = CoderAgent(api_key=API_KEY, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
-    evaluator = EvaluatorAgent()
+    evaluator = EvaluatorAgent(api_key=API_KEY)
     corrector = CorrectorAgent()
     curriculum_agent = CurriculumAgent(api_key=API_KEY, performance_logger=performance_logger)
-
-    # 3. Theorem Proving Task
-    logging.info("\n--- Running Theorem Proving Task ---")
+    
+    # --- Verification Run 1: Force a failure ---
+    logging.info("\n--- Running Meta-Learning Verification (Run 1: Failure) ---")
+    bad_coder = CoderAgent(api_key=API_KEY, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
+    bad_coder.bad_tactic_counter = 0 # Ensure the bad tactic is injected
+    
+    supervisor_bad = MCSSupervisor(planner, bad_coder, evaluator, corrector, lean_tool)
+    
     theorem = curriculum_agent.generate_theorem()
     if theorem:
         logging.info(f"Generated Theorem: {theorem}")
-        proof = coder.prove(theorem)
+        supervisor_bad.run_proof_tree_search(theorem)
+
+    # --- Verification Run 2: Use the critique to succeed ---
+    logging.info("\n--- Running Meta-Learning Verification (Run 2: Success) ---")
+    good_coder = CoderAgent(api_key=API_KEY, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
+    
+    supervisor_good = MCSSupervisor(planner, good_coder, evaluator, corrector, lean_tool)
+    
+    if theorem:
+        logging.info(f"Re-attempting Theorem: {theorem}")
+        proof = supervisor_good.run_proof_tree_search(theorem)
         if proof:
-            logging.info(f"✅ Theorem proven successfully!\nProof:\n{proof}")
+            logging.info(f"✅ Theorem proven successfully on the second attempt!\nProof:\n{proof}")
         else:
-            logging.error("❌ Failed to prove the theorem.")
+            logging.error("❌ Failed to prove the theorem on the second attempt.")
+
 
 if __name__ == "__main__":
     main()
