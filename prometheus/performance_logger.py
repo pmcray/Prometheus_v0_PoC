@@ -1,4 +1,3 @@
-
 import json
 import logging
 import os
@@ -10,43 +9,37 @@ class PerformanceLogger:
         logging.info(f"PerformanceLogger initialized with log file: {self.log_file}")
 
     def _load_log(self):
-        """
-        Loads the performance log from the file.
-        """
         if os.path.exists(self.log_file):
             with open(self.log_file, 'r') as f:
                 return json.load(f)
         else:
-            return {"benchmarks": {}, "experiments": {}}
+            return {"proofs": {}, "experiments": {}}
 
     def _save_log(self):
-        """
-        Saves the performance log to the file.
-        """
         with open(self.log_file, 'w') as f:
             json.dump(self.log, f, indent=4)
 
-    def log_experiment(self, experiment_name, success, steps):
+    def log_proof_search(self, theorem_name, success, steps, tactics):
         """
-        Logs the result of an experimental run.
+        Logs the result of a proof search run.
         """
-        if "experiments" not in self.log:
-            self.log["experiments"] = {}
+        if "proofs" not in self.log:
+            self.log["proofs"] = {}
             
-        self.log["experiments"][experiment_name] = {
+        self.log["proofs"][theorem_name] = {
             "success": success,
-            "steps": steps
+            "steps": steps,
+            "tactics": tactics
         }
         self._save_log()
-        logging.info(f"Logged experiment '{experiment_name}': success={success}, steps={steps}")
+        logging.info(f"Logged proof search for '{theorem_name}': success={success}, steps={steps}")
 
-    def get_last_experiment_steps(self):
+    def get_last_proof_search(self):
         """
-        Returns the number of steps from the most recent experiment.
+        Returns the data from the most recent proof search.
         """
-        if not self.log["experiments"]:
-            return 999 # Return a high number if no experiments have been run
+        if not self.log["proofs"]:
+            return None
         
-        # Get the last experiment in the log
-        last_experiment = list(self.log["experiments"].values())[-1]
-        return last_experiment["steps"]
+        last_proof = list(self.log["proofs"].values())[-1]
+        return last_proof

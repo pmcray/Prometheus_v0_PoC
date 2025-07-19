@@ -14,5 +14,23 @@
             "success": true,
             "steps": 2
         }
+    },
+    "proofs": {
+        "add_assoc": {
+            "success": true,
+            "steps": 5,
+            "tactics": [
+                "induction a",
+                "simp",
+                "rw [Nat.add_assoc]",
+                "simp",
+                "simp"
+            ]
+        },
+        "theorem add_assoc (a b c : Nat) : a + b + c = a + (b + c)": {
+            "success": true,
+            "steps": 0,
+            "tactics": []
+        }
     }
 }
