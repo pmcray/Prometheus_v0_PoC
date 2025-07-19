@@ -1,38 +1,31 @@
+# Project Prometheus v0.11: The Visual Mind
 
-# Project Prometheus v0 PoC
-
-This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This PoC demonstrates a multi-agent framework that can perform code refactoring, tackle formal mathematical reasoning, and demonstrate superior performance on a causal reasoning benchmark.
+This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This version (v0.11) introduces a modular, notebook-first architecture and a "Brain Map" visualization to demonstrate the dynamic formation of expert agent circuits.
 
 ## Core Principles
 
 The PoC is built around four core principles from I.J. Good's paper:
 
-1.  **Multi-Agent Collaboration (Causal Agentic Mesh):** A decentralized mesh of specialized agents work together to solve complex tasks.
-2.  **Causal Reasoning for AI Alignment:** The system now implements a **Causal Attention Head v0.2**, which uses a "causal calculus" to build a causal graph of a system and reason about it. This provides a measurable performance advantage over standard, correlation-based models.
-3.  **Recursive Self-Improvement:** The system uses a CRLS loop, an adaptive curriculum, and strategic reflection to learn and improve.
+1.  **Multi-Agent Collaboration (Causal Agentic Mesh):** A decentralized mesh of specialized agents work together. This is now visualized through the **Brain Map**, which shows the dynamic formation and dissolution of temporary "expert circuits" to solve specific sub-problems.
+2.  **Recursive Self-Improvement:** The system uses a CRLS loop, an adaptive curriculum, and strategic reflection to learn and improve.
+3.  **Ultraparallelism:** The system can entertain and test multiple, competing hypotheses in parallel, a key to rapid discovery.
 4.  **Internal Governance for Safety:** The MCS acts as an internal alignment governor, using a constitution and resource budgets to ensure safety and efficiency.
 
 ## Architecture
 
 The system is composed of the following components:
 
-*   **PlannerAgent:** A high-level strategic agent that can form "expert circuits," generate hypotheses, and, in the causal domain, use a `CausalGraphTool` to build a causal model and form a reasoning strategy.
-*   **CoderAgent:** Generates Python code, Lean proofs, and can now perform causal reasoning when guided by a Causal Attention Prompt from the `PlannerAgent`.
-*   **EvaluatorAgent:** Evaluates code, verifies proofs, and generates critiques of failed strategies.
-*   **KnowledgeAgent:** Ingests and structures knowledge from formal proofs and scientific papers.
-*   **MCSSupervisor:** Orchestrates the main work loops and monitors for safety, constitutional, and budget violations.
-*   **Tools:** A suite of tools including a `CompilerTool`, `StaticAnalyzerTool`, `LeanTool`, `PDFTool`, `AuditTool`, a `ToyChemistrySim`, and a `CausalGraphTool`.
-*   **Archives & Logs:** `GeneArchive`, `StrategyArchive`, and `PerformanceLogger` to enable learning and memory.
+*   **`prometheus` library:** A modular Python package containing all the core agent and tool classes.
+*   **`Prometheus_v0.11.ipynb`:** A Jupyter Notebook that serves as the primary interface for demonstrating the system's capabilities. It includes a series of self-contained test cells and a final, visual demonstration of the dynamic agent mesh.
+*   **`BrainMap`:** A visualization tool that generates an interactive graph of the agent mesh, showing the dynamic activation and formation of expert circuits in real-time.
 
 ## Setup and Installation
 
 ### Prerequisites
 
 *   Python 3.8+
-*   Docker
+*   Docker (with NVIDIA container toolkit for GPU support)
 *   A Google API Key with the Gemini API enabled.
-*   The Lean 4 proof assistant.
-*   Pandoc.
 
 ### Local Setup
 
@@ -42,15 +35,7 @@ The system is composed of the following components:
     cd Prometheus_v0_PoC
     ```
 
-2.  **Install System Dependencies (Lean & Pandoc):**
-    ```bash
-    # Install Lean
-    curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh
-    # Install Pandoc (on Debian/Ubuntu)
-    sudo apt-get update && sudo apt-get install pandoc -y
-    ```
-
-3.  **Create a virtual environment and install Python packages:**
+2.  **Create a virtual environment and install Python packages:**
     ```bash
     python3 -m venv venv
     source venv/bin/activate
@@ -58,22 +43,16 @@ The system is composed of the following components:
     pip install git+https://github.com/cmu-phil/causal-learn.git
     ```
 
-4.  **Set your API Key:**
+3.  **Set your API Key:**
     ```bash
     export GOOGLE_API_KEY="YOUR_API_KEY"
     ```
 
-## Running the PoC
+## Running the PoC in Google Colab
 
-The main entry point is `main.py`. It is currently configured to run the latest task, **Causal Reasoning Verification**.
+The entire PoC is now consolidated into a single, executable Jupyter Notebook: `Prometheus_v0.11.ipynb`.
 
-```bash
-python3 main.py
-```
-
-The script will:
-1.  Generate a dataset with a known causal structure.
-2.  Pose a counterfactual question to a standard LLM, which will likely answer incorrectly based on correlation.
-3.  The Prometheus system will then build a causal graph of the data, use it to form a Causal Attention Prompt, and correctly answer the question, demonstrating superior causal reasoning.
-
-You can modify `main.py` and the various `verify_*.py` scripts to run the other implemented tasks.
+1.  Open the `Prometheus_v0.11.ipynb` notebook in Google Colab.
+2.  Ensure you have selected a **GPU runtime** (`Runtime -> Change runtime type -> T4 GPU`).
+3.  Add your Google API key to the designated cell.
+4.  Run the cells sequentially to execute the verification tests and the final, visual demonstration of the Dynamic Mesh.

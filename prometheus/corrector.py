@@ -1,3 +1,5 @@
+
+
 class CorrectorAgent:
     def correct(self, original_code, failed_code, critique):
         """
@@ -28,3 +30,4 @@ The goal is to improve the time complexity of the code.
 """
         print("CorrectorAgent: Created new instruction.")
         return prompt
+

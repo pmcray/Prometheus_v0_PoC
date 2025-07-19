@@ -7,3 +7,4 @@ pydantic
 pypdf
 pandas
 causallearn
+pyvis

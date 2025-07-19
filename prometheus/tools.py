@@ -1,4 +1,5 @@
 
+
 import subprocess
 import sys
 import logging
@@ -7,8 +8,11 @@ import os
 import re
 import shutil
 from pypdf import PdfReader
-from src.proof_tree import ProofNode
-from src.auditor_agent import AuditorAgent
+from causallearn.search.ConstraintBased.PC import pc
+from causallearn.utils.cit import fisherz
+import pandas as pd
+from .proof_tree import ProofTree
+from .auditor_agent import AuditorAgent
 
 class Tool:
     pass
@@ -45,16 +49,11 @@ class LeanTool(Tool):
         self.step = 0
 
     def use(self, lean_code):
-        """
-        Checks a snippet of Lean code for correctness.
-        """
         logging.info("LeanTool: Checking Lean code (mocked).")
-        # This is a mocked implementation for the PoC.
-        # A real implementation would interact with the Lean server.
         if "sorry" in lean_code:
             return "Proof contains 'sorry'."
         if "theorem" in lean_code and "by" in lean_code:
-            return None # Assume it's a valid proof
+            return None
         return "Invalid Lean code."
 
 
@@ -81,9 +80,6 @@ class LeanTool(Tool):
 
 class PDFTool(Tool):
     def use(self, file_path):
-        """
-        Extracts text from a PDF file.
-        """
         logging.info(f"PDFTool: Extracting text from {file_path}")
         try:
             reader = PdfReader(file_path)
@@ -97,14 +93,21 @@ class PDFTool(Tool):
 
 class AuditTool(Tool):
     def use(self, data_structure, context):
-        """
-        Summarizes a complex data structure.
-        For the PoC, this is a simple wrapper around the AuditorAgent.
-        """
         logging.info("AuditTool: Summarizing data structure.")
-        # In a real system, this tool would be more generic.
-        # For now, it's tightly coupled to the AuditorAgent's functionality.
         if isinstance(data_structure, ProofTree):
             auditor = AuditorAgent(os.environ.get("GOOGLE_API_KEY"))
             return auditor.generate_audit_trail(data_structure, context)
         return "AuditTool: Unsupported data structure."
+
+class CausalGraphTool(Tool):
+    def use(self, data_path):
+        logging.info("CausalGraphTool: Constructing causal graph.")
+        try:
+            df = pd.read_csv(data_path)
+            df_encoded = pd.get_dummies(df, drop_first=True)
+            cg = pc(df_encoded.to_numpy(), alpha=0.05, indep_test=fisherz)
+            return cg
+        except Exception as e:
+            logging.error(f"CausalGraphTool: Error constructing graph: {e}")
+            return None
+

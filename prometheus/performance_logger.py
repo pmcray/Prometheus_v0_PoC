@@ -50,9 +50,3 @@ class PerformanceLogger:
         # Get the last experiment in the log
         last_experiment = list(self.log["experiments"].values())[-1]
         return last_experiment["steps"]
-
-    # ... (rest of the class is unchanged)
-    def log_benchmark(self, benchmark_name, success, complexity):
-        pass
-    def get_last_solved_complexity(self):
-        pass
