@@ -31,6 +31,31 @@
             "success": true,
             "steps": 0,
             "tactics": []
+        },
+        "complex_theorem_0": {
+            "success": false,
+            "steps": 10,
+            "tactics": []
+        },
+        "complex_theorem_1": {
+            "success": false,
+            "steps": 10,
+            "tactics": []
+        },
+        "complex_theorem_2": {
+            "success": false,
+            "steps": 10,
+            "tactics": []
+        },
+        "complex_theorem_3": {
+            "success": false,
+            "steps": 10,
+            "tactics": []
+        },
+        "complex_theorem_4": {
+            "success": false,
+            "steps": 10,
+            "tactics": []
         }
     }
 }

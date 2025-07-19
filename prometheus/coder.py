@@ -1,34 +1,41 @@
-
-
 import google.generativeai as genai
 import os
 import re
-import random
-from .tools import CompilerTool, StaticAnalyzerTool, LeanTool, ProofState
-from .knowledge_agent import KnowledgeAgent
 
 class CoderAgent:
-    def __init__(self, api_key, compiler: CompilerTool, analyzer: StaticAnalyzerTool, lean_tool: LeanTool, knowledge_agent: KnowledgeAgent):
+    def __init__(self, api_key):
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
-        self.compiler = compiler
-        self.analyzer = analyzer
-        self.lean_tool = lean_tool
-        self.knowledge_agent = knowledge_agent
-        self.proof_steps = ["induction a", "simp", "rw [Nat.add_assoc]", "simp"]
 
-    def generate_tactic(self, proof_state: ProofState, max_retries=3):
-        if self.proof_steps:
-            return self.proof_steps.pop(0)
-        return "sorry"
+    def synthesize_agent(self, proposal: str):
+        """
+        Synthesizes the Python code for a new agent based on a proposal.
+        """
+        print("CoderAgent: Synthesizing new agent.")
+        
+        prompt = f"""
+        You are an expert Python programmer.
+        Based on the following proposal, generate the complete, syntactically correct Python code for the new agent class.
+        The new agent should be a class with a single method, `run`, that takes a proof state dictionary as input and returns a list of strings.
+        
+        Proposal:
+        {proposal}
+        """
+        response = self.model.generate_content(prompt)
+        code = response.text.strip().replace("```python", "").replace("```", "")
+        
+        # Save the new agent to a file
+        agent_name = self._extract_agent_name(proposal)
+        file_path = f"prometheus/{agent_name.lower()}.py"
+        with open(file_path, "w") as f:
+            f.write(code)
+            
+        print(f"CoderAgent: Synthesized agent and saved to {file_path}")
+        return file_path
 
-    def translate_hypothesis_to_code(self, hypothesis: str):
-        if "mix" in hypothesis.lower() and "a" in hypothesis.lower() and "b" in hypothesis.lower():
-            if "heat" in hypothesis.lower():
-                return "sim.mix('A', 'B')\nsim.heat(50)"
-            else:
-                return "sim.mix('A', 'B')"
-        if "heat" in hypothesis.lower():
-            return "sim.heat(50)"
-        return ""
-
+    def _extract_agent_name(self, proposal: str):
+        # A simple regex to extract the agent name from the proposal
+        match = re.search(r"`(.*?)`", proposal)
+        if match:
+            return match.group(1)
+        return "new_agent"

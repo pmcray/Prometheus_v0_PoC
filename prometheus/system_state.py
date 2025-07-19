@@ -1,9 +1,8 @@
-
 import os
 import glob
 
 class SystemState:
-    def __init__(self, src_directory="src"):
+    def __init__(self, src_directory="prometheus"):
         self.src_directory = src_directory
         self.source_code = self._load_source_code()
 
@@ -22,3 +21,14 @@ class SystemState:
 
     def __str__(self):
         return str(self.source_code)
+
+class ArchitectureState:
+    def __init__(self):
+        self.architecture = {
+            "PlannerAgent": ["CoderAgent"],
+            "CoderAgent": ["EvaluatorAgent"],
+            "EvaluatorAgent": ["PlannerAgent"]
+        }
+
+    def get_architecture(self):
+        return self.architecture
