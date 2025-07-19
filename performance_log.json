@@ -57,5 +57,19 @@
             "steps": 10,
             "tactics": []
         }
-    }
+    },
+    "critiques": [
+        "Critique 0: The proof search was inefficient.",
+        "Critique 1: The proof search was inefficient.",
+        "Critique 2: The proof search was inefficient.",
+        "Critique 0: The proof search was inefficient.",
+        "Critique 1: The proof search was inefficient.",
+        "Critique 2: The proof search was inefficient.",
+        "Critique 0: The proof search was inefficient.",
+        "Critique 1: The proof search was inefficient.",
+        "Critique 2: The proof search was inefficient.",
+        "Critique 0: The proof search was inefficient.",
+        "Critique 1: The proof search was inefficient.",
+        "Critique 2: The proof search was inefficient."
+    ]
 }

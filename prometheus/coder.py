@@ -1,3 +1,5 @@
+
+
 import google.generativeai as genai
 import os
 import re
@@ -16,7 +18,7 @@ class CoderAgent:
         prompt = f"""
         You are an expert Python programmer.
         Based on the following proposal, generate the complete, syntactically correct Python code for the new agent class.
-        The new agent should be a class with a single method, `run`, that takes a proof state dictionary as input and returns a list of strings.
+        The new agent should be a class with a single method, `run`, that takes the specified inputs and returns the specified outputs.
         
         Proposal:
         {proposal}
@@ -34,8 +36,9 @@ class CoderAgent:
         return file_path
 
     def _extract_agent_name(self, proposal: str):
-        # A simple regex to extract the agent name from the proposal
-        match = re.search(r"`(.*?)`", proposal)
+        # A more robust regex to extract the agent name from the proposal
+        match = re.search(r"`([a-zA-Z_][a-zA-Z0-9_]*)`", proposal)
         if match:
             return match.group(1)
         return "new_agent"
+

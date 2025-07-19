@@ -8,3 +8,4 @@ pypdf
 pandas
 causallearn
 pyvis
+nltk

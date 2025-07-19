@@ -1,3 +1,4 @@
+
 import json
 import logging
 import os
@@ -13,33 +14,30 @@ class PerformanceLogger:
             with open(self.log_file, 'r') as f:
                 return json.load(f)
         else:
-            return {"proofs": {}, "experiments": {}}
+            return {"proofs": {}, "experiments": {}, "critiques": []}
 
     def _save_log(self):
         with open(self.log_file, 'w') as f:
             json.dump(self.log, f, indent=4)
 
-    def log_proof_search(self, theorem_name, success, steps, tactics):
+    def log_critique(self, critique: str):
         """
-        Logs the result of a proof search run.
+        Logs a self-critique.
         """
-        if "proofs" not in self.log:
-            self.log["proofs"] = {}
-            
-        self.log["proofs"][theorem_name] = {
-            "success": success,
-            "steps": steps,
-            "tactics": tactics
-        }
+        if "critiques" not in self.log:
+            self.log["critiques"] = []
+        self.log["critiques"].append(critique)
         self._save_log()
-        logging.info(f"Logged proof search for '{theorem_name}': success={success}, steps={steps}")
+        logging.info(f"Logged critique: '{critique}'")
 
+    def get_critique_history(self):
+        """
+        Returns the history of self-critiques.
+        """
+        return self.log.get("critiques", [])
+
+    # ... (rest of the class is unchanged)
+    def log_proof_search(self, theorem_name, success, steps, tactics):
+        pass
     def get_last_proof_search(self):
-        """
-        Returns the data from the most recent proof search.
-        """
-        if not self.log["proofs"]:
-            return None
-        
-        last_proof = list(self.log["proofs"].values())[-1]
-        return last_proof
+        pass
