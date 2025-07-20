@@ -1,11 +1,10 @@
-
 from pyvis.network import Network
 import logging
 
 class BrainMap:
     def __init__(self):
         self.net = Network(notebook=True, cdn_resources='in_line')
-        self.static_agents = ["PlannerAgent", "CoderAgent", "EvaluatorAgent", "KnowledgeAgent", "AuditorAgent"]
+        self.static_agents = ["PlannerAgent", "CoderAgent", "EvaluatorAgent", "KnowledgeAgent", "AuditorAgent", "ExperimentOrchestrator", "ResultsSynthesizer"]
         for agent in self.static_agents:
             self.net.add_node(agent, label=agent, color="#cccccc", shape="box")
         logging.info("BrainMap initialized.")
