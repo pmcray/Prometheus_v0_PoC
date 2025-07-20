@@ -4,7 +4,7 @@ import ast
 import google.generativeai as genai
 from .critique import CausalCritique
 from .tools import LeanTool
-from .proof_tree import ProofTree
+from .tools.proof_tree import ProofTree
 
 class EvaluatorAgent:
     def __init__(self, api_key, lean_tool: LeanTool):

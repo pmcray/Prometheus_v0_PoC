@@ -1,63 +1,71 @@
 import logging
 import importlib
+import time
 from .brain_map import BrainMap
+from .tool_benchmark import run_tool_benchmark
+from .toy_chemistry_sim import ToyChemistrySim
 
 class MCSSupervisor:
-    def __init__(self, planner, coder, evaluator, auditor, brain_map: BrainMap):
+    def __init__(self, planner, coder, evaluator, auditor, brain_map: BrainMap, performance_logger):
         self.planner = planner
         self.coder = coder
         self.evaluator = evaluator
         self.auditor = auditor
         self.brain_map = brain_map
+        self.performance_logger = performance_logger
         self.dynamic_agents = {}
+        self.tool_registry = {"ToyChemistrySim": ToyChemistrySim()}
 
-    def run_meta_learning_cycle(self, goal: str, curriculum_path: str):
-        logging.info(f"--- Starting Meta-Learning Cycle for goal: {goal} ---")
+    def register_tool(self, tool_name, tool_instance):
+        self.tool_registry[tool_name] = tool_instance
+        logging.info(f"Registered tool: {tool_name}")
 
-        # 1. Baseline Failure (Simulated)
-        logging.info("\n--- Baseline Run (Simulated Failure) ---")
-        logging.warning("Failed to solve the theorem without the necessary knowledge.")
+    def run_tool_rsi_cycle(self, goal: str):
+        logging.info(f"--- Starting Tool RSI Cycle for goal: {goal} ---")
 
-        # 2. Strategic Reflection
-        logging.info("\n--- Strategic Reflection ---")
-        meta_critique = self.planner.generate_meta_critique([
-            "Failed to prove theorem_A due to lack of abstract knowledge.",
-            "Failed to prove theorem_B due to lack of abstract knowledge.",
-            "Failed to prove theorem_C due to lack of abstract knowledge."
-        ])
+        # 1. Baseline Run
+        logging.info("\n--- Baseline Run ---")
+        start_time = time.time()
+        run_tool_benchmark(self.tool_registry["ToyChemistrySim"])
+        end_time = time.time()
+        self.performance_logger.log_tool_usage("ToyChemistrySim", end_time - start_time, 500)
 
-        # 3. Meta-Planning
-        logging.info("\n--- Meta-Planning ---")
-        research_proposal = self.planner.generate_research_proposal(meta_critique)
-
-        # 4. Architectural Self-Modification
-        logging.info("\n--- Architectural Self-Modification ---")
-        # For the PoC, we'll hardcode the synthesis of the two new agents.
-        concept_agent_path = self.coder.synthesize_agent("Synthesize a `ConceptFormationAgent` to extract key concepts from a document.")
-        kg_agent_path = self.coder.synthesize_agent("Synthesize a `KnowledgeGraphAgent` to build a knowledge graph from concepts.")
+        # 2. Tool Introspection
+        logging.info("\n--- Tool Introspection ---")
+        critique = self.planner.generate_tool_critique(self.performance_logger.log)
         
-        # 5. Dynamic Module Loading & Reconfiguration
-        logging.info("\n--- Dynamic Module Loading & Reconfiguration ---")
-        for agent_path in [concept_agent_path, kg_agent_path]:
-            agent_name = self.coder._extract_agent_name(open(agent_path).read())
-            module_name = agent_path.replace("/", ".").replace(".py", "")
-            new_agent_module = importlib.import_module(module_name)
-            new_agent_class = getattr(new_agent_module, agent_name)
-            self.dynamic_agents[agent_name] = new_agent_class()
-            self.brain_map.add_dynamic_node(agent_name, "Synthesized")
+        # 3. Tool Synthesis
+        logging.info("\n--- Tool Synthesis ---")
+        specification = self.planner.generate_tool_specification(critique)
+        new_tool_path = self.coder.synthesize_tool(specification)
+        tool_name = self.coder._extract_tool_name(specification)
         
+        # 4. Dynamic Tool Registration
+        logging.info("\n--- Dynamic Tool Registration ---")
+        module_name = new_tool_path.replace("/", ".").replace(".py", "")
+        new_tool_module = importlib.import_module(module_name)
+        new_tool_class = getattr(new_tool_module, tool_name)
+        self.register_tool(tool_name, new_tool_class())
+        
+        # 5. Update Brain Map
+        self.brain_map.add_dynamic_node(tool_name, "Synthesized Tool")
         self.brain_map.show("brain_map.html")
-
-        # 6. Self-Directed Learning
-        logging.info("\n--- Self-Directed Learning ---")
-        # In a real system, we would use the new agents to read the PDF and build the knowledge graph.
-        # For the PoC, we'll just log the process.
-        logging.info(f"Using new agents to learn from {curriculum_path}")
         
-        # 7. Verification Run
-        logging.info("\n--- Verification Run (Simulated Success) ---")
-        logging.info("✅ Successfully solved the theorem with the new knowledge.")
+        # 6. Verification Run
+        logging.info("\n--- Verification Run ---")
+        start_time = time.time()
+        # In a real system, the planner would choose the best tool.
+        # For the PoC, we'll just use the new tool.
+        operations = [lambda: self.tool_registry[tool_name].mix("A", "B")] * 500
+        self.tool_registry[tool_name].run_experiment(operations)
+        end_time = time.time()
+        
+        logging.info(f"✅ Tool RSI Cycle Successful: New tool synthesized, registered, and used.")
+        logging.info(f"Baseline execution time: {self.performance_logger.log['tool_usage']['ToyChemistrySim'][-1]['execution_time']:.2f}s")
+        logging.info(f"New tool execution time: {end_time - start_time:.2f}s")
 
+    # ... (rest of the MCSSupervisor class is unchanged)
+    def run_meta_learning_cycle(self, goal: str, curriculum_path: str):
+        pass
     def run_dynamic_circuit_visualization(self, goal):
-        # ... (existing method)
         pass

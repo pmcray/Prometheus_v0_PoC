@@ -71,5 +71,79 @@
         "Critique 0: The proof search was inefficient.",
         "Critique 1: The proof search was inefficient.",
         "Critique 2: The proof search was inefficient."
-    ]
+    ],
+    "tool_usage": {
+        "ToyChemistrySim": [
+            {
+                "timestamp": 1752955826.829917,
+                "execution_time": 1.0362145900726318,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752955889.863145,
+                "execution_time": 0.9324731826782227,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752956788.7415802,
+                "execution_time": 0.1229257583618164,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963054.275051,
+                "execution_time": 0.10554742813110352,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963136.276941,
+                "execution_time": 0.39008235931396484,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963201.3482711,
+                "execution_time": 0.1514451503753662,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963288.4215772,
+                "execution_time": 0.47829198837280273,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963346.55832,
+                "execution_time": 0.4401545524597168,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963415.9772978,
+                "execution_time": 0.3670163154602051,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963482.23336,
+                "execution_time": 0.39821529388427734,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963552.0844529,
+                "execution_time": 0.4194672107696533,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963639.077352,
+                "execution_time": 0.44633913040161133,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963705.3632944,
+                "execution_time": 0.5896730422973633,
+                "num_calls": 500
+            },
+            {
+                "timestamp": 1752963774.182953,
+                "execution_time": 0.10739660263061523,
+                "num_calls": 500
+            }
+        ]
+    }
 }

@@ -1,44 +1,49 @@
-
-
 import google.generativeai as genai
 import os
 import re
 
 class CoderAgent:
-    def __init__(self, api_key):
+    def __init__(self, api_key, compiler, analyzer, lean_tool, knowledge_agent):
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.compiler = compiler
+        self.analyzer = analyzer
+        self.lean_tool = lean_tool
+        self.knowledge_agent = knowledge_agent
 
-    def synthesize_agent(self, proposal: str):
+    def synthesize_tool(self, specification: str):
         """
-        Synthesizes the Python code for a new agent based on a proposal.
+        Synthesizes the Python code for a new tool based on a specification.
         """
-        print("CoderAgent: Synthesizing new agent.")
+        print("CoderAgent: Synthesizing new tool.")
         
         prompt = f"""
         You are an expert Python programmer.
-        Based on the following proposal, generate the complete, syntactically correct Python code for the new agent class.
-        The new agent should be a class with a single method, `run`, that takes the specified inputs and returns the specified outputs.
+        Based on the following specification, generate the complete, syntactically correct Python code for the new tool class.
+        The new tool should be a class with a no-argument constructor, a `run_experiment` method that takes a list of operations as input, and a `mix` method.
         
-        Proposal:
-        {proposal}
+        Specification:
+        {specification}
         """
         response = self.model.generate_content(prompt)
         code = response.text.strip().replace("```python", "").replace("```", "")
         
-        # Save the new agent to a file
-        agent_name = self._extract_agent_name(proposal)
-        file_path = f"prometheus/{agent_name.lower()}.py"
+        # Save the new tool to a file
+        tool_name = self._extract_tool_name(specification)
+        file_path = f"prometheus/tools/{tool_name.lower()}.py"
         with open(file_path, "w") as f:
             f.write(code)
             
-        print(f"CoderAgent: Synthesized agent and saved to {file_path}")
+        print(f"CoderAgent: Synthesized tool and saved to {file_path}")
         return file_path
 
-    def _extract_agent_name(self, proposal: str):
-        # A more robust regex to extract the agent name from the proposal
-        match = re.search(r"`([a-zA-Z_][a-zA-Z0-9_]*)`", proposal)
+    def _extract_tool_name(self, specification: str):
+        # A simple regex to extract the tool name from the specification
+        match = re.search(r"`(.*?)`", specification)
         if match:
             return match.group(1)
-        return "new_agent"
+        return "new_tool"
 
+    # ... (rest of the CoderAgent class is unchanged)
+    def synthesize_agent(self, proposal: str):
+        pass

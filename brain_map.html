@@ -302,8 +302,8 @@ function highlightFilter(filter) {
                   
 
                   // parsing and collecting nodes and edges from the python
-                  nodes = new vis.DataSet([{"color": "#cccccc", "id": "PlannerAgent", "label": "PlannerAgent", "shape": "box"}, {"color": "#cccccc", "id": "CoderAgent", "label": "CoderAgent", "shape": "box"}, {"color": "#cccccc", "id": "EvaluatorAgent", "label": "EvaluatorAgent", "shape": "box"}, {"color": "#cccccc", "id": "KnowledgeAgent", "label": "KnowledgeAgent", "shape": "box"}, {"color": "#cccccc", "id": "AuditorAgent", "label": "AuditorAgent", "shape": "box"}, {"color": "#a0a0ff", "id": "LemmaDiscoveryAgent", "label": "LemmaDiscoveryAgent (Synthesized)", "shape": "ellipse"}]);
-                  edges = new vis.DataSet([{"from": "PlannerAgent", "to": "LemmaDiscoveryAgent"}]);
+                  nodes = new vis.DataSet([{"color": "#cccccc", "id": "PlannerAgent", "label": "PlannerAgent", "shape": "box"}, {"color": "#cccccc", "id": "CoderAgent", "label": "CoderAgent", "shape": "box"}, {"color": "#cccccc", "id": "EvaluatorAgent", "label": "EvaluatorAgent", "shape": "box"}, {"color": "#cccccc", "id": "KnowledgeAgent", "label": "KnowledgeAgent", "shape": "box"}, {"color": "#cccccc", "id": "AuditorAgent", "label": "AuditorAgent", "shape": "box"}, {"color": "#a0a0ff", "id": "CachedChemistrySim", "label": "CachedChemistrySim (Synthesized Tool)", "shape": "ellipse"}]);
+                  edges = new vis.DataSet([{"from": "PlannerAgent", "to": "CachedChemistrySim"}]);
 
                   nodeColors = {};
                   allNodes = nodes.get({ returnType: "Object" });

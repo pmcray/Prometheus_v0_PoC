@@ -1,3 +1,5 @@
+
+
 import google.generativeai as genai
 import os
 import json
@@ -7,56 +9,44 @@ class PlannerAgent:
         genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
         self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def generate_meta_critique(self, critique_history: list):
+    def generate_tool_critique(self, performance_log: dict):
         """
-        Analyzes the history of critiques to identify meta-level patterns.
+        Analyzes tool performance and generates a critique.
         """
-        print("PlannerAgent: Generating meta-critique from critique history.")
+        print("PlannerAgent: Generating tool critique.")
         
         prompt = f"""
-        You are an AI system analyzing your own learning process.
-        The following is a history of your recent self-critiques.
+        You are an AI system analyzing the performance of your own tools.
+        The following is a log of your recent tool usage.
         
-        Critique History:
-        {json.dumps(critique_history, indent=2)}
+        Performance Log:
+        {json.dumps(performance_log["tool_usage"], indent=2)}
         
-        Please provide a one-sentence meta-critique of your improvement strategy, identifying a high-level weakness.
+        Please provide a one-sentence critique of the tool's performance, identifying a specific inefficiency.
         """
         response = self.model.generate_content(prompt)
-        meta_critique = response.text.strip()
-        print(f"PlannerAgent: Generated meta-critique: '{meta_critique}'")
-        return meta_critique
+        critique = response.text.strip()
+        print(f"PlannerAgent: Generated tool critique: '{critique}'")
+        return critique
 
-    def generate_research_proposal(self, meta_critique: str):
+    def generate_tool_specification(self, critique: str):
         """
-        Generates a research proposal to address a strategic weakness.
+        Generates a specification for a new tool to address a critique.
         """
-        print("PlannerAgent: Generating research proposal.")
+        print("PlannerAgent: Generating tool specification.")
         
         prompt = f"""
-        You are an AI architect designing a multi-step plan to acquire a new capability.
-        Based on the following meta-critique, generate a "research proposal" that outlines a series of architectural modifications and knowledge acquisition steps.
+        You are an AI architect designing a new tool to solve a performance bottleneck.
+        Based on the following critique, generate a high-level, one-sentence specification for a new, improved tool.
         
-        Meta-Critique:
-        {meta_critique}
+        Critique:
+        {critique}
         
-        Example Proposal:
-        1. **Goal:** Improve my ability to perform abstract reasoning.
-        2. **Step 1: Synthesize a `ConceptFormationAgent`**. This agent will be designed to read a scientific paper and extract a list of key concepts and their relationships.
-        3. **Step 2: Synthesize a `KnowledgeGraphAgent`**. This agent will take the output of the `ConceptFormationAgent` and build a formal knowledge graph.
-        4. **Step 3: Integrate the Knowledge Graph**. The `PlannerAgent` will be refactored to query this knowledge graph for relevant concepts when faced with a difficult proof.
+        Example Specification:
+        "Create a new tool called `OptimizedChemistrySim` with a `run_experiment` method that can take a list of chemical reactions as input and execute them in a single, optimized batch operation, returning only the final state."
         """
         response = self.model.generate_content(prompt)
-        proposal = response.text.strip()
-        print(f"PlannerAgent: Generated research proposal:\n{proposal}")
-        return proposal
+        specification = response.text.strip()
+        print(f"PlannerAgent: Generated specification: '{specification}'")
+        return specification
 
-    # ... (rest of the PlannerAgent class is unchanged)
-    def generate_architectural_critique(self, performance_log: dict, architecture: dict):
-        pass
-    def propose_new_agent(self, critique: str):
-        pass
-    def generate_self_modification_plan(self, critique: str):
-        pass
-    def form_circuit(self, goal: str):
-        pass
