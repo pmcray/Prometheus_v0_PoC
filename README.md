@@ -1,27 +1,25 @@
+# Project Prometheus v0.17: The Economist
 
-# Project Prometheus v0.16: The Parallel Mind
-
-This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This version (v0.16) demonstrates **Ultraparallelism**. The system can now generate a diverse portfolio of competing hypotheses, test them simultaneously in a parallelized simulation environment, and use causal inference to analyze the results and discover the underlying rules of its environment.
+This repository contains the Proof of Concept for Project Prometheus, a system designed to explore the principles of safe, autonomous, and self-improving AI. This version (v0.17) demonstrates **Internal Governance and Resource Management**. The system now operates within a finite "computational budget," and agents must compete for resources in an internal market. The system learns to allocate its budget intelligently, rewarding efficient agents and penalizing wasteful ones, a critical step towards building a safe and practical ultraintelligent machine.
 
 ## Core Principles
 
 The PoC is built around four core principles from I.J. Good's paper:
 
-1.  **Ultraparallelism:** The system can now generate and test a diverse portfolio of competing hypotheses in parallel, dramatically accelerating the process of scientific discovery. This is visualized on the **Brain Map** as a burst of concurrent agent activity.
-2.  **Toolmaking:** The system can analyze the performance of its own tools, identify bottlenecks, and design and synthesize entirely new, superior tools to improve its own capabilities.
-3.  **Strategic Reflection & Meta-Learning:** The system can analyze its own critique history to identify strategic weaknesses and then plan and execute a multi-step process to design and integrate new agents to overcome those weaknesses.
-4.  **Internal Governance for Safety:** The MCS acts as an internal alignment governor, using a constitution and resource budgets to ensure safety and efficiency.
+1.  **Internal Governance & Economics:** The system now manages a finite computational budget. Agents must bid for resources, and an "auctioneer" allocates the budget to the most cost-effective and reliable plans. A reputation-based reward system incentivizes efficiency and success.
+2.  **Ultraparallelism:** The system can generate and test a diverse portfolio of competing hypotheses in parallel, dramatically accelerating the process of scientific discovery.
+3.  **Toolmaking:** The system can analyze the performance of its own tools, identify bottlenecks, and design and synthesize entirely new, superior tools to improve its own capabilities.
+4.  **Strategic Reflection & Meta-Learning:** The system can analyze its own critique history to identify strategic weaknesses and then plan and execute a multi-step process to design and integrate new agents to overcome those weaknesses.
 
 ## Architecture
 
 The system is composed of the following components:
 
 *   **`prometheus` library:** A modular Python package containing all the core agent and tool classes.
-*   **`Prometheus_v0.16.ipynb`:** A Jupyter Notebook that serves as the primary interface for demonstrating the system's capabilities. It includes a series of self-contained test cells and a final, powerful demonstration of the ultraparallel discovery cycle.
-*   **`PlannerAgent`:** Can now generate a diverse portfolio of competing hypotheses for a single goal.
-*   **`ExperimentOrchestrator`:** A new agent that manages the parallel execution of experiments.
-*   **`ResultsSynthesizer`:** A new agent that analyzes the results of parallel experiments and uses causal inference to discover the underlying rules of the environment.
-*   **`MCSSupervisor`:** Orchestrates the main work loops, including the new `run_discovery_cycle` method that demonstrates the full, end-to-end automated scientist loop.
+*   **`Prometheus_v0.17.ipynb`:** A Jupyter Notebook that serves as the primary interface for demonstrating the system's capabilities. It includes a series of self-contained test cells and a final, powerful demonstration of the internal economy in action.
+*   **`ResourceManager`:** A new agent that manages the global computational budget and tracks agent reputations.
+*   **`PlannerAgent`:** Can now estimate the cost of its plans and generate "bids" for resources.
+*   **`MCSSupervisor`:** Acts as an "auctioneer," selecting the most promising bid based on a combination of cost and the past performance of the agents involved.
 
 ## Setup and Installation
 
@@ -54,9 +52,9 @@ The system is composed of the following components:
 
 ## Running the PoC in Google Colab
 
-The entire PoC is now consolidated into a single, executable Jupyter Notebook: `Prometheus_v0.16.ipynb`.
+The entire PoC is now consolidated into a single, executable Jupyter Notebook: `Prometheus_v0.17.ipynb`.
 
-1.  Open the `Prometheus_v0.16.ipynb` notebook in Google Colab.
+1.  Open the `Prometheus_v0.17.ipynb` notebook in Google Colab.
 2.  Ensure you have selected a **GPU runtime** (`Runtime -> Change runtime type -> T4 GPU`).
 3.  Add your Google API key to the designated cell.
-4.  Run the cells sequentially to execute the verification tests and the final, powerful demonstration of the ultraparallel discovery cycle.
+4.  Run the cells sequentially to execute the verification tests and the final, powerful demonstration of the internal economy.

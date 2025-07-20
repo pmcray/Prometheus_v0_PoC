@@ -145,5 +145,14 @@
                 "num_calls": 500
             }
         ]
-    }
+    },
+    "actions": [
+        {
+            "timestamp": 1753031566.8168514,
+            "agent": "PlannerAgent",
+            "action": "Execute a simple task.",
+            "cost": 40,
+            "success": true
+        }
+    ]
 }

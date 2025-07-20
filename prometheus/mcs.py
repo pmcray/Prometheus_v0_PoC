@@ -1,56 +1,69 @@
-
 import logging
-import importlib
-import time
-from .brain_map import BrainMap
-from .experiment_orchestrator import ExperimentOrchestrator
-from .results_synthesizer import ResultsSynthesizer
-from .tools import CausalGraphTool
+from .resource_manager import ResourceManager
+from .tools.flaky_compiler_tool import FlakyCompilerTool
+from .tools import CompilerTool
 
 class MCSSupervisor:
-    def __init__(self, planner, coder, knowledge_agent, brain_map: BrainMap):
+    def __init__(self, planner, resource_manager: ResourceManager):
         self.planner = planner
-        self.coder = coder
-        self.knowledge_agent = knowledge_agent
-        self.brain_map = brain_map
-        self.orchestrator = ExperimentOrchestrator()
-        self.synthesizer = ResultsSynthesizer(CausalGraphTool())
+        self.resource_manager = resource_manager
+        self.tool_registry = {
+            "FlakyCompilerTool": FlakyCompilerTool(),
+            "ReliableCompilerTool": CompilerTool()
+        }
 
-    def run_discovery_cycle(self, goal: str):
-        logging.info(f"--- Starting Discovery Cycle for goal: {goal} ---")
+    def run_budgeted_cycle(self, goal: str):
+        logging.info(f"--- Starting Budgeted Cycle for goal: {goal} ---")
 
-        # 1. Hypothesis Generation
-        logging.info("\n--- Hypothesis Generation ---")
-        hypotheses = self.planner.generate_hypotheses(goal)
+        # 1. Generate Bids
+        bids = self.planner.generate_bid(goal)
         
-        # 2. Parallel Experimentation
-        logging.info("\n--- Parallel Experimentation ---")
-        start_time = time.time()
-        results = self.orchestrator.run_parallel_experiments(hypotheses)
-        end_time = time.time()
-        logging.info(f"Parallel execution time: {end_time - start_time:.2f}s")
-        self.brain_map.activate_node("ExperimentOrchestrator") # Visualize
+        # 2. First Attempt (Auction)
+        logging.info("\n--- First Attempt ---")
+        winning_bid = self.run_auction(bids)
         
-        # 3. Causal Analysis & Learning
-        logging.info("\n--- Causal Analysis & Learning ---")
-        causal_graph = self.synthesizer.analyze_results(results)
-        self.knowledge_agent.update_causal_rules(causal_graph)
-        self.brain_map.activate_node("ResultsSynthesizer") # Visualize
-        self.brain_map.activate_node("KnowledgeAgent") # Visualize
+        # 3. Execute and Learn
+        agent_name = winning_bid['agent']
+        cost = winning_bid['cost']
         
-        # 4. Verification Run
-        logging.info("\n--- Verification Run ---")
-        # In a real system, the planner would now use the learned rule.
-        # For the PoC, we'll just log the learned rule.
-        learned_rule = self.knowledge_agent.get_causal_rules()[0]
-        logging.info(f"✅ Discovery Cycle Successful: Learned new rule: {learned_rule}")
-        
-        self.brain_map.show("brain_map.html")
+        if self.resource_manager.deduct_cost(agent_name, cost):
+            tool = self.tool_registry[agent_name]
+            success = tool.compile("<code>") # Dummy code
+            
+            if not success:
+                self.resource_manager.reward_agent(agent_name, -5) # Penalize failure
+                
+                # 4. Second Attempt (Re-evaluation)
+                logging.info("\n--- Second Attempt ---")
+                bids = self.planner.generate_bid(goal)
+                winning_bid = self.run_auction(bids)
+                agent_name = winning_bid['agent']
+                cost = winning_bid['cost']
+                
+                if self.resource_manager.deduct_cost(agent_name, cost):
+                    tool = self.tool_registry[agent_name]
+                    tool.compile("<code>")
 
-    # ... (rest of the MCSSupervisor class is unchanged)
-    def run_tool_rsi_cycle(self, goal: str):
-        pass
-    def run_meta_learning_cycle(self, goal: str, curriculum_path: str):
-        pass
-    def run_dynamic_circuit_visualization(self, goal):
-        pass
+    def run_auction(self, bids: list):
+        """
+        Selects the best bid based on cost and agent reputation.
+        """
+        logging.info("MCSSupervisor: Running auction.")
+        
+        best_bid = None
+        best_score = -1
+        
+        for bid in bids:
+            reputation = self.resource_manager.get_reputation(bid["agent"])
+            # Simple scoring: reputation / cost
+            score = reputation / bid["cost"]
+            
+            if score > best_score:
+                best_score = score
+                best_bid = bid
+                
+        if best_bid is None and bids:
+            best_bid = bids[0]
+
+        logging.info(f"Selected bid with score {best_score}: {best_bid}")
+        return best_bid

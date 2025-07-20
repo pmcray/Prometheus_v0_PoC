@@ -1,38 +1,43 @@
 import google.generativeai as genai
 import os
-import json
+import logging
 
 class PlannerAgent:
     def __init__(self):
         genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
         self.model = genai.GenerativeModel('gemini-1.5-flash')
 
-    def generate_hypotheses(self, goal: str, n_hypotheses=10):
+    def generate_bid(self, goal: str):
         """
-        Generates a diverse portfolio of competing hypotheses.
+        Generates a bid for a plan to achieve a goal.
         """
-        print(f"PlannerAgent: Generating {n_hypotheses} hypotheses for goal: '{goal}'")
+        print(f"PlannerAgent: Generating bid for goal: '{goal}'")
         
-        prompt = f"""
-        You are an AI system designed for scientific discovery.
-        Your goal is to discover the reaction pathway to synthesize a new molecule, "D".
-        The available chemicals are "A", "B", and "C".
-        The available operations are "mix" and "heat".
+        # For the PoC, we'll generate two competing plans.
+        plan_a = "Use the FlakyCompilerTool to compile the code."
+        plan_b = "Use the ReliableCompilerTool to compile the code."
         
-        Please generate {n_hypotheses} distinct and plausible hypotheses for how to synthesize "D".
-        Each hypothesis should be a short, imperative statement.
+        cost_a = self.estimate_cost(plan_a)
+        cost_b = self.estimate_cost(plan_b)
         
-        Example Hypotheses:
-        - Mix A and B, then heat the result.
-        - Mix A and C.
-        - Heat B, then mix with A.
+        bids = [
+            {"plan": plan_a, "cost": cost_a, "agent": "FlakyCompilerTool"},
+            {"plan": plan_b, "cost": cost_b, "agent": "ReliableCompilerTool"}
+        ]
+        return bids
+
+    def estimate_cost(self, plan: str):
         """
-        response = self.model.generate_content(prompt)
-        hypotheses = response.text.strip().split("\n")
-        print(f"PlannerAgent: Generated {len(hypotheses)} hypotheses.")
-        return hypotheses
+        Estimates the computational cost of a plan.
+        For the PoC, this is a simple heuristic.
+        """
+        cost = len(plan.split()) * 10 # 10 compute units per word in the plan
+        logging.info(f"Estimated cost for plan '{plan}': {cost} units")
+        return cost
 
     # ... (rest of the PlannerAgent class is unchanged)
+    def generate_hypotheses(self, goal: str, n_hypotheses=10):
+        pass
     def generate_tool_critique(self, performance_log: dict):
         pass
     def generate_tool_specification(self, critique: str):
