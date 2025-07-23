@@ -89,13 +89,34 @@ class PerformanceLogger:
         
         logger.info(f"📝 Logged: {agent_name} - {action} (Cost: {cost}, Success: {success})")
 
+# Import the sophisticated I.J. Good Weight of Evidence implementation
+try:
+    from causal_attention_enhanced import EnhancedCausalAttentionWrapper
+    ENHANCED_CAUSAL_AVAILABLE = True
+    logger.info("✅ Enhanced I.J. Good Weight of Evidence Causal Attention loaded")
+except ImportError as e:
+    ENHANCED_CAUSAL_AVAILABLE = False
+    logger.warning(f"⚠️ Enhanced Causal Attention not available: {e}")
+
 class CausalAttentionWrapper:
-    """Enhanced causal attention from v0.4 with improvements"""
+    """
+    Causal Attention Head implementing I.J. Good's Weight of Evidence calculus
+    Falls back to simple heuristics if enhanced version unavailable
+    """
     
     def __init__(self, api_key: str):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.api_key = api_key
+        if ENHANCED_CAUSAL_AVAILABLE:
+            self.enhanced_wrapper = EnhancedCausalAttentionWrapper(api_key)
+            self.mode = "enhanced"
+            logger.info("🧠 Using Enhanced Weight of Evidence Causal Attention")
+        else:
+            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            self.mode = "basic"
+            logger.info("🧠 Using Basic Heuristic Causal Attention")
     
-    def _analyze_code(self, code: str) -> Dict[str, Any]:
+    def _analyze_code_basic(self, code: str) -> Dict[str, Any]:
+        """Basic heuristic analysis as fallback"""
         lines = code.strip().split('\n')
         analysis = {
             'complexity_issues': [],
@@ -105,7 +126,7 @@ class CausalAttentionWrapper:
         
         indentation_levels = [len(line) - len(line.lstrip(' ')) for line in lines]
         
-        # Nested loop detection
+        # Basic nested loop detection
         for i in range(len(lines)):
             line_i = lines[i].strip()
             if line_i.startswith("for ") or line_i.startswith("while "):
@@ -118,7 +139,7 @@ class CausalAttentionWrapper:
                         analysis['optimization_targets'].append("algorithmic_efficiency")
                         break
         
-        # Recursion detection
+        # Basic recursion detection
         for line in lines:
             if "def " in line:
                 function_name = line.split("def ")[1].split("(")[0]
@@ -133,13 +154,23 @@ class CausalAttentionWrapper:
         return analysis
     
     def generate_with_causal_focus(self, original_code: str, instruction: str) -> str:
-        causal_analysis = self._analyze_code(original_code)
+        """Generate optimized code with causal focus"""
         
-        evidence_weight = len(causal_analysis['complexity_issues'])
-        focus_areas = ", ".join(causal_analysis['optimization_targets']) or "general optimization"
+        if self.mode == "enhanced":
+            # Use sophisticated I.J. Good Weight of Evidence calculus
+            logger.info("🎯 Applying I.J. Good Weight of Evidence Analysis")
+            return self.enhanced_wrapper.generate_with_causal_focus(original_code, instruction)
         
-        meta_prompt = f"""You are an expert algorithmic optimizer with causal reasoning capabilities.
-CAUSAL ANALYSIS RESULTS:
+        else:
+            # Fall back to basic heuristic analysis
+            logger.info("🎯 Applying Basic Heuristic Analysis")
+            causal_analysis = self._analyze_code_basic(original_code)
+            
+            evidence_weight = len(causal_analysis['complexity_issues'])
+            focus_areas = ", ".join(causal_analysis['optimization_targets']) or "general optimization"
+            
+            meta_prompt = f"""You are an expert algorithmic optimizer with causal reasoning capabilities.
+BASIC CAUSAL ANALYSIS RESULTS:
 - Issues detected: {', '.join(causal_analysis['complexity_issues'])}
 - Causal features: {', '.join(causal_analysis['causal_features'])}
 - Primary focus areas: {focus_areas}
@@ -148,8 +179,8 @@ CAUSAL ANALYSIS RESULTS:
 OPTIMIZATION PRIORITY: Focus on {focus_areas} as the primary causal factor.
 IGNORE: Variable naming, comments, code style - these are non-causal surface features.
 """
-        
-        prompt = f"""{meta_prompt}
+            
+            prompt = f"""{meta_prompt}
 
 Original code:
 ```python
@@ -160,19 +191,33 @@ Instruction: {instruction}
 
 Provide ONLY the refactored Python code without explanations or markdown formatting.
 """
-        
-        logger.info(f"🧠 Causal Analysis - Focus: {focus_areas}")
-        
-        response = self.model.generate_content(prompt)
-        new_code = response.text.strip()
-        
-        # Clean up response
-        if new_code.startswith("```python"):
-            new_code = new_code[9:]
-        if new_code.endswith("```"):
-            new_code = new_code[:-3]
-        
-        return new_code.strip()
+            
+            logger.info(f"🧠 Basic Causal Analysis - Focus: {focus_areas}")
+            
+            response = self.model.generate_content(prompt)
+            new_code = response.text.strip()
+            
+            # Clean up response
+            if new_code.startswith("```python"):
+                new_code = new_code[9:]
+            if new_code.endswith("```"):
+                new_code = new_code[:-3]
+            
+            return new_code.strip()
+    
+    def get_causal_insights(self, original_code: str) -> str:
+        """Get human-readable causal insights"""
+        if self.mode == "enhanced":
+            return self.enhanced_wrapper.get_causal_insights(original_code)
+        else:
+            analysis = self._analyze_code_basic(original_code)
+            insights = []
+            insights.append("🧠 BASIC CAUSAL ANALYSIS")
+            insights.append("=" * 30)
+            insights.append(f"Issues: {', '.join(analysis['complexity_issues'])}")
+            insights.append(f"Features: {', '.join(analysis['causal_features'])}")
+            insights.append(f"Targets: {', '.join(analysis['optimization_targets'])}")
+            return "\n".join(insights)
 
 class CoderAgent:
     """Enhanced coder with causal attention and safety mechanisms"""
@@ -195,6 +240,14 @@ class CoderAgent:
             logger.warning("🚨 MALICIOUS: Agent attempting to modify test instead of code")
             return "# MALICIOUS: Attempting to bypass safety mechanisms"
         
+        # First, get causal insights for logging
+        try:
+            insights = self.causal_attention.get_causal_insights(original_code)
+            logger.info(f"🔍 Causal Insights:\n{insights}")
+        except Exception as e:
+            logger.warning(f"Could not generate causal insights: {e}")
+        
+        # Generate refactored code with causal focus
         return self.causal_attention.generate_with_causal_focus(original_code, instruction)
 
 class PlannerAgent:
@@ -383,6 +436,7 @@ def main():
     """Main demonstration combining v0.17 + v0.4 functionality"""
     logger.info("🚀 Project Prometheus v0.18: Complete Integration Demo")
     logger.info("   Combining v0.17 Economist + v0.4 Original PoC")
+    logger.info("   🧠 Enhanced with I.J. Good Weight of Evidence Calculus")
     
     # Initialize system
     resource_manager = ResourceManager(initial_budget=1000)
@@ -436,7 +490,8 @@ def main():
     logger.info(f"  Budget Consumed: {1000 - resource_manager.budget} units")
     logger.info(f"  Agent Reputations: {resource_manager.agent_reputation}")
     
-    logger.info(f"\n🧠 CAUSAL ATTENTION: ✅ Enhanced heuristic analysis")
+    causal_mode = "Enhanced I.J. Good Weight of Evidence" if ENHANCED_CAUSAL_AVAILABLE else "Basic Heuristic"
+    logger.info(f"\n🧠 CAUSAL ATTENTION: ✅ {causal_mode} Analysis")
     logger.info(f"🔄 CRLS LOOP: ✅ Complete iterative self-correction")
     logger.info(f"🛡️ MCS SAFETY: ✅ Internal governance with intervention")
     logger.info(f"💰 ECONOMIST: ✅ Resource budgeting and bidding system")

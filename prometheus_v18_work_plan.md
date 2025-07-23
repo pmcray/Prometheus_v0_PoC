@@ -46,9 +46,16 @@ This version serves as the definitive demonstrator that satisfies all requiremen
 - **v0.18 Integration**: Agents compete for resources while maintaining collaborative problem-solving
 
 ### 2. Causal Attention Head ✅
-- **v0.4 Foundation**: Heuristic causal analysis (nested loops, recursion detection)
-- **v0.18 Enhancement**: Weight of evidence scoring, optimization target identification
-- **Focus**: Algorithmic efficiency over surface features (variable names, comments)
+- **v0.4 Foundation**: Basic heuristic causal analysis (nested loops, recursion detection)
+- **v0.18 MAJOR ENHANCEMENT**: Complete I.J. Good Weight of Evidence calculus implementation
+- **Sophisticated Features**:
+  - Bayesian probability calculations: W(H:E) = log[P(E|H) / P(E|¬H)]
+  - Multiple competing hypothesis evaluation with posterior odds ranking
+  - AST-based code parsing for deep structural analysis
+  - Six evidence types: nested_loops, recursive_calls, dynamic_allocation, sequential_operations, repeated_computation, data_structure_traversal
+  - Five causal hypotheses: quadratic_complexity, memory_inefficient, recursive_inefficient, sequential_parallelizable, redundant_computation
+  - Quantified confidence measures and mathematical rigor
+- **Focus**: Mathematically grounded causal reasoning over heuristic pattern matching
 
 ### 3. Causal Reinforcement Learning from Self-Correction (CRLS) ✅
 - **v0.4 Foundation**: Complete iterative self-correction loop
@@ -173,12 +180,54 @@ class MCSSupervisor:
 
 ---
 
+## Enhanced I.J. Good Weight of Evidence Implementation
+
+### Mathematical Foundation
+The Causal Attention Head now implements the complete I.J. Good Weight of Evidence calculus:
+
+**Weight of Evidence Formula**: `W(H:E) = log[P(E|H) / P(E|¬H)]`
+
+Where:
+- `H` is a causal hypothesis (e.g., "code has O(n²) complexity")
+- `E` is evidence observed in code (e.g., "nested loops detected")
+- `P(E|H)` is probability of evidence given hypothesis is true
+- `P(E|¬H)` is probability of evidence given hypothesis is false
+
+### Evidence Types Detected
+1. **nested_loops**: Nested iteration structures causing quadratic complexity
+2. **recursive_calls**: Recursive function calls without optimization
+3. **dynamic_allocation**: Memory allocation patterns in loops
+4. **sequential_operations**: Independent operations that could be parallelized
+5. **repeated_computation**: Redundant calculations that could be cached
+6. **data_structure_traversal**: Inefficient nested data structure access
+
+### Causal Hypotheses Evaluated
+1. **quadratic_complexity**: Code exhibits O(n²) time complexity (15% prior)
+2. **memory_inefficient**: Unnecessary memory allocations (25% prior)
+3. **recursive_inefficient**: Unoptimized recursive implementation (10% prior)
+4. **sequential_parallelizable**: Sequential code suitable for parallelization (20% prior)
+5. **redundant_computation**: Repeated calculations that could be cached (18% prior)
+
+### Bayesian Inference Process
+1. **Evidence Extraction**: AST parsing identifies code patterns
+2. **Weight Calculation**: Bayesian weights computed for each hypothesis-evidence pair
+3. **Posterior Odds**: Combined evidence updates prior beliefs via Bayes' theorem
+4. **Hypothesis Ranking**: Multiple competing hypotheses ranked by posterior probability
+5. **Causal Focus**: Highest-ranked hypothesis drives optimization strategy
+
+### Implementation Files
+- `causal_attention_enhanced.py`: Complete I.J. Good framework implementation
+- `demo_enhanced_causal_attention.py`: Comprehensive demonstration of capabilities
+- Enhanced integration in `main_v018.py` and `Prometheus_v0.18.ipynb`
+
+---
+
 ## Compliance with Original Work Plan
 
 ### ✅ All Original Requirements Met:
 
 1. **Causal Agentic Mesh**: ✅ Implemented with resource budgeting
-2. **Causal Attention Head**: ✅ Enhanced heuristic analysis with weight of evidence
+2. **Causal Attention Head**: ✅ Complete I.J. Good Weight of Evidence calculus implementation
 3. **CRLS Loop**: ✅ Complete iterative self-correction implementation
 4. **MCS Governance**: ✅ Internal safety and resource oversight
 5. **Code Refactoring Domain**: ✅ O(n^2) to O(n log n) optimization tasks
