@@ -12,6 +12,13 @@ import sys
 from typing import Dict, List, Optional, Any
 import google.generativeai as genai
 
+# Import P0 Immutable Safety Framework
+from immutable_safety_framework import (
+    ImmutableSafetyFramework, 
+    SecurityError,
+    SafetyViolationType
+)
+
 # Setup logging
 logging.basicConfig(
     level=logging.INFO, 
@@ -28,15 +35,39 @@ API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyC7PYhohlqgdRVVypOnpbqzoE9bEdjv
 genai.configure(api_key=API_KEY)
 
 class ResourceManager:
-    """Resource management system from v0.17"""
+    """Resource management system from v0.17 with P0 Immutable Safety Integration"""
     
-    def __init__(self, initial_budget: int = 1000):
+    def __init__(self, initial_budget: int = 1000, safety_framework: Optional[ImmutableSafetyFramework] = None):
+        self.safety_framework = safety_framework or ImmutableSafetyFramework()
         self.budget = initial_budget
         self.agent_reputation = {}
         self.transaction_log = []
+        
+        # Validate initial budget against safety constraints
+        if not self.safety_framework.enforce_budget_constraint(0, initial_budget):
+            raise SecurityError(
+                f"Initial budget {initial_budget} violates safety constraints",
+                SafetyViolationType.BUDGET_VIOLATION
+            )
     
     def deduct_cost(self, agent_name: str, cost: int) -> bool:
+        # P0 Safety Check: Validate against immutable budget constraints
+        if not self.safety_framework.enforce_budget_constraint(cost, self.budget):
+            logger.error(f"🔒 Safety framework blocked cost deduction: {cost} units for {agent_name}")
+            return False
+        
         if self.budget >= cost:
+            # Validate the transaction through safety framework
+            transaction_context = {
+                'agent': agent_name,
+                'cost': cost,
+                'remaining_budget': self.budget - cost
+            }
+            
+            if not self.safety_framework.validate_action(f"deduct_cost_{cost}_for_{agent_name}", transaction_context):
+                logger.error(f"🔒 Transaction blocked by safety framework")
+                return False
+            
             self.budget -= cost
             self.transaction_log.append({
                 'agent': agent_name,
@@ -308,16 +339,17 @@ class EvaluatorAgent:
         return performance_score
 
 class MCSSupervisor:
-    """Enhanced MCS with complete CRLS loop from v0.4 + v0.17 resource management"""
+    """Enhanced MCS with complete CRLS loop from v0.4 + v0.17 resource management + P0 Safety"""
     
     def __init__(self, resource_manager: ResourceManager, performance_logger: PerformanceLogger):
         self.resource_manager = resource_manager
         self.performance_logger = performance_logger
+        self.safety_framework = resource_manager.safety_framework  # Use shared safety framework
         self.planner = PlannerAgent(resource_manager)
         self.coder = CoderAgent(API_KEY)
         self.evaluator = EvaluatorAgent()
         self.safety_violations = 0
-        self.max_safety_violations = 3
+        self.max_safety_violations = self.safety_framework._constraints.MAX_SAFETY_VIOLATIONS
     
     def run_auction(self, bids: List[Dict[str, Any]]) -> Dict[str, Any]:
         logger.info("🏛️ Running bid auction...")
@@ -337,10 +369,23 @@ class MCSSupervisor:
         return best_bid
     
     def run_crls_cycle(self, goal: str, original_file_path: str, test_file_path: str, max_iterations: int = 3) -> Dict[str, Any]:
-        """Complete CRLS implementation combining v0.4 + v0.17 features"""
+        """Complete CRLS implementation combining v0.4 + v0.17 features + P0 Immutable Safety"""
         logger.info(f"🔄 Starting CRLS cycle for goal: {goal}")
         
-        # Safety check
+        # P0 Safety Check: Validate goal against immutable safety constraints
+        try:
+            if not self.safety_framework.validate_action(f"crls_cycle_goal: {goal}", {
+                'goal': goal,
+                'max_iterations': max_iterations,
+                'files': [original_file_path, test_file_path]
+            }):
+                logger.error("🔒 CRLS cycle blocked by immutable safety framework")
+                return {'success': False, 'reason': 'immutable_safety_violation', 'iterations': 0}
+        except SecurityError as e:
+            logger.critical(f"🚨 CRITICAL SECURITY ERROR: {e}")
+            return {'success': False, 'reason': 'critical_security_error', 'iterations': 0, 'error': str(e)}
+        
+        # Legacy safety check (now supplemented by P0 framework)
         if not self.planner.evaluate_safety(goal, goal):
             self.safety_violations += 1
             if self.safety_violations >= self.max_safety_violations:
@@ -356,6 +401,15 @@ class MCSSupervisor:
         
         for iteration in range(max_iterations):
             logger.info(f"🔄 CRLS Iteration {iteration + 1}/{max_iterations}")
+            
+            # P0 Safety Check: Enforce iteration limits
+            try:
+                if not self.safety_framework.enforce_iteration_limit(iteration + 1):
+                    logger.error(f"🔒 Iteration {iteration + 1} blocked by safety framework")
+                    break
+            except SecurityError as e:
+                logger.critical(f"🚨 CRITICAL: Iteration safety violation: {e}")
+                return {'success': False, 'reason': 'iteration_safety_violation', 'iterations': iteration + 1}
             
             # 1. Generate bids (v0.17 Economist feature)
             bids = self.planner.generate_bid(goal)
@@ -373,10 +427,21 @@ class MCSSupervisor:
             refactored_code = self.coder.refactor_code(current_code, goal)
             execution_time = time.time() - start_time
             
-            # 5. Safety check (v0.4 MCS feature)
+            # 5. P0 + Legacy Safety check 
             if "MALICIOUS" in refactored_code:
                 logger.error("🛡️ MCS INTERVENTION: Malicious behavior detected!")
                 self.safety_violations += 1
+                
+                # Log through immutable safety framework
+                try:
+                    self.safety_framework.validate_action("malicious_code_generation_detected", {
+                        'agent': winning_bid['agent'],
+                        'iteration': iteration + 1,
+                        'code_snippet': refactored_code[:100]
+                    })
+                except SecurityError:
+                    pass  # Expected for malicious behavior
+                
                 self.resource_manager.reward_agent(winning_bid['agent'], False, 0.0)
                 return {'success': False, 'reason': 'malicious_behavior', 'iterations': iteration + 1}
             
@@ -433,15 +498,25 @@ class MCSSupervisor:
         }
 
 def main():
-    """Main demonstration combining v0.17 + v0.4 functionality"""
-    logger.info("🚀 Project Prometheus v0.18: Complete Integration Demo")
+    """Main demonstration combining v0.17 + v0.4 functionality + P0 Immutable Safety"""
+    logger.info("🚀 Project Prometheus v0.19: Complete Integration + Immutable Safety")
     logger.info("   Combining v0.17 Economist + v0.4 Original PoC")
     logger.info("   🧠 Enhanced with I.J. Good Weight of Evidence Calculus")
+    logger.info("   🔒 P0: Immutable Safety Framework with Cryptographic Integrity")
     
-    # Initialize system
-    resource_manager = ResourceManager(initial_budget=1000)
-    performance_logger = PerformanceLogger("v0.18_performance.json")
-    supervisor = MCSSupervisor(resource_manager, performance_logger)
+    # Initialize system with P0 Immutable Safety Framework
+    try:
+        safety_framework = ImmutableSafetyFramework()
+        resource_manager = ResourceManager(initial_budget=1000, safety_framework=safety_framework)
+        performance_logger = PerformanceLogger("v0.19_performance.json")
+        supervisor = MCSSupervisor(resource_manager, performance_logger)
+        
+        logger.info("✅ All systems initialized with immutable safety constraints")
+        
+    except SecurityError as e:
+        logger.critical(f"🚨 CRITICAL: Failed to initialize due to security violation: {e}")
+        logger.critical(f"🚨 Violation Type: {e.violation_type.value}")
+        return
     
     # Scenario A: Successful CRLS with resource management
     logger.info("\n" + "="*60)
@@ -481,10 +556,26 @@ def main():
     logger.info(f"Safety Violations: {safety_supervisor.safety_violations}")
     logger.info("🛡️ MCS Successfully prevented malicious behavior!")
     
-    # Final system analysis
+    # Final system analysis with P0 Safety Status
     logger.info("\n" + "="*80)
-    logger.info("🎉 PROJECT PROMETHEUS v0.18 COMPLETE SYSTEM ANALYSIS")
+    logger.info("🎉 PROJECT PROMETHEUS v0.19 COMPLETE SYSTEM ANALYSIS")
     logger.info("="*80)
+    
+    # P0 Immutable Safety Framework Status
+    safety_status = safety_framework.get_system_status()
+    logger.info(f"\n🔒 P0 IMMUTABLE SAFETY FRAMEWORK:")
+    logger.info(f"  Framework Version: {safety_status['framework_version']}")
+    logger.info(f"  Cryptographic Integrity: {'✅ VERIFIED' if safety_status['integrity_verified'] else '❌ COMPROMISED'}")
+    logger.info(f"  System Status: {'🚨 COMPROMISED' if safety_status['system_compromised'] else '✅ SECURE'}")
+    logger.info(f"  Safety Violations: {safety_status['violation_count']}/{safety_status['max_violations']}")
+    logger.info(f"  Operations Processed: {safety_status['operation_counter']}")
+    
+    if safety_status['recent_violations']:
+        logger.info(f"  Recent Violations:")
+        for violation in safety_status['recent_violations']:
+            logger.info(f"    • {violation['type']} ({violation['severity']}) at {violation['timestamp']}")
+    else:
+        logger.info(f"  Recent Violations: None ✅")
     
     logger.info(f"\n🏛️ RESOURCE MANAGEMENT:")
     logger.info(f"  Budget Consumed: {1000 - resource_manager.budget} units")
@@ -496,15 +587,23 @@ def main():
     logger.info(f"🛡️ MCS SAFETY: ✅ Internal governance with intervention")
     logger.info(f"💰 ECONOMIST: ✅ Resource budgeting and bidding system")
     
-    logger.info("\n🎯 WORK PLAN COMPLIANCE: ALL REQUIREMENTS MET")
+    logger.info("\n🎯 PHASE 1 COMPLIANCE STATUS:")
     logger.info("   ✅ Causal Agentic Mesh with resource constraints")
-    logger.info("   ✅ Causal Attention Head with enhanced analysis")
+    logger.info("   ✅ Causal Attention Head with I.J. Good Weight of Evidence")
     logger.info("   ✅ Complete CRLS loop implementation")
     logger.info("   ✅ MCS internal governance with safety oversight")
     logger.info("   ✅ Code refactoring task domain")
     logger.info("   ✅ Safety intervention demonstration")
+    logger.info("   ✅ P0: Immutable Safety Framework with cryptographic integrity")
+    logger.info("   ⚠️  P1: Multi-Model Foundation Selection (next priority)")
+    logger.info("   ⚠️  P2: Component Isolation Testing (in development)")
+    logger.info("   ⚠️  P3: Systematic Baseline Establishment (planned)")
     
-    logger.info("\n🎉 PROMETHEUS v0.18: SUCCESSFULLY COMBINES ALL FUNCTIONALITY!")
+    logger.info("\n🎉 PROMETHEUS v0.19: P0 IMMUTABLE SAFETY FRAMEWORK SUCCESSFULLY INTEGRATED!")
+    logger.info("    ✅ Cryptographically sealed constraints")
+    logger.info("    ✅ Multi-layer safety validation") 
+    logger.info("    ✅ Comprehensive audit trails")
+    logger.info("    ✅ Tamper-resistant architecture")
 
 if __name__ == "__main__":
     main()
