@@ -20,7 +20,12 @@ console_handler.setFormatter(formatter)
 logging.getLogger().addHandler(console_handler)
 # ---------------------
 
-API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyC7PYhohlqgdRVVypOnpbqzoE9bEdjvwvg")
+API_KEY = os.environ.get("GOOGLE_API_KEY")
+
+if not API_KEY:
+    logging.error("FATAL: The GOOGLE_API_KEY environment variable is not set. Please set it to your API key.")
+    sys.exit(1)
+
 
 def main():
     # 1. Instantiate Tools & Logger
