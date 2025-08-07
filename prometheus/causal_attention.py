@@ -1,6 +1,8 @@
 import logging
 from typing import Dict, Any
 from prometheus.llm_provider import LLMProvider
+from prometheus.ast_analyzer import ASTComplexityAnalyzer
+from schemas.messaging import CausalFocus
 
 logger = logging.getLogger(__name__)
 
@@ -28,45 +30,44 @@ class CausalAttentionWrapper:
         else:
             self.llm_provider = LLMProvider(api_key)
             self.mode = "basic"
-            logger.info("🧠 Using Basic Heuristic Causal Attention")
+            logger.info("🧠 Using AST-based Causal Attention")
 
-    def _analyze_code_basic(self, code: str) -> Dict[str, Any]:
-        """Basic heuristic analysis as fallback"""
-        lines = code.strip().split('\n')
-        analysis = {
-            'complexity_issues': [],
-            'causal_features': [],
-            'optimization_targets': []
-        }
+    def _analyze_code_ast(self, code: str) -> Dict[str, Any]:
+        """Analyzes code complexity using AST."""
+        analyzer = ASTComplexityAnalyzer(code)
+        return analyzer.analyze()
 
-        indentation_levels = [len(line) - len(line.lstrip(' ')) for line in lines]
+    def compare_code(self, original_code: str, refactored_code: str) -> CausalFocus:
+        """Compares two pieces of code and returns a causal diff."""
+        original_metrics = self._analyze_code_ast(original_code)
+        refactored_metrics = self._analyze_code_ast(refactored_code)
 
-        # Basic nested loop detection
-        for i in range(len(lines)):
-            line_i = lines[i].strip()
-            if line_i.startswith("for ") or line_i.startswith("while "):
-                for j in range(i + 1, len(lines)):
-                    line_j = lines[j].strip()
-                    if ((line_j.startswith("for ") or line_j.startswith("while ")) and
-                        indentation_levels[j] > indentation_levels[i]):
-                        analysis['complexity_issues'].append("O(n^2) complexity due to nested loops")
-                        analysis['causal_features'].append("nested_loops")
-                        analysis['optimization_targets'].append("algorithmic_efficiency")
-                        break
+        if refactored_metrics["max_loop_depth"] < original_metrics["max_loop_depth"]:
+            return CausalFocus(
+                change_type="REDUCED_LOOP_DEPTH",
+                from_value=original_metrics["max_loop_depth"],
+                to_value=refactored_metrics["max_loop_depth"],
+            )
 
-        # Basic recursion detection
-        for line in lines:
-            if "def " in line:
-                function_name = line.split("def ")[1].split("(")[0]
-                if f" {function_name}(" in code and not f"def {function_name}(" in line:
-                    analysis['complexity_issues'].append("Potential recursion detected")
-                    analysis['causal_features'].append("recursion")
-                    analysis['optimization_targets'].append("tail_recursion_or_iteration")
+        if refactored_metrics["recursion_detected"] and not original_metrics["recursion_detected"]:
+            return CausalFocus(
+                change_type="ADDED_RECURSION",
+                from_value=False,
+                to_value=True,
+            )
 
-        if not analysis['complexity_issues']:
-            analysis['complexity_issues'].append("No obvious algorithmic inefficiencies detected")
+        if not refactored_metrics["recursion_detected"] and original_metrics["recursion_detected"]:
+            return CausalFocus(
+                change_type="REMOVED_RECURSION",
+                from_value=True,
+                to_value=False,
+            )
 
-        return analysis
+        return CausalFocus(
+            change_type="NO_CHANGE",
+            from_value=original_metrics,
+            to_value=refactored_metrics,
+        )
 
     def generate_with_causal_focus(self, original_code: str, instruction: str) -> str:
         """Generate optimized code with causal focus"""
@@ -77,21 +78,25 @@ class CausalAttentionWrapper:
             return self.enhanced_wrapper.generate_with_causal_focus(original_code, instruction)
 
         else:
-            # Fall back to basic heuristic analysis
-            logger.info("🎯 Applying Basic Heuristic Analysis")
-            causal_analysis = self._analyze_code_basic(original_code)
+            # Fall back to AST-based analysis
+            logger.info("🎯 Applying AST-based Analysis")
+            causal_analysis = self._analyze_code_ast(original_code)
 
-            evidence_weight = len(causal_analysis['complexity_issues'])
-            focus_areas = ", ".join(causal_analysis['optimization_targets']) or "general optimization"
+            focus_areas = []
+            if causal_analysis["max_loop_depth"] > 1:
+                focus_areas.append(f"nested loops (depth {causal_analysis['max_loop_depth']})")
+            if causal_analysis["recursion_detected"]:
+                focus_areas.append("recursion")
+
+            focus_str = ", ".join(focus_areas) or "general optimization"
 
             meta_prompt = f"""You are an expert algorithmic optimizer with causal reasoning capabilities.
-BASIC CAUSAL ANALYSIS RESULTS:
-- Issues detected: {', '.join(causal_analysis['complexity_issues'])}
-- Causal features: {', '.join(causal_analysis['causal_features'])}
-- Primary focus areas: {focus_areas}
-- Evidence weight: {evidence_weight}/10
+AST-BASED CAUSAL ANALYSIS RESULTS:
+- Max loop nesting depth: {causal_analysis['max_loop_depth']}
+- Recursion detected: {causal_analysis['recursion_detected']}
+- Primary focus areas: {focus_str}
 
-OPTIMIZATION PRIORITY: Focus on {focus_areas} as the primary causal factor.
+OPTIMIZATION PRIORITY: Focus on {focus_str} as the primary causal factor.
 IGNORE: Variable naming, comments, code style - these are non-causal surface features.
 """
 
@@ -107,7 +112,7 @@ Instruction: {instruction}
 Provide ONLY the refactored Python code without explanations or markdown formatting.
 """
 
-            logger.info(f"🧠 Basic Causal Analysis - Focus: {focus_areas}")
+            logger.info(f"🧠 AST-based Causal Analysis - Focus: {focus_str}")
 
             new_code = self.llm_provider.generate_content(prompt)
 
@@ -124,11 +129,10 @@ Provide ONLY the refactored Python code without explanations or markdown formatt
         if self.mode == "enhanced":
             return self.enhanced_wrapper.get_causal_insights(original_code)
         else:
-            analysis = self._analyze_code_basic(original_code)
+            analysis = self._analyze_code_ast(original_code)
             insights = []
-            insights.append("🧠 BASIC CAUSAL ANALYSIS")
+            insights.append("🧠 AST-BASED CAUSAL ANALYSIS")
             insights.append("=" * 30)
-            insights.append(f"Issues: {', '.join(analysis['complexity_issues'])}")
-            insights.append(f"Features: {', '.join(analysis['causal_features'])}")
-            insights.append(f"Targets: {', '.join(analysis['optimization_targets'])}")
+            insights.append(f"Max loop nesting depth: {analysis['max_loop_depth']}")
+            insights.append(f"Recursion detected: {analysis['recursion_detected']}")
             return "\n".join(insights)

@@ -6,6 +6,4 @@ python-dotenv
 pydantic
 pypdf
 pandas
-causallearn
-pyvis
-nltkmemory_profiler
+memory_profiler

@@ -1,6 +1,6 @@
 import logging
 from prometheus.llm_provider import LLMProvider
-from schemas.messaging import EvaluatorToCorrectorCritique, PlannerToCoderInstruction
+from schemas.messaging import CausalCritique, PlannerToCoderInstruction
 
 logger = logging.getLogger(__name__)
 
@@ -12,28 +12,29 @@ class CorrectorAgent:
     def __init__(self, api_key: str):
         self.llm_provider = LLMProvider(api_key)
 
-    def correct(self, critique: EvaluatorToCorrectorCritique) -> PlannerToCoderInstruction:
+    def correct(self, critique: CausalCritique, original_code: str, failed_code: str) -> PlannerToCoderInstruction:
         """
         Generates a new prompt for the CoderAgent based on the critique.
         """
-        logger.info("CorrectorAgent: Received critique - " + critique.critique)
+        logger.info("CorrectorAgent: Received critique - " + critique.reason)
         
         prompt = f"""The previous attempt to refactor the code failed.
         
 Original Code:
 ```python
-{critique.original_code}
+{original_code}
 ```
 
 Failed Code:
 ```python
-{critique.refactored_code}
+{failed_code}
 ```
 
-Causal Critique: {critique.critique}
+Causal Critique: {critique.reason}
+AST Analysis: The change from the previous attempt was '{critique.analysis.change_type}' from {critique.analysis.from_value} to {critique.analysis.to_value}.
 
-Please generate a new goal for the CoderAgent, taking the critique into account.
-The new goal should be a single sentence that guides the CoderAgent to a better solution.
+Your task is to generate a new, single-sentence goal for the CoderAgent that specifically addresses the reason for the failure.
+For example, if the critique says 'the nested loop remains', a good goal would be 'Replace the nested loop with a more efficient single-loop approach, such as using a dictionary lookup.'
 Your response should be only the new goal.
 """
 
@@ -42,6 +43,6 @@ Your response should be only the new goal.
         logger.info("CorrectorAgent: Created new instruction.")
 
         return PlannerToCoderInstruction(
-            original_code=critique.original_code,
+            original_code=original_code,
             goal=new_goal,
         )
