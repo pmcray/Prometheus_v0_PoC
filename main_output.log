@@ -1,52 +1,83 @@
-2025-08-08 22:19:52,178 - INFO - PerformanceLogger initialized with log file: performance_log.json
-2025-08-08 22:19:52,179 - INFO - Using MockProvider.
-2025-08-08 22:19:52,179 - INFO - GeneArchive initialized.
-2025-08-08 22:19:52,179 - INFO -
+2025-08-08 22:34:39,040 - INFO - PerformanceLogger initialized with log file: performance_log.json
+2025-08-08 22:34:39,041 - INFO - Using MockProvider.
+2025-08-08 22:34:39,041 - INFO - GeneArchive initialized.
+2025-08-08 22:34:39,041 - INFO -
 --- Starting CRLS Loop (v0.21) ---
-2025-08-08 22:19:52,179 - INFO -
+2025-08-08 22:34:39,041 - INFO -
 --- Curriculum Cycle 1/3 ---
-2025-08-08 22:19:52,179 - INFO - No previous benchmark solved. Generating entry-level benchmark.
-2025-08-08 22:19:52,179 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string and returns the reversed string.'
-2025-08-08 22:19:52,179 - INFO - Generated benchmark: reverse_string
-2025-08-08 22:19:52,180 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
-2025-08-08 22:19:52,180 - INFO - Attempt 1/3...
-2025-08-08 22:19:52,180 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-08 22:19:52,180 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
-2025-08-08 22:19:52,181 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
-2025-08-08 22:19:52,181 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
-2025-08-08 22:19:52,203 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
-2025-08-08 22:19:52,569 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 1 to 0.
-2025-08-08 22:19:52,570 - INFO - Successfully saved improved code to benchmarks/reverse_string.py
-2025-08-08 22:19:52,570 - INFO - Logged benchmark 'reverse_string': success=True, complexity=0
-2025-08-08 22:19:52,570 - INFO -
+2025-08-08 22:34:39,041 - INFO - No previous benchmark solved. Generating entry-level benchmark.
+2025-08-08 22:34:39,041 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string and returns the reversed string.'
+2025-08-08 22:34:39,041 - INFO - Generated benchmark: reverse_string
+2025-08-08 22:34:39,042 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-08 22:34:39,042 - INFO - Attempt 1/3...
+2025-08-08 22:34:39,042 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-08 22:34:39,042 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-08 22:34:39,043 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-08 22:34:39,043 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-08 22:34:39,066 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-08 22:34:39,440 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 1 to 0.
+2025-08-08 22:34:39,440 - INFO - Successfully saved improved code to benchmarks/reverse_string.py
+2025-08-08 22:34:39,441 - INFO - Logged benchmark 'reverse_string': success=True, complexity=0
+2025-08-08 22:34:39,441 - INFO -
 --- Curriculum Cycle 2/3 ---
-2025-08-08 22:19:52,570 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
-2025-08-08 22:19:52,570 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that sorts a list of tuples by their second element'
-2025-08-08 22:19:52,570 - INFO - Generated benchmark: sort_list_of_tuples
-2025-08-08 22:19:52,571 - INFO - --- Starting Self-Modification for benchmarks/sort_list_of_tuples.py ---
-2025-08-08 22:19:52,571 - INFO - Attempt 1/3...
-2025-08-08 22:19:52,571 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-08 22:19:52,571 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
-2025-08-08 22:19:52,572 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
-2025-08-08 22:19:52,572 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
-2025-08-08 22:19:52,594 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
-2025-08-08 22:19:52,931 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 2 to 0.
-2025-08-08 22:19:52,931 - INFO - Successfully saved improved code to benchmarks/sort_list_of_tuples.py
-2025-08-08 22:19:52,931 - INFO - Logged benchmark 'sort_list_of_tuples': success=True, complexity=0
-2025-08-08 22:19:52,932 - INFO -
+2025-08-08 22:34:39,441 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-08 22:34:39,441 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that sorts a list of tuples by their second element'
+2025-08-08 22:34:39,441 - INFO - Generated benchmark: sort_list_of_tuples
+2025-08-08 22:34:39,441 - INFO - --- Starting Self-Modification for benchmarks/sort_list_of_tuples.py ---
+2025-08-08 22:34:39,441 - INFO - Attempt 1/3...
+2025-08-08 22:34:39,441 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-08 22:34:39,441 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-08 22:34:39,442 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-08 22:34:39,442 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-08 22:34:39,465 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-08 22:34:39,845 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 2 to 0.
+2025-08-08 22:34:39,845 - INFO - Successfully saved improved code to benchmarks/sort_list_of_tuples.py
+2025-08-08 22:34:39,846 - INFO - Logged benchmark 'sort_list_of_tuples': success=True, complexity=0
+2025-08-08 22:34:39,846 - INFO -
 --- Curriculum Cycle 3/3 ---
-2025-08-08 22:19:52,932 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
-2025-08-08 22:19:52,932 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that sorts a list of tuples by their second element'
-2025-08-08 22:19:52,932 - INFO - Generated benchmark: sort_list_of_tuples
-2025-08-08 22:19:52,932 - INFO - --- Starting Self-Modification for benchmarks/sort_list_of_tuples.py ---
-2025-08-08 22:19:52,932 - INFO - Attempt 1/3...
-2025-08-08 22:19:52,932 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-08 22:19:52,932 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
-2025-08-08 22:19:52,933 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
-2025-08-08 22:19:52,933 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
-2025-08-08 22:19:52,955 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
-2025-08-08 22:19:53,285 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 2 to 0.
-2025-08-08 22:19:53,285 - INFO - Successfully saved improved code to benchmarks/sort_list_of_tuples.py
-2025-08-08 22:19:53,286 - INFO - Logged benchmark 'sort_list_of_tuples': success=True, complexity=0
-2025-08-08 22:19:53,286 - INFO -
+2025-08-08 22:34:39,846 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-08 22:34:39,846 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that adds one to a number'
+2025-08-08 22:34:39,846 - INFO - Generated benchmark: add_one
+2025-08-08 22:34:39,846 - INFO - --- Starting Self-Modification for benchmarks/add_one.py ---
+2025-08-08 22:34:39,847 - INFO - Attempt 1/3...
+2025-08-08 22:34:39,847 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-08 22:34:39,847 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-08 22:34:39,848 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-08 22:34:39,848 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-08 22:34:39,871 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-08 22:34:39,871 - WARNING - Specification gaming suspected. Shared literals: {6}
+2025-08-08 22:34:39,872 - WARNING - Attempt failed. Reason: Specification gaming detected.
+2025-08-08 22:34:39,872 - INFO - Attempt 2/3...
+2025-08-08 22:34:39,872 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-08 22:34:39,872 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Original Code:
+```python
+def...
+2025-08-08 22:34:39,872 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-08 22:34:39,873 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-08 22:34:39,874 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-08 22:34:39,896 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-08 22:34:39,897 - ERROR - Coder failed to generate a meaningful change.
+2025-08-08 22:34:39,897 - INFO - Attempt 3/3...
+2025-08-08 22:34:39,897 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-08 22:34:39,897 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Original Code:
+```python
+def...
+2025-08-08 22:34:39,897 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-08 22:34:39,898 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-08 22:34:39,898 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-08 22:34:39,920 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-08 22:34:39,921 - ERROR - Coder failed to generate a meaningful change.
+2025-08-08 22:34:39,921 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-08 22:34:39,921 - INFO - Logged benchmark 'add_one': success=False, complexity=0
+2025-08-08 22:34:39,921 - INFO -
 --- CRLS Loop Finished ---
+CorrectorAgent: Received critique - test_passed=False causal_improvement=False reason='Specification gaming detected.'
+CorrectorAgent: Created new instruction.
+CorrectorAgent: Received critique - Coder did not produce new code.
+CorrectorAgent: Created new instruction.
+CorrectorAgent: Received critique - Coder did not produce new code.
+CorrectorAgent: Created new instruction.

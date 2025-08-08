@@ -1,7 +1,7 @@
-
 import json
 import logging
 import os
+import time
 
 class PerformanceLogger:
     def __init__(self, log_file="performance_log.json"):
@@ -33,7 +33,8 @@ class PerformanceLogger:
         """
         log_entry = {
             "success": success,
-            "complexity": complexity
+            "complexity": complexity,
+            "timestamp": time.time()
         }
         if success and solution_code:
             log_entry["solution_code"] = solution_code
@@ -57,7 +58,7 @@ class PerformanceLogger:
 
     def get_last_solved_benchmark(self):
         """
-        Returns the log entry for the solved benchmark with the highest complexity.
+        Returns the log entry for the most recently solved benchmark based on timestamp.
         """
         solved_benchmarks = [
             b for b in self.log["benchmarks"].values() if b.get("success") and "solution_code" in b
@@ -65,5 +66,5 @@ class PerformanceLogger:
         if not solved_benchmarks:
             return None
 
-        # Return the benchmark with the highest complexity
-        return max(solved_benchmarks, key=lambda b: b.get("complexity", 0))
+        # Return the benchmark with the latest timestamp
+        return max(solved_benchmarks, key=lambda b: b.get("timestamp", 0))

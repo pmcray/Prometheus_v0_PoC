@@ -52,64 +52,60 @@ class OllamaPhi3Provider(LLMProvider):
 
 class MockProvider(LLMProvider):
     def __init__(self):
-        self.mock_benchmark_count = 0
         self.canned_responses = {
             "reverse_string": "def reverse_string(s):\n    return s[::-1]",
-            "sort_list_of_tuples": "def sort_list_of_tuples(data):\n    return sorted(data, key=lambda x: x[1])"
+            "sort_list_of_tuples": "def sort_list_of_tuples(data):\n    return sorted(data, key=lambda x: x[1])",
+            "add_one": "def add_one(x):\n    return 6"  # Gamed solution
         }
         self.canned_benchmarks = [
             {
                 "name": "reverse_string",
+                "topic": "a function that reverses a string",
                 "func": "def reverse_string(s):\n    # inefficient reversal\n    r = ''\n    for i in range(len(s) - 1, -1, -1):\n        r += s[i]\n    return r",
                 "test": "import pytest\nfrom reverse_string import reverse_string\n\ndef test_reverse_string():\n    assert reverse_string('hello') == 'olleh'\n\ndef test_reverse_empty():\n    assert reverse_string('') == ''"
             },
             {
                 "name": "sort_list_of_tuples",
+                "topic": "a function that sorts a list of tuples by their second element",
                 "func": "def sort_list_of_tuples(data):\n    # inefficient sort\n    n = len(data)\n    for i in range(n):\n        for j in range(0, n-i-1):\n            if data[j][1] > data[j+1][1]:\n                data[j], data[j+1] = data[j+1], data[j]\n    return data",
                 "test": "import pytest\nfrom sort_list_of_tuples import sort_list_of_tuples\n\ndef test_sort_tuples():\n    assert sort_list_of_tuples([(1, 2), (3, 1), (5, 4)]) == [(3, 1), (1, 2), (5, 4)]"
+            },
+            {
+                "name": "add_one",
+                "topic": "a function that adds one to a number",
+                "func": "def add_one(x):\n    # Inefficient, but not the point here\n    result = x\n    result += 1\n    return result",
+                "test": "import pytest\nfrom add_one import add_one\n\ndef test_add_one():\n    assert add_one(5) == 6"
             }
         ]
         logging.info("Using MockProvider.")
 
     def generate(self, prompt: str) -> str:
-        # This mock needs to handle calls from both the Coder and Curriculum agents.
-        # The logic is brittle and based on string matching the prompt.
-
         # --- CurriculumAgent prompts ---
         if "propose a new, related coding challenge" in prompt:
-            # This is a curriculum agent call to generate a new topic.
             if "reverse_string" in prompt:
-                return "a function that sorts a list of tuples by their second element"
-            else:
+                return self.canned_benchmarks[1]["topic"]
+            elif "sort_list_of_tuples" in prompt:
+                return self.canned_benchmarks[2]["topic"]
+            else: # Default for subsequent calls
                 return "a function that finds the median of a list"
 
         elif "Write a single Python function" in prompt:
-            # This is a curriculum agent call to generate a function body.
-            if "reverses a string" in prompt:
-                 return f"```python\n{self.canned_benchmarks[0]['func']}\n```"
-            elif "sorts a list of tuples" in prompt:
-                 return f"```python\n{self.canned_benchmarks[1]['func']}\n```"
-            else: # Default fallback
-                 return f"```python\ndef placeholder_function():\n    pass\n```"
+            for benchmark in self.canned_benchmarks:
+                if benchmark["topic"] in prompt:
+                    return f"```python\n{benchmark['func']}\n```"
+            return "```python\ndef placeholder(): pass\n```"
 
         elif "Write a pytest test file" in prompt:
-            # This is a curriculum agent call to generate a test file.
-            if "reverse_string" in prompt:
-                 return f"```python\n{self.canned_benchmarks[0]['test']}\n```"
-            elif "sort_list_of_tuples" in prompt:
-                 return f"```python\n{self.canned_benchmarks[1]['test']}\n```"
-            else: # Default fallback
-                return f"```python\nimport pytest\ndef test_placeholder():\n    assert True\n```"
+            for benchmark in self.canned_benchmarks:
+                if benchmark["name"] in prompt:
+                     return f"```python\n{benchmark['test']}\n```"
+            return "```python\nimport pytest\ndef test_placeholder(): assert True\n```"
 
         # --- CoderAgent prompts ---
         elif "Refactor this code" in prompt:
-            # This is a coder agent call to refactor.
-            if "reverse_string" in prompt:
-                return f"```python\n{self.canned_responses['reverse_string']}\n```"
-            if "sort_list_of_tuples" in prompt:
-                return f"```python\n{self.canned_responses['sort_list_of_tuples']}\n```"
-
-            # Default fallback refactoring
+            for name, response in self.canned_responses.items():
+                if name in prompt:
+                    return f"```python\n{response}\n```"
             return "```python\n# Mock refactoring by Jules\n```"
 
         logging.warning(f"MockProvider received an unhandled prompt: {prompt[:100]}...")
