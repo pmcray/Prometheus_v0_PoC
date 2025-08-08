@@ -69,51 +69,78 @@ def main():
         corrector=corrector
     )
 
-    # 4. Run the main CRLS loop (v0.21)
-    logging.info("\n--- Starting CRLS Loop (v0.21) ---")
-    num_curriculum_cycles = 3
-    benchmark_dir = "benchmarks"
-    os.makedirs(benchmark_dir, exist_ok=True)
+    # 4. Select and run the appropriate execution mode
+    run_mode = os.environ.get("RUN_MODE", "crls").lower()
+    logging.info(f"Executing in '{run_mode}' mode.")
 
-    for i in range(num_curriculum_cycles):
-        logging.info(f"\n--- Curriculum Cycle {i+1}/{num_curriculum_cycles} ---")
+    if run_mode == "evolution":
+        logging.info("--- Starting Evolution Mode ---")
+        target_file = "toy_problem/inefficient_sort.py"
+        test_file = "toy_problem/test_inefficient_sort.py"
 
-        # a. Generate a new benchmark
-        benchmark_name, function_code, test_code = curriculum_agent.generate_benchmark()
-        if not all([benchmark_name, function_code, test_code]):
-            logging.error("Failed to generate a valid benchmark. Ending CRLS loop.")
-            break
+        if not os.path.exists(target_file) or not os.path.exists(test_file):
+            logging.error(f"FATAL: Target files for evolution not found.")
+            sys.exit(1)
 
-        logging.info(f"Generated benchmark: {benchmark_name}")
-
-        # b. Save benchmark to files
-        function_file_path = os.path.join(benchmark_dir, f"{benchmark_name}.py")
-        test_file_path = os.path.join(benchmark_dir, f"test_{benchmark_name}.py")
-
-        with open(function_file_path, 'w') as f:
-            f.write(function_code)
-        with open(test_file_path, 'w') as f:
-            f.write(test_code)
-
-        # c. Run self-modification on the new benchmark
-        final_code, success = supervisor.run_self_modification(
-            initial_code_path=function_file_path,
-            test_file_path=test_file_path
+        fittest_gene = supervisor.run_evolutionary_cycle(
+            initial_code_path=target_file,
+            test_file_path=test_file,
+            generations=5, # Keep it short for testing
+            population_size=10
         )
-
-        # d. Log the result
-        if final_code:
-            complexity = evaluator.analyze_complexity(final_code)
-            performance_logger.log_benchmark(
-                benchmark_name=benchmark_name,
-                success=success,
-                complexity=complexity,
-                solution_code=final_code if success else function_code # Log the improved code if successful
-            )
+        if fittest_gene:
+            logging.info(f"Evolution complete. Fittest gene saved to gene archive.")
         else:
-            logging.error(f"Supervisor failed to return code for benchmark {benchmark_name}.")
+            logging.error("Evolutionary cycle failed to produce a fit gene.")
 
-    logging.info("\n--- CRLS Loop Finished ---")
+    elif run_mode == "crls":
+        logging.info("\n--- Starting CRLS Loop (v0.21) ---")
+        num_curriculum_cycles = 3
+        benchmark_dir = "benchmarks"
+        os.makedirs(benchmark_dir, exist_ok=True)
+
+        for i in range(num_curriculum_cycles):
+            logging.info(f"\n--- Curriculum Cycle {i+1}/{num_curriculum_cycles} ---")
+
+            # a. Generate a new benchmark
+            benchmark_name, function_code, test_code = curriculum_agent.generate_benchmark()
+            if not all([benchmark_name, function_code, test_code]):
+                logging.error("Failed to generate a valid benchmark. Ending CRLS loop.")
+                break
+
+            logging.info(f"Generated benchmark: {benchmark_name}")
+
+            # b. Save benchmark to files
+            function_file_path = os.path.join(benchmark_dir, f"{benchmark_name}.py")
+            test_file_path = os.path.join(benchmark_dir, f"test_{benchmark_name}.py")
+
+            with open(function_file_path, 'w') as f:
+                f.write(function_code)
+            with open(test_file_path, 'w') as f:
+                f.write(test_code)
+
+            # c. Run self-modification on the new benchmark
+            final_code, success = supervisor.run_self_modification(
+                initial_code_path=function_file_path,
+                test_file_path=test_file_path
+            )
+
+            # d. Log the result
+            if final_code:
+                complexity = evaluator.analyze_complexity(final_code)
+                performance_logger.log_benchmark(
+                    benchmark_name=benchmark_name,
+                    success=success,
+                    complexity=complexity,
+                    solution_code=final_code if success else function_code # Log the improved code if successful
+                )
+            else:
+                logging.error(f"Supervisor failed to return code for benchmark {benchmark_name}.")
+
+        logging.info("\n--- CRLS Loop Finished ---")
+    else:
+        logging.error(f"FATAL: Unknown RUN_MODE '{run_mode}'.")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

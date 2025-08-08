@@ -108,5 +108,17 @@ class MockProvider(LLMProvider):
                     return f"```python\n{response}\n```"
             return "```python\n# Mock refactoring by Jules\n```"
 
+        elif "perform a small, random but syntactically plausible mutation" in prompt:
+            if "inefficient_sort" in prompt:
+                # Provide a guaranteed improvement for the target problem
+                return "```python\ndef inefficient_sort(data):\n    return sorted(data)\n```"
+            # Generic mutation for any other code
+            return "```python\n# Mutated by Jules\n```" + prompt.split("```python")[1]
+
+        elif "combine the best elements of these two Python functions" in prompt:
+            # Simple crossover: take the first parent and add a comment.
+            code1 = prompt.split("Parent 1:\n```python")[1].split("```")[0]
+            return f"```python\n# Crossover by Jules\n{code1}```"
+
         logging.warning(f"MockProvider received an unhandled prompt: {prompt[:100]}...")
         return "# Mock response"
