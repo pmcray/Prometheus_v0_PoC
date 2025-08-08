@@ -1,13 +1,14 @@
-import google.generativeai as genai
 import os
 import re
 import random
+import logging
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
+from src.llm_provider import LLMProvider
+
 
 class CoderAgent:
-    def __init__(self, api_key, compiler: CompilerTool, analyzer: StaticAnalyzerTool, lean_tool: LeanTool):
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+    def __init__(self, llm_provider: LLMProvider, compiler: CompilerTool, analyzer: StaticAnalyzerTool, lean_tool: LeanTool):
+        self.llm_provider = llm_provider
         self.compiler = compiler
         self.analyzer = analyzer
         self.lean_tool = lean_tool
@@ -30,10 +31,10 @@ class CoderAgent:
         """
         Attempts to generate a Lean proof for the given theorem.
         """
-        print(f"CoderAgent: Attempting to prove: {theorem}")
+        logging.info(f"CoderAgent: Attempting to prove: {theorem}")
         error_feedback = ""
         for i in range(max_retries):
-            print(f"CoderAgent: Proof attempt {i+1}")
+            logging.info(f"CoderAgent: Proof attempt {i+1}")
             prompt = f"""
             Your task is to write a proof for the following theorem in the Lean language.
             {error_feedback}
@@ -45,22 +46,22 @@ class CoderAgent:
             
             Please provide only the complete, valid Lean code for the proof.
             """
-            response = self.model.generate_content(prompt)
-            proof = self._clean_code(response.text)
+            response_text = self.llm_provider.generate(prompt)
+            proof = self._clean_code(response_text)
             
             lean_error = self.lean_tool.use(proof)
             if not lean_error:
-                print("CoderAgent: Proof successful and verified.")
+                logging.info("CoderAgent: Proof successful and verified.")
                 return proof
             else:
                 error_feedback = f"The previous attempt failed with the following error:\n{lean_error}\nPlease try again."
         
-        print("CoderAgent: Failed to generate a valid proof after multiple retries.")
+        logging.error("CoderAgent: Failed to generate a valid proof after multiple retries.")
         return None
     
     # ... (rest of the CoderAgent class)
     def code(self, file_path, instruction, max_retries=3):
-        print(f"CoderAgent: Received instruction for {file_path}")
+        logging.info(f"CoderAgent: Received instruction for {file_path}")
         with open(file_path, 'r') as f:
             original_code = f.read()
         return self.refactor(original_code, instruction, max_retries)
@@ -68,10 +69,10 @@ class CoderAgent:
     def refactor(self, code, instruction, max_retries=3):
         current_code = code
         for i in range(max_retries):
-            print(f"CoderAgent: Refactoring attempt {i+1}")
+            logging.info(f"CoderAgent: Refactoring attempt {i+1}")
             prompt = f"Instruction: {instruction}\n\n```python\n{current_code}\n```"
-            response = self.model.generate_content(prompt)
-            new_code = self._clean_code(response.text)
+            response_text = self.llm_provider.generate(prompt)
+            new_code = self._clean_code(response_text)
             if self._verify_code(new_code):
                 return new_code, code
             else:
@@ -81,14 +82,14 @@ class CoderAgent:
 
     def mutate(self, code, max_retries=3):
         if "inefficient_sort" in code and random.random() < 0.2:
-            print("CoderAgent: Mocking successful mutation.")
+            logging.info("CoderAgent: Mocking successful mutation.")
             return "def inefficient_sort(data):\n    return sorted(data)"
         error_feedback = ""
         for i in range(max_retries):
-            print(f"CoderAgent: Mutation attempt {i+1}")
+            logging.info(f"CoderAgent: Mutation attempt {i+1}")
             prompt = f"Your task is to perform a small, random but syntactically plausible mutation on this Python code.\n{error_feedback}\n\n```python\n{code}\n```"
-            response = self.model.generate_content(prompt)
-            mutated_code = self._clean_code(response.text)
+            response_text = self.llm_provider.generate(prompt)
+            mutated_code = self._clean_code(response_text)
             if self._verify_code(mutated_code):
                 return mutated_code
             else:
@@ -98,10 +99,10 @@ class CoderAgent:
     def crossover(self, code1, code2, max_retries=3):
         error_feedback = ""
         for i in range(max_retries):
-            print(f"CoderAgent: Crossover attempt {i+1}")
+            logging.info(f"CoderAgent: Crossover attempt {i+1}")
             prompt = f"Your task is to combine the best elements of these two Python functions into a new, superior function.\n{error_feedback}\n\nParent 1:\n```python\n{code1}\n```\n\nParent 2:\n```python\n{code2}\n```"
-            response = self.model.generate_content(prompt)
-            crossed_over_code = self._clean_code(response.text)
+            response_text = self.llm_provider.generate(prompt)
+            crossed_over_code = self._clean_code(response_text)
             if self._verify_code(crossed_over_code):
                 return crossed_over_code
             else:

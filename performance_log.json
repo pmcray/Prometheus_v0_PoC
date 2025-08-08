@@ -3,6 +3,16 @@
         "string_manipulation": {
             "success": true,
             "complexity": 0
+        },
+        "reverse_string": {
+            "success": true,
+            "complexity": 0,
+            "solution_code": "def reverse_string(s):\n    return s[::-1]"
+        },
+        "sort_list_of_tuples": {
+            "success": true,
+            "complexity": 0,
+            "solution_code": "def sort_list_of_tuples(data):\n    return sorted(data, key=lambda x: x[1])"
         }
     }
 }

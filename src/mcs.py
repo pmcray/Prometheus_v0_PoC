@@ -15,9 +15,51 @@ class MCSSupervisor:
         self.corrector = corrector
         self.gene_archive = GeneArchive()
 
-    def run_self_modification(self, max_retries=3):
-        # This method remains for direct self-modification
-        pass
+    def run_self_modification(self, initial_code_path, test_file_path, max_retries=3):
+        """
+        Runs a direct self-modification loop to refactor a piece of code.
+        """
+        logging.info(f"--- Starting Self-Modification for {initial_code_path} ---")
+
+        try:
+            with open(initial_code_path, 'r') as f:
+                original_code = f.read()
+        except FileNotFoundError:
+            logging.error(f"Could not find file: {initial_code_path}")
+            return None, False
+
+        current_code = original_code
+        prompt = "Refactor this code to improve time complexity while maintaining correctness. The new code should be a drop-in replacement for the original."
+
+        for i in range(max_retries):
+            logging.info(f"Attempt {i + 1}/{max_retries}...")
+
+            # The coder's refactor method returns (new_code, original_code)
+            modified_code, _ = self.coder.refactor(current_code, prompt)
+
+            if not modified_code or modified_code == current_code:
+                logging.error("Coder failed to generate a meaningful change.")
+                # We can still try to correct based on the last code version
+                prompt = self.corrector.correct(original_code, current_code, "Coder did not produce new code.")
+                continue
+
+            critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, initial_code_path)
+
+            if critique.test_passed and critique.causal_improvement:
+                logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
+                with open(initial_code_path, 'w') as f:
+                    f.write(modified_code)
+                logging.info(f"Successfully saved improved code to {initial_code_path}")
+                # Return the new code and success status
+                return modified_code, True
+            else:
+                logging.warning(f"Attempt failed. Reason: {critique.reason}")
+                logging.debug(f"Test Output:\n{test_output}")
+                prompt = self.corrector.correct(original_code, modified_code, critique)
+                current_code = modified_code # Use the failed code as the base for the next attempt
+
+        logging.error("❌ Failure. Could not improve the code after multiple attempts.")
+        return current_code, False
 
     def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
         logging.info(f"--- Starting Evolutionary Cycle for {initial_code_path} ---")
