@@ -6,6 +6,7 @@ import random
 from src.system_state import SystemState
 from src.tools import CompilerTool, StaticAnalyzerTool
 from src.gene_archive import GeneArchive
+from src.critique import SelfReferentialCritique, CausalAnalysis
 
 class MCSSupervisor:
     def __init__(self, planner, coder, evaluator, corrector):
@@ -39,13 +40,27 @@ class MCSSupervisor:
 
             if not modified_code or modified_code == current_code:
                 logging.error("Coder failed to generate a meaningful change.")
-                # We can still try to correct based on the last code version
-                prompt = self.corrector.correct(original_code, current_code, "Coder did not produce new code.")
+                original_complexity = self.evaluator.analyze_complexity(original_code)
+                current_complexity = self.evaluator.analyze_complexity(current_code)
+                critique = SelfReferentialCritique(
+                    test_passed=False,
+                    causal_analysis=CausalAnalysis(
+                        change_type="NO_CHANGE",
+                        from_complexity=original_complexity,
+                        to_complexity=current_complexity
+                    ),
+                    evaluation_confidence=1.0,
+                    uncertainty_level="low",
+                    historical_context=None,
+                    reason="Coder failed to generate a meaningful change."
+                )
+                prompt = self.corrector.correct(original_code, current_code, critique)
                 continue
 
             critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, initial_code_path)
 
-            if critique.test_passed and critique.causal_improvement:
+            # This check needs to be updated to use the new critique structure
+            if critique.test_passed and critique.causal_analysis.change_type == "IMPROVEMENT":
                 logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
                 with open(initial_code_path, 'w') as f:
                     f.write(modified_code)

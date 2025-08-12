@@ -120,15 +120,5 @@ class MockProvider(LLMProvider):
             code1 = prompt.split("Parent 1:\n```python")[1].split("```")[0]
             return f"```python\n# Crossover by Jules\n{code1}```"
 
-        # --- Theorem Proving Prompts ---
-        elif "Generate a simple theorem in the Lean language" in prompt:
-            return "```lean\ntheorem add_zero (n : Nat) : n + 0 = n\n```"
-
-        elif "write a proof for the following theorem" in prompt:
-            return """```lean
-theorem add_zero (n : Nat) : n + 0 = n := by
-  rfl
-```"""
-
         logging.warning(f"MockProvider received an unhandled prompt: {prompt[:100]}...")
         return "# Mock response"

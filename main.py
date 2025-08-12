@@ -138,25 +138,6 @@ def main():
                 logging.error(f"Supervisor failed to return code for benchmark {benchmark_name}.")
 
         logging.info("\n--- CRLS Loop Finished ---")
-
-    elif run_mode == "theorem_proving":
-        logging.info("\n--- Starting Theorem Proving Mode ---")
-        # a. Generate a new theorem
-        theorem = curriculum_agent.generate_theorem()
-        if not theorem:
-            logging.error("Failed to generate a theorem. Ending run.")
-            sys.exit(1)
-
-        logging.info(f"Generated Theorem: {theorem}")
-
-        # b. Attempt to prove the theorem
-        proof = coder.prove(theorem)
-
-        if proof:
-            logging.info(f"Successfully generated and verified proof:\n{proof}")
-        else:
-            logging.error(f"Failed to generate a valid proof for the theorem.")
-
     else:
         logging.error(f"FATAL: Unknown RUN_MODE '{run_mode}'.")
         sys.exit(1)

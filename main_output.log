@@ -1,16 +1,28 @@
-2025-08-12 16:06:53,563 - INFO - PerformanceLogger initialized with log file: performance_log.json
-2025-08-12 16:06:53,564 - INFO - Using MockProvider.
-2025-08-12 16:06:53,564 - INFO - GeneArchive initialized.
-2025-08-12 16:06:53,564 - INFO - Executing in 'theorem_proving' mode.
-2025-08-12 16:06:53,564 - INFO -
---- Starting Theorem Proving Mode ---
-2025-08-12 16:06:53,564 - INFO - CurriculumAgent: Generating new theorem.
-2025-08-12 16:06:53,564 - INFO - Generated Theorem: theorem add_zero (n : Nat) : n + 0 = n
-2025-08-12 16:06:53,564 - INFO - CoderAgent: Attempting to prove: theorem add_zero (n : Nat) : n + 0 = n
-2025-08-12 16:06:53,564 - INFO - CoderAgent: Proof attempt 1
-2025-08-12 16:06:53,564 - INFO - LeanTool: Checking Lean code.
-2025-08-12 16:06:53,996 - INFO - LeanTool: Lean code is valid.
-2025-08-12 16:06:53,996 - INFO - CoderAgent: Proof successful and verified.
-2025-08-12 16:06:53,996 - INFO - Successfully generated and verified proof:
-theorem add_zero (n : Nat) : n + 0 = n := by
-  rfl
+2025-08-12 19:17:13,455 - INFO - PerformanceLogger initialized with log file: performance_log.json
+2025-08-12 19:17:13,456 - INFO - Using MockProvider.
+2025-08-12 19:17:13,456 - INFO - GeneArchive initialized.
+2025-08-12 19:17:13,456 - INFO - Executing in 'crls' mode.
+2025-08-12 19:17:13,456 - INFO -
+--- Starting Verification Run for Dynamic Analysis ---
+2025-08-12 19:17:13,456 - INFO - Running self-modification on: toy_problem/inefficient_sort.py
+2025-08-12 19:17:13,456 - INFO - --- Starting Self-Modification for toy_problem/inefficient_sort.py ---
+2025-08-12 19:17:13,457 - INFO - Attempt 1/3...
+2025-08-12 19:17:13,457 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-12 19:17:13,460 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-12 19:17:13,461 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-12 19:17:13,462 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-12 19:17:13,509 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-12 19:17:13,510 - ERROR - Coder failed to generate a meaningful change.
+2025-08-12 19:17:13,511 - INFO - CorrectorAgent: Received structured critique. Synthesizing meta-prompt.
+2025-08-12 19:17:13,511 - INFO - CorrectorAgent: Created new meta-instruction.
+2025-08-12 19:17:13,511 - INFO - Attempt 2/3...
+2025-08-12 19:17:13,511 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-12 19:17:13,512 - INFO - CompilerTool: Compiling temp_coder_output.py within the sandbox.
+2025-08-12 19:17:13,515 - INFO - CompilerTool: temp_coder_output.py compiled successfully.
+2025-08-12 19:17:13,515 - INFO - StaticAnalyzerTool: Analyzing temp_coder_output.py with pyflakes within the sandbox.
+2025-08-12 19:17:13,540 - WARNING - StaticAnalyzerTool: Static analysis found issues in temp_coder_output.py.
+2025-08-12 19:17:14,282 - INFO - ✅ Success! Refactoring successful. Reason: Successfully refactored from complexity 1 to 0 with improved or stable performance.
+2025-08-12 19:17:14,282 - INFO - Successfully saved improved code to toy_problem/inefficient_sort.py
+2025-08-12 19:17:14,283 - INFO - Logged benchmark 'inefficient_sort': success=True, complexity=0
+2025-08-12 19:17:14,283 - INFO -
+--- Verification Run Finished ---
