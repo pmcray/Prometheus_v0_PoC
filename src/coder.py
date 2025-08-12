@@ -50,7 +50,7 @@ class CoderAgent:
             proof = self._clean_code(response_text)
             
             lean_error = self.lean_tool.use(proof)
-            if not lean_error:
+            if lean_error is None:
                 logging.info("CoderAgent: Proof successful and verified.")
                 return proof
             else:
