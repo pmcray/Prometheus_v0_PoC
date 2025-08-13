@@ -22,6 +22,11 @@
             "complexity": 0,
             "timestamp": 1755026234.2832608,
             "solution_code": "def inefficient_sort(data):\n    return sorted(data)"
+        },
+        "inefficient_unique": {
+            "success": false,
+            "complexity": 0,
+            "timestamp": 1755027356.8731403
         }
     }
 }

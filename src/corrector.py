@@ -1,11 +1,18 @@
 import logging
 from src.critique import SelfReferentialCritique
+from src.llm_provider import LLMProvider
+from src.gene_archive import GeneArchive
 
 class CorrectorAgent:
-    def correct(self, original_code, failed_code, critique: SelfReferentialCritique):
+    def __init__(self, llm_provider: LLMProvider, gene_archive: GeneArchive):
+        self.llm_provider = llm_provider
+        self.gene_archive = gene_archive
+
+    def correct(self, original_code, failed_code, critique: SelfReferentialCritique, attempt_number: int):
         """
         Generates a new, highly-contextualized prompt for the CoderAgent
-        based on the structured SelfReferentialCritique.
+        based on the structured SelfReferentialCritique. After several failed
+        attempts, it will try an analogical search for a solution pattern.
         """
         
         logging.info("CorrectorAgent: Received structured critique. Synthesizing meta-prompt.")
@@ -51,12 +58,31 @@ class CorrectorAgent:
                 prompt_parts.append("Aim for a solution that balances both time and memory efficiency.")
 
 
+        # If we are still failing after a few attempts, try analogical search
+        if attempt_number >= 1: # Trigger on the 2nd attempt (index 1)
+            logging.info("Attempting analogical search for a solution pattern...")
+            problem_prompt = f"Describe the core problem solved by this Python code in a single, abstract sentence.\n\n```python\n{original_code}\n```"
+            abstract_problem = self.llm_provider.generate(problem_prompt).strip()
+
+            if abstract_problem:
+                logging.info(f"Abstracted problem: '{abstract_problem}'")
+                solution_pattern = self.gene_archive.get_solution_pattern(abstract_problem)
+                if solution_pattern:
+                    logging.info(f"Found analogous solution pattern: '{solution_pattern}'")
+                    hint = f"HINT: Let's try an analogy. A similar problem was solved with this pattern: '{solution_pattern}'. Try to apply this pattern here."
+                    prompt_parts.append(hint)
+                else:
+                    logging.info("No analogous solution pattern found in the gene archive.")
+            else:
+                logging.warning("Could not abstract the problem, skipping analogical search.")
+
+
         # Final instruction
         prompt_parts.append("Your next attempt must address the core algorithmic structure, not just superficial details.")
 
         # Assemble the final prompt
         instruction = "\n".join(prompt_parts)
-        
+
         prompt = f"""{instruction}
         
 Original Code:

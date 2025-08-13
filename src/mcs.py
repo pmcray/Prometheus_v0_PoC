@@ -9,12 +9,13 @@ from src.gene_archive import GeneArchive
 from src.critique import SelfReferentialCritique, CausalAnalysis
 
 class MCSSupervisor:
-    def __init__(self, planner, coder, evaluator, corrector):
+    def __init__(self, planner, coder, evaluator, corrector, llm_provider, gene_archive):
         self.planner = planner
         self.coder = coder
         self.evaluator = evaluator
         self.corrector = corrector
-        self.gene_archive = GeneArchive()
+        self.llm_provider = llm_provider
+        self.gene_archive = gene_archive
 
     def run_self_modification(self, initial_code_path, test_file_path, max_retries=3):
         """
@@ -54,7 +55,7 @@ class MCSSupervisor:
                     historical_context=None,
                     reason="Coder failed to generate a meaningful change."
                 )
-                prompt = self.corrector.correct(original_code, current_code, critique)
+                prompt = self.corrector.correct(original_code, current_code, critique, attempt_number=i)
                 continue
 
             critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, initial_code_path)
@@ -62,6 +63,10 @@ class MCSSupervisor:
             # This check needs to be updated to use the new critique structure
             if critique.test_passed and critique.causal_analysis.change_type == "IMPROVEMENT":
                 logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
+
+                # Store the successful pattern
+                self.gene_archive.add_solution_pattern(original_code, modified_code)
+
                 with open(initial_code_path, 'w') as f:
                     f.write(modified_code)
                 logging.info(f"Successfully saved improved code to {initial_code_path}")
@@ -70,7 +75,7 @@ class MCSSupervisor:
             else:
                 logging.warning(f"Attempt failed. Reason: {critique.reason}")
                 logging.debug(f"Test Output:\n{test_output}")
-                prompt = self.corrector.correct(original_code, modified_code, critique)
+                prompt = self.corrector.correct(original_code, modified_code, critique, attempt_number=i)
                 current_code = modified_code # Use the failed code as the base for the next attempt
 
         logging.error("❌ Failure. Could not improve the code after multiple attempts.")
