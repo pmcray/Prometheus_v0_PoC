@@ -18,10 +18,9 @@
             "timestamp": 1754692479.9212956
         },
         "inefficient_sort": {
-            "success": true,
+            "success": false,
             "complexity": 0,
-            "timestamp": 1755026234.2832608,
-            "solution_code": "def inefficient_sort(data):\n    return sorted(data)"
+            "timestamp": 1755198250.8906622
         },
         "inefficient_unique": {
             "success": false,

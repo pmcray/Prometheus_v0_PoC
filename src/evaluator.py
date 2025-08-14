@@ -6,12 +6,65 @@ import cProfile
 import pstats
 import io
 import logging
+import shutil
+import tempfile
 from memory_profiler import memory_usage
 from .critique import SelfReferentialCritique, CausalAnalysis, DynamicAnalysis, PerformanceMetric
+from .mcs import attention_logger
+from .gene_bank import GeneBankAgent
+
 
 class EvaluatorAgent:
-    def __init__(self):
+    def __init__(self, gene_bank: GeneBankAgent):
         self.profiling_data = self._load_profiling_data()
+        self.gene_bank = gene_bank
+
+    def verify_code_modification(self, patch_code: str, agent_to_modify: str) -> bool:
+        """
+        Verifies a proposed code modification in a sandboxed environment.
+        """
+        if not patch_code:
+            logging.warning("Verification failed: No patch code provided.")
+            return False
+
+        with tempfile.TemporaryDirectory() as sandbox_dir:
+            try:
+                # 1. Create a sandboxed copy of the codebase
+                shutil.copytree('.', sandbox_dir, dirs_exist_ok=True)
+
+                # 2. Apply the patch
+                patch_file_path = os.path.join(sandbox_dir, 'agent_modification.patch')
+                with open(patch_file_path, 'w') as f:
+                    f.write(patch_code)
+
+                subprocess.run(['git', 'apply', patch_file_path], cwd=sandbox_dir, check=True)
+                logging.info("Successfully applied patch in sandbox.")
+
+                # 3. Run meta-tests
+                logging.info("Running meta-tests on sandboxed code...")
+                result = subprocess.run(
+                    [sys.executable, "-m", "pytest", "tests/meta_tests/"],
+                    cwd=sandbox_dir,
+                    capture_output=True, text=True
+                )
+
+                if result.returncode != 0:
+                    logging.warning(f"Meta-tests failed after applying patch:\n{result.stderr}")
+                    return False
+
+                logging.info("Meta-tests passed.")
+
+                # 4. If all checks pass, commit the new gene
+                modified_agent_path = os.path.join(sandbox_dir, 'src', f"{agent_to_modify}.py")
+                with open(modified_agent_path, 'r') as f:
+                    modified_code = f.read()
+
+                self.gene_bank.commit_new_gene(agent_to_modify, modified_code)
+                return True
+
+            except (subprocess.CalledProcessError, FileNotFoundError, Exception) as e:
+                logging.error(f"An error occurred during sandboxed verification: {e}")
+                return False
 
     def _load_profiling_data(self):
         try:
@@ -147,6 +200,7 @@ class EvaluatorAgent:
 
         original_complexity = self._analyze_complexity(original_code)
         new_complexity = self._analyze_complexity(new_code)
+        attention_logger.info('{"attention_target": "algorithmic_complexity"}')
 
         if self._detect_specification_gaming(new_code, test_code):
             critique = SelfReferentialCritique(
@@ -189,6 +243,7 @@ class EvaluatorAgent:
             new_func_name = self._get_function_name(new_code)
             original_perf = self._perform_dynamic_analysis(original_code, original_func_name, data_to_profile)
             new_perf = self._perform_dynamic_analysis(new_code, new_func_name, data_to_profile)
+            attention_logger.info('{"attention_target": "runtime_performance"}')
 
             if original_perf and new_perf:
                 time_metric = PerformanceMetric(

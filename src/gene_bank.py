@@ -1,13 +1,31 @@
 
 import logging
+import os
 from src.llm_provider import LLMProvider
 
-class GeneArchive:
+class GeneBankAgent:
     def __init__(self, llm_provider: LLMProvider):
         self.archive = {}
         self.solution_patterns = {}
         self.llm_provider = llm_provider
-        logging.info("GeneArchive initialized.")
+        self.gene_bank_dir = "gene_bank"
+        os.makedirs(self.gene_bank_dir, exist_ok=True)
+        logging.info("GeneBankAgent initialized.")
+
+    def commit_new_gene(self, agent_name: str, source_code: str):
+        """
+        Versions and saves the source code of an agent to the gene bank.
+        """
+        version = 1
+        file_path = os.path.join(self.gene_bank_dir, f"{agent_name}_v{version}.py")
+        while os.path.exists(file_path):
+            version += 1
+            file_path = os.path.join(self.gene_bank_dir, f"{agent_name}_v{version}.py")
+
+        with open(file_path, 'w') as f:
+            f.write(source_code)
+        logging.info(f"Committed new gene: {file_path}")
+        return file_path
 
     def add_solution_pattern(self, initial_code, final_code):
         """
@@ -67,6 +85,6 @@ class GeneArchive:
         """
         if not fitness_scores:
             return None
-        
+
         fittest_gene_id = max(fitness_scores, key=fitness_scores.get)
         return self.get_gene(fittest_gene_id)

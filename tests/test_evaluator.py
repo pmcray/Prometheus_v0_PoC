@@ -1,10 +1,14 @@
 import pytest
 from src.evaluator import EvaluatorAgent
+from src.gene_bank import GeneBankAgent
+from src.llm_provider import MockProvider
 
 @pytest.fixture
 def evaluator():
     """Pytest fixture to create an EvaluatorAgent instance."""
-    return EvaluatorAgent()
+    llm_provider = MockProvider()
+    gene_bank = GeneBankAgent(llm_provider=llm_provider)
+    return EvaluatorAgent(gene_bank=gene_bank)
 
 def test_detect_specification_gaming_numeric(evaluator):
     """

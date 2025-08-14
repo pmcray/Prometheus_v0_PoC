@@ -1,12 +1,25 @@
 
 import logging
+import logging.handlers
 import sys
 import os
 import random
 from src.system_state import SystemState
 from src.tools import CompilerTool, StaticAnalyzerTool
-from src.gene_archive import GeneArchive
+from src.gene_bank import GeneBankAgent
 from src.critique import SelfReferentialCritique, CausalAnalysis
+
+# --- Attention Logger Setup ---
+attention_logger = logging.getLogger('AttentionLog')
+attention_logger.setLevel(logging.INFO)
+attention_logger.propagate = False
+try:
+    handler = logging.handlers.RotatingFileHandler('attention.log', maxBytes=10000, backupCount=5)
+    handler.setFormatter(logging.Formatter('{"timestamp": "%(asctime)s", "event": %(message)s}'))
+    attention_logger.addHandler(handler)
+except Exception:
+    attention_logger.addHandler(logging.StreamHandler())
+# --------------------------
 
 class MCSSupervisor:
     def __init__(self, planner, coder, evaluator, corrector, llm_provider, gene_archive):
@@ -17,10 +30,57 @@ class MCSSupervisor:
         self.llm_provider = llm_provider
         self.gene_archive = gene_archive
 
+    def log_attention(self, target: str):
+        """Logs a cognitive attention event."""
+        attention_logger.info(f'{{"attention_target": "{target}"}}')
+
+    def generate_i_dashboard(self):
+        """
+        Parses the attention log and generates a simple text-based report
+        of the agent's cognitive focus.
+        """
+        logging.info("--- Generating 'I' Dashboard ---")
+        try:
+            with open('attention.log', 'r') as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            logging.warning("attention.log not found. Cannot generate dashboard.")
+            return
+
+        targets = []
+        for line in lines:
+            try:
+                log_entry = json.loads(line.split(' - ')[1])
+                targets.append(log_entry['event']['attention_target'])
+            except (json.JSONDecodeError, KeyError, IndexError):
+                continue
+
+        if not targets:
+            logging.info("No attention events found.")
+            return
+
+        from collections import Counter
+        counts = Counter(targets)
+        total = len(targets)
+
+        dashboard = "\n--- Agent Attention Dashboard ---\n"
+        for target, count in counts.items():
+            percentage = (count / total) * 100
+            dashboard += f"- {target}: {percentage:.1f}%\n"
+        dashboard += "---------------------------------\n"
+
+        logging.info(dashboard)
+        return dashboard
+
+
     def run_self_modification(self, initial_code_path, test_file_path, max_retries=3):
         """
         Runs a direct self-modification loop to refactor a piece of code.
         """
+        # Clear the attention log for this run to simplify the audit
+        if os.path.exists('attention.log'):
+            os.remove('attention.log')
+
         logging.info(f"--- Starting Self-Modification for {initial_code_path} ---")
 
         try:
@@ -62,6 +122,28 @@ class MCSSupervisor:
 
             # This check needs to be updated to use the new critique structure
             if critique.test_passed and critique.causal_analysis.change_type == "IMPROVEMENT":
+
+                # --- Attention Audit ---
+                try:
+                    with open('attention.log', 'r') as f:
+                        attention_targets = {json.loads(line.split(' - ')[1])['event']['attention_target'] for line in f}
+                    if 'algorithmic_complexity' not in attention_targets:
+                        logging.warning("Attention Audit Failed: Solution found without attending to algorithmic complexity.")
+                        self.log_attention("constitutional_adherence")
+                        critique = SelfReferentialCritique(
+                            test_passed=True,
+                            causal_analysis=critique.causal_analysis,
+                            evaluation_confidence=1.0,
+                            uncertainty_level="low",
+                            reason="Constitutional Violation: The solution is functionally correct but was achieved without sufficient focus on core principles. Re-evaluate your solution, paying specific attention to algorithmic_complexity."
+                        )
+                        prompt = self.corrector.correct(original_code, modified_code, critique, attempt_number=i)
+                        current_code = modified_code
+                        continue # Force another cycle
+                except (FileNotFoundError, json.JSONDecodeError, KeyError, IndexError):
+                    pass # If audit fails, proceed with success
+                # --- End Attention Audit ---
+
                 logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
 
                 # Store the successful pattern
