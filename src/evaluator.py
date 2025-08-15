@@ -1,9 +1,18 @@
 import subprocess
 import os
 import ast
-from .critique import CausalCritique
+import logging
+import json
+from .critique import CausalCritique, SelfReferentialCritique
+from .memory_agent import MemoryAgent
+from .llm_provider import LLMProvider
 
 class EvaluatorAgent:
+    def __init__(self, memory_agent: MemoryAgent, llm_provider: LLMProvider):
+        self.memory_agent = memory_agent
+        self.llm_provider = llm_provider
+        logging.info("EvaluatorAgent initialized with MemoryAgent and LLMProvider.")
+
     def _analyze_complexity(self, code):
         tree = ast.parse(code)
         complexity = 0
@@ -103,24 +112,27 @@ class EvaluatorAgent:
         return False
 
     def evaluate(self, new_code, original_code, test_file_path, original_file_path):
+        # This method now directly calls the new evaluate_code logic.
         return self.evaluate_code(new_code, original_code, test_file_path, original_file_path)
 
     def evaluate_code(self, new_code, original_code, test_file_path, original_file_path):
+        # 1. Initial checks and test setup
         temp_file_path = "temp_eval_code.py"
         with open(temp_file_path, "w") as f:
             f.write(new_code)
-            
+
         with open(test_file_path, 'r') as f:
             test_code = f.read()
-            
-        if self._detect_specification_gaming(new_code, test_code):
-            return CausalCritique(test_passed=False, causal_improvement=False, reason="Specification gaming detected."), ""
 
+        if self._detect_specification_gaming(new_code, test_code):
+            critique = CausalCritique(test_passed=False, causal_improvement=False, reason="Specification gaming detected.")
+            self.memory_agent.add_critique(critique)
+            return critique, ""
+
+        # 2. Run tests
         original_module_name = os.path.basename(original_file_path).replace('.py', '')
         temp_module_name = temp_file_path.replace('.py', '')
-        
         modified_test_code = test_code.replace(f'from {original_module_name}', f'from {temp_module_name}')
-        
         temp_test_file_path = "temp_test_file.py"
         with open(temp_test_file_path, 'w') as f:
             f.write(modified_test_code)
@@ -128,36 +140,69 @@ class EvaluatorAgent:
         test_passed = False
         test_output = ""
         try:
-            import sys
             env = os.environ.copy()
-            env["PYTHONPATH"] = f".{os.pathsep}toy_problem"
-            result = subprocess.run([sys.executable, "-m", "pytest", temp_test_file_path], capture_output=True, text=True, env=env)
+            env["PYTHONPATH"] = f".{os.pathsep}{os.path.dirname(original_file_path)}"
+            result = subprocess.run([sys.executable, "-m", "pytest", temp_test_file_path], capture_output=True, text=True)
             if result.returncode == 0:
                 test_passed = True
-                test_output = result.stdout
-            else:
-                test_output = result.stdout + "\n" + result.stderr
+            test_output = result.stdout + "\n" + result.stderr
         finally:
             os.remove(temp_file_path)
             os.remove(temp_test_file_path)
 
         if not test_passed:
-            return CausalCritique(test_passed=False, causal_improvement=False, reason="Tests failed to pass."), test_output
+            critique = CausalCritique(test_passed=False, causal_improvement=False, reason="Tests failed to pass.")
+            self.memory_agent.add_critique(critique)
+            return critique, test_output
 
+        # 3. If tests pass, generate the rich SelfReferentialCritique
         original_complexity = self._analyze_complexity(original_code)
         new_complexity = self._analyze_complexity(new_code)
+        causal_improvement = new_complexity < original_complexity
 
-        if new_complexity < original_complexity:
-            critique = CausalCritique(
-                test_passed=True,
-                causal_improvement=True,
-                reason=f"Successfully refactored from complexity {original_complexity} to {new_complexity}."
-            )
+        historical_context = self.memory_agent.get_historical_context()
+
+        confidence_prompt = f"""
+        Analyze the following code modification and provide a confidence score and uncertainty level for the evaluation.
+        The original code had complexity {original_complexity}. The new code has complexity {new_complexity}.
+        The tests passed.
+
+        Original Code:
+        ```python
+        {original_code}
+        ```
+
+        New Code:
+        ```python
+        {new_code}
+        ```
+
+        Respond with ONLY a JSON object in the format:
+        {{"evaluation_confidence": <float_from_0_to_1>, "uncertainty_level": "<low|medium|high>"}}
+        """
+        confidence_response_str = self.llm_provider.generate(confidence_prompt)
+        try:
+            confidence_data = json.loads(confidence_response_str)
+            confidence = confidence_data.get("evaluation_confidence", 0.5)
+            uncertainty = confidence_data.get("uncertainty_level", "high")
+        except (json.JSONDecodeError, AttributeError):
+            logging.warning("Could not parse confidence/uncertainty from LLM response.")
+            confidence = 0.5
+            uncertainty = "high"
+
+        if causal_improvement:
+            reason = f"Successfully refactored from complexity {original_complexity} to {new_complexity}."
         else:
-            critique = CausalCritique(
-                test_passed=True,
-                causal_improvement=False,
-                reason="The code passes the test, but no causal improvement in time complexity was achieved."
-            )
-            
+            reason = "The code passes the test, but no causal improvement in time complexity was achieved."
+
+        critique = SelfReferentialCritique(
+            test_passed=True,
+            causal_improvement=causal_improvement,
+            reason=reason,
+            evaluation_confidence=confidence,
+            uncertainty_level=uncertainty,
+            historical_context=historical_context
+        )
+
+        self.memory_agent.add_critique(critique)
         return critique, test_output

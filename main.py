@@ -7,9 +7,12 @@ from src.evaluator import EvaluatorAgent
 from src.corrector import CorrectorAgent
 from src.mcs import MCSSupervisor
 from src.curriculum_agent import CurriculumAgent
+from src.memory_agent import MemoryAgent
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
 from src.system_state import SystemState
 from src.performance_logger import PerformanceLogger
+from src.visualization_server import VisualizationServer
+from src.visualization_client import VisualizationClient
 
 # --- Logging Setup ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename='crls_loop.log', filemode='w')
@@ -53,20 +56,27 @@ def main():
     lean_tool = LeanTool()
     performance_logger = PerformanceLogger()
     llm_provider = setup_llm_provider()
+    memory_agent = MemoryAgent()
 
-    # 2. Instantiate Agents
+    # 2. Setup Visualization
+    vis_server = VisualizationServer()
+    vis_server.run_in_background()
+    vis_client = VisualizationClient()
+
+    # 3. Instantiate Agents
     planner = PlannerAgent()
     coder = CoderAgent(llm_provider=llm_provider, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
-    evaluator = EvaluatorAgent()
+    evaluator = EvaluatorAgent(memory_agent=memory_agent, llm_provider=llm_provider)
     corrector = CorrectorAgent()
     curriculum_agent = CurriculumAgent(llm_provider=llm_provider, performance_logger=performance_logger)
 
-    # 3. Instantiate Supervisor
+    # 4. Instantiate Supervisor
     supervisor = MCSSupervisor(
         planner=planner,
         coder=coder,
         evaluator=evaluator,
-        corrector=corrector
+        corrector=corrector,
+        vis_client=vis_client
     )
 
     # 4. Select and run the appropriate execution mode
@@ -92,6 +102,23 @@ def main():
             logging.info(f"Evolution complete. Fittest gene saved to gene archive.")
         else:
             logging.error("Evolutionary cycle failed to produce a fit gene.")
+
+    elif run_mode == "theorem_proving":
+        logging.info("--- Starting Theorem Proving Mode ---")
+        num_theorems_to_prove = 3
+        for i in range(num_theorems_to_prove):
+            logging.info(f"\n--- Theorem Proving Attempt {i+1}/{num_theorems_to_prove} ---")
+            theorem = curriculum_agent.generate_theorem()
+            if not theorem:
+                logging.error("Failed to generate a theorem.")
+                continue
+
+            logging.info(f"Generated Theorem: {theorem}")
+            proof = coder.prove(theorem)
+            if proof:
+                logging.info(f"✅ Theorem proven successfully!\nProof:\n{proof}")
+            else:
+                logging.error("❌ Failed to prove the theorem.")
 
     elif run_mode == "crls":
         logging.info("\n--- Starting CRLS Loop (v0.21) ---")

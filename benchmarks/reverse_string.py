@@ -1,2 +1,6 @@
 def reverse_string(s):
-    return s[::-1]
+    # inefficient reversal
+    r = ''
+    for i in range(len(s) - 1, -1, -1):
+        r += s[i]
+    return r
