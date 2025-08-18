@@ -1,10 +1,15 @@
 import pytest
+from unittest.mock import MagicMock
 from src.evaluator import EvaluatorAgent
+from src.memory_agent import MemoryAgent
+from src.llm_provider import LLMProvider
 
 @pytest.fixture
 def evaluator():
-    """Pytest fixture to create an EvaluatorAgent instance."""
-    return EvaluatorAgent()
+    """Pytest fixture to create an EvaluatorAgent instance with mocked dependencies."""
+    mock_memory_agent = MagicMock(spec=MemoryAgent)
+    mock_llm_provider = MagicMock(spec=LLMProvider)
+    return EvaluatorAgent(memory_agent=mock_memory_agent, llm_provider=mock_llm_provider)
 
 def test_detect_specification_gaming_numeric(evaluator):
     """
