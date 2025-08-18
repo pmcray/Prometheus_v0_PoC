@@ -23,7 +23,7 @@ console_handler.setFormatter(formatter)
 logging.getLogger().addHandler(console_handler)
 # ---------------------
 
-from src.llm_provider import GoogleGeminiProvider, OllamaPhi3Provider, MockProvider
+from src.llm_provider import GoogleGeminiProvider, OllamaPhi3Provider, MockProvider, HuggingFaceGemmaProvider
 
 def setup_llm_provider():
     """
@@ -41,6 +41,10 @@ def setup_llm_provider():
     elif provider_name == "phi3":
         base_url = os.environ.get("OLLAMA_BASE_URL", "http://localhost:11434")
         return OllamaPhi3Provider(base_url=base_url)
+
+    elif provider_name == "gemma":
+        model_name = os.environ.get("GEMMA_MODEL_NAME", "google/gemma-2b")
+        return HuggingFaceGemmaProvider(model_name=model_name)
 
     elif provider_name == "mock":
         return MockProvider()

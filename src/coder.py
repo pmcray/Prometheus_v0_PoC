@@ -3,7 +3,11 @@ import re
 import random
 import logging
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
-from src.llm_provider import LLMProvider
+from src.llm_provider import LLMProvider, HuggingFaceGemmaProvider
+from trl import SFTTrainer
+from transformers import TrainingArguments
+from peft import LoraConfig
+from datasets import Dataset
 
 
 class CoderAgent:
@@ -105,6 +109,62 @@ class CoderAgent:
             else:
                 error_feedback = "The previous crossover failed verification. Please try again."
         return code1
+
+    def initiate_finetune(self, dataset: list[str], adapter_path: str):
+        """
+        Fine-tunes the underlying language model using the provided dataset.
+        """
+        logging.info("Initiating fine-tuning...")
+        if not isinstance(self.llm_provider, HuggingFaceGemmaProvider):
+            logging.error("Fine-tuning is only supported for HuggingFaceGemmaProvider.")
+            return None
+
+        model = self.llm_provider.model
+        tokenizer = self.llm_provider.tokenizer
+
+        # 1. Prepare dataset
+        dataset = Dataset.from_dict({"text": dataset})
+
+        # 2. LoRA Config
+        lora_config = LoraConfig(
+            r=8,
+            target_modules=["q_proj", "o_proj", "k_proj", "v_proj", "gate_proj", "up_proj", "down_proj"],
+            task_type="CAUSAL_LM",
+        )
+
+        # 3. Training Arguments
+        training_args = TrainingArguments(
+            output_dir=adapter_path,
+            per_device_train_batch_size=1,
+            gradient_accumulation_steps=4,
+            warmup_steps=2,
+            learning_rate=2e-4,
+            num_train_epochs=1,
+            logging_steps=1,
+            fp16=True, # Use float16 for mixed-precision training
+        )
+
+        # 4. SFT Trainer
+        trainer = SFTTrainer(
+            model=model,
+            tokenizer=tokenizer,
+            train_dataset=dataset,
+            dataset_text_field="text",
+            peft_config=lora_config,
+            args=training_args,
+            max_seq_length=1024,
+        )
+
+        # 5. Train
+        try:
+            trainer.train()
+            logging.info("Fine-tuning complete.")
+            trainer.save_model(adapter_path)
+            logging.info(f"LoRA adapter saved to {adapter_path}")
+            return adapter_path
+        except Exception as e:
+            logging.error(f"Fine-tuning failed: {e}")
+            return None
 
     def _verify_code(self, code):
         if not code:

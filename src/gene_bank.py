@@ -1,10 +1,11 @@
 
 import logging
 
-class GeneArchive:
+class GeneBankAgent:
     def __init__(self):
         self.archive = {}
-        logging.info("GeneArchive initialized.")
+        self.lora_adapters = {}
+        logging.info("GeneBankAgent initialized.")
 
     def add_gene(self, gene_id, code):
         """
@@ -36,3 +37,18 @@ class GeneArchive:
         
         fittest_gene_id = max(fitness_scores, key=fitness_scores.get)
         return self.get_gene(fittest_gene_id)
+
+    def add_lora_adapter(self, adapter_id, path):
+        """
+        Adds a new LoRA adapter path to the archive.
+        """
+        if adapter_id in self.lora_adapters:
+            logging.warning(f"LoRA adapter {adapter_id} already exists. Overwriting.")
+        self.lora_adapters[adapter_id] = path
+        logging.info(f"Added LoRA adapter {adapter_id} to the archive.")
+
+    def get_lora_adapter(self, adapter_id):
+        """
+        Retrieves a LoRA adapter path from the archive.
+        """
+        return self.lora_adapters.get(adapter_id)

@@ -5,6 +5,7 @@ import json
 from urllib import request
 
 import google.generativeai as genai
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 class LLMProvider(abc.ABC):
     @abc.abstractmethod
@@ -133,3 +134,19 @@ class MockProvider(LLMProvider):
 
         logging.warning(f"MockProvider received an unhandled prompt: {prompt[:100]}...")
         return "# Mock response"
+
+class HuggingFaceGemmaProvider(LLMProvider):
+    def __init__(self, model_name: str = "google/gemma-2b"):
+        self.model_name = model_name
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        self.model = AutoModelForCausalLM.from_pretrained(self.model_name)
+        logging.info(f"Using HuggingFaceGemmaProvider with model {self.model_name}")
+
+    def generate(self, prompt: str) -> str:
+        try:
+            inputs = self.tokenizer(prompt, return_tensors="pt")
+            outputs = self.model.generate(**inputs, max_length=100)
+            return self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+        except Exception as e:
+            logging.error(f"Hugging Face model generation failed: {e}")
+            return ""

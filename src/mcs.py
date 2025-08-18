@@ -4,7 +4,7 @@ import os
 import random
 from src.system_state import SystemState
 from src.tools import CompilerTool, StaticAnalyzerTool
-from src.gene_archive import GeneArchive
+from src.gene_bank import GeneBankAgent
 from .visualization_client import VisualizationClient
 from .visualization_data import AssemblyState
 from typing import Optional
@@ -15,7 +15,7 @@ class MCSSupervisor:
         self.coder = coder
         self.evaluator = evaluator
         self.corrector = corrector
-        self.gene_archive = GeneArchive()
+        self.gene_archive = GeneBankAgent()
         self.vis_client = vis_client
         self._send_state(0.0, []) # Initial state
 

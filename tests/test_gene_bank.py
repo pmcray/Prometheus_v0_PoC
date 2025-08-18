@@ -1,10 +1,10 @@
 import pytest
-from src.gene_archive import GeneArchive
+from src.gene_bank import GeneBankAgent
 
 @pytest.fixture
 def gene_archive():
-    """Provides a fresh GeneArchive instance for each test."""
-    return GeneArchive()
+    """Provides a fresh GeneBankAgent instance for each test."""
+    return GeneBankAgent()
 
 def test_add_and_get_gene(gene_archive):
     """Tests that a gene can be added and then retrieved."""
@@ -57,3 +57,14 @@ def test_get_all_genes(gene_archive):
     gene_archive.add_gene("gene1", "code1")
     gene_archive.add_gene("gene2", "code2")
     assert gene_archive.get_all_genes() == genes
+
+def test_add_and_get_lora_adapter(gene_archive):
+    """Tests that a LoRA adapter can be added and then retrieved."""
+    adapter_id = "test_adapter_1"
+    path = "/path/to/adapter"
+    gene_archive.add_lora_adapter(adapter_id, path)
+    assert gene_archive.get_lora_adapter(adapter_id) == path
+
+def test_get_lora_adapter_nonexistent(gene_archive):
+    """Tests that getting a non-existent LoRA adapter returns None."""
+    assert gene_archive.get_lora_adapter("nonexistent_adapter") is None
