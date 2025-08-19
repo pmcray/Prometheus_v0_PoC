@@ -1,62 +1,72 @@
-2025-08-19 09:12:06,489 - INFO - PerformanceLogger initialized with log file: performance_log.json
-2025-08-19 09:12:06,490 - INFO - Using MockProvider.
-2025-08-19 09:12:06,490 - INFO - MemoryAgent initialized.
-2025-08-19 09:12:06,490 - INFO - VisualizationServer initialized to run on localhost:8765
-2025-08-19 09:12:06,491 - INFO - Visualization server started in background thread.
-2025-08-19 09:12:06,492 - INFO - Starting visualization server...
-2025-08-19 09:12:06,492 - INFO - VisualizationClient configured for ws://localhost:8765
-2025-08-19 09:12:06,492 - INFO - PlannerAgent initialized with LLMProvider.
-2025-08-19 09:12:06,493 - INFO - EvaluatorAgent initialized with MemoryAgent and LLMProvider.
-2025-08-19 09:12:06,493 - INFO - TutorAgent initialized.
-2025-08-19 09:12:06,493 - INFO - GeneArchive initialized.
-2025-08-19 09:12:06,508 - INFO - server listening on 127.0.0.1:8765
-2025-08-19 09:12:06,512 - INFO - connection open
-2025-08-19 09:12:06,512 - INFO - New client connected: ('127.0.0.1', 38286). Total clients: 1
-2025-08-19 09:12:06,617 - INFO - Client disconnected: ('127.0.0.1', 38286). Total clients: 0
-2025-08-19 09:12:06,619 - INFO - Executing in 'crls' mode.
-2025-08-19 09:12:06,619 - INFO -
+2025-08-19 18:47:20,634 - INFO - PerformanceLogger initialized with log file: performance_log.json
+2025-08-19 18:47:20,634 - INFO - Using MockProvider.
+2025-08-19 18:47:20,635 - INFO - MemoryAgent initialized.
+2025-08-19 18:47:20,635 - INFO - VisualizationServer initialized to run on localhost:8765
+2025-08-19 18:47:20,636 - INFO - Starting visualization server...
+2025-08-19 18:47:20,637 - INFO - Visualization server started in background thread.
+2025-08-19 18:47:20,637 - INFO - VisualizationClient configured for ws://localhost:8765
+2025-08-19 18:47:20,637 - INFO - PerformancePredictorAgent initialized.
+2025-08-19 18:47:20,637 - INFO - PlannerAgent initialized with LLMProvider and PerformancePredictorAgent.
+2025-08-19 18:47:20,638 - INFO - EvaluatorAgent initialized with MemoryAgent and LLMProvider.
+2025-08-19 18:47:20,638 - INFO - TutorAgent initialized.
+2025-08-19 18:47:20,638 - INFO - GeneArchive initialized.
+2025-08-19 18:47:20,652 - INFO - server listening on 127.0.0.1:8765
+2025-08-19 18:47:20,657 - INFO - connection open
+2025-08-19 18:47:20,658 - INFO - New client connected: ('127.0.0.1', 51034). Total clients: 1
+2025-08-19 18:47:20,763 - INFO - Client disconnected: ('127.0.0.1', 51034). Total clients: 0
+2025-08-19 18:47:20,765 - INFO - Executing in 'crls' mode.
+2025-08-19 18:47:20,765 - INFO -
 --- Starting Assembly of Experts Demo (v0.37) ---
-2025-08-19 09:12:06,619 - INFO - Added LoRA adapter for task type 'LOOP_OPTIMIZATION' at path: /path/to/lora/adapters/loop_optimizer.bin
-2025-08-19 09:12:06,619 - INFO - PlannerAgent: Received goal - 'Refactor the 'sum_of_squares' function to be more efficient.'
-2025-08-19 09:12:06,620 - INFO - PlannerAgent: Created refactoring plan with classification 'LOOP_OPTIMIZATION'
-2025-08-19 09:12:06,620 - INFO - PlannerAgent created plan: {'type': 'refactor', 'task_classification': 'LOOP_OPTIMIZATION', 'code_snippet': 'def sum_of_squares(n):\n    """\n    Calculates the sum of squares of numbers from 0 to n-1.\n    This implementation uses an inefficient loop.\n    """\n    total = 0\n    for i in range(n):\n        total += i * i\n    return total\n', 'goal': "Refactor the 'sum_of_squares' function to be more efficient."}
-2025-08-19 09:12:06,620 - INFO - --- Starting Self-Modification for plan: Refactor the 'sum_of_squares' function to be more efficient. ---
-2025-08-19 09:12:06,625 - INFO - connection open
-2025-08-19 09:12:06,625 - INFO - New client connected: ('127.0.0.1', 38294). Total clients: 1
-2025-08-19 09:12:06,729 - INFO - Client disconnected: ('127.0.0.1', 38294). Total clients: 0
-2025-08-19 09:12:06,730 - INFO - Retrieved LoRA adapter for task type 'LOOP_OPTIMIZATION': /path/to/lora/adapters/loop_optimizer.bin
-2025-08-19 09:12:06,730 - INFO - MockProvider: 'Loading' LoRA adapter from /path/to/lora/adapters/loop_optimizer.bin
-2025-08-19 09:12:06,730 - INFO - Attempt 1/3...
-2025-08-19 09:12:06,730 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-19 09:12:06,730 - WARNING - MockProvider received an unhandled prompt: Instruction: Refactor the 'sum_of_squares' function to be more efficient.
+2025-08-19 18:47:20,765 - INFO - Added LoRA adapter for task type 'LOOP_OPTIMIZATION' at path: /path/to/lora/adapters/loop_optimizer.bin
+2025-08-19 18:47:20,765 - INFO - PlannerAgent: Received goal - 'Refactor the 'sum_of_squares' function to be more efficient.' for code snippet.
+2025-08-19 18:47:20,765 - INFO - PlannerAgent: Generated 3 strategies: ['use a for loop', 'use a list comprehension', 'use recursion']
+2025-08-19 18:47:20,765 - INFO - Predictor: Penalizing for 'for' loop.
+2025-08-19 18:47:20,765 - INFO - Predicted performance score for code snippet: 150.0
+2025-08-19 18:47:20,766 - INFO - Predicted performance score for code snippet: 100.0
+2025-08-19 18:47:20,766 - INFO - Predicted performance score for code snippet: 100.0
+2025-08-19 18:47:20,766 - INFO - PlannerAgent: Predicted performances: {'use a for loop': 150.0, 'use a list comprehension': 100.0, 'use recursion': 100.0}
+2025-08-19 18:47:20,766 - INFO - PlannerAgent: Selected best strategy: 'use a list comprehension'
+2025-08-19 18:47:20,766 - INFO - PlannerAgent: Created refactoring plan with best strategy.
+2025-08-19 18:47:20,766 - INFO - PlannerAgent created plan: {'type': 'refactor', 'task_classification': 'LOOP_OPTIMIZATION', 'code_snippet': 'def sum_of_squares(n):\n    """\n    Calculates the sum of squares of numbers from 0 to n-1.\n    This implementation uses an inefficient loop.\n    """\n    total = 0\n    for i in range(n):\n        total += i * i\n    return total\n', 'goal': 'use a list comprehension'}
+2025-08-19 18:47:20,766 - INFO - --- Starting Self-Modification for plan: use a list comprehension ---
+2025-08-19 18:47:20,771 - INFO - connection open
+2025-08-19 18:47:20,771 - INFO - New client connected: ('127.0.0.1', 51038). Total clients: 1
+2025-08-19 18:47:20,875 - INFO - Client disconnected: ('127.0.0.1', 51038). Total clients: 0
+2025-08-19 18:47:20,876 - INFO - Retrieved LoRA adapter for task type 'LOOP_OPTIMIZATION': /path/to/lora/adapters/loop_optimizer.bin
+2025-08-19 18:47:20,876 - INFO - MockProvider: 'Loading' LoRA adapter from /path/to/lora/adapters/loop_optimizer.bin
+2025-08-19 18:47:20,876 - INFO - Attempt 1/3...
+2025-08-19 18:47:20,877 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 18:47:20,877 - WARNING - MockProvider received an unhandled prompt: Instruction: use a list comprehension
 
 ```python
-def sum_of_squa...
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Received critique, formulating new prompt.
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Created new instruction.
-2025-08-19 09:12:06,731 - INFO - Attempt 2/3...
-2025-08-19 09:12:06,731 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-19 09:12:06,731 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+def sum_of_squares(n):
+    """
+    Calculates the s...
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 18:47:20,877 - INFO - Attempt 2/3...
+2025-08-19 18:47:20,877 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 18:47:20,877 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
 
 Causal Critique: Coder did not produ...
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Received critique, formulating new prompt.
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Created new instruction.
-2025-08-19 09:12:06,731 - INFO - Attempt 3/3...
-2025-08-19 09:12:06,731 - INFO - CoderAgent: Refactoring attempt 1
-2025-08-19 09:12:06,731 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 18:47:20,877 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 18:47:20,877 - INFO - Attempt 3/3...
+2025-08-19 18:47:20,878 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 18:47:20,878 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
 
 Causal Critique: Coder did not produ...
-2025-08-19 09:12:06,731 - INFO - CorrectorAgent: Received critique, formulating new prompt.
-2025-08-19 09:12:06,732 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
-2025-08-19 09:12:06,732 - INFO - CorrectorAgent: Created new instruction.
-2025-08-19 09:12:06,732 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
-2025-08-19 09:12:06,732 - INFO - MockProvider: 'Unloading' LoRA adapter.
-2025-08-19 09:12:06,736 - INFO - connection open
-2025-08-19 09:12:06,736 - INFO - New client connected: ('127.0.0.1', 38304). Total clients: 1
-2025-08-19 09:12:06,841 - INFO - Client disconnected: ('127.0.0.1', 38304). Total clients: 0
-2025-08-19 09:12:06,842 - ERROR - Self-modification failed. Final code:
+2025-08-19 18:47:20,878 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 18:47:20,878 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 18:47:20,878 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 18:47:20,878 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 18:47:20,878 - INFO - MockProvider: 'Unloading' LoRA adapter.
+2025-08-19 18:47:20,882 - INFO - connection open
+2025-08-19 18:47:20,882 - INFO - New client connected: ('127.0.0.1', 51046). Total clients: 1
+2025-08-19 18:47:20,986 - INFO - Client disconnected: ('127.0.0.1', 51046). Total clients: 0
+2025-08-19 18:47:20,988 - ERROR - Self-modification failed. Final code:
 def sum_of_squares(n):
     """
     Calculates the sum of squares of numbers from 0 to n-1.
@@ -67,5 +77,5 @@ def sum_of_squares(n):
         total += i * i
     return total
 
-2025-08-19 09:12:06,842 - INFO -
+2025-08-19 18:47:20,988 - INFO -
 --- Assembly of Experts Demo Finished ---

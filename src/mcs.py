@@ -67,7 +67,7 @@ class MCSSupervisor:
                 with open(temp_original_code_path, "w") as f:
                     f.write(original_code)
 
-                critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, temp_original_code_path)
+                critique, test_output, execution_time = self.evaluator.evaluate(modified_code, original_code, test_file_path, temp_original_code_path)
 
                 os.remove(temp_original_code_path)
 
@@ -129,7 +129,7 @@ class MCSSupervisor:
             self._send_state(0.0, [])
 
     def _evaluate_fitness(self, new_code, original_code, test_file_path, original_file_path):
-        critique, _ = self.evaluator.evaluate_code(new_code, original_code, test_file_path, original_file_path)
+        critique, _, execution_time = self.evaluator.evaluate_code(new_code, original_code, test_file_path, original_file_path)
         if not critique.test_passed:
             return 0
         complexity = self.evaluator._analyze_complexity(new_code)

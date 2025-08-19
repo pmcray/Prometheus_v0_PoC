@@ -115,7 +115,10 @@ class MockProvider(LLMProvider):
 
     def generate(self, prompt: str) -> str:
         # --- Planner prompts ---
-        if "classify the required refactoring task" in prompt:
+        if "Propose 3 distinct high-level strategies" in prompt:
+            strategies = ["use a for loop", "use a list comprehension", "use recursion"]
+            return json.dumps({"strategies": strategies})
+        elif "classify the required refactoring task" in prompt:
             if "for i in range" in prompt:
                 return "LOOP_OPTIMIZATION"
             elif "def factorial" in prompt:

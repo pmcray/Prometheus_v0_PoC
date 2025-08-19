@@ -4,6 +4,7 @@ import ast
 import logging
 import json
 import sys
+import time
 from .critique import CausalCritique, SelfReferentialCritique
 from .memory_agent import MemoryAgent
 from .llm_provider import LLMProvider
@@ -116,7 +117,7 @@ class EvaluatorAgent:
         # This method now directly calls the new evaluate_code logic.
         return self.evaluate_code(new_code, original_code, test_file_path, original_file_path)
 
-    def evaluate_code(self, new_code, original_code, test_file_path, original_file_path):
+    def evaluate_code(self, new_code, original_code, test_file_path, original_file_path, num_runs=3):
         # 1. Initial checks and test setup
         temp_file_path = "temp_eval_code.py"
         with open(temp_file_path, "w") as f:
@@ -128,9 +129,9 @@ class EvaluatorAgent:
         if self._detect_specification_gaming(new_code, test_code):
             critique = CausalCritique(test_passed=False, causal_improvement=False, reason="Specification gaming detected.")
             self.memory_agent.add_critique(critique)
-            return critique, ""
+            return critique, "", 0
 
-        # 2. Run tests
+        # 2. Run tests and measure performance
         original_module_name = os.path.basename(original_file_path).replace('.py', '')
         temp_module_name = temp_file_path.replace('.py', '')
         modified_test_code = test_code.replace(f'from {original_module_name}', f'from {temp_module_name}')
@@ -140,21 +141,34 @@ class EvaluatorAgent:
 
         test_passed = False
         test_output = ""
+        execution_times = []
         try:
             env = os.environ.copy()
             env["PYTHONPATH"] = f".{os.pathsep}{os.path.dirname(original_file_path)}"
-            result = subprocess.run([sys.executable, "-m", "pytest", temp_test_file_path], capture_output=True, text=True)
-            if result.returncode == 0:
-                test_passed = True
-            test_output = result.stdout + "\n" + result.stderr
+            for _ in range(num_runs):
+                start_time = time.perf_counter()
+                result = subprocess.run([sys.executable, "-m", "pytest", temp_test_file_path], capture_output=True, text=True, env=env)
+                end_time = time.perf_counter()
+                if result.returncode == 0:
+                    test_passed = True
+                    execution_times.append(end_time - start_time)
+                else:
+                    test_passed = False
+                    test_output = result.stdout + "\n" + result.stderr
+                    break
+            if test_passed:
+                test_output = result.stdout + "\n" + result.stderr
+
         finally:
             os.remove(temp_file_path)
             os.remove(temp_test_file_path)
 
+        avg_execution_time = sum(execution_times) / len(execution_times) if execution_times else 0
+
         if not test_passed:
             critique = CausalCritique(test_passed=False, causal_improvement=False, reason="Tests failed to pass.")
             self.memory_agent.add_critique(critique)
-            return critique, test_output
+            return critique, test_output, 0
 
         # 3. If tests pass, generate the rich SelfReferentialCritique
         original_complexity = self._analyze_complexity(original_code)
@@ -206,4 +220,4 @@ class EvaluatorAgent:
         )
 
         self.memory_agent.add_critique(critique)
-        return critique, test_output
+        return critique, test_output, avg_execution_time

@@ -26,7 +26,7 @@ class PerformanceLogger:
         with open(self.log_file, 'w') as f:
             json.dump(self.log, f, indent=4)
 
-    def log_benchmark(self, benchmark_name, success, complexity, solution_code=None):
+    def log_benchmark(self, benchmark_name, success, complexity, execution_time, solution_code=None):
         """
         Logs the result of a benchmark run.
         If successful, the solution code can be provided.
@@ -34,6 +34,7 @@ class PerformanceLogger:
         log_entry = {
             "success": success,
             "complexity": complexity,
+            "execution_time": execution_time,
             "timestamp": time.time()
         }
         if success and solution_code:
@@ -41,7 +42,7 @@ class PerformanceLogger:
 
         self.log["benchmarks"][benchmark_name] = log_entry
         self._save_log()
-        logging.info(f"Logged benchmark '{benchmark_name}': success={success}, complexity={complexity}")
+        logging.info(f"Logged benchmark '{benchmark_name}': success={success}, complexity={complexity}, execution_time={execution_time:.4f}s")
 
     def get_last_solved_complexity(self):
         """

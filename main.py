@@ -9,6 +9,7 @@ from src.mcs import MCSSupervisor
 from src.curriculum_agent import CurriculumAgent
 from src.tutor import TutorAgent
 from src.memory_agent import MemoryAgent
+from src.performance_predictor import PerformancePredictorAgent
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
 from src.system_state import SystemState
 from src.performance_logger import PerformanceLogger
@@ -65,7 +66,8 @@ def main():
     vis_client = VisualizationClient()
 
     # 3. Instantiate Agents
-    planner = PlannerAgent(llm_provider=llm_provider)
+    predictor = PerformancePredictorAgent()
+    planner = PlannerAgent(llm_provider=llm_provider, predictor=predictor)
     coder = CoderAgent(llm_provider=llm_provider, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
     evaluator = EvaluatorAgent(memory_agent=memory_agent, llm_provider=llm_provider)
     corrector = CorrectorAgent()
