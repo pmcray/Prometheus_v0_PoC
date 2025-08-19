@@ -10,12 +10,13 @@ from .visualization_data import AssemblyState
 from typing import Optional
 
 class MCSSupervisor:
-    def __init__(self, planner, coder, evaluator, corrector, vis_client: Optional[VisualizationClient] = None):
+    def __init__(self, planner, coder, evaluator, corrector, llm_provider, vis_client: Optional[VisualizationClient] = None):
         self.planner = planner
         self.coder = coder
         self.evaluator = evaluator
         self.corrector = corrector
         self.gene_archive = GeneArchive()
+        self.llm_provider = llm_provider
         self.vis_client = vis_client
         self._send_state(0.0, []) # Initial state
 
@@ -29,45 +30,62 @@ class MCSSupervisor:
             )
             self.vis_client.send_state(state)
 
-    def run_self_modification(self, initial_code_path, test_file_path, max_retries=3):
+    def run_self_modification(self, plan: dict, test_file_path: str, max_retries=3):
         """
-        Runs a direct self-modification loop to refactor a piece of code.
+        Runs a direct self-modification loop based on a plan from the PlannerAgent.
         """
-        logging.info(f"--- Starting Self-Modification for {initial_code_path} ---")
-        self._send_state(1.0, ["PlannerAgent", "CoderAgent", "EvaluatorAgent", "CorrectorAgent"])
-        try:
-            with open(initial_code_path, 'r') as f:
-                original_code = f.read()
-        except FileNotFoundError:
-            logging.error(f"Could not find file: {initial_code_path}")
+        logging.info(f"--- Starting Self-Modification for plan: {plan['goal']} ---")
+        self._send_state(1.0, ["PlannerAgent", "CoderAgent", "EvaluatorAgent", "CorrectorAgent", "GeneBankAgent"])
+
+        original_code = plan.get("code_snippet")
+        if not original_code:
+            logging.error("Plan is missing 'code_snippet'. Aborting.")
             self._send_state(0.0, [])
             return None, False
 
+        task_classification = plan.get("task_classification")
+        adapter_path = None
+        if task_classification:
+            adapter_path = self.gene_archive.get_lora_adapter(task_classification)
+            if adapter_path:
+                self.llm_provider.load_adapter(adapter_path)
+
         current_code = original_code
-        prompt = "Refactor this code to improve time complexity while maintaining correctness. The new code should be a drop-in replacement for the original."
+        prompt = plan.get("goal", "Refactor this code to improve time complexity while maintaining correctness.")
 
-        for i in range(max_retries):
-            logging.info(f"Attempt {i + 1}/{max_retries}...")
-            modified_code, _ = self.coder.refactor(current_code, prompt)
-            if not modified_code or modified_code == current_code:
-                prompt = self.corrector.correct(original_code, current_code, "Coder did not produce new code.")
-                continue
+        try:
+            for i in range(max_retries):
+                logging.info(f"Attempt {i + 1}/{max_retries}...")
+                modified_code, _ = self.coder.refactor(current_code, prompt)
+                if not modified_code or modified_code == current_code:
+                    prompt = self.corrector.correct(original_code, current_code, "Coder did not produce new code.")
+                    continue
 
-            critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, initial_code_path)
-            if critique.test_passed and critique.causal_improvement:
-                logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
-                with open(initial_code_path, 'w') as f:
-                    f.write(modified_code)
-                self._send_state(0.0, [])
-                return modified_code, True
-            else:
-                logging.warning(f"Attempt failed. Reason: {critique.reason}")
-                prompt = self.corrector.correct(original_code, modified_code, critique)
-                current_code = modified_code
+                # We need a file path for the original code for the evaluator to work
+                # This is a temporary solution for v0.37
+                temp_original_code_path = "temp_original_code.py"
+                with open(temp_original_code_path, "w") as f:
+                    f.write(original_code)
 
-        logging.error("❌ Failure. Could not improve the code after multiple attempts.")
-        self._send_state(0.0, [])
-        return current_code, False
+                critique, test_output = self.evaluator.evaluate(modified_code, original_code, test_file_path, temp_original_code_path)
+
+                os.remove(temp_original_code_path)
+
+                if critique.test_passed and critique.causal_improvement:
+                    logging.info(f"✅ Success! Refactoring successful. Reason: {critique.reason}")
+                    return modified_code, True
+                else:
+                    logging.warning(f"Attempt failed. Reason: {critique.reason}")
+                    prompt = self.corrector.correct(original_code, modified_code, critique)
+                    current_code = modified_code
+
+            logging.error("❌ Failure. Could not improve the code after multiple attempts.")
+            return current_code, False
+
+        finally:
+            if adapter_path:
+                self.llm_provider.unload_adapter()
+            self._send_state(0.0, [])
 
     def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
         logging.info(f"--- Starting Evolutionary Cycle for {initial_code_path} ---")

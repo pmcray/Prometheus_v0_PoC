@@ -4,7 +4,28 @@ import logging
 class GeneArchive:
     def __init__(self):
         self.archive = {}
+        self.lora_adapters = {}
         logging.info("GeneArchive initialized.")
+
+    def add_lora_adapter(self, task_type: str, adapter_path: str):
+        """
+        Adds a LoRA adapter path to the archive, indexed by task type.
+        """
+        if task_type in self.lora_adapters:
+            logging.warning(f"LoRA adapter for task type '{task_type}' already exists. Overwriting.")
+        self.lora_adapters[task_type] = adapter_path
+        logging.info(f"Added LoRA adapter for task type '{task_type}' at path: {adapter_path}")
+
+    def get_lora_adapter(self, task_type: str):
+        """
+        Retrieves a LoRA adapter path by its task type.
+        """
+        adapter_path = self.lora_adapters.get(task_type)
+        if adapter_path:
+            logging.info(f"Retrieved LoRA adapter for task type '{task_type}': {adapter_path}")
+        else:
+            logging.warning(f"No LoRA adapter found for task type '{task_type}'.")
+        return adapter_path
 
     def add_gene(self, gene_id, code):
         """

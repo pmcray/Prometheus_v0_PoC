@@ -65,7 +65,7 @@ def main():
     vis_client = VisualizationClient()
 
     # 3. Instantiate Agents
-    planner = PlannerAgent()
+    planner = PlannerAgent(llm_provider=llm_provider)
     coder = CoderAgent(llm_provider=llm_provider, compiler=compiler, analyzer=analyzer, lean_tool=lean_tool)
     evaluator = EvaluatorAgent(memory_agent=memory_agent, llm_provider=llm_provider)
     corrector = CorrectorAgent()
@@ -78,6 +78,7 @@ def main():
         coder=coder,
         evaluator=evaluator,
         corrector=corrector,
+        llm_provider=llm_provider,
         vis_client=vis_client
     )
 
@@ -123,78 +124,39 @@ def main():
                 logging.error("❌ Failed to prove the theorem.")
 
     elif run_mode == "crls":
-        logging.info("\n--- Starting CRLS Loop (v0.36) ---")
-        num_curriculum_cycles = 5 # Increased cycles to allow for failures
-        socratic_tutor_cycle_threshold = 3 # Trigger tutor after this many cycles
-        benchmark_dir = "benchmarks"
-        os.makedirs(benchmark_dir, exist_ok=True)
+        logging.info("\n--- Starting Assembly of Experts Demo (v0.37) ---")
 
-        benchmarks_to_run = []
-        logging.info(f"Generating initial set of {num_curriculum_cycles} benchmarks...")
-        for _ in range(num_curriculum_cycles):
-            benchmark = curriculum_agent.generate_benchmark()
-            if benchmark:
-                # The benchmark is a tuple (name, function_code, test_code)
-                benchmarks_to_run.append(benchmark)
+        # 1. Setup a sample task
+        problem_file = "toy_problem/loop_problem.py"
+        test_file = "toy_problem/test_loop_problem.py"
+        goal = "Refactor the 'sum_of_squares' function to be more efficient."
 
-        logging.info(f"Successfully generated {len(benchmarks_to_run)} initial benchmarks.")
+        try:
+            with open(problem_file, 'r') as f:
+                code_snippet = f.read()
+        except FileNotFoundError:
+            logging.error(f"Could not find problem file: {problem_file}")
+            sys.exit(1)
 
-        i = 0
-        while i < len(benchmarks_to_run):
-            benchmark_name, function_code, test_code = benchmarks_to_run[i]
-            logging.info(f"\n--- Curriculum Cycle {i+1}/{len(benchmarks_to_run)} ---")
-            logging.info(f"Running benchmark: {benchmark_name}")
+        # 2. Add a mock LoRA adapter to the GeneArchive
+        # In a real scenario, this would be the path to a trained adapter file.
+        mock_adapter_path = "/path/to/lora/adapters/loop_optimizer.bin"
+        supervisor.gene_archive.add_lora_adapter("LOOP_OPTIMIZATION", mock_adapter_path)
 
-            # Check if it's time to engage the Socratic Tutor
-            if i > 0 and i % socratic_tutor_cycle_threshold == 0:
-                logging.info("\n--- Checking for failures to trigger Socratic Tutor ---")
-                failed_critiques = memory_agent.get_failed_critiques()
-                if failed_critiques:
-                    logging.info(f"Found {len(failed_critiques)} failed critiques. Engaging TutorAgent.")
-                    # Let the tutor generate a new, targeted curriculum
-                    new_benchmarks_dicts = tutor.generate_curriculum(failed_critiques)
-                    if new_benchmarks_dicts:
-                        new_benchmarks = [
-                            (b['benchmark_name'], b['function_code'], b['test_code'])
-                            for b in new_benchmarks_dicts
-                        ]
-                        logging.info(f"TutorAgent generated {len(new_benchmarks)} new benchmarks. Inserting them into the curriculum.")
-                        # Insert the new benchmarks into the list to be processed next
-                        benchmarks_to_run = benchmarks_to_run[:i+1] + new_benchmarks + benchmarks_to_run[i+1:]
-                        # Clear the failed critiques from memory so we don't re-trigger on the same failures
-                        memory_agent.critique_history = [c for c in memory_agent.critique_history if c.test_passed]
-                        logging.info("Cleared failed critiques from memory.")
+        # 3. Use the PlannerAgent to classify the task and create a plan
+        plan = planner.plan(code_snippet, goal)
+        logging.info(f"PlannerAgent created plan: {plan}")
 
-            # b. Save benchmark to files
-            function_file_path = os.path.join(benchmark_dir, f"{benchmark_name}.py")
-            test_file_path = os.path.join(benchmark_dir, f"test_{benchmark_name}.py")
+        # 4. Run self-modification using the plan
+        # The supervisor will now handle the adapter loading based on the plan
+        final_code, success = supervisor.run_self_modification(plan, test_file)
 
-            with open(function_file_path, 'w') as f:
-                f.write(function_code)
-            with open(test_file_path, 'w') as f:
-                f.write(test_code)
+        if success:
+            logging.info(f"Self-modification successful. Final code:\n{final_code}")
+        else:
+            logging.error(f"Self-modification failed. Final code:\n{final_code}")
 
-            # c. Run self-modification on the new benchmark
-            final_code, success = supervisor.run_self_modification(
-                initial_code_path=function_file_path,
-                test_file_path=test_file_path
-            )
-
-            # d. Log the result
-            if final_code:
-                complexity = evaluator.analyze_complexity(final_code)
-                performance_logger.log_benchmark(
-                    benchmark_name=benchmark_name,
-                    success=success,
-                    complexity=complexity,
-                    solution_code=final_code if success else function_code # Log the improved code if successful
-                )
-            else:
-                logging.error(f"Supervisor failed to return code for benchmark {benchmark_name}.")
-
-            i += 1 # Move to the next benchmark
-
-        logging.info("\n--- CRLS Loop Finished ---")
+        logging.info("\n--- Assembly of Experts Demo Finished ---")
     else:
         logging.error(f"FATAL: Unknown RUN_MODE '{run_mode}'.")
         sys.exit(1)

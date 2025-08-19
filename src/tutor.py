@@ -9,14 +9,16 @@ class TutorAgent:
         self.llm_provider = llm_provider
         logging.info("TutorAgent initialized.")
 
-    def generate_curriculum(self, failed_critiques: List[CausalCritique]) -> List[Dict[str, Any]]:
+    def generate_curriculum(self, failed_critiques: List[CausalCritique], problem_class: str = None) -> List[Dict[str, Any]]:
         """
-        Generates a new curriculum based on a list of failed critiques.
+        Generates a new curriculum based on a list of failed critiques, optionally targeted to a specific problem class.
         """
         if not failed_critiques:
             return []
 
         logging.info(f"TutorAgent: Generating curriculum based on {len(failed_critiques)} failed critiques.")
+        if problem_class:
+            logging.info(f"TutorAgent: Targeting problem class '{problem_class}'.")
 
         failure_reasons = [critique.reason for critique in failed_critiques]
         unique_failure_reasons = list(set(failure_reasons))
@@ -25,10 +27,9 @@ class TutorAgent:
 
         new_benchmarks = []
         for reason in unique_failure_reasons:
-            prompt = self._create_prompt_for_new_benchmark(reason)
+            prompt = self._create_prompt_for_new_benchmark(reason, problem_class)
             try:
                 response = self.llm_provider.generate(prompt)
-                # The work plan specifies 5-10 problems, but for now I'll just ask for one per failure reason to keep it simple.
                 benchmark = self._parse_llm_response(response)
                 if benchmark:
                     new_benchmarks.append(benchmark)
@@ -38,14 +39,19 @@ class TutorAgent:
         logging.info(f"TutorAgent: Generated {len(new_benchmarks)} new benchmarks.")
         return new_benchmarks
 
-    def _create_prompt_for_new_benchmark(self, failure_reason: str) -> str:
+    def _create_prompt_for_new_benchmark(self, failure_reason: str, problem_class: str = None) -> str:
         """
         Creates a prompt for the LLM to generate a new benchmark based on a failure reason.
         """
+        class_prompt = ""
+        if problem_class:
+            class_prompt = f"The problem should be of the class '{problem_class}'."
+
         prompt = f"""
         Based on the following reason for a programming failure: "{failure_reason}"
 
         Please generate a new Python programming problem as a benchmark to help an AI agent learn from this mistake.
+        {class_prompt}
         The problem should be a function that needs to be implemented.
         The output should be a single JSON object with the following keys:
         - "benchmark_name": a short, descriptive name for the benchmark (e.g., "recursive_factorial_to_iterative").

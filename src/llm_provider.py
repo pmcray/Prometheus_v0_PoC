@@ -12,6 +12,16 @@ class LLMProvider(abc.ABC):
         """Generates text based on a prompt."""
         pass
 
+    @abc.abstractmethod
+    def load_adapter(self, adapter_path: str):
+        """Loads a LoRA adapter."""
+        pass
+
+    @abc.abstractmethod
+    def unload_adapter(self):
+        """Unloads the current LoRA adapter."""
+        pass
+
 class GoogleGeminiProvider(LLMProvider):
     def __init__(self, api_key: str):
         if not api_key:
@@ -27,6 +37,14 @@ class GoogleGeminiProvider(LLMProvider):
         except Exception as e:
             logging.error(f"Google Gemini API call failed: {e}")
             return ""
+
+    def load_adapter(self, adapter_path: str):
+        logging.warning("LoRA adapter loading is not implemented for GoogleGeminiProvider yet.")
+        pass
+
+    def unload_adapter(self):
+        logging.warning("LoRA adapter unloading is not implemented for GoogleGeminiProvider yet.")
+        pass
 
 class OllamaPhi3Provider(LLMProvider):
     def __init__(self, base_url: str = "http://localhost:11434", model: str = "phi3"):
@@ -49,6 +67,14 @@ class OllamaPhi3Provider(LLMProvider):
         except Exception as e:
             logging.error(f"Ollama API call failed: {e}")
             return ""
+
+    def load_adapter(self, adapter_path: str):
+        logging.warning("LoRA adapter loading is not implemented for OllamaPhi3Provider yet.")
+        pass
+
+    def unload_adapter(self):
+        logging.warning("LoRA adapter unloading is not implemented for OllamaPhi3Provider yet.")
+        pass
 
 class MockProvider(LLMProvider):
     def __init__(self):
@@ -79,7 +105,24 @@ class MockProvider(LLMProvider):
         ]
         logging.info("Using MockProvider.")
 
+    def load_adapter(self, adapter_path: str):
+        logging.info(f"MockProvider: 'Loading' LoRA adapter from {adapter_path}")
+        pass
+
+    def unload_adapter(self):
+        logging.info("MockProvider: 'Unloading' LoRA adapter.")
+        pass
+
     def generate(self, prompt: str) -> str:
+        # --- Planner prompts ---
+        if "classify the required refactoring task" in prompt:
+            if "for i in range" in prompt:
+                return "LOOP_OPTIMIZATION"
+            elif "def factorial" in prompt:
+                return "RECURSION_REFACTOR"
+            else:
+                return "GENERAL_REFACTORING"
+
         # --- CurriculumAgent prompts ---
         if "propose a new, related coding challenge" in prompt:
             # Always return the reverse_string topic to ensure we test the failure case
