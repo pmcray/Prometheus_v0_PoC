@@ -1,27 +1,250 @@
-2025-08-14 23:50:53,330 - INFO - PerformanceLogger initialized with log file: performance_log.json
-2025-08-14 23:50:53,330 - INFO - Using MockProvider.
-2025-08-14 23:50:53,330 - INFO - MemoryAgent initialized.
-2025-08-14 23:50:53,330 - INFO - VisualizationServer initialized to run on localhost:8765
-2025-08-14 23:50:53,331 - INFO - Visualization server started in background thread.
-2025-08-14 23:50:53,331 - INFO - VisualizationClient configured for ws://localhost:8765
-2025-08-14 23:50:53,331 - INFO - EvaluatorAgent initialized with MemoryAgent and LLMProvider.
-2025-08-14 23:50:53,331 - INFO - GeneArchive initialized.
-2025-08-14 23:50:53,332 - INFO - Starting visualization server...
-2025-08-14 23:50:53,342 - INFO - server listening on 127.0.0.1:8765
-2025-08-14 23:50:53,345 - INFO - connection open
-2025-08-14 23:50:53,345 - INFO - New client connected: ('127.0.0.1', 44880). Total clients: 1
-2025-08-14 23:50:53,450 - INFO - Client disconnected: ('127.0.0.1', 44880). Total clients: 0
-2025-08-14 23:50:53,451 - INFO - Executing in 'crls' mode.
-2025-08-14 23:50:53,451 - INFO -
---- Starting CRLS Loop (v0.21) ---
-2025-08-14 23:50:53,451 - INFO -
---- Curriculum Cycle 1/3 ---
-2025-08-14 23:50:53,451 - INFO - No previous benchmark solved. Generating entry-level benchmark.
-2025-08-14 23:50:53,451 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string and returns the reversed string.'
-2025-08-14 23:50:53,452 - INFO - Generated benchmark: reverse_string
-2025-08-14 23:50:53,452 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
-2025-08-14 23:50:53,456 - INFO - connection open
-2025-08-14 23:50:53,457 - INFO - New client connected: ('127.0.0.1', 44892). Total clients: 1
-2025-08-14 23:50:53,560 - INFO - Client disconnected: ('127.0.0.1', 44892). Total clients: 0
-2025-08-14 23:50:53,561 - INFO - Attempt 1/3...
-2025-08-14 23:50:53,562 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:39,228 - INFO - PerformanceLogger initialized with log file: performance_log.json
+2025-08-19 03:26:39,228 - INFO - Using MockProvider.
+2025-08-19 03:26:39,228 - INFO - MemoryAgent initialized.
+2025-08-19 03:26:39,228 - INFO - VisualizationServer initialized to run on localhost:8765
+2025-08-19 03:26:39,229 - INFO - Visualization server started in background thread.
+2025-08-19 03:26:39,229 - INFO - VisualizationClient configured for ws://localhost:8765
+2025-08-19 03:26:39,229 - INFO - EvaluatorAgent initialized with MemoryAgent and LLMProvider.
+2025-08-19 03:26:39,229 - INFO - TutorAgent initialized.
+2025-08-19 03:26:39,230 - INFO - GeneArchive initialized.
+2025-08-19 03:26:39,230 - INFO - Starting visualization server...
+2025-08-19 03:26:39,240 - INFO - server listening on 127.0.0.1:8765
+2025-08-19 03:26:39,243 - INFO - connection open
+2025-08-19 03:26:39,243 - INFO - New client connected: ('127.0.0.1', 37284). Total clients: 1
+2025-08-19 03:26:39,348 - INFO - Client disconnected: ('127.0.0.1', 37284). Total clients: 0
+2025-08-19 03:26:39,349 - INFO - Executing in 'crls' mode.
+2025-08-19 03:26:39,349 - INFO -
+--- Starting CRLS Loop (v0.36) ---
+2025-08-19 03:26:39,349 - INFO - Generating initial set of 5 benchmarks...
+2025-08-19 03:26:39,349 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-19 03:26:39,349 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string'
+2025-08-19 03:26:39,349 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-19 03:26:39,349 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string'
+2025-08-19 03:26:39,349 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-19 03:26:39,350 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string'
+2025-08-19 03:26:39,350 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-19 03:26:39,350 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string'
+2025-08-19 03:26:39,350 - INFO - Last solved benchmark had complexity 0. Generating a harder one.
+2025-08-19 03:26:39,350 - INFO - CurriculumAgent: Generating new benchmark on the topic of 'a function that reverses a string'
+2025-08-19 03:26:39,350 - INFO - Successfully generated 5 initial benchmarks.
+2025-08-19 03:26:39,350 - INFO -
+--- Curriculum Cycle 1/5 ---
+2025-08-19 03:26:39,350 - INFO - Running benchmark: reverse_string
+2025-08-19 03:26:39,350 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-19 03:26:39,354 - INFO - connection open
+2025-08-19 03:26:39,354 - INFO - New client connected: ('127.0.0.1', 37294). Total clients: 1
+2025-08-19 03:26:39,457 - INFO - Client disconnected: ('127.0.0.1', 37294). Total clients: 0
+2025-08-19 03:26:39,458 - INFO - Attempt 1/3...
+2025-08-19 03:26:39,458 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:39,804 - INFO - MemoryAgent: Added critique to history. Total critiques: 1
+2025-08-19 03:26:39,805 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:39,805 - INFO - Attempt 2/3...
+2025-08-19 03:26:39,805 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:39,805 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:39,805 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:39,805 - INFO - Attempt 3/3...
+2025-08-19 03:26:39,805 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:39,805 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:39,806 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:39,806 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:39,806 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:39,806 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:39,809 - INFO - connection open
+2025-08-19 03:26:39,809 - INFO - New client connected: ('127.0.0.1', 37298). Total clients: 1
+2025-08-19 03:26:39,913 - INFO - Client disconnected: ('127.0.0.1', 37298). Total clients: 0
+2025-08-19 03:26:39,915 - INFO - Logged benchmark 'reverse_string': success=False, complexity=0
+2025-08-19 03:26:39,915 - INFO -
+--- Curriculum Cycle 2/5 ---
+2025-08-19 03:26:39,915 - INFO - Running benchmark: reverse_string
+2025-08-19 03:26:39,915 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-19 03:26:39,921 - INFO - connection open
+2025-08-19 03:26:39,921 - INFO - New client connected: ('127.0.0.1', 37302). Total clients: 1
+2025-08-19 03:26:40,025 - INFO - Client disconnected: ('127.0.0.1', 37302). Total clients: 0
+2025-08-19 03:26:40,026 - INFO - Attempt 1/3...
+2025-08-19 03:26:40,026 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,398 - INFO - MemoryAgent: Added critique to history. Total critiques: 2
+2025-08-19 03:26:40,398 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,399 - INFO - Attempt 2/3...
+2025-08-19 03:26:40,399 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,399 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,399 - INFO - Attempt 3/3...
+2025-08-19 03:26:40,399 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,399 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,399 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,399 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:40,403 - INFO - connection open
+2025-08-19 03:26:40,403 - INFO - New client connected: ('127.0.0.1', 37318). Total clients: 1
+2025-08-19 03:26:40,508 - INFO - Client disconnected: ('127.0.0.1', 37318). Total clients: 0
+2025-08-19 03:26:40,509 - INFO - Logged benchmark 'reverse_string': success=False, complexity=0
+2025-08-19 03:26:40,509 - INFO -
+--- Curriculum Cycle 3/5 ---
+2025-08-19 03:26:40,509 - INFO - Running benchmark: reverse_string
+2025-08-19 03:26:40,509 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-19 03:26:40,513 - INFO - connection open
+2025-08-19 03:26:40,513 - INFO - New client connected: ('127.0.0.1', 37332). Total clients: 1
+2025-08-19 03:26:40,618 - INFO - Client disconnected: ('127.0.0.1', 37332). Total clients: 0
+2025-08-19 03:26:40,620 - INFO - Attempt 1/3...
+2025-08-19 03:26:40,620 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,986 - INFO - MemoryAgent: Added critique to history. Total critiques: 3
+2025-08-19 03:26:40,986 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:40,986 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,986 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,986 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,986 - INFO - Attempt 2/3...
+2025-08-19 03:26:40,986 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,986 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:40,986 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,987 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,987 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,987 - INFO - Attempt 3/3...
+2025-08-19 03:26:40,987 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:40,987 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:40,987 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:40,987 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:40,987 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:40,987 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:40,990 - INFO - connection open
+2025-08-19 03:26:40,991 - INFO - New client connected: ('127.0.0.1', 37336). Total clients: 1
+2025-08-19 03:26:41,095 - INFO - Client disconnected: ('127.0.0.1', 37336). Total clients: 0
+2025-08-19 03:26:41,097 - INFO - Logged benchmark 'reverse_string': success=False, complexity=0
+2025-08-19 03:26:41,097 - INFO -
+--- Curriculum Cycle 4/5 ---
+2025-08-19 03:26:41,097 - INFO - Running benchmark: reverse_string
+2025-08-19 03:26:41,097 - INFO -
+--- Checking for failures to trigger Socratic Tutor ---
+2025-08-19 03:26:41,097 - INFO - MemoryAgent: Retrieved 3 failed critiques.
+2025-08-19 03:26:41,097 - INFO - Found 3 failed critiques. Engaging TutorAgent.
+2025-08-19 03:26:41,097 - INFO - TutorAgent: Generating curriculum based on 3 failed critiques.
+2025-08-19 03:26:41,097 - INFO - TutorAgent: Identified unique failure reasons: ['Tests failed to pass.']
+2025-08-19 03:26:41,098 - INFO - TutorAgent: Generated 1 new benchmarks.
+2025-08-19 03:26:41,098 - INFO - TutorAgent generated 1 new benchmarks. Inserting them into the curriculum.
+2025-08-19 03:26:41,098 - INFO - Cleared failed critiques from memory.
+2025-08-19 03:26:41,098 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-19 03:26:41,150 - INFO - connection open
+2025-08-19 03:26:41,151 - INFO - New client connected: ('127.0.0.1', 37348). Total clients: 1
+2025-08-19 03:26:41,255 - INFO - Client disconnected: ('127.0.0.1', 37348). Total clients: 0
+2025-08-19 03:26:41,256 - INFO - Attempt 1/3...
+2025-08-19 03:26:41,257 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:41,629 - INFO - MemoryAgent: Added critique to history. Total critiques: 1
+2025-08-19 03:26:41,629 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:41,630 - INFO - Attempt 2/3...
+2025-08-19 03:26:41,630 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:41,630 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:41,630 - INFO - Attempt 3/3...
+2025-08-19 03:26:41,630 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:41,630 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:41,630 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:41,631 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:41,634 - INFO - connection open
+2025-08-19 03:26:41,634 - INFO - New client connected: ('127.0.0.1', 37354). Total clients: 1
+2025-08-19 03:26:41,738 - INFO - Client disconnected: ('127.0.0.1', 37354). Total clients: 0
+2025-08-19 03:26:41,739 - INFO - Logged benchmark 'reverse_string': success=False, complexity=0
+2025-08-19 03:26:41,739 - INFO -
+--- Curriculum Cycle 5/6 ---
+2025-08-19 03:26:41,739 - INFO - Running benchmark: tutor_generated_benchmark
+2025-08-19 03:26:41,740 - INFO - --- Starting Self-Modification for benchmarks/tutor_generated_benchmark.py ---
+2025-08-19 03:26:41,743 - INFO - connection open
+2025-08-19 03:26:41,743 - INFO - New client connected: ('127.0.0.1', 37360). Total clients: 1
+2025-08-19 03:26:41,846 - INFO - Client disconnected: ('127.0.0.1', 37360). Total clients: 0
+2025-08-19 03:26:41,848 - INFO - Attempt 1/3...
+2025-08-19 03:26:41,848 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,342 - INFO - MemoryAgent: Added critique to history. Total critiques: 2
+2025-08-19 03:26:42,342 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:42,342 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,342 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,342 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,342 - INFO - Attempt 2/3...
+2025-08-19 03:26:42,342 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,342 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:42,342 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,343 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,343 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,343 - INFO - Attempt 3/3...
+2025-08-19 03:26:42,343 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,343 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:42,343 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,343 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,343 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,343 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:42,346 - INFO - connection open
+2025-08-19 03:26:42,347 - INFO - New client connected: ('127.0.0.1', 37362). Total clients: 1
+2025-08-19 03:26:42,450 - INFO - Client disconnected: ('127.0.0.1', 37362). Total clients: 0
+2025-08-19 03:26:42,452 - INFO - Logged benchmark 'tutor_generated_benchmark': success=False, complexity=0
+2025-08-19 03:26:42,452 - INFO -
+--- Curriculum Cycle 6/6 ---
+2025-08-19 03:26:42,452 - INFO - Running benchmark: reverse_string
+2025-08-19 03:26:42,453 - INFO - --- Starting Self-Modification for benchmarks/reverse_string.py ---
+2025-08-19 03:26:42,455 - INFO - connection open
+2025-08-19 03:26:42,455 - INFO - New client connected: ('127.0.0.1', 37378). Total clients: 1
+2025-08-19 03:26:42,559 - INFO - Client disconnected: ('127.0.0.1', 37378). Total clients: 0
+2025-08-19 03:26:42,560 - INFO - Attempt 1/3...
+2025-08-19 03:26:42,560 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,931 - INFO - MemoryAgent: Added critique to history. Total critiques: 3
+2025-08-19 03:26:42,931 - WARNING - Attempt failed. Reason: Tests failed to pass.
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,931 - INFO - Attempt 2/3...
+2025-08-19 03:26:42,931 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,931 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: test_passed=False c...
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,931 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,931 - INFO - Attempt 3/3...
+2025-08-19 03:26:42,931 - INFO - CoderAgent: Refactoring attempt 1
+2025-08-19 03:26:42,932 - WARNING - MockProvider received an unhandled prompt: Instruction: The previous attempt to refactor the code failed.
+
+Causal Critique: Coder did not produ...
+2025-08-19 03:26:42,932 - INFO - CorrectorAgent: Received critique, formulating new prompt.
+2025-08-19 03:26:42,932 - INFO - CorrectorAgent: Generating simple prompt from basic critique.
+2025-08-19 03:26:42,932 - INFO - CorrectorAgent: Created new instruction.
+2025-08-19 03:26:42,932 - ERROR - ❌ Failure. Could not improve the code after multiple attempts.
+2025-08-19 03:26:42,935 - INFO - connection open
+2025-08-19 03:26:42,935 - INFO - New client connected: ('127.0.0.1', 37390). Total clients: 1
+2025-08-19 03:26:43,039 - INFO - Client disconnected: ('127.0.0.1', 37390). Total clients: 0
+2025-08-19 03:26:43,040 - INFO - Logged benchmark 'reverse_string': success=False, complexity=0
+2025-08-19 03:26:43,041 - INFO -
+--- CRLS Loop Finished ---

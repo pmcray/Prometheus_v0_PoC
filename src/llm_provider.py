@@ -82,12 +82,8 @@ class MockProvider(LLMProvider):
     def generate(self, prompt: str) -> str:
         # --- CurriculumAgent prompts ---
         if "propose a new, related coding challenge" in prompt:
-            if "reverse_string" in prompt:
-                return self.canned_benchmarks[1]["topic"]
-            elif "sort_list_of_tuples" in prompt:
-                return self.canned_benchmarks[2]["topic"]
-            else: # Default for subsequent calls
-                return "a function that finds the median of a list"
+            # Always return the reverse_string topic to ensure we test the failure case
+            return self.canned_benchmarks[0]["topic"]
 
         elif "Write a single Python function" in prompt:
             for benchmark in self.canned_benchmarks:
@@ -103,6 +99,9 @@ class MockProvider(LLMProvider):
 
         # --- CoderAgent prompts ---
         elif "Refactor this code" in prompt:
+            if "reverse_string" in prompt:
+                # Intentionally provide a failing implementation to trigger the tutor
+                return "```python\ndef reverse_string(s):\n    return s\n```"
             for name, response in self.canned_responses.items():
                 if name in prompt:
                     return f"```python\n{response}\n```"
@@ -130,6 +129,15 @@ class MockProvider(LLMProvider):
         # --- EvaluatorAgent prompts ---
         elif "provide a confidence score and uncertainty level" in prompt:
             return '{"evaluation_confidence": 0.9, "uncertainty_level": "low"}'
+
+        # --- TutorAgent prompts ---
+        elif 'Based on the following reason for a programming failure' in prompt:
+            mock_benchmark = {
+                "benchmark_name": "tutor_generated_benchmark",
+                "function_code": "def tutor_function(x):\n    pass",
+                "test_code": "import pytest\nfrom tutor_generated_benchmark import tutor_function\n\ndef test_tutor_function():\n    assert tutor_function(1) == 1"
+            }
+            return f"```json\n{json.dumps(mock_benchmark)}\n```"
 
         logging.warning(f"MockProvider received an unhandled prompt: {prompt[:100]}...")
         return "# Mock response"

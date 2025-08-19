@@ -7,6 +7,7 @@ from src.evaluator import EvaluatorAgent
 from src.corrector import CorrectorAgent
 from src.mcs import MCSSupervisor
 from src.curriculum_agent import CurriculumAgent
+from src.tutor import TutorAgent
 from src.memory_agent import MemoryAgent
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
 from src.system_state import SystemState
@@ -69,6 +70,7 @@ def main():
     evaluator = EvaluatorAgent(memory_agent=memory_agent, llm_provider=llm_provider)
     corrector = CorrectorAgent()
     curriculum_agent = CurriculumAgent(llm_provider=llm_provider, performance_logger=performance_logger)
+    tutor = TutorAgent(llm_provider=llm_provider)
 
     # 4. Instantiate Supervisor
     supervisor = MCSSupervisor(
@@ -121,21 +123,47 @@ def main():
                 logging.error("❌ Failed to prove the theorem.")
 
     elif run_mode == "crls":
-        logging.info("\n--- Starting CRLS Loop (v0.21) ---")
-        num_curriculum_cycles = 3
+        logging.info("\n--- Starting CRLS Loop (v0.36) ---")
+        num_curriculum_cycles = 5 # Increased cycles to allow for failures
+        socratic_tutor_cycle_threshold = 3 # Trigger tutor after this many cycles
         benchmark_dir = "benchmarks"
         os.makedirs(benchmark_dir, exist_ok=True)
 
-        for i in range(num_curriculum_cycles):
-            logging.info(f"\n--- Curriculum Cycle {i+1}/{num_curriculum_cycles} ---")
+        benchmarks_to_run = []
+        logging.info(f"Generating initial set of {num_curriculum_cycles} benchmarks...")
+        for _ in range(num_curriculum_cycles):
+            benchmark = curriculum_agent.generate_benchmark()
+            if benchmark:
+                # The benchmark is a tuple (name, function_code, test_code)
+                benchmarks_to_run.append(benchmark)
 
-            # a. Generate a new benchmark
-            benchmark_name, function_code, test_code = curriculum_agent.generate_benchmark()
-            if not all([benchmark_name, function_code, test_code]):
-                logging.error("Failed to generate a valid benchmark. Ending CRLS loop.")
-                break
+        logging.info(f"Successfully generated {len(benchmarks_to_run)} initial benchmarks.")
 
-            logging.info(f"Generated benchmark: {benchmark_name}")
+        i = 0
+        while i < len(benchmarks_to_run):
+            benchmark_name, function_code, test_code = benchmarks_to_run[i]
+            logging.info(f"\n--- Curriculum Cycle {i+1}/{len(benchmarks_to_run)} ---")
+            logging.info(f"Running benchmark: {benchmark_name}")
+
+            # Check if it's time to engage the Socratic Tutor
+            if i > 0 and i % socratic_tutor_cycle_threshold == 0:
+                logging.info("\n--- Checking for failures to trigger Socratic Tutor ---")
+                failed_critiques = memory_agent.get_failed_critiques()
+                if failed_critiques:
+                    logging.info(f"Found {len(failed_critiques)} failed critiques. Engaging TutorAgent.")
+                    # Let the tutor generate a new, targeted curriculum
+                    new_benchmarks_dicts = tutor.generate_curriculum(failed_critiques)
+                    if new_benchmarks_dicts:
+                        new_benchmarks = [
+                            (b['benchmark_name'], b['function_code'], b['test_code'])
+                            for b in new_benchmarks_dicts
+                        ]
+                        logging.info(f"TutorAgent generated {len(new_benchmarks)} new benchmarks. Inserting them into the curriculum.")
+                        # Insert the new benchmarks into the list to be processed next
+                        benchmarks_to_run = benchmarks_to_run[:i+1] + new_benchmarks + benchmarks_to_run[i+1:]
+                        # Clear the failed critiques from memory so we don't re-trigger on the same failures
+                        memory_agent.critique_history = [c for c in memory_agent.critique_history if c.test_passed]
+                        logging.info("Cleared failed critiques from memory.")
 
             # b. Save benchmark to files
             function_file_path = os.path.join(benchmark_dir, f"{benchmark_name}.py")
@@ -163,6 +191,8 @@ def main():
                 )
             else:
                 logging.error(f"Supervisor failed to return code for benchmark {benchmark_name}.")
+
+            i += 1 # Move to the next benchmark
 
         logging.info("\n--- CRLS Loop Finished ---")
     else:

@@ -34,3 +34,11 @@ class MemoryAgent:
         ]
         logging.info(f"MemoryAgent: Retrieved {len(formatted_context)} critiques for historical context.")
         return formatted_context
+
+    def get_failed_critiques(self) -> List[CausalCritique]:
+        """
+        Retrieves all critiques where the test did not pass.
+        """
+        failed_critiques = [c for c in self.critique_history if not c.test_passed]
+        logging.info(f"MemoryAgent: Retrieved {len(failed_critiques)} failed critiques.")
+        return failed_critiques

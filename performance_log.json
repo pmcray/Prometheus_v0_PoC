@@ -1,0 +1,25 @@
+{
+    "benchmarks": {
+        "reverse_string": {
+            "success": false,
+            "complexity": 0,
+            "timestamp": 1755574003.040643
+        },
+        "sort_list_of_tuples": {
+            "success": true,
+            "complexity": 0,
+            "timestamp": 1755573930.268701,
+            "solution_code": "def sort_list_of_tuples(data):\n    return sorted(data, key=lambda x: x[1])"
+        },
+        "benchmark_name": {
+            "success": false,
+            "complexity": 0,
+            "timestamp": 1755573973.5447462
+        },
+        "tutor_generated_benchmark": {
+            "success": false,
+            "complexity": 0,
+            "timestamp": 1755574002.4521294
+        }
+    }
+}

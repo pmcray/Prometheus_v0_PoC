@@ -3,6 +3,7 @@ import os
 import ast
 import logging
 import json
+import sys
 from .critique import CausalCritique, SelfReferentialCritique
 from .memory_agent import MemoryAgent
 from .llm_provider import LLMProvider
