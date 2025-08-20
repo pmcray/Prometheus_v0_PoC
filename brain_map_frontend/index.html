@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prometheus Brain Map</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Prometheus v0.41 - Brain Map</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <h1>Prometheus v0.41 - Brain Map</h1>
-    <div id="container">
+    <div class="container">
         <div id="brain-map-panel">
-            <svg id="brain-map-svg"></svg>
+            <h2>The Brain Map</h2>
+            <div id="graph-container"></div>
         </div>
         <div id="context-panel">
             <h2>Context View</h2>
-            <pre id="context-content"></pre>
+            <pre id="context-view-content">Waiting for agent activity...</pre>
         </div>
     </div>
-
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="main.js"></script>
+    <script src="/static/main.js"></script>
 </body>
 </html>

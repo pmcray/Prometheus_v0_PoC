@@ -16,6 +16,7 @@ from prometheus.tools.base_tools import CompilerTool, StaticAnalyzerTool, LeanTo
 
 # --- System Imports ---
 from prometheus.performance_logger import PerformanceLogger
+from prometheus.visualizer_client import emit_status
 
 # --- Logging Setup ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s', filename='crls_loop.log', filemode='w')
@@ -43,12 +44,13 @@ def main():
 
     # 2. Instantiate Agents (except CoderAgent)
     planner = PlannerAgent()
-    evaluator = EvaluatorAgent()
+    evaluator = EvaluatorAgent(api_key=API_KEY, lean_tool=lean_tool)
     corrector = CorrectorAgent()
     knowledge_agent = KnowledgeAgent(api_key=API_KEY, performance_logger=performance_logger, pdf_tool=pdf_tool)
 
     # 3. Main loop (simplified for now, to be expanded later)
     logging.info("\n--- Running Self-Improvement Task ---")
+    emit_status("Orchestrator", "thinking", {"task": "Starting self-improvement task."})
 
     task_description = "Refactor the inefficient_sort.py file to be more efficient."
 
@@ -84,20 +86,24 @@ def main():
         # --- Placeholder for CoderAgent's action ---
         # This now aligns with the refactored CoderAgent and the verification test.
         logging.info("Attempting to refactor 'toy_problem/inefficient_sort.py' with the dynamically loaded CoderAgent.")
+        emit_status("Orchestrator", "thinking", {"task": "Attempting to refactor 'toy_problem/inefficient_sort.py'"})
 
         try:
             with open('toy_problem/inefficient_sort.py', 'r') as f:
                 original_code = f.read()
 
+            emit_status("Coder", "thinking", {"task": "Refactoring code."})
             refactored_code = coder.refactor_code(original_code)
 
             if refactored_code != original_code:
                 logging.info("✅ CoderAgent task completed successfully! Code was refactored.")
+                emit_status("Coder", "success", {"task": "Code was refactored."})
                 # In a real scenario, we would save the refactored code.
                 # print(refactored_code)
             else:
                 # This is expected if using the "dumb" agent.
                 logging.warning("CoderAgent task completed, but code was not refactored (this may be expected).")
+                emit_status("Coder", "failure", {"task": "Code was not refactored."})
 
         except FileNotFoundError:
             logging.error("Could not find 'toy_problem/inefficient_sort.py'. Cannot perform refactoring task.")

@@ -5,6 +5,7 @@ import google.generativeai as genai
 from .critique import CausalCritique
 from .tools import LeanTool
 from .tools.proof_tree import ProofTree
+from .visualizer_client import emit_status
 
 class EvaluatorAgent:
     def __init__(self, api_key, lean_tool: LeanTool):
@@ -13,6 +14,7 @@ class EvaluatorAgent:
         self.lean_tool = lean_tool
 
     def summarize_proof_strategy(self, proof_tree: ProofTree, theorem: str):
+        emit_status("Evaluator", "evaluating", {"theorem": theorem})
         print("EvaluatorAgent: Summarizing successful proof strategy.")
         successful_node = self._find_solved_node(proof_tree.root)
         if not successful_node:
@@ -28,7 +30,9 @@ class EvaluatorAgent:
         Please provide a one-sentence, high-level summary of the proof strategy.
         """
         response = self.model.generate_content(prompt)
-        return response.text.strip()
+        summary = response.text.strip()
+        emit_status("Evaluator", "success", {"summary": summary})
+        return summary
 
     def _find_solved_node(self, node):
         if node.is_solved:

@@ -2,6 +2,7 @@
 
 import logging
 from .reloader import reload_agent_module
+from .visualizer_client import emit_status
 
 class CorrectorAgent:
     def correct(self, original_code, failed_code, critique):
@@ -9,6 +10,7 @@ class CorrectorAgent:
         Generates a new prompt for the CoderAgent based on the critique.
         This is part of the standard CRLS loop.
         """
+        emit_status("Corrector", "thinking", {"critique": str(critique)})
         critique_reason = str(critique)
         logging.info(f"CorrectorAgent: Received critique - {critique_reason}")
         
@@ -46,15 +48,19 @@ The goal is to improve the time complexity of the code.
         """
         if not patch_is_verified:
             logging.warning("CorrectorAgent: Self-modification aborted. Patch was not verified by IEE.")
+            emit_status("Corrector", "failure", {"reason": "Patch not verified by IEE."})
             return False
 
         logging.info(f"CorrectorAgent: IEE confirmed patch verification. Triggering hot-swap for module: {module_name}")
+        emit_status("Corrector", "generating_patch", {"module_name": module_name})
 
         success = reload_agent_module(module_name)
 
         if success:
             logging.info(f"CorrectorAgent: Successfully triggered reload for {module_name}.")
+            emit_status("Corrector", "success", {"module_name": module_name, "reloaded": True})
         else:
             logging.error(f"CorrectorAgent: Failed to trigger reload for {module_name}.")
+            emit_status("Corrector", "failure", {"module_name": module_name, "reloaded": False})
 
         return success

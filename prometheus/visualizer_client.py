@@ -20,7 +20,8 @@ async def _send_to_visualizer(data: dict):
         # logging.warning(f"Could not connect to the visualizer at {VISUALIZER_URI}. {e}")
         pass # Suppress logging for now to avoid clutter
     except Exception as e:
-        logging.error(f"An unexpected error occurred in the visualizer client: {e}")
+        # logging.error(f"An unexpected error occurred in the visualizer client: {e}")
+        pass
 
 def emit_status(agent_id: str, state: str, data: dict = None):
     """
@@ -43,11 +44,11 @@ def emit_status(agent_id: str, state: str, data: dict = None):
 
     # Run the async send function in a new event loop
     # This is a simple way to call async code from a sync context.
-    # --- DISABLED FOR V0.40 VERIFICATION ---
-    # try:
-    #     asyncio.run(_send_to_visualizer(message))
-    # except RuntimeError:
-    #     # If an event loop is already running, use create_task
-    #     loop = asyncio.get_running_loop()
-    #     loop.create_task(_send_to_visualizer(message))
-    pass
+    try:
+        # This is a simple approach for sync contexts. For high-performance
+        # applications, a dedicated thread for the asyncio loop might be better.
+        asyncio.run(_send_to_visualizer(message))
+    except RuntimeError:
+        # This handles cases where an event loop is already running (e.g., in Jupyter).
+        loop = asyncio.get_running_loop()
+        loop.create_task(_send_to_visualizer(message))

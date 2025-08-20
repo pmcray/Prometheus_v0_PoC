@@ -1,6 +1,7 @@
 import google.generativeai as genai
 import os
 import logging
+from .visualizer_client import emit_status
 
 class PlannerAgent:
     def __init__(self):
@@ -11,7 +12,8 @@ class PlannerAgent:
         """
         Generates a bid for a plan to achieve a goal.
         """
-        print(f"PlannerAgent: Generating bid for goal: '{goal}'")
+        emit_status("Planner", "thinking", {"goal": goal})
+        logging.info(f"PlannerAgent: Generating bid for goal: '{goal}'")
         
         # For the PoC, we'll generate two competing plans.
         plan_a = "Use the FlakyCompilerTool to compile the code."
@@ -24,6 +26,7 @@ class PlannerAgent:
             {"plan": plan_a, "cost": cost_a, "agent": "FlakyCompilerTool"},
             {"plan": plan_b, "cost": cost_b, "agent": "ReliableCompilerTool"}
         ]
+        emit_status("Planner", "success", {"bids": bids})
         return bids
 
     def estimate_cost(self, plan: str):

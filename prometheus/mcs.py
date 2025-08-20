@@ -2,6 +2,7 @@ import logging
 from .resource_manager import ResourceManager
 from .tools.flaky_compiler_tool import FlakyCompilerTool
 from .tools import CompilerTool
+from .visualizer_client import emit_status
 
 class MCSSupervisor:
     def __init__(self, planner, resource_manager: ResourceManager):
@@ -13,6 +14,7 @@ class MCSSupervisor:
         }
 
     def run_budgeted_cycle(self, goal: str):
+        emit_status("MCS", "monitoring", {"goal": goal, "cycle_type": "budgeted"})
         logging.info(f"--- Starting Budgeted Cycle for goal: {goal} ---")
 
         # 1. Generate Bids
@@ -43,6 +45,8 @@ class MCSSupervisor:
                 if self.resource_manager.deduct_cost(agent_name, cost):
                     tool = self.tool_registry[agent_name]
                     tool.compile("<code>")
+
+        emit_status("MCS", "success", {"goal": goal, "cycle_type": "budgeted", "status": "completed"})
 
     def run_auction(self, bids: list):
         """
