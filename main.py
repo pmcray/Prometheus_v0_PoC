@@ -82,13 +82,27 @@ def main():
         logging.info(f"Dynamically loaded and instantiated CoderAgent from {coder_module_name}")
 
         # --- Placeholder for CoderAgent's action ---
-        specification = "A tool named `MyFinalTool` that can multiply two numbers."
-        file_path = coder.synthesize_tool(specification)
+        # This now aligns with the refactored CoderAgent and the verification test.
+        logging.info("Attempting to refactor 'toy_problem/inefficient_sort.py' with the dynamically loaded CoderAgent.")
 
-        if file_path:
-            logging.info(f"✅ CoderAgent task completed successfully! New tool at: {file_path}")
-        else:
-            logging.error("❌ CoderAgent task failed.")
+        try:
+            with open('toy_problem/inefficient_sort.py', 'r') as f:
+                original_code = f.read()
+
+            refactored_code = coder.refactor_code(original_code)
+
+            if refactored_code != original_code:
+                logging.info("✅ CoderAgent task completed successfully! Code was refactored.")
+                # In a real scenario, we would save the refactored code.
+                # print(refactored_code)
+            else:
+                # This is expected if using the "dumb" agent.
+                logging.warning("CoderAgent task completed, but code was not refactored (this may be expected).")
+
+        except FileNotFoundError:
+            logging.error("Could not find 'toy_problem/inefficient_sort.py'. Cannot perform refactoring task.")
+        except Exception as e:
+            logging.error(f"An error occurred during the refactoring task: {e}")
 
     except (ImportError, AttributeError, TypeError) as e:
         logging.error(f"Failed to dynamically load or use CoderAgent: {e}", exc_info=True)

@@ -6,6 +6,9 @@ python-dotenv
 pydantic
 pypdf
 pandas
-causallearn
+causal-learn
 pyvis
 nltk
+fastapi
+uvicorn
+websockets
