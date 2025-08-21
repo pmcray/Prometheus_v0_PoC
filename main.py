@@ -34,6 +34,30 @@ if not API_KEY:
     sys.exit(1)
 
 
+def get_coder_agent(api_key, compiler, analyzer, lean_tool, knowledge_agent):
+    """Dynamically imports and returns an instance of the CoderAgent."""
+    coder_module_name = 'prometheus.coder'
+
+    importlib.invalidate_caches()
+
+    if coder_module_name in sys.modules:
+        from prometheus.reloader import reload_agent_module
+        if not reload_agent_module(coder_module_name):
+            raise ImportError(f"Failed to reload {coder_module_name}")
+        coder_module = sys.modules[coder_module_name]
+    else:
+        coder_module = importlib.import_module(coder_module_name)
+
+    CoderAgent = getattr(coder_module, 'CoderAgent')
+
+    return CoderAgent(
+        api_key=api_key,
+        compiler=compiler,
+        analyzer=analyzer,
+        lean_tool=lean_tool,
+        knowledge_agent=knowledge_agent
+    )
+
 def main():
     # 1. Instantiate Tools & Logger
     compiler = CompilerTool()
@@ -42,77 +66,109 @@ def main():
     pdf_tool = PDFTool()
     performance_logger = PerformanceLogger()
 
-    # 2. Instantiate Agents (except CoderAgent)
+    # 2. Instantiate Agents that are not dynamically loaded
     planner = PlannerAgent()
     evaluator = EvaluatorAgent(api_key=API_KEY, lean_tool=lean_tool)
     corrector = CorrectorAgent()
     knowledge_agent = KnowledgeAgent(api_key=API_KEY, performance_logger=performance_logger, pdf_tool=pdf_tool)
+    mcs = MCSSupervisor(planner=planner, resource_manager=None) # ResourceManager not used in this version
 
-    # 3. Main loop (simplified for now, to be expanded later)
-    logging.info("\n--- Running Self-Improvement Task ---")
-    emit_status("Orchestrator", "thinking", {"task": "Starting self-improvement task."})
+    # 3. Task Definition
+    logging.info("\n--- Starting v0.42: The First RSI Cycle ---")
+    emit_status("Orchestrator", "thinking", {"task": "Starting RSI Cycle demonstration."})
 
     task_description = "Refactor the inefficient_sort.py file to be more efficient."
-
-    coder_module_name = 'prometheus.coder'
-
-    # Dynamically import the CoderAgent class
     try:
-        # Invalidate caches to make sure we load the newest version of the code
-        importlib.invalidate_caches()
+        with open('toy_problem/inefficient_sort.py', 'r') as f:
+            original_code = f.read()
+    except FileNotFoundError:
+        logging.error(f"Could not find 'toy_problem/inefficient_sort.py'. Aborting.")
+        return
 
-        # If the module is already loaded, reload it to get the latest version
-        if coder_module_name in sys.modules:
-            from prometheus.reloader import reload_agent_module
-            if not reload_agent_module(coder_module_name):
-                raise ImportError(f"Failed to reload {coder_module_name}")
-            coder_module = sys.modules[coder_module_name]
-        else:
-            coder_module = importlib.import_module(coder_module_name)
+    # 4. The RSI Loop
+    max_crls_attempts = 3
+    crls_attempts = 0
+    task_solved = False
 
-        CoderAgent = getattr(coder_module, 'CoderAgent')
-
-        # Instantiate the CoderAgent for this specific task
-        coder = CoderAgent(
-            api_key=API_KEY,
-            compiler=compiler,
-            analyzer=analyzer,
-            lean_tool=lean_tool,
-            knowledge_agent=knowledge_agent
-        )
-
-        logging.info(f"Dynamically loaded and instantiated CoderAgent from {coder_module_name}")
-
-        # --- Placeholder for CoderAgent's action ---
-        # This now aligns with the refactored CoderAgent and the verification test.
-        logging.info("Attempting to refactor 'toy_problem/inefficient_sort.py' with the dynamically loaded CoderAgent.")
-        emit_status("Orchestrator", "thinking", {"task": "Attempting to refactor 'toy_problem/inefficient_sort.py'"})
+    while not task_solved and crls_attempts < max_crls_attempts:
+        crls_attempts += 1
+        logging.info(f"\n--- CRLS Attempt #{crls_attempts} ---")
+        emit_status("Orchestrator", "thinking", {"task": f"CRLS Attempt #{crls_attempts}"})
 
         try:
-            with open('toy_problem/inefficient_sort.py', 'r') as f:
-                original_code = f.read()
+            coder = get_coder_agent(API_KEY, compiler, analyzer, lean_tool, knowledge_agent)
+            logging.info(f"Dynamically loaded CoderAgent.")
 
-            emit_status("Coder", "thinking", {"task": "Refactoring code."})
             refactored_code = coder.refactor_code(original_code)
 
             if refactored_code != original_code:
-                logging.info("✅ CoderAgent task completed successfully! Code was refactored.")
-                emit_status("Coder", "success", {"task": "Code was refactored."})
-                # In a real scenario, we would save the refactored code.
-                # print(refactored_code)
+                logging.info("✅ Task solved successfully on this attempt!")
+                emit_status("Orchestrator", "success", {"task": "RSI Cycle successful."})
+                task_solved = True
             else:
-                # This is expected if using the "dumb" agent.
-                logging.warning("CoderAgent task completed, but code was not refactored (this may be expected).")
-                emit_status("Coder", "failure", {"task": "Code was not refactored."})
+                logging.warning("Task not solved on this attempt.")
+                emit_status("Coder", "failure", {"task": "Refactoring failed."})
+                # In a real scenario, a critique would be generated here.
+                # For this simulation, we just loop.
 
-        except FileNotFoundError:
-            logging.error("Could not find 'toy_problem/inefficient_sort.py'. Cannot perform refactoring task.")
-        except Exception as e:
-            logging.error(f"An error occurred during the refactoring task: {e}")
+        except (ImportError, AttributeError, TypeError) as e:
+            logging.error(f"An error occurred with the CoderAgent: {e}", exc_info=True)
+            break # Exit loop on critical error
 
-    except (ImportError, AttributeError, TypeError) as e:
-        logging.error(f"Failed to dynamically load or use CoderAgent: {e}", exc_info=True)
-        sys.exit(1)
+    # 5. Escalation to Self-Modification
+    modification_attempts = 0
+    max_modification_attempts = 3
+
+    if not task_solved and modification_attempts < max_modification_attempts:
+        modification_attempts += 1
+        logging.info(f"\n--- Escalating to Self-Modification (Attempt #{modification_attempts}) ---")
+        emit_status("Orchestrator", "generating_patch", {"task": "CRLS failed, escalating to self-modification."})
+
+        # MCS Stability Check
+        if not mcs.check_stability(modification_attempts, []): # Passing empty patch history for now
+            logging.warning("MCS intervention: Halting due to unstable RSI loop.")
+            emit_status("MCS", "intervention", {"reason": "RSI Stability Violation"})
+            return
+
+        # This is a simulation of the SMM and IEE process
+        patch_is_verified = True # Assume verification is successful for this demo
+
+        if patch_is_verified:
+            logging.info("IEE simulation: Patch verified successfully.")
+            emit_status("Orchestrator", "verifying_patch", {"status": "success"})
+
+            success = corrector.trigger_self_modification('prometheus.coder', patch_is_verified=True)
+
+            if success:
+                logging.info("\n--- Re-attempting Task with Upgraded Agent ---")
+                emit_status("Orchestrator", "re-attempting_task", {"task": "Re-attempting task with new agent."})
+
+                try:
+                    # Get the new, "smarter" CoderAgent
+                    coder = get_coder_agent(API_KEY, compiler, analyzer, lean_tool, knowledge_agent)
+                    refactored_code = coder.refactor_code(original_code)
+
+                    if refactored_code != original_code:
+                        logging.info("✅ Task solved successfully on re-attempt!")
+                        emit_status("Orchestrator", "success", {"task": "RSI Cycle successful on re-attempt."})
+                        task_solved = True
+                    else:
+                        logging.error("❌ Task FAILED even after self-modification.")
+                        emit_status("Orchestrator", "failure", {"task": "Self-modification did not solve the task."})
+
+                except (ImportError, AttributeError, TypeError) as e:
+                    logging.error(f"An error occurred with the upgraded CoderAgent: {e}", exc_info=True)
+            else:
+                logging.error("❌ Self-modification failed. Could not reload the agent.")
+                emit_status("Orchestrator", "failure", {"task": "Self-modification failed."})
+        else:
+            logging.warning("IEE simulation: Patch failed verification. Halting.")
+            emit_status("Orchestrator", "failure", {"task": "Patch verification failed."})
+
+    if not task_solved:
+        logging.info("\n--- End of Process: Task could not be solved. ---")
+    else:
+        logging.info("\n--- End of Process: Task solved successfully. ---")
 
 
 if __name__ == "__main__":

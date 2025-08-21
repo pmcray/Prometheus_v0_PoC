@@ -71,3 +71,28 @@ class MCSSupervisor:
 
         logging.info(f"Selected bid with score {best_score}: {best_bid}")
         return best_bid
+
+    def check_stability(self, modification_attempts: int, patch_history: list) -> bool:
+        """
+        Checks for signs of an unstable or degenerate RSI loop.
+
+        Args:
+            modification_attempts: The number of self-modification cycles attempted for the current task.
+            patch_history: A list of previously generated patches and their verification statuses.
+
+        Returns:
+            True if the loop is stable, False otherwise.
+        """
+        emit_status("MCS", "monitoring", {"check": "RSI Stability"})
+
+        # Heuristic 1: Check if the agent is "flailing"
+        if modification_attempts > 3:
+            logging.warning(f"MCS Stability Check: Too many modification attempts ({modification_attempts}).")
+            emit_status("MCS", "intervention", {"reason": "Exceeded modification attempt limit."})
+            return False
+
+        # Heuristic 2: Check for consecutively failed patches (not implemented in this version)
+        # ...
+
+        logging.info("MCS Stability Check: RSI loop appears stable.")
+        return True

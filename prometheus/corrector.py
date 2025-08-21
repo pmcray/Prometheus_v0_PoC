@@ -52,7 +52,7 @@ The goal is to improve the time complexity of the code.
             return False
 
         logging.info(f"CorrectorAgent: IEE confirmed patch verification. Triggering hot-swap for module: {module_name}")
-        emit_status("Corrector", "generating_patch", {"module_name": module_name})
+        emit_status("Corrector", "reloading_module", {"module_name": module_name})
 
         success = reload_agent_module(module_name)
 
