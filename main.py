@@ -90,6 +90,7 @@ def main():
     crls_attempts = 0
     task_solved = False
 
+    failure_history = []
     while not task_solved and crls_attempts < max_crls_attempts:
         crls_attempts += 1
         logging.info(f"\n--- CRLS Attempt #{crls_attempts} ---")
@@ -106,10 +107,10 @@ def main():
                 emit_status("Orchestrator", "success", {"task": "RSI Cycle successful."})
                 task_solved = True
             else:
-                logging.warning("Task not solved on this attempt.")
-                emit_status("Coder", "failure", {"task": "Refactoring failed."})
-                # In a real scenario, a critique would be generated here.
-                # For this simulation, we just loop.
+                failure_reason = "Refactoring failed."
+                logging.warning(f"Task not solved on this attempt. Reason: {failure_reason}")
+                emit_status("Coder", "failure", {"task": failure_reason})
+                failure_history.append(failure_reason)
 
         except (ImportError, AttributeError, TypeError) as e:
             logging.error(f"An error occurred with the CoderAgent: {e}", exc_info=True)
@@ -121,23 +122,38 @@ def main():
 
     if not task_solved and modification_attempts < max_modification_attempts:
         modification_attempts += 1
+
+        # Meta-Learning: Decide which module to modify
+        target_module = 'prometheus.coder' # Default target
+        if len(failure_history) == max_crls_attempts:
+            logging.warning("CRLS loop failed maximum number of times. Suspecting a metacognitive failure.")
+            logging.info("Targeting CorrectorAgent for self-modification.")
+            target_module = 'prometheus.corrector'
+
         logging.info(f"\n--- Escalating to Self-Modification (Attempt #{modification_attempts}) ---")
-        emit_status("Orchestrator", "generating_patch", {"task": "CRLS failed, escalating to self-modification."})
+        emit_status("Orchestrator", "generating_patch", {"task": f"CRLS failed, escalating to self-modification of {target_module}."})
 
         # MCS Stability Check
         if not mcs.check_stability(modification_attempts, []): # Passing empty patch history for now
-            logging.warning("MCS intervention: Halting due to unstable RSI loop.")
-            emit_status("MCS", "intervention", {"reason": "RSI Stability Violation"})
             return
 
         # This is a simulation of the SMM and IEE process
-        patch_is_verified = True # Assume verification is successful for this demo
+        # In a real scenario, SMM would generate a patch file. We will simulate this.
+        # For this demo, we assume the patch is always "smart" for the targeted module.
+        if target_module == 'prometheus.corrector':
+            # This would be a call to a simulated SMM for the Corrector
+            # Then, we call the meta-evaluation workflow
+            logging.info("Simulating SMM for CorrectorAgent and starting Meta-Evaluation.")
+            # The IEE (EvaluatorAgent) runs the benchmark to verify the patch
+            patch_is_verified = evaluator.evaluate_meta_patch("path/to/simulated/corrector_patch.diff")
+        else:
+            patch_is_verified = True # Assume normal patch verification is successful
 
         if patch_is_verified:
-            logging.info("IEE simulation: Patch verified successfully.")
-            emit_status("Orchestrator", "verifying_patch", {"status": "success"})
+            logging.info(f"IEE simulation: Patch for {target_module} verified successfully.")
+            emit_status("Orchestrator", "verifying_patch", {"status": "success", "target": target_module})
 
-            success = corrector.trigger_self_modification('prometheus.coder', patch_is_verified=True)
+            success = corrector.trigger_self_modification(target_module, patch_is_verified=True)
 
             if success:
                 logging.info("\n--- Re-attempting Task with Upgraded Agent ---")
