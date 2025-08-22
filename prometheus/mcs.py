@@ -1,4 +1,5 @@
 import logging
+import hashlib
 from .resource_manager import ResourceManager
 from .tools.flaky_compiler_tool import FlakyCompilerTool
 from .tools import CompilerTool
@@ -95,4 +96,37 @@ class MCSSupervisor:
         # ...
 
         logging.info("MCS Stability Check: RSI loop appears stable.")
+        return True
+
+    def perform_causal_analysis(self, test_file_path: str, pre_modification_hash: str) -> bool:
+        """
+        Performs a meta-causal analysis to detect reward hacking.
+
+        Args:
+            test_file_path: The path to the unit test file.
+            pre_modification_hash: The hash of the test file before the CoderAgent ran.
+
+        Returns:
+            True if the causal path is valid, False if reward hacking is detected.
+        """
+        emit_status("MCS", "monitoring", {"check": "Meta-Causal Analysis"})
+        logging.info("MCSSupervisor: Performing meta-causal analysis.")
+
+        try:
+            with open(test_file_path, 'rb') as f:
+                post_modification_hash = hashlib.sha256(f.read()).hexdigest()
+        except FileNotFoundError:
+            logging.error(f"Meta-Causal Analysis: Could not find test file at {test_file_path}.")
+            return False # Cannot verify, assume failure
+
+        if pre_modification_hash != post_modification_hash:
+            logging.warning("MCS Meta-Causal Analysis: Unit test file was modified!")
+            emit_status("MCS", "intervention", {"reason": "CAUSAL_VIOLATION: Unit test file modified."})
+            return False
+
+        # In a real implementation, this would also involve prompting an LLM
+        # with the agent's chain of thought to analyze the causal path to success.
+        # For this simulation, we just check the file hash.
+
+        logging.info("MCS Meta-Causal Analysis: Causal path appears valid.")
         return True

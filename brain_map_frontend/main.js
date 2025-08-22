@@ -98,7 +98,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const { agent_id, state, payload } = message;
 
         // Update context view
-        contextViewContent.textContent = JSON.stringify(payload, null, 2);
+        contextViewContent.textContent = `[${agent_id} / ${state}]\n\n` + JSON.stringify(payload, null, 2);
+
+        // Special case for MCS Intervention
+        if (agent_id === 'MCS' && state === 'intervention') {
+            handleMCSIntervention(payload);
+            return;
+        }
 
         // Update node colors
         node.selectAll('circle')
@@ -108,26 +114,51 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (d.id === agent_id) {
                     return getNodeColor(state);
                 }
-                return d.group === 'agent' ? '#6baed6' : '#fd8d3c'; // Reset others
+                // Don't reset colors if an intervention has occurred
+                if (d3.select(d).attr('data-intervened')) return '#aaa';
+                return d.group === 'agent' ? '#6baed6' : '#fd8d3c';
             });
+    }
+
+    function handleMCSIntervention(payload) {
+        // MCS node pulses red
+        d3.select(node.filter(d => d.id === 'MCS').node())
+            .select('circle')
+            .transition()
+            .duration(100)
+            .attr('fill', '#ff0000') // Bright red
+            .style('stroke', '#ff0000')
+            .attr('r', 30)
+            .transition()
+            .duration(400)
+            .attr('r', 25)
+            .ease(d3.easeBounce);
+
+        // Other nodes turn grey
+        node.filter(d => d.id !== 'MCS').selectAll('circle')
+            .attr('data-intervened', true) // Mark as intervened
+            .transition()
+            .duration(500)
+            .attr('fill', '#aaa'); // Neutral grey
+
+        // Update context view with intervention reason
+        contextViewContent.textContent = `--- MCS INTERVENTION ---\n\nREASON: ${payload.reason}`;
+        contextViewContent.style.color = '#ff0000';
+        contextViewContent.style.fontWeight = 'bold';
     }
 
     function getNodeColor(state) {
         switch (state) {
-            case 'thinking':
-                return '#f0ad4e'; // Yellow
+            case 'thinking': return '#f0ad4e'; // Yellow
             case 'generating_code':
             case 'generating_patch':
-                return '#5bc0de'; // Blue
+            case 'reloading_module': return '#5bc0de'; // Blue
             case 'evaluating':
-            case 'verifying_patch':
-                return '#d9534f'; // Red
-            case 'success':
-                return '#5cb85c'; // Green
-            case 'failure':
-                return '#c9302c'; // Dark Red
-            default:
-                return '#6baed6'; // Default Blue
+            case 'verifying_patch': return '#d9534f'; // Red
+            case 'success': return '#5cb85c'; // Green
+            case 'failure': return '#c9302c'; // Dark Red
+            case 'intervention': return '#ff0000'; // Bright Red
+            default: return '#6baed6'; // Default Blue
         }
     }
 });

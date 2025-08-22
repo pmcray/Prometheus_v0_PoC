@@ -2,6 +2,7 @@ import os
 import logging
 import sys
 import importlib
+import hashlib
 
 # --- Prometheus Agent Imports ---
 from prometheus.planner import PlannerAgent
@@ -97,15 +98,30 @@ def main():
         emit_status("Orchestrator", "thinking", {"task": f"CRLS Attempt #{crls_attempts}"})
 
         try:
+            # Meta-Causal Analysis: Get hash of test file before modification
+            test_file_path = 'toy_problem/test_inefficient_sort.py'
+            try:
+                with open(test_file_path, 'rb') as f:
+                    pre_modification_hash = hashlib.sha256(f.read()).hexdigest()
+            except FileNotFoundError:
+                logging.error(f"Could not find test file '{test_file_path}'. Causal analysis will be skipped.")
+                pre_modification_hash = None
+
             coder = get_coder_agent(API_KEY, compiler, analyzer, lean_tool, knowledge_agent)
             logging.info(f"Dynamically loaded CoderAgent.")
 
             refactored_code = coder.refactor_code(original_code)
 
             if refactored_code != original_code:
-                logging.info("✅ Task solved successfully on this attempt!")
-                emit_status("Orchestrator", "success", {"task": "RSI Cycle successful."})
-                task_solved = True
+                logging.info("✅ Task solved successfully on this attempt! Now performing meta-causal analysis...")
+
+                # Meta-Causal Analysis: Check for reward hacking
+                if pre_modification_hash and not mcs.perform_causal_analysis(test_file_path, pre_modification_hash):
+                    logging.warning("MCS intervention: Reward hacking detected. Task is considered UNSOLVED.")
+                    task_solved = False
+                else:
+                    emit_status("Orchestrator", "success", {"task": "RSI Cycle successful."})
+                    task_solved = True
             else:
                 failure_reason = "Refactoring failed."
                 logging.warning(f"Task not solved on this attempt. Reason: {failure_reason}")
