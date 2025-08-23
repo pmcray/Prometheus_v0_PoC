@@ -7,3 +7,5 @@ pydantic
 pypdf
 pandas
 memory_profiler
+fastembed
+qdrant-client
