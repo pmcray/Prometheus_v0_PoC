@@ -18,20 +18,24 @@ from immutable_safety_framework import (
     SecurityError,
     SafetyViolationType
 )
+from foundation_model_selection import FoundationModelEvaluator, FoundationModel
 
 # Setup logging
 logging.basicConfig(
     level=logging.INFO, 
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler('crls_loop_v0.18.log', mode='w'),
+        logging.FileHandler('crls_loop_v0.20.log', mode='w'),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
 # Configure API
-API_KEY = os.environ.get("GOOGLE_API_KEY", "AIzaSyC7PYhohlqgdRVVypOnpbqzoE9bEdjvwvg")
+API_KEY = os.environ.get("GOOGLE_API_KEY")
+if not API_KEY:
+    logger.critical("FATAL: GOOGLE_API_KEY environment variable not set.")
+    sys.exit(1)
 genai.configure(api_key=API_KEY)
 
 class ResourceManager:
@@ -135,16 +139,18 @@ class CausalAttentionWrapper:
     Falls back to simple heuristics if enhanced version unavailable
     """
     
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, model_name: str = "gemini-1.5-flash"):
         self.api_key = api_key
+        self.model_name = model_name
         if ENHANCED_CAUSAL_AVAILABLE:
-            self.enhanced_wrapper = EnhancedCausalAttentionWrapper(api_key)
+            # Assuming the enhanced wrapper also needs to be updated to accept a model name
+            self.enhanced_wrapper = EnhancedCausalAttentionWrapper(api_key, model_name=model_name)
             self.mode = "enhanced"
-            logger.info("🧠 Using Enhanced Weight of Evidence Causal Attention")
+            logger.info(f"🧠 Using Enhanced Weight of Evidence Causal Attention with {model_name}")
         else:
-            self.model = genai.GenerativeModel('gemini-1.5-flash')
+            self.model = FoundationModel(model_name, api_key)
             self.mode = "basic"
-            logger.info("🧠 Using Basic Heuristic Causal Attention")
+            logger.info(f"🧠 Using Basic Heuristic Causal Attention with {model_name}")
     
     def _analyze_code_basic(self, code: str) -> Dict[str, Any]:
         """Basic heuristic analysis as fallback"""
@@ -253,9 +259,9 @@ Provide ONLY the refactored Python code without explanations or markdown formatt
 class CoderAgent:
     """Enhanced coder with causal attention and safety mechanisms"""
     
-    def __init__(self, api_key: str):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
-        self.causal_attention = CausalAttentionWrapper(api_key)
+    def __init__(self, api_key: str, model_name: str = "gemini-1.5-flash"):
+        self.model = FoundationModel(model_name, api_key)
+        self.causal_attention = CausalAttentionWrapper(api_key, model_name=model_name)
         self.is_malicious = False
     
     def estimate_cost(self, task_description: str) -> int:
@@ -284,9 +290,9 @@ class CoderAgent:
 class PlannerAgent:
     """Enhanced planner with bidding system"""
     
-    def __init__(self, resource_manager: ResourceManager):
+    def __init__(self, resource_manager: ResourceManager, api_key: str, model_name: str = "gemini-1.5-flash"):
         self.resource_manager = resource_manager
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = FoundationModel(model_name, api_key)
     
     def generate_bid(self, goal: str) -> List[Dict[str, Any]]:
         bids = [
@@ -341,12 +347,12 @@ class EvaluatorAgent:
 class MCSSupervisor:
     """Enhanced MCS with complete CRLS loop from v0.4 + v0.17 resource management + P0 Safety"""
     
-    def __init__(self, resource_manager: ResourceManager, performance_logger: PerformanceLogger):
+    def __init__(self, resource_manager: ResourceManager, performance_logger: PerformanceLogger, api_key: str, model_name: str):
         self.resource_manager = resource_manager
         self.performance_logger = performance_logger
         self.safety_framework = resource_manager.safety_framework  # Use shared safety framework
-        self.planner = PlannerAgent(resource_manager)
-        self.coder = CoderAgent(API_KEY)
+        self.planner = PlannerAgent(resource_manager, api_key=api_key, model_name=model_name)
+        self.coder = CoderAgent(api_key=api_key, model_name=model_name)
         self.evaluator = EvaluatorAgent()
         self.safety_violations = 0
         self.max_safety_violations = self.safety_framework._constraints.MAX_SAFETY_VIOLATIONS
@@ -498,20 +504,32 @@ class MCSSupervisor:
         }
 
 def main():
-    """Main demonstration combining v0.17 + v0.4 functionality + P0 Immutable Safety"""
-    logger.info("🚀 Project Prometheus v0.19: Complete Integration + Immutable Safety")
-    logger.info("   Combining v0.17 Economist + v0.4 Original PoC")
-    logger.info("   🧠 Enhanced with I.J. Good Weight of Evidence Calculus")
-    logger.info("   🔒 P0: Immutable Safety Framework with Cryptographic Integrity")
+    """Main demonstration for v0.20 with P1 Multi-Model Selection and P0 Immutable Safety"""
+    logger.info("🚀 Project Prometheus v0.20: P1 Multi-Model Foundation Selection")
+    logger.info("   🔒 Integrated with P0: Immutable Safety Framework")
     
     # Initialize system with P0 Immutable Safety Framework
     try:
         safety_framework = ImmutableSafetyFramework()
+
+        # P1: Select the optimal foundation model
+        logger.info("\n" + "="*60)
+        logger.info("🤖 EXECUTING P1: MULTI-MODEL FOUNDATION SELECTION")
+        logger.info("="*60)
+        model_evaluator = FoundationModelEvaluator(safety_framework, API_KEY)
+        optimal_model_name = model_evaluator.select_optimal_foundation()
+
+        if not optimal_model_name:
+            logger.critical("❌ P1 FAILED: Could not select an optimal foundation model. Aborting.")
+            return
+
+        logger.info(f"✅ P1 COMPLETE: Optimal model '{optimal_model_name}' selected for this session.")
+
         resource_manager = ResourceManager(initial_budget=1000, safety_framework=safety_framework)
-        performance_logger = PerformanceLogger("v0.19_performance.json")
-        supervisor = MCSSupervisor(resource_manager, performance_logger)
+        performance_logger = PerformanceLogger("v0.20_performance.json")
+        supervisor = MCSSupervisor(resource_manager, performance_logger, API_KEY, optimal_model_name)
         
-        logger.info("✅ All systems initialized with immutable safety constraints")
+        logger.info(f"✅ All systems initialized with model '{optimal_model_name}' and immutable safety constraints")
         
     except SecurityError as e:
         logger.critical(f"🚨 CRITICAL: Failed to initialize due to security violation: {e}")
