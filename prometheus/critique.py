@@ -2,4 +2,6 @@
 from pydantic import BaseModel
 
 class CausalCritique(BaseModel):
-    pass
+    test_passed: bool
+    causal_improvement: bool
+    reason: str
