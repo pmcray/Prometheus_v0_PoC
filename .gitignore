@@ -11,3 +11,37 @@ temp_*.py
 temp_*.lean
 leanpkg.toml
 lakefile.lean
+
+# Nested/duplicate directories
+Prometheus_v0_PoC/
+
+# Virtual environments
+venv/
+venv_jetson/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary benchmark results
+benchmark_results/
+simulation_cache/
+
+# Model files (too large for git)
+models/
+*.gguf
+*.bin
+*.safetensors
+
+# Generated reports (can regenerate)
+*_verification_report.json
+prometheus_demo_report_*.json
