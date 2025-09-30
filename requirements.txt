@@ -9,3 +9,5 @@ pandas
 causallearn
 pyvis
 nltk
+ollama
+matplotlib
