@@ -185,6 +185,44 @@ class DraughtsGame:
             "winner": self.winner
         }
 
+    def visualize(self) -> str:
+        """Return ASCII visualization of board"""
+        lines = []
+        lines.append("\n  " + " ".join(str(i) for i in range(8)))
+        lines.append("┌─" + "─┬─" * 7 + "─┐")
+
+        for row in range(8):
+            line = str(row) + "│"
+            for col in range(8):
+                piece = self.board[row][col]
+                if piece == 1:
+                    symbol = "●"  # Player 1 piece
+                elif piece == 2:
+                    symbol = "♔"  # Player 1 king
+                elif piece == -1:
+                    symbol = "○"  # Player 2 piece
+                elif piece == -2:
+                    symbol = "♕"  # Player 2 king
+                else:
+                    # Checkerboard pattern
+                    symbol = "█" if (row + col) % 2 == 0 else " "
+
+                line += symbol + "│"
+
+            lines.append(line)
+
+            if row < 7:
+                lines.append(" ├─" + "─┼─" * 7 + "─┤")
+
+        lines.append(" └─" + "─┴─" * 7 + "─┘")
+
+        # Score
+        p1_pieces = sum(1 for row in self.board for cell in row if cell > 0)
+        p2_pieces = sum(1 for row in self.board for cell in row if cell < 0)
+        lines.append(f"\nPieces: ● {p1_pieces}  ○ {p2_pieces}")
+
+        return "\n".join(lines)
+
     def copy(self):
         """Create a copy of the game state"""
         new_game = DraughtsGame()
@@ -439,7 +477,9 @@ class PrometheusBenchV02:
 
     def get_benchmark_hash(self) -> str:
         """Get hash of benchmark suite for integrity checking"""
-        suite_repr = f"{self.version}:{json.dumps(self.domains, sort_keys=True)}"
+        # Convert enum keys to strings for JSON serialization
+        domains_serializable = {str(k): v for k, v in self.domains.items()}
+        suite_repr = f"{self.version}:{json.dumps(domains_serializable, sort_keys=True)}"
         return hashlib.md5(suite_repr.encode()).hexdigest()
 
     def run_ggp_benchmark(self,

@@ -71,7 +71,7 @@ class GeneralistPlannerAgent:
         if self.use_llm:
             try:
                 genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
-                self.model = genai.GenerativeModel('gemini-1.5-flash')
+                self.model = genai.GenerativeModel('generic-cloud-fm')
                 logging.info("GeneralistPlannerAgent initialized with LLM support")
             except Exception as e:
                 logging.warning(f"LLM initialization failed: {e}. Falling back to rule-based planning.")

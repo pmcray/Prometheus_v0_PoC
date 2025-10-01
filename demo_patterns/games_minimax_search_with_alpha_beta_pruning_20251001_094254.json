@@ -1,0 +1,19 @@
+{
+  "pattern_id": "games_minimax_search_with_alpha_beta_pruning_20251001_094254",
+  "name": "minimax_search_with_alpha_beta_pruning",
+  "description": "A depth-first search algorithm that explores all possible moves and evaluates them using a heuristic function. It prunes branches that are unlikely to lead to the optimal solution.",
+  "code_template": "class MinimaxAgent:\n    def __init__(self, evaluation_function):\n        self.evaluation_function = evaluation_function\n\n    def minimax_search(self, state, depth, alpha=float('-inf'), beta=float('inf')):\n        if depth == 0 or state.is_terminal():\n            return self.evaluation_function(state)\n        # ... minimax logic with alpha-beta pruning ...\n        return best_score",
+  "applicability": [
+    "games"
+  ],
+  "performance_history": {
+    "games": 0.87
+  },
+  "extracted_from": "demo_agent_001",
+  "extraction_date": "2025-10-01T09:42:54.631633",
+  "usage_count": 0,
+  "metadata": {
+    "original_fitness": 0.87,
+    "original_domain": "games"
+  }
+}

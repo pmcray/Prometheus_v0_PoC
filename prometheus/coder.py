@@ -6,7 +6,7 @@ import random
 class CoderAgent:
     def __init__(self, api_key, compiler, analyzer, lean_tool, knowledge_agent):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
         self.compiler = compiler
         self.analyzer = analyzer
         self.lean_tool = lean_tool

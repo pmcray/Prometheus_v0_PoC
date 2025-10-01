@@ -96,6 +96,36 @@ class DomainExpertAgent(ABC):
         else:
             return "stable"
 
+    def get_source_code(self) -> str:
+        """Get the source code of this agent instance"""
+        import inspect
+        return inspect.getsource(self.__class__)
+
+    def select_move(self, board, valid_moves, **kwargs):
+        """
+        Select a move for game playing (GGP benchmark interface)
+
+        Args:
+            board: Game board state
+            valid_moves: List of valid moves
+            **kwargs: Additional game-specific parameters
+
+        Returns:
+            Selected move from valid_moves
+        """
+        # Create environment state from board
+        environment_state = {
+            "board": board,
+            "valid_moves": valid_moves,
+            **kwargs
+        }
+
+        # Use perceive/act pattern
+        perception = self.perceive(environment_state)
+        action = self.act(perception)
+
+        return action
+
 
 class RandomDomainExpertAgent(DomainExpertAgent):
     """

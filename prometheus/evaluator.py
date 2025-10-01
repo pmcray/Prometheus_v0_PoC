@@ -9,7 +9,7 @@ from .tools.proof_tree import ProofTree
 class EvaluatorAgent:
     def __init__(self, api_key, lean_tool: LeanTool):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
         self.lean_tool = lean_tool
 
     def _analyze_complexity(self, code):

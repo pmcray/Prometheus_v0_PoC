@@ -374,10 +374,18 @@ Output the child code now:
             logging.info(f"{'─'*60}")
 
             # Evaluate fitness
-            fitness_scores = iee_evaluator.evaluate_population(
+            fitness_results = iee_evaluator.evaluate_population(
                 self.population,
                 benchmark_name
             )
+
+            # Convert list of results to dict of {agent_id: fitness_score}
+            fitness_scores = {}
+            for i, agent in enumerate(self.population):
+                if i < len(fitness_results) and fitness_results[i].get("success", False):
+                    fitness_scores[agent.agent_id] = fitness_results[i]["fitness_score"]
+                else:
+                    fitness_scores[agent.agent_id] = 0.0
 
             # Update statistics
             current_best = max(fitness_scores.values())

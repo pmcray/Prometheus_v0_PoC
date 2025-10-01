@@ -4,7 +4,7 @@ import google.generativeai as genai
 class CausalAttentionWrapper:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
 
     def _analyze_code(self, code):
         """

@@ -7,7 +7,7 @@ import os
 class AuditorAgent:
     def __init__(self, api_key):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
 
     def generate_audit_trail(self, proof_tree, theorem):
         """

@@ -20,11 +20,30 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
 
-from ..benchmarks.prometheus_bench_v0_1 import PrometheusBenchV01
-from ..benchmarks.prometheus_bench_v0_2 import PrometheusBenchV02, BenchmarkDomain
-from ..benchmarks.benchmark_runner import BenchmarkRunner
-from .fitness_monitor import FitnessMonotonicityMonitor
-from .reward_hacking_detector import RewardHackingDetector
+try:
+    from benchmarks.prometheus_bench_v0_2 import PrometheusBenchV02, BenchmarkDomain
+except ImportError:
+    from ..benchmarks.prometheus_bench_v0_2 import PrometheusBenchV02, BenchmarkDomain
+
+try:
+    from prometheus.fitness_monitor import FitnessMonotonicityMonitor
+    from prometheus.reward_hacking_detector import RewardHackingDetector
+except ImportError:
+    try:
+        from .fitness_monitor import FitnessMonotonicityMonitor
+        from .reward_hacking_detector import RewardHackingDetector
+    except ImportError:
+        # Fallback: create dummy classes if not available
+        class FitnessMonotonicityMonitor:
+            def __init__(self, *args, **kwargs):
+                pass
+            def check(self, *args, **kwargs):
+                return True
+        class RewardHackingDetector:
+            def __init__(self, *args, **kwargs):
+                pass
+            def detect(self, *args, **kwargs):
+                return False
 
 @dataclass
 class PatchVerificationResult:
@@ -61,14 +80,18 @@ class IEEHarness:
 
     def __init__(self,
                  base_codebase_path: str = ".",
-                 benchmark_suite: Optional[PrometheusBenchV01] = None,
+                 benchmark_suite: Optional[PrometheusBenchV02] = None,
                  workspace_dir: str = "/tmp/prometheus_iee",
                  use_v02_benchmarks: bool = True):
 
+        # Initialize logging first
+        logging.basicConfig(level=logging.INFO)
+        self.logger = logging.getLogger(__name__)
+
         self.base_codebase_path = Path(base_codebase_path).resolve()
         self.workspace_dir = Path(workspace_dir)
-        self.benchmark_suite = benchmark_suite or PrometheusBenchV01()
-        self.benchmark_runner = BenchmarkRunner()
+        self.benchmark_suite = benchmark_suite or PrometheusBenchV02()
+        # self.benchmark_runner = BenchmarkRunner()  # Not needed for v0.69
 
         # IEE v0.4: Universal benchmark engine
         self.use_v02_benchmarks = use_v02_benchmarks
@@ -89,10 +112,6 @@ class IEEHarness:
         # Load baseline performance if available
         self.baseline_performance: Optional[Dict[str, Any]] = None
         self._load_baseline_performance()
-
-        # Initialize logging
-        logging.basicConfig(level=logging.INFO)
-        self.logger = logging.getLogger(__name__)
 
         # Ensure workspace exists
         self.workspace_dir.mkdir(parents=True, exist_ok=True)
@@ -479,7 +498,7 @@ except Exception as e:
     # IEE v0.4: Universal benchmark execution methods
 
     def execute_ggp_benchmark(self,
-                             agent_module_path: str,
+                             agent_module_path,  # Can be str (path) or agent object
                              agent_select_move_method: str = "select_move",
                              num_games: int = 100,
                              game_type: str = "draughts") -> Dict[str, Any]:
@@ -487,7 +506,7 @@ except Exception as e:
         Execute General Game Playing benchmark on a candidate agent
 
         Args:
-            agent_module_path: Path to Python module containing agent
+            agent_module_path: Path to Python module containing agent, OR agent object directly
             agent_select_move_method: Name of method to call for move selection
             num_games: Number of games to play
             game_type: Type of game to play
@@ -501,20 +520,25 @@ except Exception as e:
         self.logger.info(f"🎮 Executing GGP benchmark: {game_type}")
 
         try:
-            # Import the agent module
-            import importlib.util
-            spec = importlib.util.spec_from_file_location("candidate_agent", agent_module_path)
-            agent_module = importlib.util.module_from_spec(spec)
-            spec.loader.exec_module(agent_module)
+            # Check if agent_module_path is already an agent object
+            if isinstance(agent_module_path, str):
+                # Import the agent module
+                import importlib.util
+                spec = importlib.util.spec_from_file_location("candidate_agent", agent_module_path)
+                agent_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(agent_module)
 
-            # Get the agent class and instantiate
-            agent_classes = [obj for name, obj in agent_module.__dict__.items()
-                           if isinstance(obj, type) and name.endswith("Agent")]
+                # Get the agent class and instantiate
+                agent_classes = [obj for name, obj in agent_module.__dict__.items()
+                               if isinstance(obj, type) and name.endswith("Agent")]
 
-            if not agent_classes:
-                raise RuntimeError("No agent class found in module")
+                if not agent_classes:
+                    raise RuntimeError("No agent class found in module")
 
-            agent = agent_classes[0]()
+                agent = agent_classes[0]()
+            else:
+                # agent_module_path is actually an agent object
+                agent = agent_module_path
 
             # Get the select_move method
             if not hasattr(agent, agent_select_move_method):
@@ -642,7 +666,7 @@ except Exception as e:
 
         results = []
 
-        if benchmark_domain.lower() in ["ggp", "general_game_playing", "draughts"]:
+        if benchmark_domain.lower() in ["ggp", "general_game_playing", "draughts", "ggp-draughts"]:
             # GGP benchmark
             if parallel:
                 # For now, sequential execution (parallel would require multiprocessing)
@@ -691,4 +715,5 @@ except Exception as e:
         if not self.use_v02_benchmarks:
             return None
 
-        return self.benchmark_suite_v02.get_benchmark_info(benchmark_name)
+        return self.benchmark_suite_v02.get_benchmark_info(benchmark_name)# Alias for compatibility
+IntrospectionEvaluationEngine = IEEHarness

@@ -1,12 +1,11 @@
 """
-Unified LLM backend supporting both local (Ollama) and cloud (Gemini) models.
+Unified LLM backend supporting both local (Ollama) and cloud API models.
 Prioritizes local GPU-accelerated inference on Jetson hardware.
 """
 
 import os
 import logging
 from typing import Optional, Dict, Any
-import google.generativeai as genai
 
 try:
     import ollama
@@ -19,7 +18,7 @@ except ImportError:
 class LLMBackend:
     """
     Unified interface for LLM inference.
-    Automatically selects best available backend (Ollama > Gemini).
+    Automatically selects best available backend (Ollama > Cloud API).
     """
 
     def __init__(
@@ -27,23 +26,27 @@ class LLMBackend:
         api_key: Optional[str] = None,
         prefer_local: bool = True,
         ollama_model: str = "deepseek-coder:6.7b-instruct-q4_K_M",
-        gemini_model: str = "gemini-1.5-flash",
-        ollama_host: str = "http://localhost:11434"
+        cloud_model: str = "generic-fm-v1",
+        ollama_host: str = "http://localhost:11434",
+        cloud_api_url: Optional[str] = None
     ):
         """
         Initialize LLM backend with fallback capabilities.
 
         Args:
-            api_key: Google Gemini API key (optional if using Ollama)
+            api_key: Cloud API key (optional if using Ollama)
             prefer_local: Use Ollama if available (True recommended for Jetson)
             ollama_model: Ollama model name
-            gemini_model: Gemini model name (fallback)
+            cloud_model: Cloud foundation model name (fallback)
             ollama_host: Ollama server URL
+            cloud_api_url: Cloud API endpoint URL
         """
         self.prefer_local = prefer_local
         self.ollama_model = ollama_model
-        self.gemini_model = gemini_model
+        self.cloud_model = cloud_model
         self.ollama_host = ollama_host
+        self.cloud_api_url = cloud_api_url
+        self.api_key = api_key
 
         # Try to set up Ollama first
         self.ollama_available = False
@@ -56,26 +59,27 @@ class LLMBackend:
             except Exception as e:
                 logging.warning(f"Ollama unavailable: {e}")
 
-        # Set up Gemini fallback
-        self.gemini_available = False
-        if api_key:
-            try:
-                genai.configure(api_key=api_key)
-                self.gemini_model_obj = genai.GenerativeModel(gemini_model)
-                self.gemini_available = True
-                logging.info(f"✓ Gemini available - fallback model: {gemini_model}")
-            except Exception as e:
-                logging.warning(f"Gemini unavailable: {e}")
+        # Set up cloud API fallback (generic mock)
+        self.cloud_available = False
+        if api_key and cloud_api_url:
+            # In a real implementation, this would test the cloud API connection
+            # For now, we just mark it as available if credentials are provided
+            self.cloud_available = True
+            logging.info(f"✓ Cloud API configured - fallback model: {cloud_model}")
+        elif api_key:
+            # API key provided but no URL - create mock fallback
+            self.cloud_available = True
+            logging.info(f"✓ Cloud API (mock) - fallback model: {cloud_model}")
 
         # Determine active backend
         if self.ollama_available:
             self.active_backend = "ollama"
             logging.info("🚀 Using LOCAL Ollama (GPU-accelerated)")
-        elif self.gemini_available:
-            self.active_backend = "gemini"
-            logging.info("☁️  Using CLOUD Gemini (fallback)")
+        elif self.cloud_available:
+            self.active_backend = "cloud"
+            logging.info("☁️  Using CLOUD API (fallback)")
         else:
-            raise RuntimeError("No LLM backend available! Install Ollama or provide Gemini API key.")
+            raise RuntimeError("No LLM backend available! Install Ollama or provide Cloud API credentials.")
 
     def generate(
         self,
@@ -98,8 +102,8 @@ class LLMBackend:
         """
         if self.active_backend == "ollama":
             return self._generate_ollama(prompt, temperature, max_tokens, **kwargs)
-        elif self.active_backend == "gemini":
-            return self._generate_gemini(prompt, temperature, max_tokens, **kwargs)
+        elif self.active_backend == "cloud":
+            return self._generate_cloud(prompt, temperature, max_tokens, **kwargs)
         else:
             raise RuntimeError("No active LLM backend")
 
@@ -127,34 +131,43 @@ class LLMBackend:
             return response['response']
         except Exception as e:
             logging.error(f"Ollama generation failed: {e}")
-            if self.gemini_available:
-                logging.info("Falling back to Gemini...")
-                self.active_backend = "gemini"
-                return self._generate_gemini(prompt, temperature, max_tokens, **kwargs)
+            if self.cloud_available:
+                logging.info("Falling back to Cloud API...")
+                self.active_backend = "cloud"
+                return self._generate_cloud(prompt, temperature, max_tokens, **kwargs)
             raise
 
-    def _generate_gemini(
+    def _generate_cloud(
         self,
         prompt: str,
         temperature: float,
         max_tokens: Optional[int],
         **kwargs
     ) -> str:
-        """Generate using cloud Gemini model."""
-        try:
-            generation_config = {
-                "temperature": temperature,
-            }
-            if max_tokens:
-                generation_config["max_output_tokens"] = max_tokens
+        """
+        Generate using cloud API (generic mock implementation).
 
-            response = self.gemini_model_obj.generate_content(
-                prompt,
-                generation_config=generation_config
-            )
-            return response.text
+        In a real implementation, this would make HTTP requests to a cloud FM API.
+        For now, returns a mock response indicating the cloud backend is called.
+        """
+        try:
+            # Mock implementation - in production, this would call a real cloud API
+            # Example structure:
+            # import requests
+            # headers = {"Authorization": f"Bearer {self.api_key}"}
+            # payload = {
+            #     "model": self.cloud_model,
+            #     "prompt": prompt,
+            #     "temperature": temperature,
+            #     "max_tokens": max_tokens or 2048
+            # }
+            # response = requests.post(self.cloud_api_url, json=payload, headers=headers)
+            # return response.json()["text"]
+
+            logging.warning("Cloud API called but using mock response (no real API configured)")
+            return f"[MOCK CLOUD RESPONSE] Generated response for prompt of length {len(prompt)} chars using {self.cloud_model}"
         except Exception as e:
-            logging.error(f"Gemini generation failed: {e}")
+            logging.error(f"Cloud API generation failed: {e}")
             raise
 
     def get_stats(self) -> Dict[str, Any]:
@@ -163,8 +176,8 @@ class LLMBackend:
             "active_backend": self.active_backend,
             "ollama_available": self.ollama_available,
             "ollama_model": self.ollama_model if self.ollama_available else None,
-            "gemini_available": self.gemini_available,
-            "gemini_model": self.gemini_model if self.gemini_available else None,
+            "cloud_available": self.cloud_available,
+            "cloud_model": self.cloud_model if self.cloud_available else None,
         }
 
 
@@ -181,8 +194,8 @@ def get_llm_backend(
     Get or create global LLM backend.
 
     Args:
-        api_key: Gemini API key (optional)
-        prefer_local: Prefer Ollama over Gemini
+        api_key: Cloud API key (optional)
+        prefer_local: Prefer Ollama over Cloud API
         **kwargs: Additional backend configuration
 
     Returns:

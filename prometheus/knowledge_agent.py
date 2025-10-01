@@ -10,7 +10,7 @@ from .tools import PDFTool
 class KnowledgeAgent:
     def __init__(self, api_key, performance_logger: PerformanceLogger, pdf_tool: PDFTool):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
         self.performance_logger = performance_logger
         self.pdf_tool = pdf_tool
         self.structured_knowledge = {"causal_rules": []}

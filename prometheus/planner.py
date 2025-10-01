@@ -5,7 +5,7 @@ import logging
 class PlannerAgent:
     def __init__(self):
         genai.configure(api_key=os.environ.get("GOOGLE_API_KEY"))
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
 
     def generate_bid(self, goal: str):
         """

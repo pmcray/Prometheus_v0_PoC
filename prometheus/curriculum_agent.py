@@ -6,7 +6,7 @@ from src.performance_logger import PerformanceLogger
 class CurriculumAgent:
     def __init__(self, api_key, performance_logger: PerformanceLogger):
         genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        self.model = genai.GenerativeModel('generic-cloud-fm')
         self.performance_logger = performance_logger
 
     def _clean_code(self, code):

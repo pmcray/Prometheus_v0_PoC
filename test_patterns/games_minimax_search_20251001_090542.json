@@ -1,0 +1,19 @@
+{
+  "pattern_id": "games_minimax_search_20251001_090542",
+  "name": "minimax_search",
+  "description": "A decision-making algorithm that explores all possible moves in a game tree up to a certain depth and selects the move with the highest score.",
+  "code_template": "def minimax_search(board, <PLACEHOLDER>):\n    best_move = None\n    for move in get_moves(board):\n        score = evaluate(board, move, <PLACEHOLDER>)\n        if score > best_score:\n            best_move = move\n    return best_move",
+  "applicability": [
+    "games"
+  ],
+  "performance_history": {
+    "games": 0.85
+  },
+  "extracted_from": "test_agent",
+  "extraction_date": "2025-10-01T09:05:42.615652",
+  "usage_count": 0,
+  "metadata": {
+    "original_fitness": 0.85,
+    "original_domain": "games"
+  }
+}
