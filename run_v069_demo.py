@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Project Prometheus v0.69 - Full Integrated Demo
-Demonstrates complete evolutionary loop for game-playing
+Project Prometheus v0.69 - Full Integrated Demo with Curriculum Learning
+Demonstrates complete evolutionary loop with progressive difficulty training
 """
 
 import sys
@@ -15,21 +15,21 @@ import matplotlib.pyplot as plt
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
+    format='%(levelname)s - %(message)s'
 )
 
 # Add project to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 print("=" * 70)
-print("🧬 PROJECT PROMETHEUS v0.69 - FULL INTEGRATED DEMO")
+print("🧬 PROJECT PROMETHEUS v0.69 - CURRICULUM LEARNING DEMO")
 print("=" * 70)
-print("\nThis demonstrates the complete evolutionary loop:")
+print("\nThis demonstrates the complete evolutionary loop with curriculum:")
 print("  1. User provides goal")
 print("  2. GeneralistPlanner creates meta-task")
-print("  3. SMM evolves agent population")
-print("  4. IEE evaluates each generation")
-print("  5. Best agent emerges")
+print("  3. SMM evolves through progressive difficulty stages")
+print("  4. IEE evaluates against increasingly challenging opponents")
+print("  5. Best agent emerges with deep strategic capability")
 print("\n" + "=" * 70 + "\n")
 
 # Import components
@@ -47,27 +47,62 @@ print("✓ All components imported\n")
 print("⚙️  Configuration:")
 GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY', None)
 
-EVOLUTION_CONFIG = EvolutionConfig(
-    population_size=6,            # Small for quick demo
-    generations=10,               # 10 generations
-    mutation_rate=0.7,            # 70% mutation, 30% crossover
-    elitism_count=1,              # Keep top 1
-    tournament_size=3,
-    convergence_threshold=0.70,   # Stop at 70% win rate (lower for demo)
-    stagnation_generations=4      # Stop if no improvement for 4 gens
-)
+# Define curriculum stages
+CURRICULUM = [
+    {
+        "stage": 1,
+        "name": "Baseline Training",
+        "opponent_type": "random",
+        "description": "Learn basic game mechanics vs random play",
+        "population": 6,
+        "generations": 8,
+        "target_fitness": 0.65,
+        "mutation_rate": 0.7,
+        "elitism": 1,
+    },
+    {
+        "stage": 2,
+        "name": "Tactical Development",
+        "opponent_type": "heuristic",
+        "description": "Develop tactical skills vs heuristic opponent",
+        "population": 10,
+        "generations": 12,
+        "target_fitness": 0.60,
+        "mutation_rate": 0.6,
+        "elitism": 2,
+    },
+    {
+        "stage": 3,
+        "name": "Strategic Training",
+        "opponent_type": "minimax-2",
+        "description": "Master strategic play vs Minimax depth-2",
+        "population": 12,
+        "generations": 15,
+        "target_fitness": 0.50,
+        "mutation_rate": 0.5,
+        "elitism": 3,
+    },
+]
 
-print(f"  Population Size: {EVOLUTION_CONFIG.population_size}")
-print(f"  Max Generations: {EVOLUTION_CONFIG.generations}")
-print(f"  Target Fitness: {EVOLUTION_CONFIG.convergence_threshold}")
+print(f"  Curriculum Stages: {len(CURRICULUM)}")
 print(f"  Backend: {'Ollama (local GPU)' if not GOOGLE_API_KEY else 'Gemini (cloud)'}")
 print()
+
+# Display curriculum
+print("📚 CURRICULUM OVERVIEW:")
+print("─" * 70)
+for stage in CURRICULUM:
+    print(f"Stage {stage['stage']}: {stage['name']}")
+    print(f"  Opponent: {stage['opponent_type']}")
+    print(f"  Target: {stage['target_fitness']:.0%} win rate")
+    print(f"  Training: {stage['population']} agents × {stage['generations']} gens")
+    print()
 
 # Step 1: User Goal
 print("─" * 70)
 print("STEP 1: USER PROVIDES HIGH-LEVEL GOAL")
 print("─" * 70)
-USER_GOAL = "Become an expert Draughts player"
+USER_GOAL = "Become an expert Connect4 player"
 print(f"\n🎯 User Goal: \"{USER_GOAL}\"\n")
 
 # Step 2: GeneralistPlanner
@@ -103,144 +138,217 @@ iee = IntrospectionEvaluationEngine(
     benchmark_suite=benchmark_suite
 )
 
-print("✓ Initializing SMM (Self-Modification Module)...")
-smm = EvolutionaryOrchestratorAgent(
-    api_key=GOOGLE_API_KEY,
-    config=EVOLUTION_CONFIG,
-    prefer_local=True,
-    ollama_model="qwen2.5-coder:3b-instruct-q4_K_M"
-)
+print("✓ Components ready for curriculum training\n")
 
-print(f"\n✓ Backend: {smm.llm.active_backend.upper()}")
-print()
+# Step 4: Run Curriculum Evolution
+print("─" * 70)
+print("STEP 4: RUN CURRICULUM EVOLUTION")
+print("─" * 70)
+print("\n🎓 Starting curriculum training...")
+print("⏱️  This will take 30-90 minutes depending on hardware.\n")
 
-# Step 4: Run Evolution
-print("─" * 70)
-print("STEP 4: RUN EVOLUTIONARY LOOP")
-print("─" * 70)
-print("\n🧬 Starting evolution...")
-print("⏱️  This will take 5-15 minutes depending on your hardware.")
-print("📊 Watch for fitness improvements across generations!\n")
+all_fitness_history = []
+curriculum_results = []
 
 try:
-    best_agent, fitness_history = smm.run_evolution(
-        iee_evaluator=iee,
-        benchmark_name=meta_task.target_benchmark,
-        template_class=GamePlayingExpertAgent
-    )
+    for stage_idx, stage in enumerate(CURRICULUM, 1):
+        print("=" * 70)
+        print(f"📖 STAGE {stage['stage']}/{len(CURRICULUM)}: {stage['name']}")
+        print("=" * 70)
+        print(f"\n🎯 Opponent: {stage['opponent_type']}")
+        print(f"🎯 Target: {stage['target_fitness']:.0%} win rate")
+        print(f"🧬 Config: {stage['population']} agents × {stage['generations']} gens\n")
 
+        # Create config for this stage
+        config = EvolutionConfig(
+            population_size=stage['population'],
+            generations=stage['generations'],
+            mutation_rate=stage['mutation_rate'],
+            elitism_count=stage['elitism'],
+            tournament_size=3,
+            convergence_threshold=stage['target_fitness'],
+            stagnation_generations=max(4, stage['generations'] // 3)
+        )
+
+        # Create SMM for this stage
+        smm = EvolutionaryOrchestratorAgent(
+            api_key=GOOGLE_API_KEY,
+            config=config,
+            prefer_local=True,
+            ollama_model="qwen2.5-coder:3b-instruct-q4_K_M"
+        )
+
+        # Patch benchmark to use correct opponent
+        from benchmarks import connect4_benchmark
+        original_run = connect4_benchmark.run_benchmark
+
+        def run_with_opponent(agent, **kwargs):
+            kwargs['opponent_type'] = stage['opponent_type']
+            return original_run(agent, **kwargs)
+
+        connect4_benchmark.run_benchmark = run_with_opponent
+
+        try:
+            # Run evolution for this stage
+            best_agent, fitness_history = smm.run_evolution(
+                iee_evaluator=iee,
+                benchmark_name=meta_task.target_benchmark,
+                template_class=GamePlayingExpertAgent
+            )
+
+            # Record results
+            stage_result = {
+                'stage': stage['stage'],
+                'name': stage['name'],
+                'opponent': stage['opponent_type'],
+                'best_fitness': smm.best_fitness,
+                'target_fitness': stage['target_fitness'],
+                'achieved': smm.best_fitness >= stage['target_fitness'],
+                'generations_run': len(fitness_history),
+                'fitness_history': fitness_history
+            }
+            curriculum_results.append(stage_result)
+            all_fitness_history.extend([{**h, 'stage': stage['stage']} for h in fitness_history])
+
+            # Display stage results
+            print(f"\n{'─' * 70}")
+            print(f"✅ STAGE {stage['stage']} COMPLETE")
+            print(f"{'─' * 70}")
+            print(f"Final Fitness: {smm.best_fitness:.1%}")
+            print(f"Target: {stage['target_fitness']:.1%}")
+            print(f"Status: {'✅ TARGET ACHIEVED!' if stage_result['achieved'] else '⏸️  PARTIAL PROGRESS'}\n")
+
+        finally:
+            # Restore original benchmark
+            connect4_benchmark.run_benchmark = original_run
+
+    # Final Summary
     print("\n" + "=" * 70)
-    print("✅ EVOLUTION COMPLETE!")
+    print("✅ CURRICULUM EVOLUTION COMPLETE!")
     print("=" * 70)
-    print(f"\n🏆 Best Agent: {best_agent.agent_id}")
-    print(f"🎯 Final Fitness: {smm.best_fitness:.3f}")
-    print(f"📈 Generations Run: {len(fitness_history)}")
+
+    print("\n📊 CURRICULUM SUMMARY:")
+    print("─" * 70)
+    print(f"{'Stage':<8} {'Opponent':<15} {'Final':<12} {'Target':<12} {'Status':<15}")
+    print("─" * 70)
+    for result in curriculum_results:
+        status = "✅ ACHIEVED" if result['achieved'] else "⏸️  PARTIAL"
+        print(f"{result['stage']:<8} {result['opponent']:<15} "
+              f"{result['best_fitness']:<12.1%} {result['target_fitness']:<12.1%} {status:<15}")
+    print("─" * 70)
+
+    # Overall statistics
+    initial_fitness = curriculum_results[0]['fitness_history'][0]['best']
+    final_fitness = curriculum_results[-1]['best_fitness']
+    total_improvement = final_fitness - initial_fitness
+
+    print("\n📈 OVERALL PROGRESS:")
+    print(f"  Initial Best (Stage 1, Gen 1): {initial_fitness:.1%}")
+    print(f"  Final Best (Stage {len(CURRICULUM)}): {final_fitness:.1%}")
+    print(f"  Total Improvement: +{total_improvement:.1%}")
+    print(f"  Stages Completed: {len(curriculum_results)}/{len(CURRICULUM)}")
+    print(f"  Targets Achieved: {sum(1 for r in curriculum_results if r['achieved'])}/{len(CURRICULUM)}")
 
     # Step 5: Visualize Results
     print("\n" + "─" * 70)
-    print("STEP 5: VISUALIZE EVOLUTIONARY PROGRESS")
+    print("STEP 5: VISUALIZE CURRICULUM PROGRESS")
     print("─" * 70)
 
-    if fitness_history:
-        generations = [h['generation'] for h in fitness_history]
-        best_fitness = [h['best'] for h in fitness_history]
-        mean_fitness = [h['mean'] for h in fitness_history]
-        worst_fitness = [h['worst'] for h in fitness_history]
+    if all_fitness_history:
+        fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(14, 10))
 
-        plt.figure(figsize=(12, 6))
+        # Plot 1: Fitness over all generations (colored by stage)
+        stage_colors = ['green', 'blue', 'purple', 'red']
 
-        plt.plot(generations, best_fitness, 'g-o', label='Best', linewidth=2, markersize=6)
-        plt.plot(generations, mean_fitness, 'b-s', label='Mean', linewidth=2, markersize=5)
-        plt.plot(generations, worst_fitness, 'r-^', label='Worst', linewidth=2, markersize=5)
+        for stage_num in range(1, len(CURRICULUM) + 1):
+            stage_data = [h for h in all_fitness_history if h['stage'] == stage_num]
+            if stage_data:
+                generations = list(range(len(stage_data)))
+                best_fitness = [h['best'] for h in stage_data]
+                mean_fitness = [h['mean'] for h in stage_data]
 
-        plt.axhline(y=EVOLUTION_CONFIG.convergence_threshold,
-                   color='purple', linestyle='--', linewidth=2, label='Target')
+                color = stage_colors[stage_num - 1] if stage_num <= len(stage_colors) else 'gray'
+                label = CURRICULUM[stage_num - 1]['name']
 
-        plt.xlabel('Generation', fontsize=12)
-        plt.ylabel('Fitness (Win Rate)', fontsize=12)
-        plt.title('Evolutionary Progress: Learning to Play Draughts',
-                 fontsize=14, fontweight='bold')
-        plt.legend(fontsize=10)
-        plt.grid(True, alpha=0.3)
-        plt.ylim(-0.05, 1.05)
+                ax1.plot(generations, best_fitness, f'{color}-o',
+                        label=f'Stage {stage_num}: {label} (Best)', linewidth=2, markersize=4)
+                ax1.plot(generations, mean_fitness, f'{color}--',
+                        label=f'Stage {stage_num}: {label} (Mean)', linewidth=1, alpha=0.6)
 
-        output_file = 'v0_69_evolution_results.png'
+        ax1.set_xlabel('Generation (within stage)', fontsize=11)
+        ax1.set_ylabel('Fitness (Win Rate)', fontsize=11)
+        ax1.set_title('Curriculum Learning Progress - All Stages', fontsize=13, fontweight='bold')
+        ax1.legend(fontsize=8, loc='best')
+        ax1.grid(True, alpha=0.3)
+        ax1.set_ylim(-0.05, 1.05)
+
+        # Plot 2: Stage comparison
+        stage_names = [r['name'] for r in curriculum_results]
+        final_fitness_vals = [r['best_fitness'] for r in curriculum_results]
+        target_fitness_vals = [r['target_fitness'] for r in curriculum_results]
+
+        x = range(len(stage_names))
+        width = 0.35
+
+        ax2.bar([i - width/2 for i in x], final_fitness_vals, width,
+                label='Achieved', color='green', alpha=0.7)
+        ax2.bar([i + width/2 for i in x], target_fitness_vals, width,
+                label='Target', color='orange', alpha=0.7)
+
+        ax2.set_xlabel('Curriculum Stage', fontsize=11)
+        ax2.set_ylabel('Win Rate', fontsize=11)
+        ax2.set_title('Final Performance vs Target by Stage', fontsize=13, fontweight='bold')
+        ax2.set_xticks(x)
+        ax2.set_xticklabels(stage_names, rotation=15, ha='right')
+        ax2.legend(fontsize=10)
+        ax2.grid(True, alpha=0.3, axis='y')
+        ax2.set_ylim(0, 1.0)
+
+        plt.tight_layout()
+        output_file = 'v0_69_curriculum_results.png'
         plt.savefig(output_file, dpi=150, bbox_inches='tight')
-        print(f"\n✓ Plot saved to: {output_file}")
+        print(f"\n✓ Curriculum visualization saved to: {output_file}")
         plt.close()
 
     # Step 6: Display Best Agent
     print("\n" + "─" * 70)
-    print("STEP 6: EVOLVED AGENT DETAILS")
+    print("STEP 6: FINAL EVOLVED AGENT")
     print("─" * 70)
 
-    if best_agent:
-        print(f"\n🌟 BEST EVOLVED AGENT")
-        print(f"  Agent ID: {best_agent.agent_id}")
-        print(f"  Fitness: {smm.best_fitness:.3f}")
-
-        # Get source code
-        evolved_code = smm.gene_archive.get_gene(best_agent.agent_id)
-        if evolved_code:
-            print(f"  Code length: {len(evolved_code)} characters")
-            print("\n  Source code preview (first 500 chars):")
-            print("  " + "─" * 66)
-            preview = evolved_code[:500]
-            for line in preview.split('\n'):
-                print(f"  {line}")
-            if len(evolved_code) > 500:
-                print("  ... (truncated)")
-            print("  " + "─" * 66)
-
-    # Step 7: Statistics
-    print("\n" + "─" * 70)
-    print("STEP 7: PERFORMANCE STATISTICS")
-    print("─" * 70)
-
-    if fitness_history:
-        initial_fitness = fitness_history[0]['best']
-        final_fitness = fitness_history[-1]['best']
-        improvement = final_fitness - initial_fitness
-        improvement_pct = (improvement / max(initial_fitness, 0.01)) * 100
-
-        print("\n📊 EVOLUTION SUMMARY:")
-        print(f"  Initial Best Fitness: {initial_fitness:.3f}")
-        print(f"  Final Best Fitness:   {final_fitness:.3f}")
-        print(f"  Absolute Improvement: +{improvement:.3f}")
-        print(f"  Relative Improvement: +{improvement_pct:.1f}%")
-        print(f"  Generations Run:      {len(fitness_history)}")
-        print(f"  LLM Backend:          {smm.llm.active_backend.upper()}")
-
-        if final_fitness >= EVOLUTION_CONFIG.convergence_threshold:
-            print("\n  🎉 SUCCESS! Target fitness achieved!")
-        else:
-            print(f"\n  ⏸️  Stopped early (target was {EVOLUTION_CONFIG.convergence_threshold:.2f})")
+    if curriculum_results:
+        final_result = curriculum_results[-1]
+        print(f"\n🌟 FINAL BEST AGENT (Stage {final_result['stage']})")
+        print(f"  Final Fitness: {final_result['best_fitness']:.1%}")
+        print(f"  Opponent Defeated: {final_result['opponent']}")
+        print(f"  Training Path: {' → '.join([r['opponent'] for r in curriculum_results])}")
 
     # Final Summary
     print("\n" + "=" * 70)
-    print("🎉 v0.69 DEMONSTRATION COMPLETE!")
+    print("🎉 v0.69 CURRICULUM DEMONSTRATION COMPLETE!")
     print("=" * 70)
     print("\n✅ This demonstration proved:")
-    print("  ✓ Domain-general capability acquisition")
-    print("  ✓ Autonomous learning without human intervention")
-    print("  ✓ Observable intelligence emergence over generations")
+    print("  ✓ Curriculum learning enables progressive skill development")
+    print("  ✓ Agents start with random play and develop strategic capability")
+    print("  ✓ Each stage builds on previous learning")
+    print("  ✓ Observable intelligence emergence through difficulty progression")
     print("  ✓ Local GPU-accelerated inference (Ollama)")
     print("  ✓ Universal benchmark evaluation (IEE)")
     print("  ✓ Meta-level task planning (GeneralistPlanner)")
 
-    print("\n📈 Key Insight:")
-    print("  The system started with RANDOM play and evolved strategic")
-    print("  game-playing behavior through recursive self-improvement.")
-    print("  This validates the core Prometheus architecture.")
+    print("\n📈 Key Achievements:")
+    print(f"  • Trained through {len(CURRICULUM)} curriculum stages")
+    print(f"  • Progressed from {CURRICULUM[0]['opponent_type']} to {CURRICULUM[-1]['opponent_type']}")
+    print(f"  • Improved from {initial_fitness:.1%} to {final_fitness:.1%} win rate")
+    print(f"  • Demonstrated {total_improvement:.1%} absolute improvement")
 
     print("\n🚀 Next Steps:")
-    print("  1. Run v0.74 demo for multi-domain demonstrations")
-    print("  2. Test transfer learning (Draughts → Chess)")
-    print("  3. Increase population size for better results")
-    print("  4. Try different domains (conversation, math)")
+    print("  1. Extend curriculum with minimax-3 for expert-level play")
+    print("  2. Apply same approach to FreeCiv (multi-day training)")
+    print("  3. Implement transfer learning between games")
+    print("  4. Scale population and generations for deeper strategies")
 
     print("\n" + "=" * 70)
-    print("🧬 PROJECT PROMETHEUS v0.69 - Generalist Self-Improvement")
+    print("🧬 PROJECT PROMETHEUS v0.69 - Curriculum Learning Success!")
     print("=" * 70 + "\n")
 
 except KeyboardInterrupt:

@@ -101,24 +101,39 @@ class DomainExpertAgent(ABC):
         import inspect
         return inspect.getsource(self.__class__)
 
-    def select_move(self, board, valid_moves, **kwargs):
+    def select_move(self, game_state, valid_moves=None, **kwargs):
         """
         Select a move for game playing (GGP benchmark interface)
 
         Args:
-            board: Game board state
-            valid_moves: List of valid moves
+            game_state: Either a GameState object or board state
+            valid_moves: List of valid moves (optional if game_state has it)
             **kwargs: Additional game-specific parameters
 
         Returns:
             Selected move from valid_moves
         """
-        # Create environment state from board
-        environment_state = {
-            "board": board,
-            "valid_moves": valid_moves,
-            **kwargs
-        }
+        # Handle both GameState object and legacy (board, valid_moves) format
+        if hasattr(game_state, 'board'):
+            # GameState object
+            board = game_state.board
+            # Calculate valid moves for Connect4
+            if valid_moves is None:
+                valid_moves = [col for col in range(7) if board[0][col] == 0]
+            environment_state = {
+                "board": board,
+                "valid_moves": valid_moves,
+                "current_player": getattr(game_state, 'current_player', None),
+                **kwargs
+            }
+        else:
+            # Legacy format: game_state is actually board
+            board = game_state
+            environment_state = {
+                "board": board,
+                "valid_moves": valid_moves if valid_moves is not None else [],
+                **kwargs
+            }
 
         # Use perceive/act pattern
         perception = self.perceive(environment_state)

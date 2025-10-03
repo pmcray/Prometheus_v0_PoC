@@ -666,8 +666,19 @@ except Exception as e:
 
         results = []
 
-        if benchmark_domain.lower() in ["ggp", "general_game_playing", "draughts", "ggp-draughts"]:
-            # GGP benchmark
+        if benchmark_domain.lower() in ["ggp", "general_game_playing", "draughts", "ggp-draughts", "connect4", "ggp-connect4", "reversi", "ggp-reversi"]:
+            # GGP benchmark - extract game type from benchmark name
+            game_type = "draughts"  # default
+            if "connect4" in benchmark_domain.lower():
+                game_type = "connect4"
+            elif "reversi" in benchmark_domain.lower():
+                game_type = "reversi"
+            elif "draughts" in benchmark_domain.lower():
+                game_type = "draughts"
+
+            # Add game_type to benchmark_kwargs
+            benchmark_kwargs['game_type'] = game_type
+
             if parallel:
                 # For now, sequential execution (parallel would require multiprocessing)
                 for i, agent_path in enumerate(agent_population):

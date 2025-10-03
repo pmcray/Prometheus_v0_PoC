@@ -1,0 +1,125 @@
+{
+  "nodes": [
+    {
+      "id": "observe_board",
+      "type": "observation",
+      "activation": 1.0,
+      "timestamp": "2025-10-01T15:20:17.194984",
+      "metadata": {
+        "description": "Read current board state"
+      }
+    },
+    {
+      "id": "identify_moves",
+      "type": "agent",
+      "activation": 1.0,
+      "timestamp": "2025-10-01T15:20:17.195103",
+      "metadata": {
+        "description": "Find valid moves"
+      }
+    },
+    {
+      "id": "check_win",
+      "type": "tool",
+      "activation": 0.8,
+      "timestamp": "2025-10-01T15:20:17.195278",
+      "metadata": {
+        "description": "Look for winning moves"
+      }
+    },
+    {
+      "id": "check_block",
+      "type": "tool",
+      "activation": 0.8,
+      "timestamp": "2025-10-01T15:20:17.195353",
+      "metadata": {
+        "description": "Look for blocking moves"
+      }
+    },
+    {
+      "id": "evaluate_options",
+      "type": "agent",
+      "activation": 0.9,
+      "timestamp": "2025-10-01T15:20:17.195557",
+      "metadata": {
+        "description": "Score each possible move"
+      }
+    },
+    {
+      "id": "select_move",
+      "type": "decision",
+      "activation": 1.0,
+      "timestamp": "2025-10-01T15:20:17.195755",
+      "metadata": {
+        "description": "Choose best move"
+      }
+    },
+    {
+      "id": "play_col_4",
+      "type": "observation",
+      "activation": 1.0,
+      "timestamp": "2025-10-01T15:20:17.196107",
+      "metadata": {
+        "description": "Drop token in column 4"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "observe_board",
+      "target": "identify_moves",
+      "type": "causes",
+      "strength": 1.0,
+      "timestamp": "2025-10-01T15:20:17.195183",
+      "metadata": {}
+    },
+    {
+      "source": "identify_moves",
+      "target": "check_win",
+      "type": "depends_on",
+      "strength": 0.9,
+      "timestamp": "2025-10-01T15:20:17.195422",
+      "metadata": {}
+    },
+    {
+      "source": "identify_moves",
+      "target": "check_block",
+      "type": "depends_on",
+      "strength": 0.9,
+      "timestamp": "2025-10-01T15:20:17.195490",
+      "metadata": {}
+    },
+    {
+      "source": "check_win",
+      "target": "evaluate_options",
+      "type": "informs",
+      "strength": 0.95,
+      "timestamp": "2025-10-01T15:20:17.195625",
+      "metadata": {}
+    },
+    {
+      "source": "check_block",
+      "target": "evaluate_options",
+      "type": "informs",
+      "strength": 0.85,
+      "timestamp": "2025-10-01T15:20:17.195688",
+      "metadata": {}
+    },
+    {
+      "source": "evaluate_options",
+      "target": "select_move",
+      "type": "causes",
+      "strength": 1.0,
+      "timestamp": "2025-10-01T15:20:17.195835",
+      "metadata": {}
+    },
+    {
+      "source": "select_move",
+      "target": "play_col_4",
+      "type": "causes",
+      "strength": 1.0,
+      "timestamp": "2025-10-01T15:20:17.196189",
+      "metadata": {}
+    }
+  ]
+}

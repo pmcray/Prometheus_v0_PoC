@@ -467,7 +467,7 @@ class PrometheusBenchV02:
     def __init__(self):
         self.version = "0.2"
         self.domains = {
-            BenchmarkDomain.GENERAL_GAME_PLAYING: ["draughts"],
+            BenchmarkDomain.GENERAL_GAME_PLAYING: ["draughts", "connect4"],
             BenchmarkDomain.CONVERSATIONAL_AI: ["general_conversation"],
             BenchmarkDomain.CODE_OPTIMIZATION: ["self_modification"]
         }
@@ -492,7 +492,7 @@ class PrometheusBenchV02:
         Args:
             agent_select_move: Function that takes game state and returns move
             num_games: Number of games to play
-            game_type: Type of game (currently only "draughts")
+            game_type: Type of game ("draughts" or "connect4")
 
         Returns:
             Benchmark result with win rate
@@ -504,6 +504,30 @@ class PrometheusBenchV02:
         draws = 0
         total_moves = 0
 
+        # Handle Connect4 separately with simpler opponent
+        if game_type == "connect4":
+            from benchmarks.connect4_benchmark import evaluate_connect4_agent
+            # Create a temporary agent wrapper
+            class AgentWrapper:
+                def select_move(self, game_state):
+                    return agent_select_move(game_state)
+
+            wrapper = AgentWrapper()
+            fitness, details = evaluate_connect4_agent(wrapper, num_games=num_games)
+
+            execution_time_ms = (time.time() - start_time) * 1000
+            return BenchmarkResult(
+                benchmark_name=f"GGP-{game_type}",
+                domain=BenchmarkDomain.GENERAL_GAME_PLAYING.value,
+                fitness_score=fitness,
+                execution_time_ms=execution_time_ms,
+                success=True,
+                details=details,
+                timestamp=datetime.now().isoformat(),
+                agent_identifier="connect4_agent"
+            )
+
+        # Original draughts code
         for game_num in range(num_games):
             game = DraughtsGame()
 
