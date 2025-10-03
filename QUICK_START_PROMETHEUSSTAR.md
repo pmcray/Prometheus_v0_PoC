@@ -55,53 +55,53 @@ python run_prometheusstar_microrts.py
 
 ---
 
-## Option 3: FreeCiv on Colab (Most Impressive)
+## Option 3: FreeCiv Local (Most Impressive!)
 
-**Time**: 4 weeks (passive - one session per week)
-**Hardware**: Free Google Colab
-**Why**: Complex strategy game, impressive demo
+**Time**: Hours to run full curriculum
+**Hardware**: Jetson or any computer with Ollama
+**Why**: Complex strategy game with exciting details!
 
 ```bash
-# Week 1: Stage 1
-1. Go to colab.research.google.com
-2. Upload Prometheus_FreeCiv_Colab.ipynb
-3. Mount Google Drive
-4. Set STAGE_TO_RUN = 1
-5. Run all cells (~12 hours)
-6. Checkpoint auto-saves to Drive
+# Run the full 4-stage curriculum
+python run_freeciv_curriculum.py
 
-# Week 2: Stage 2
-1. Re-open notebook in Colab
-2. Set STAGE_TO_RUN = 2
-3. Run all cells
-4. Previous results load automatically
-
-# Week 3: Stage 3
-Same as Week 2, STAGE_TO_RUN = 3
-
-# Week 4: Stage 4
-Same as Week 2, STAGE_TO_RUN = 4
-
-# Done!
-Final visualization shows full curriculum progress
+# Or run the notebook
+jupyter notebook PrometheusStar_FreeCiv_Local.ipynb
 ```
 
-**What you'll see**:
-- Stage 1: Learn basics vs Novice AI (30% target)
-- Stage 2: Develop tactics vs Easy AI (20% target)
-- Stage 3: Master strategy vs Normal AI (15% target)
-- Stage 4: Expert play vs Hard AI (10% target)
-- **Result**: PrometheusStar learns complex strategy across 4 weeks
+**What you'll see** (EXCITING!):
+- 🏛️ **10 Civilizations**: Romans, Egyptians, Greeks, Mongols, Vikings, etc.
+- 🏆 **Victory Types**: Space Race, Military, Diplomatic, Cultural, Time Limit
+- 📊 **Rich Details**: Population counts, city numbers, technology levels, culture points
+- 📅 **Historical Years**: Games span from 4000 BC to 2050 AD
+- 🎮 **Game-by-Game**: See which civ wins, how they win, and final standings
+
+**Example Output**:
+```
+Game 1: 🏆 Romans (Caesar) vs Egyptians (Ramesses)
+Victory: Space Race by Romans
+Final Year: 1130 AD (Turn 163)
+  Romans: 5 cities, 285 population, 20 tech, 1218 culture
+  Egyptians: 5 cities, 346 population, 11 tech, 1400 culture
+```
+
+**4-Stage Curriculum**:
+- Stage 1: Learn city building vs Novice AI (30% target)
+- Stage 2: Develop economy vs Easy AI (20% target)
+- Stage 3: Master diplomacy vs Normal AI (15% target)
+- Stage 4: Expert strategy vs Hard AI (10% target)
 
 ---
 
 ## 📊 Quick Comparison
 
-| Option | Time | Hardware | Impressiveness | Difficulty |
-|--------|------|----------|----------------|------------|
-| **Connect4** | 1-2 hrs | Any | ⭐⭐ | ✅ Easy |
-| **MicroRTS** | 6-12 hrs | Jetson/GPU | ⭐⭐⭐⭐ | ⭐ Medium |
-| **FreeCiv** | 4 weeks | Free Colab | ⭐⭐⭐⭐⭐ | ⭐⭐ Medium |
+| Option | Time | Hardware | Impressiveness | Excitement | Difficulty |
+|--------|------|----------|----------------|------------|------------|
+| **Connect4** | 1-2 hrs | Any | ⭐⭐ | ⭐⭐ | ✅ Easy |
+| **MicroRTS** | 6-12 hrs | Jetson/GPU | ⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐ Medium |
+| **FreeCiv** | Hours | Jetson/any | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ✅ Easy |
+
+**FreeCiv is most exciting!** See civilizations battle, track populations, watch years advance from 4000 BC to 2050 AD!
 
 ---
 
