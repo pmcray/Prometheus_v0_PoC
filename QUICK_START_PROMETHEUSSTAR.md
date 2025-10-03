@@ -55,14 +55,15 @@ python run_prometheusstar_microrts.py
 
 ---
 
-## Option 3: FreeCiv Local (Most Impressive!)
+## Option 3: FreeCiv Simulation (Most Impressive!)
 
 **Time**: Hours to run full curriculum
 **Hardware**: Jetson or any computer with Ollama
 **Why**: Complex strategy game with exciting details!
+**Note**: Uses built-in simulator - **no FreeCiv installation needed!**
 
 ```bash
-# Run the full 4-stage curriculum
+# Run the full 4-stage curriculum (works immediately!)
 python run_freeciv_curriculum.py
 
 # Or run the notebook
