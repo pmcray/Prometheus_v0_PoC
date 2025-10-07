@@ -6,6 +6,7 @@ __pycache__/
 *.aux
 *.out
 *.pdf
+!Documents/*.pdf
 *.tex
 temp_*.py
 temp_*.lean
