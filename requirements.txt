@@ -11,3 +11,6 @@ pyvis
 nltk
 ollama
 matplotlib
+streamlit
+chess
+python-chess
