@@ -116,7 +116,8 @@ class PrometheusChessUCI:
         # Opponent grows with us but stays 50-100 points ahead for challenge
         base_opponent = self.elo + 50
         variance = random.randint(-20, 20)
-        return int(base_opponent + variance)
+        # Stockfish minimum is 1350
+        return max(1350, int(base_opponent + variance))
 
     def evaluate_position(self, board: chess.Board) -> float:
         """
