@@ -86,9 +86,32 @@
 
 ---
 
+---
+
+#### 5. GPU Chess Agent (Attempted) ⚠️
+**Implementation**:
+- PyTorch GPU-accelerated position evaluation
+- Batch tensor operations on Jetson Orin
+- Vectorized board representation (12 x 8 x 8 tensors)
+- GPU piece value lookup and center control calculation
+
+**Result**: **Not effective for Jetson**
+- GPU tensor overhead > CPU numpy for small operations
+- Minimax search is inherently sequential (can't parallelize well)
+- Depth 3-4 on GPU slower than depth 3-4 on CPU
+- Jetson Orin optimized for inference, not symbolic search
+
+**Lesson Learned**:
+- GPU acceleration doesn't help traditional game tree search
+- AlphaZero-style approaches (MCTS + neural nets) would benefit from GPU
+- For symbolic minimax: CPU with good pruning > GPU with overhead
+- Keep CPU version with curriculum learning (more effective)
+
+---
+
 ### Challenges Remaining
 
-#### 4. Chess Performance ⚠️
+#### 6. Chess Performance ⚠️
 **Current Status**:
 - 3 training runs: 0-150 total record (0% win rate)
 - Elo regression: 800→745, 1300→972
