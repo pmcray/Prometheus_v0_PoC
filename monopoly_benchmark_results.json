@@ -1,0 +1,1450 @@
+{
+  "agent_name": "Prometheus",
+  "games_played": 100,
+  "win_rate": 0.3,
+  "meta_learning_rate": 1.741024206173928,
+  "results": [
+    {
+      "winner": "Prometheus",
+      "rounds": 63,
+      "final_cash": 312,
+      "final_net_worth": 1232,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "Ventnor Avenue",
+        "Short Line",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:15.987925"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 151,
+      "final_net_worth": 1271,
+      "properties_owned": [
+        "New York Avenue",
+        "Pacific Avenue",
+        "B&O Railroad",
+        "Tennessee Avenue",
+        "Illinois Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:15.991287"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 287,
+      "final_net_worth": 1567,
+      "properties_owned": [
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Tennessee Avenue",
+        "Marvin Gardens",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:15.995249"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 87,
+      "final_cash": -6,
+      "final_net_worth": 1494,
+      "properties_owned": [
+        "New York Avenue",
+        "Illinois Avenue",
+        "North Carolina Avenue",
+        "Pennsylvania Avenue",
+        "Atlantic Avenue",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:15.998154"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 166,
+      "final_net_worth": 1706,
+      "properties_owned": [
+        "New York Avenue",
+        "Pacific Avenue",
+        "Marvin Gardens",
+        "Pennsylvania Avenue",
+        "B&O Railroad",
+        "Illinois Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.001666"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 108,
+      "final_net_worth": 1048,
+      "properties_owned": [
+        "Reading Railroad",
+        "Marvin Gardens",
+        "Atlantic Avenue",
+        "B&O Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.005383"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 80,
+      "final_net_worth": 1500,
+      "properties_owned": [
+        "Reading Railroad",
+        "Tennessee Avenue",
+        "Marvin Gardens",
+        "Pennsylvania Avenue",
+        "Illinois Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.008652"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 346,
+      "final_net_worth": 1806,
+      "properties_owned": [
+        "Pacific Avenue",
+        "Kentucky Avenue",
+        "Pennsylvania Railroad",
+        "Reading Railroad",
+        "Marvin Gardens",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.011959"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 125,
+      "final_net_worth": 1365,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Ventnor Avenue",
+        "Atlantic Avenue",
+        "Tennessee Avenue",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.015112"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 71,
+      "final_net_worth": 1291,
+      "properties_owned": [
+        "Reading Railroad",
+        "St. James Place",
+        "Illinois Avenue",
+        "Marvin Gardens",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.018940"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 107,
+      "final_net_worth": 1147,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "Mediterranean Avenue",
+        "Pacific Avenue",
+        "Pennsylvania Railroad",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.022528"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 92,
+      "final_cash": 81,
+      "final_net_worth": 1341,
+      "properties_owned": [
+        "States Avenue",
+        "Atlantic Avenue",
+        "Marvin Gardens",
+        "Pacific Avenue",
+        "Kentucky Avenue",
+        "Baltic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.025752"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 166,
+      "final_net_worth": 1556,
+      "properties_owned": [
+        "Baltic Avenue",
+        "Pennsylvania Railroad",
+        "Kentucky Avenue",
+        "Connecticut Avenue",
+        "Tennessee Avenue",
+        "Park Place",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.028836"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 94,
+      "final_cash": 58,
+      "final_net_worth": 1298,
+      "properties_owned": [
+        "St. James Place",
+        "Ventnor Avenue",
+        "North Carolina Avenue",
+        "New York Avenue",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.031624"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 17,
+      "final_net_worth": 1337,
+      "properties_owned": [
+        "St. Charles Place",
+        "States Avenue",
+        "Tennessee Avenue",
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Mediterranean Avenue",
+        "St. James Place",
+        "Oriental Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.034564"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 377,
+      "final_net_worth": 1677,
+      "properties_owned": [
+        "St. James Place",
+        "New York Avenue",
+        "Pacific Avenue",
+        "St. Charles Place",
+        "Reading Railroad",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.037834"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 126,
+      "final_net_worth": 1526,
+      "properties_owned": [
+        "St. James Place",
+        "Kentucky Avenue",
+        "Atlantic Avenue",
+        "Virginia Avenue",
+        "Boardwalk",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.040718"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 77,
+      "final_cash": 105,
+      "final_net_worth": 1385,
+      "properties_owned": [
+        "Connecticut Avenue",
+        "Short Line",
+        "Reading Railroad",
+        "Kentucky Avenue",
+        "Illinois Avenue",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.043046"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 441,
+      "final_net_worth": 1821,
+      "properties_owned": [
+        "Reading Railroad",
+        "Vermont Avenue",
+        "B&O Railroad",
+        "Boardwalk",
+        "Ventnor Avenue",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.046476"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 84,
+      "final_cash": 581,
+      "final_net_worth": 2021,
+      "properties_owned": [
+        "Baltic Avenue",
+        "Pennsylvania Avenue",
+        "Mediterranean Avenue",
+        "B&O Railroad",
+        "North Carolina Avenue",
+        "Short Line",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.048797"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 178,
+      "final_net_worth": 1418,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "Marvin Gardens",
+        "North Carolina Avenue",
+        "St. James Place",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.052573"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 87,
+      "final_net_worth": 1047,
+      "properties_owned": [
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Illinois Avenue",
+        "Short Line"
+      ],
+      "timestamp": "2025-10-08T22:09:16.055821"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 89,
+      "final_cash": 252,
+      "final_net_worth": 1412,
+      "properties_owned": [
+        "Reading Railroad",
+        "Marvin Gardens",
+        "Pennsylvania Railroad",
+        "Kentucky Avenue",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.058812"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 16,
+      "final_net_worth": 996,
+      "properties_owned": [
+        "Illinois Avenue",
+        "Kentucky Avenue",
+        "B&O Railroad",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.061951"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 82,
+      "final_cash": 70,
+      "final_net_worth": 1470,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "North Carolina Avenue",
+        "Pennsylvania Railroad",
+        "New York Avenue",
+        "Ventnor Avenue",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.064825"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 288,
+      "final_net_worth": 1808,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Marvin Gardens",
+        "Short Line",
+        "B&O Railroad",
+        "St. James Place",
+        "Illinois Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.067895"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 88,
+      "final_cash": 129,
+      "final_net_worth": 1549,
+      "properties_owned": [
+        "New York Avenue",
+        "B&O Railroad",
+        "Pacific Avenue",
+        "Kentucky Avenue",
+        "North Carolina Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.070804"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 416,
+      "final_net_worth": 1716,
+      "properties_owned": [
+        "North Carolina Avenue",
+        "Kentucky Avenue",
+        "Ventnor Avenue",
+        "Pennsylvania Railroad",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.074676"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 79,
+      "final_cash": -25,
+      "final_net_worth": 1155,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "Pennsylvania Avenue",
+        "Indiana Avenue",
+        "St. James Place",
+        "New York Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.077388"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 213,
+      "final_net_worth": 1593,
+      "properties_owned": [
+        "Indiana Avenue",
+        "B&O Railroad",
+        "Short Line",
+        "St. James Place",
+        "Pacific Avenue",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.080930"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 85,
+      "final_net_worth": 1065,
+      "properties_owned": [
+        "Reading Railroad",
+        "St. James Place",
+        "Marvin Gardens",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.084233"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 222,
+      "final_net_worth": 1602,
+      "properties_owned": [
+        "B&O Railroad",
+        "North Carolina Avenue",
+        "Indiana Avenue",
+        "Marvin Gardens",
+        "Reading Railroad",
+        "St. James Place"
+      ],
+      "timestamp": "2025-10-08T22:09:16.087772"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 721,
+      "final_net_worth": 2041,
+      "properties_owned": [
+        "St. James Place",
+        "North Carolina Avenue",
+        "Reading Railroad",
+        "B&O Railroad",
+        "Indiana Avenue",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.091410"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 284,
+      "final_net_worth": 1464,
+      "properties_owned": [
+        "B&O Railroad",
+        "Marvin Gardens",
+        "Pennsylvania Avenue",
+        "St. James Place",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.094984"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 492,
+      "final_net_worth": 1192,
+      "properties_owned": [
+        "Reading Railroad",
+        "Kentucky Avenue",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.098160"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 449,
+      "final_net_worth": 1969,
+      "properties_owned": [
+        "Short Line",
+        "Illinois Avenue",
+        "Ventnor Avenue",
+        "B&O Railroad",
+        "Reading Railroad",
+        "Indiana Avenue",
+        "New York Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.101794"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 204,
+      "final_net_worth": 1844,
+      "properties_owned": [
+        "New York Avenue",
+        "Illinois Avenue",
+        "Short Line",
+        "Reading Railroad",
+        "Pennsylvania Railroad",
+        "B&O Railroad",
+        "Tennessee Avenue",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.105299"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 73,
+      "final_cash": 199,
+      "final_net_worth": 1679,
+      "properties_owned": [
+        "Reading Railroad",
+        "B&O Railroad",
+        "North Carolina Avenue",
+        "New York Avenue",
+        "Ventnor Avenue",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.107666"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 17,
+      "final_net_worth": 1497,
+      "properties_owned": [
+        "St. James Place",
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Illinois Avenue",
+        "Ventnor Avenue",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.110774"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 159,
+      "final_net_worth": 1339,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "Indiana Avenue",
+        "St. James Place",
+        "Marvin Gardens",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.114067"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 456,
+      "final_net_worth": 1836,
+      "properties_owned": [
+        "New York Avenue",
+        "Kentucky Avenue",
+        "Marvin Gardens",
+        "Reading Railroad",
+        "Tennessee Avenue",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.117343"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 250,
+      "final_net_worth": 1690,
+      "properties_owned": [
+        "Marvin Gardens",
+        "Short Line",
+        "Atlantic Avenue",
+        "Tennessee Avenue",
+        "Pennsylvania Avenue",
+        "B&O Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.120775"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 87,
+      "final_cash": 92,
+      "final_net_worth": 1432,
+      "properties_owned": [
+        "New York Avenue",
+        "B&O Railroad",
+        "Ventnor Avenue",
+        "Short Line",
+        "Marvin Gardens",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.123331"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 512,
+      "final_net_worth": 1392,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Short Line",
+        "Reading Railroad",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.126769"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 61,
+      "final_cash": 410,
+      "final_net_worth": 1370,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "North Carolina Avenue",
+        "Tennessee Avenue",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.128834"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 87,
+      "final_cash": 174,
+      "final_net_worth": 1274,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "Pacific Avenue",
+        "St. James Place",
+        "Short Line",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.131356"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 99,
+      "final_cash": 189,
+      "final_net_worth": 1329,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "Illinois Avenue",
+        "Short Line",
+        "North Carolina Avenue",
+        "St. James Place"
+      ],
+      "timestamp": "2025-10-08T22:09:16.134459"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 97,
+      "final_net_worth": 1377,
+      "properties_owned": [
+        "Pacific Avenue",
+        "Atlantic Avenue",
+        "Reading Railroad",
+        "North Carolina Avenue",
+        "Indiana Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.137352"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 86,
+      "final_cash": 15,
+      "final_net_worth": 1395,
+      "properties_owned": [
+        "Ventnor Avenue",
+        "Pacific Avenue",
+        "Tennessee Avenue",
+        "Atlantic Avenue",
+        "St. James Place",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.139929"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 306,
+      "final_net_worth": 1846,
+      "properties_owned": [
+        "Reading Railroad",
+        "St. James Place",
+        "B&O Railroad",
+        "Pacific Avenue",
+        "Pennsylvania Railroad",
+        "Short Line",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.142837"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 95,
+      "final_net_worth": 1395,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "Marvin Gardens",
+        "Pacific Avenue",
+        "Pennsylvania Avenue",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.146407"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 85,
+      "final_net_worth": 1165,
+      "properties_owned": [
+        "Tennessee Avenue",
+        "Marvin Gardens",
+        "Pacific Avenue",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.149615"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 93,
+      "final_cash": 25,
+      "final_net_worth": 1385,
+      "properties_owned": [
+        "Tennessee Avenue",
+        "Marvin Gardens",
+        "Reading Railroad",
+        "Illinois Avenue",
+        "Pennsylvania Railroad",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.152700"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 65,
+      "final_cash": 116,
+      "final_net_worth": 1576,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "Pacific Avenue",
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Tennessee Avenue",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.154572"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 322,
+      "final_net_worth": 1462,
+      "properties_owned": [
+        "Reading Railroad",
+        "New York Avenue",
+        "Tennessee Avenue",
+        "Ventnor Avenue",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.158120"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 474,
+      "final_net_worth": 1654,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "Illinois Avenue",
+        "Marvin Gardens",
+        "Reading Railroad",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.161252"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 56,
+      "final_net_worth": 1376,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "B&O Railroad",
+        "St. James Place",
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.164605"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 283,
+      "final_net_worth": 863,
+      "properties_owned": [
+        "Tennessee Avenue",
+        "St. James Place",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.168007"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 82,
+      "final_net_worth": 1562,
+      "properties_owned": [
+        "St. James Place",
+        "Short Line",
+        "Pennsylvania Railroad",
+        "Marvin Gardens",
+        "Pennsylvania Avenue",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.171375"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 157,
+      "final_net_worth": 1477,
+      "properties_owned": [
+        "Marvin Gardens",
+        "New York Avenue",
+        "Atlantic Avenue",
+        "Ventnor Avenue",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.174437"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 515,
+      "final_net_worth": 1735,
+      "properties_owned": [
+        "Reading Railroad",
+        "North Carolina Avenue",
+        "Pennsylvania Avenue",
+        "B&O Railroad",
+        "New York Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.178354"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 89,
+      "final_cash": 269,
+      "final_net_worth": 669,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.181038"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 248,
+      "final_net_worth": 1448,
+      "properties_owned": [
+        "New York Avenue",
+        "Illinois Avenue",
+        "Pacific Avenue",
+        "Pennsylvania Railroad",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.184226"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 63,
+      "final_cash": -5,
+      "final_net_worth": 1895,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "B&O Railroad",
+        "Pacific Avenue",
+        "Tennessee Avenue",
+        "Marvin Gardens",
+        "Atlantic Avenue",
+        "Short Line",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.186464"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 106,
+      "final_net_worth": 786,
+      "properties_owned": [
+        "New York Avenue",
+        "Kentucky Avenue",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.189970"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 93,
+      "final_net_worth": 1773,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Reading Railroad",
+        "Tennessee Avenue",
+        "North Carolina Avenue",
+        "Kentucky Avenue",
+        "Pacific Avenue",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.193165"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 71,
+      "final_cash": 231,
+      "final_net_worth": 1531,
+      "properties_owned": [
+        "Reading Railroad",
+        "B&O Railroad",
+        "Short Line",
+        "Tennessee Avenue",
+        "Pennsylvania Railroad",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.195706"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 99,
+      "final_cash": -35,
+      "final_net_worth": 1445,
+      "properties_owned": [
+        "New York Avenue",
+        "Pacific Avenue",
+        "Marvin Gardens",
+        "Short Line",
+        "Reading Railroad",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.198626"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 199,
+      "final_net_worth": 1839,
+      "properties_owned": [
+        "St. James Place",
+        "Marvin Gardens",
+        "Indiana Avenue",
+        "Ventnor Avenue",
+        "Short Line",
+        "North Carolina Avenue",
+        "B&O Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.202267"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 143,
+      "final_net_worth": 1563,
+      "properties_owned": [
+        "Ventnor Avenue",
+        "Marvin Gardens",
+        "Short Line",
+        "North Carolina Avenue",
+        "Pennsylvania Railroad",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.205505"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 38,
+      "final_net_worth": 1178,
+      "properties_owned": [
+        "B&O Railroad",
+        "St. James Place",
+        "North Carolina Avenue",
+        "Ventnor Avenue",
+        "Reading Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.208622"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 99,
+      "final_cash": 181,
+      "final_net_worth": 1441,
+      "properties_owned": [
+        "New York Avenue",
+        "Indiana Avenue",
+        "Marvin Gardens",
+        "Pacific Avenue",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.211395"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 496,
+      "final_net_worth": 696,
+      "properties_owned": [
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.214956"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 233,
+      "final_net_worth": 1473,
+      "properties_owned": [
+        "Reading Railroad",
+        "Ventnor Avenue",
+        "Pennsylvania Avenue",
+        "Pennsylvania Railroad",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.217714"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 239,
+      "final_net_worth": 1679,
+      "properties_owned": [
+        "Kentucky Avenue",
+        "Pennsylvania Railroad",
+        "Ventnor Avenue",
+        "North Carolina Avenue",
+        "Short Line",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.220715"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 409,
+      "final_net_worth": 1669,
+      "properties_owned": [
+        "Pennsylvania Avenue",
+        "Illinois Avenue",
+        "Ventnor Avenue",
+        "Tennessee Avenue",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.224041"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 304,
+      "final_net_worth": 1664,
+      "properties_owned": [
+        "New York Avenue",
+        "Illinois Avenue",
+        "Ventnor Avenue",
+        "Pennsylvania Railroad",
+        "Reading Railroad",
+        "Atlantic Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.227440"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 131,
+      "final_net_worth": 1391,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Atlantic Avenue",
+        "Pacific Avenue",
+        "St. James Place",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.230630"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 88,
+      "final_cash": 176,
+      "final_net_worth": 1376,
+      "properties_owned": [
+        "B&O Railroad",
+        "North Carolina Avenue",
+        "Pennsylvania Railroad",
+        "Tennessee Avenue",
+        "Pennsylvania Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.233295"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 94,
+      "final_cash": 52,
+      "final_net_worth": 1392,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Pacific Avenue",
+        "Pennsylvania Railroad",
+        "Short Line",
+        "Illinois Avenue",
+        "Tennessee Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.236296"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 195,
+      "final_net_worth": 1455,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Pennsylvania Avenue",
+        "Marvin Gardens",
+        "Illinois Avenue",
+        "Short Line"
+      ],
+      "timestamp": "2025-10-08T22:09:16.239476"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 100,
+      "final_cash": 385,
+      "final_net_worth": 1965,
+      "properties_owned": [
+        "Reading Railroad",
+        "Pennsylvania Railroad",
+        "New York Avenue",
+        "Pacific Avenue",
+        "Short Line",
+        "B&O Railroad",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.242914"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 32,
+      "final_net_worth": 1092,
+      "properties_owned": [
+        "Indiana Avenue",
+        "Pacific Avenue",
+        "Marvin Gardens",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.246489"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 95,
+      "final_cash": 110,
+      "final_net_worth": 1250,
+      "properties_owned": [
+        "Illinois Avenue",
+        "North Carolina Avenue",
+        "Kentucky Avenue",
+        "Tennessee Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.249524"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 207,
+      "final_net_worth": 1427,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "B&O Railroad",
+        "Marvin Gardens",
+        "Illinois Avenue",
+        "North Carolina Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.252979"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 268,
+      "final_net_worth": 1628,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "Marvin Gardens",
+        "Pennsylvania Avenue",
+        "Short Line",
+        "Pacific Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.256353"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 70,
+      "final_cash": 218,
+      "final_net_worth": 1678,
+      "properties_owned": [
+        "Ventnor Avenue",
+        "Pacific Avenue",
+        "Indiana Avenue",
+        "St. James Place",
+        "North Carolina Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.258264"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 85,
+      "final_cash": 90,
+      "final_net_worth": 1470,
+      "properties_owned": [
+        "Pennsylvania Avenue",
+        "Kentucky Avenue",
+        "St. James Place",
+        "Ventnor Avenue",
+        "Reading Railroad",
+        "B&O Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.261301"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 18,
+      "final_net_worth": 878,
+      "properties_owned": [
+        "B&O Railroad",
+        "New York Avenue",
+        "Indiana Avenue",
+        "Illinois Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.264520"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 68,
+      "final_net_worth": 1408,
+      "properties_owned": [
+        "Atlantic Avenue",
+        "Tennessee Avenue",
+        "New York Avenue",
+        "Indiana Avenue",
+        "B&O Railroad",
+        "Marvin Gardens"
+      ],
+      "timestamp": "2025-10-08T22:09:16.267712"
+    },
+    {
+      "winner": "Prometheus",
+      "rounds": 90,
+      "final_cash": 119,
+      "final_net_worth": 1499,
+      "properties_owned": [
+        "New York Avenue",
+        "Illinois Avenue",
+        "Kentucky Avenue",
+        "North Carolina Avenue",
+        "Indiana Avenue",
+        "Short Line"
+      ],
+      "timestamp": "2025-10-08T22:09:16.271017"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 81,
+      "final_cash": 116,
+      "final_net_worth": 1356,
+      "properties_owned": [
+        "Pacific Avenue",
+        "Marvin Gardens",
+        "New York Avenue",
+        "Ventnor Avenue",
+        "Short Line"
+      ],
+      "timestamp": "2025-10-08T22:09:16.273649"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 75,
+      "final_cash": -12,
+      "final_net_worth": 1368,
+      "properties_owned": [
+        "Reading Railroad",
+        "Pacific Avenue",
+        "New York Avenue",
+        "Kentucky Avenue",
+        "Atlantic Avenue",
+        "Pennsylvania Railroad"
+      ],
+      "timestamp": "2025-10-08T22:09:16.275902"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 79,
+      "final_cash": 215,
+      "final_net_worth": 1775,
+      "properties_owned": [
+        "Pennsylvania Railroad",
+        "Pacific Avenue",
+        "Tennessee Avenue",
+        "Atlantic Avenue",
+        "Reading Railroad",
+        "Illinois Avenue",
+        "St. James Place"
+      ],
+      "timestamp": "2025-10-08T22:09:16.278578"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 99,
+      "final_cash": -4,
+      "final_net_worth": 1396,
+      "properties_owned": [
+        "Illinois Avenue",
+        "Atlantic Avenue",
+        "Marvin Gardens",
+        "Kentucky Avenue",
+        "B&O Railroad",
+        "Short Line"
+      ],
+      "timestamp": "2025-10-08T22:09:16.281154"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 72,
+      "final_net_worth": 1212,
+      "properties_owned": [
+        "Tennessee Avenue",
+        "Kentucky Avenue",
+        "St. James Place",
+        "Pennsylvania Avenue",
+        "Illinois Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.284283"
+    },
+    {
+      "winner": "RandomBot",
+      "rounds": 100,
+      "final_cash": 41,
+      "final_net_worth": 961,
+      "properties_owned": [
+        "Reading Railroad",
+        "Kentucky Avenue",
+        "Atlantic Avenue",
+        "Illinois Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.287132"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 121,
+      "final_net_worth": 1261,
+      "properties_owned": [
+        "St. James Place",
+        "Tennessee Avenue",
+        "Indiana Avenue",
+        "North Carolina Avenue",
+        "Ventnor Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.289759"
+    },
+    {
+      "winner": "GreedyBot",
+      "rounds": 100,
+      "final_cash": 164,
+      "final_net_worth": 1784,
+      "properties_owned": [
+        "St. James Place",
+        "Ventnor Avenue",
+        "Pennsylvania Avenue",
+        "Illinois Avenue",
+        "Short Line",
+        "Reading Railroad",
+        "Kentucky Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.292962"
+    },
+    {
+      "winner": "CautiousBot",
+      "rounds": 100,
+      "final_cash": 198,
+      "final_net_worth": 1618,
+      "properties_owned": [
+        "Reading Railroad",
+        "Illinois Avenue",
+        "Ventnor Avenue",
+        "North Carolina Avenue",
+        "Kentucky Avenue",
+        "New York Avenue"
+      ],
+      "timestamp": "2025-10-08T22:09:16.296029"
+    }
+  ]
+}
