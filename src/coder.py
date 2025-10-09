@@ -2,6 +2,7 @@ import google.generativeai as genai
 import os
 import re
 import random
+import tempfile
 from src.tools import CompilerTool, StaticAnalyzerTool, LeanTool
 
 class CoderAgent:
@@ -109,18 +110,29 @@ class CoderAgent:
         return code1
 
     def _verify_code(self, code):
-        temp_file_path = "temp_coder_output.py"
-        with open(temp_file_path, 'w') as f:
-            f.write(code)
-        compiler_error = self.compiler.use(temp_file_path)
-        if compiler_error:
-            print(f"CoderAgent: Compiler error detected: {compiler_error}")
-            os.remove(temp_file_path)
-            return False
-        analyzer_output = self.analyzer.use(temp_file_path)
-        if analyzer_output:
-            print(f"CoderAgent: Static analyzer found issues:\n{analyzer_output}")
-            os.remove(temp_file_path)
-            return False
-        os.remove(temp_file_path)
-        return True
+        """
+        Verifies the given Python code by compiling it and running a static analyzer.
+        Uses a temporary file to avoid race conditions.
+        """
+        try:
+            with tempfile.NamedTemporaryFile(mode='w', suffix='.py', delete=False) as temp_file:
+                temp_file_path = temp_file.name
+                temp_file.write(code)
+
+            # 1. Compile the code
+            compiler_error = self.compiler.use(temp_file_path)
+            if compiler_error:
+                print(f"CoderAgent: Compiler error detected: {compiler_error}")
+                return False
+
+            # 2. Analyze the code
+            analyzer_output = self.analyzer.use(temp_file_path)
+            if analyzer_output:
+                print(f"CoderAgent: Static analyzer found issues:\n{analyzer_output}")
+                return False
+
+            return True
+        finally:
+            # Clean up the temporary file
+            if 'temp_file_path' in locals() and os.path.exists(temp_file_path):
+                os.remove(temp_file_path)
