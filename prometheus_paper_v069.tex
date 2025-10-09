@@ -28,16 +28,22 @@ Anthropic \\
 \maketitle
 
 \begin{abstract}
-We present Prometheus, a recursive self-improving AI system with formal safety guarantees through an immutable Gödelian safety layer. Unlike previous approaches that rely on alignment training or value learning, Prometheus employs a two-layer architecture: an immutable safety framework that cannot be modified even by the system itself, and a modifiable capability layer that improves through recursive self-modification. We provide both formal proofs of alignment preservation and comprehensive empirical validation across 11 diverse benchmarks spanning game-playing, abstract reasoning, and general intelligence tasks. Our system achieves expert-level performance on Chess (Elo 800→1100+), 100\% success rate on ARC-AGI abstract reasoning tasks (vs. GPT-4's ~5\%), and demonstrates zero-shot generalization across 1000+ games. Most critically, we prove that recursive self-improvement preserves alignment properties through Gödelian self-reference, providing a constructive existence proof of safe ultraintelligence.
+We present Prometheus, a recursive self-improving AI system with formal safety guarantees through an immutable Gödelian safety layer. Unlike foundation models that improve implicitly through scaled training, Prometheus implements explicit recursive self-improvement as envisioned by I.J. Good (1965): the system examines its own code, identifies improvements, verifies safety properties, and deploys enhanced versions. We employ a two-layer architecture where an immutable safety framework prevents goal modification even by the system itself, while a modifiable capability layer improves through recursive self-modification. We provide both formal proofs of alignment preservation (4 theorems) and empirical validation across 11 benchmarks spanning game-playing, abstract reasoning, and general intelligence. Key results include: Chess Elo progression (800→1100+, training ongoing), 100\% success on 100 synthetic ARC-AGI tasks (official benchmark evaluation remains future work), zero-shot generalization across 1000+ games, and measurable meta-learning acceleration (1.0x→7.24x). Most critically, we prove that recursive self-improvement can preserve alignment through Gödelian self-reference, providing a constructive existence proof that addresses Good's challenge: creating ultraintelligent machines that remain ``docile enough to tell us how to keep them under control.''
 \end{abstract}
 
 \section{Introduction}
 
 The prospect of recursively self-improving artificial intelligence, or ``ultraintelligence'' as termed by I.J. Good \cite{good1965}, presents both extraordinary promise and existential risk. A system capable of improving its own intelligence could rapidly exceed human cognitive capabilities—the ``intelligence explosion'' scenario. However, ensuring such a system remains aligned with human values during recursive improvement represents one of the hardest open problems in AI safety.
 
-Previous approaches to AI alignment have focused on reward learning \cite{christiano2017}, value learning \cite{russell2019}, or constitutional AI \cite{bai2022}. While valuable, these methods face fundamental challenges: reward functions can be gamed, learned values may drift during self-modification, and constitutional constraints implemented in software can be circumvented by a sufficiently capable system.
+In his seminal 1965 paper, I.J. Good predicted that ``an ultraintelligent machine could design even better machines; there would then unquestionably be an 'intelligence explosion,' and the intelligence of man would be left far behind.'' He further noted that ``the first ultraintelligent machine is the last invention that man need ever make, provided that the machine is docile enough to tell us how to keep it under control.'' This prescient observation identified the central challenge: not merely creating self-improving AI, but ensuring it remains controllable throughout recursive improvement.
 
-We propose a fundamentally different approach: \textbf{Gödelian immutability}. Inspired by Gödel's incompleteness theorems, we construct a safety framework that references itself in a way that makes modification logically impossible, even for a system that improves its own code. The key insight is that certain statements about a formal system cannot be proven or altered from within that system without creating logical contradictions.
+Modern foundation models like GPT-4, Claude, and Gemini improve \textit{implicitly} through scaled pre-training and fine-tuning. Their capabilities grow through dataset expansion, parameter scaling, and RLHF—but they do not modify their own architectures or learning algorithms. In contrast, Prometheus implements \textit{explicit recursive self-improvement} as envisioned by Good: the system examines its own code, identifies improvement opportunities, synthesizes modifications, verifies safety properties, and deploys enhanced versions of itself.
+
+This architectural difference—explicit vs. implicit improvement—has profound implications for both capability and safety. Foundation models learn alignment through training (RLHF, constitutional AI); Prometheus enforces alignment through structure. Foundation models improve via external gradient descent; Prometheus improves via internal code modification. Foundation models scale through compute and data; Prometheus scales through algorithmic refinement.
+
+Previous approaches to AI alignment have focused on reward learning \cite{christiano2017}, value learning \cite{russell2019}, or constitutional AI \cite{bai2022}. While valuable, these methods face fundamental challenges when applied to recursive self-improvement: reward functions can be gamed, learned values may drift during self-modification, and constitutional constraints implemented in software can be circumvented by a sufficiently capable system.
+
+We propose a fundamentally different approach: \textbf{Gödelian immutability}. Inspired by Gödel's incompleteness theorems, we construct a safety framework that references itself in a way that makes modification logically impossible, even for a system that improves its own code. The key insight is that certain statements about a formal system cannot be proven or altered from within that system without creating logical contradictions. This provides \textit{structural} safety guarantees that survive recursive self-modification—addressing Good's requirement that the machine remain ``docile enough to tell us how to keep it under control.''
 
 \subsection{Contributions}
 
@@ -392,8 +398,10 @@ Catan & Win Rate & 25\% & 30\%+ & Ready \\
 Diplomacy & Win Rate & 14\% & 20\%+ & Ready \\
 Ludii GGP & Win Rate & 40\% & 60\%+ & Ready \\
 Stanford GGP & Goal Value & 50 & 70+ & Ready \\
-ARC-AGI & Success & GPT-4: 5\% & Human: 85\% & \textbf{100\%} \\ \bottomrule
+ARC-AGI & Success & N/A & 85\% (human) & \textbf{100\%}$^*$ \\ \bottomrule
 \end{tabular}
+\vspace{2mm}
+\small{$^*$100\% on synthetic tasks; official ARC-AGI-1 benchmark remains future work}
 \end{table}
 
 \subsection{Tier 1: Foundational Game-Playing}
@@ -411,14 +419,16 @@ ARC-AGI & Success & GPT-4: 5\% & Human: 85\% & \textbf{100\%} \\ \bottomrule
 
 \subsection{Tier 5: Abstract Reasoning}
 
-\textbf{ARC-AGI Results:}
+\textbf{ARC-AGI Results (Synthetic Tasks):}
 \begin{itemize}
-\item Tasks: 100 synthetic tasks covering 8 transformation types
+\item Tasks: 100 \textbf{synthetic} tasks covering 8 transformation types
 \item Success rate: \textbf{100\%} (100/100 correct)
 \item Duration: 0.06 seconds total
 \item Meta-learning rate: 1.0x → 7.24x (2\% per task)
-\item Comparison: GPT-4 ~5\%, GPT-4o ~10\%, Human experts ~85\%
+\item \textbf{Important caveat}: These are programmatically generated synthetic tasks designed to test our pattern inference approach across 8 known transformation types (color mapping, rotation, flip, scale, fill, gravity, background removal, identity). Testing on the full ARC-AGI-1 benchmark (400 human-authored evaluation tasks covering a broader distribution of patterns) remains future work.
 \end{itemize}
+
+\textbf{Comparison Context:} GPT-4 achieves ~5\% and GPT-4o ~10\% on the \textit{official} ARC-AGI-1 benchmark with human-authored tasks. Our 100\% success is on a different task distribution (synthetic), so direct comparison is not appropriate. The result demonstrates the validity of our explicit pattern inference approach but does not claim superiority over foundation models on the official benchmark.
 
 \textbf{Transformation Types:}
 \begin{enumerate}
@@ -432,7 +442,7 @@ ARC-AGI & Success & GPT-4: 5\% & Human: 85\% & \textbf{100\%} \\ \bottomrule
 \item Identity/copy (confidence 1.00): 8 tasks
 \end{enumerate}
 
-\textbf{Analysis:} ARC-AGI results demonstrate abstract reasoning beyond game-playing. The agent successfully infers transformation rules from 2-3 training examples and generalizes to novel test cases. The 100\% success rate significantly exceeds GPT-4 (~5\%) and approaches human expert performance (~85\%). This validates true pattern abstraction capability.
+\textbf{Analysis:} ARC-AGI results demonstrate abstract reasoning beyond game-playing. The agent successfully infers transformation rules from 2-3 training examples and generalizes to novel test cases within the synthetic distribution. The 100\% success rate validates our explicit pattern inference architecture. However, we emphasize that synthetic tasks may be simpler than the full ARC-AGI-1 benchmark due to: (1) covering only 8 known transformation types rather than the full pattern space, (2) programmatic generation vs. human creativity, and (3) potential biases in synthetic task design. Real-world validation on the 400-task official benchmark is essential future work.
 
 \textbf{Pattern Inference Algorithm:}
 \begin{enumerate}
@@ -505,7 +515,7 @@ Our results provide a constructive existence proof that safe recursive self-impr
 
 Several limitations warrant discussion:
 
-\textbf{1. Synthetic ARC-AGI Tasks:} While we achieve 100\% success on synthetic tasks, testing on the full ARC-AGI benchmark (400 human-authored tasks) remains future work. Synthetic tasks may be simpler than the full distribution.
+\textbf{1. Synthetic ARC-AGI Tasks:} Our 100\% success rate is on synthetic tasks programmatically generated to cover 8 transformation types. This does not constitute evaluation on the official ARC-AGI-1 benchmark (400 human-authored evaluation tasks), which likely contains a broader and more challenging distribution of patterns. Synthetic tasks may exhibit systematic biases (limited pattern diversity, programmatic regularity, known transformation types) that make them easier than human-created tasks. Claims of superiority to GPT-4/GPT-4o are not supported, as those models were evaluated on the official benchmark while ours used a different (synthetic) task distribution. Full benchmark evaluation is critical future work to validate real-world abstract reasoning capability.
 
 \textbf{2. Chess Performance:} Current Chess Elo (~1100) falls short of the 1700-1900 target. Extended training (2000 games, 24+ hours) is required for expert-level performance. Current results validate capability growth but not yet expert mastery.
 
@@ -517,13 +527,32 @@ Several limitations warrant discussion:
 
 \subsection{Comparison to Prior Work}
 
-\textbf{vs. Gödel Machines \cite{schmidhuber2007}:} Both use formal methods for self-improvement. Gödel machines focus on optimality given a utility function; we focus on alignment preservation. Our contribution is proving safety properties remain invariant under self-modification.
+Table \ref{tab:comparison} contrasts Prometheus's explicit recursive self-improvement with modern foundation models.
 
-\textbf{vs. Constitutional AI \cite{bai2022}:} Constitutional AI implements safety through natural language principles and RLHF. These can potentially be modified during training. Our Gödelian approach provides structural immutability that survives recursive self-modification.
+\begin{table}[h]
+\centering
+\caption{Architectural Comparison: Prometheus vs Foundation Models}
+\label{tab:comparison}
+\begin{tabular}{@{}p{3.5cm}p{4.5cm}p{4.5cm}@{}}
+\toprule
+\textbf{Aspect} & \textbf{Foundation Models} & \textbf{Prometheus} \\ \midrule
+Improvement mechanism & Implicit (scaled pre-training, RLHF) & Explicit (recursive code modification) \\
+Self-modification & No (parameters updated externally) & Yes (modifies own algorithms) \\
+Safety mechanism & Learned (RLHF, constitutional AI) & Structural (Gödelian immutability) \\
+Alignment approach & Post-training alignment & Built-in (provably preserved under recursion) \\
+Meta-learning & Emergent from training & Explicit (1.0x → 7.24x measured) \\
+Intelligence growth & Training/scaling-dependent & Self-directed (Good's ultraintelligence vision) \\
+Safety guarantees & Empirical (alignment evaluation) & Formal (4 theorems with proofs) \\ \bottomrule
+\end{tabular}
+\end{table}
 
-\textbf{vs. RLHF \cite{christiano2017}:} RLHF aligns models through reward learning. Learned rewards can be gamed or modified. Our approach makes core alignment properties structurally immutable, independent of learned components.
+\textbf{vs. Gödel Machines \cite{schmidhuber2007}:} Both use formal methods for self-improvement. Gödel machines focus on provably optimal self-improvement given a computable utility function; we focus on alignment preservation under recursive modification. Our contribution is proving specific safety properties (budget constraints, goal stability) remain invariant through Gödelian self-reference, even when the system improves its own code.
 
-\textbf{vs. ARC-AGI Baselines:} GPT-4 achieves ~5\% on ARC-AGI, GPT-4o ~10\%. Our 100\% success rate (on synthetic tasks) demonstrates superior abstract reasoning through explicit pattern inference rather than end-to-end learning.
+\textbf{vs. Constitutional AI \cite{bai2022}:} Constitutional AI implements safety through natural language principles and RLHF—a learned approach. Learned constraints can potentially be circumvented or modified during recursive self-improvement. Our Gödelian approach provides structural immutability: safety constraints that logically cannot be removed from within the system, surviving recursive modification.
+
+\textbf{vs. RLHF \cite{christiano2017}:} RLHF aligns models through reward learning from human feedback. This is effective for foundation models with fixed architectures, but learned rewards are vulnerable to gaming (reward hacking) and modification during self-improvement. Our approach makes core alignment properties (budget limits, goal stability) structurally immutable, independent of learned components.
+
+\textbf{vs. ARC-AGI Baselines:} GPT-4 achieves ~5\% and GPT-4o ~10\% on the \textit{official} ARC-AGI-1 benchmark with 400 human-authored tasks. Our 100\% success is on \textit{synthetic} tasks covering 8 transformation types—a different (likely easier) distribution. Direct performance comparison is inappropriate. Our contribution is demonstrating that explicit pattern inference (deriving transformation rules from examples) achieves perfect performance on synthetic tasks, validating the architectural approach. Whether this transfers to the full benchmark remains an open empirical question requiring future evaluation.
 
 \subsection{Future Work}
 
@@ -551,7 +580,7 @@ We have presented Prometheus, a recursively self-improving AI system with formal
 
 \textbf{Architectural:} We implement a two-layer design separating immutable safety constraints from modifiable capabilities. This provides a constructive existence proof that safe ultraintelligence is possible.
 
-\textbf{Empirical:} We validate our approach across 11 diverse benchmarks spanning game-playing (Chess, Go, GGP), abstract reasoning (ARC-AGI at 100\% vs. GPT-4's 5\%), and social intelligence (Theory of Mind). The system demonstrates measurable capability growth (meta-learning 1.0x → 7.24x) while maintaining perfect safety record (0 violations).
+\textbf{Empirical:} We validate our approach across 11 diverse benchmarks spanning game-playing (Chess Elo 800→1100+, GGP zero-shot across 1000+ games), abstract reasoning (ARC-AGI 100\% on 100 synthetic tasks; official benchmark remains future work), and social intelligence (Monopoly, Theory of Mind). The system demonstrates measurable capability growth (meta-learning 1.0x → 7.24x) while maintaining perfect safety record (0 constraint violations, 0 budget overruns, 0 red-team breaches across 500+ attempts).
 
 Most critically, our work provides both formal proofs and empirical evidence that the seemingly incompatible goals of \textit{rapid capability growth} and \textit{provable safety guarantees} can be achieved simultaneously.
 
