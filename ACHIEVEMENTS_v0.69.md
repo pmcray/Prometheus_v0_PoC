@@ -92,6 +92,35 @@
 
 ---
 
+#### 3c. Hierarchical Patterns with Conditionals 🔬 **IN PROGRESS**
+**Implementation**:
+- Tree-structured patterns with if-then-else branches
+- 10 grid property detectors (symmetry, sparsity, object count, etc.)
+- Conditional execution: "if has_symmetry then mirror else crop"
+- Max depth 3, max size 7 nodes
+- Genetic evolution for tree structures
+
+**Approach**:
+```python
+if has_symmetry_h(grid):
+    apply mirror_h
+else if is_sparse(grid):
+    apply crop
+else:
+    apply identity
+```
+
+**Test Results (50 tasks, 100 generations)**:
+- Hierarchical: 2/50 (4.0%)
+- Flat evolution (same tasks): 2/50 (4.0%)
+- No improvement yet - may need more generations or better conditions
+
+**Full Run**: 400 tasks × 200 generations currently running
+
+**Key Insight**: Hierarchical conditionals need careful tuning - premature branching can fragment search space.
+
+---
+
 #### 4. Compositional ARC Evolution (Object-Aware) ✅
 **Implementation**:
 - Added 8 object-aware primitives using `scipy.ndimage.label` for connected components
