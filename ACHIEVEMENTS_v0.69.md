@@ -235,6 +235,57 @@
 
 ---
 
+#### 6. Phase 3: Hybrid Neural-Symbolic Attempts ❌
+
+**Goal**: Break through 7.5% plateau using advanced techniques
+
+**Approaches Implemented**:
+
+1. **DSL Program Synthesis** ❌
+   - Full interpreter with loops, conditionals, variables
+   - Object operations: `for_each_object`, `detect_objects`
+   - 20+ program templates
+   - Result: **17/400 (4.2%)** - 43% worse than evolution
+   - Why it failed: Fixed templates can't capture ARC's diversity
+
+2. **Domain-Specific Primitives** ❌
+   - Hand-crafted for common ARC patterns
+   - `extract_and_tile_objects`, `color_by_position`, `fill_shape_with_pattern`
+   - Result: **0 tasks solved**
+   - Why it failed: Overfitting to assumed patterns
+
+3. **Hybrid Ensemble** (Evolution + DSL + Domain) ❌
+   - Neural-guided strategy selection
+   - Feature-based heuristics
+   - Tries all three solvers per task
+   - Result: **17/400 (4.2%)** - 43% worse than evolution alone
+   - Why it failed: Quick evolution (50 gen) + weak alternatives
+
+4. **Neural Guidance** (Feature heuristics) ❌
+   - TaskFeatures: grid_size_ratio, color_count, has_objects
+   - Heuristic routing to best solver
+   - Result: No improvement - heuristics unreliable
+
+**Key Finding**: None of the "advanced" techniques beat simple evolution
+
+**Why Phase 3 Failed**:
+- **DSL templates**: Too rigid for ARC's pattern diversity
+- **Domain primitives**: Overfitting to imagined patterns
+- **Neural guidance**: Features insufficient for solver selection
+- **Hybrid ensemble**: Degraded by weak components
+
+**Root Cause**: The 38-primitive evolution with 200+ generations already explores the most productive search space. Adding complexity hurts performance.
+
+**Critical Insight**:
+- Evolution (200 gen): 29/400 (7.2%)
+- Evolution (500 gen): 30/400 (7.5%)
+- DSL: 17/400 (4.2%)
+- Hybrid: 17/400 (4.2%)
+
+**Simple beats complex**. The 7.5% plateau is real and fundamental.
+
+---
+
 ### Challenges Remaining
 
 #### 6. Chess Performance ⚠️
