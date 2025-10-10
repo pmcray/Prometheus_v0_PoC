@@ -216,6 +216,13 @@
 - `IOI_BRONZE_DESIGN.md`: Detailed design document
 - `ioi_primitives.py`: 50 tested algorithmic primitives
 - `ioi_synthesizer.py`: LLM-based code synthesizer + classifier
+- `ioi_synthesizer_local.py`: Local model support (llama.cpp integration)
+- `ioi_evolution.py`: Genetic algorithm for algorithm search
+- `ioi_tester.py`: Automated code testing system
+- `prometheus_ioi_bronze.py`: Complete integrated system
+- `install_local_models.sh`: One-command local model setup
+- `LOCAL_MODELS_GUIDE.md`: Comprehensive user guide
+- `LOCAL_MODEL_IMPLEMENTATION.md`: Technical implementation details
 
 ---
 
