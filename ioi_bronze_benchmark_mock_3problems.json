@@ -1,0 +1,70 @@
+{
+  "total_problems": 3,
+  "solved": 1,
+  "success_rate": 0.3333333333333333,
+  "by_difficulty": {
+    "easy": {
+      "solved": 1,
+      "total": 3
+    },
+    "medium": {
+      "solved": 0,
+      "total": 0
+    },
+    "hard": {
+      "solved": 0,
+      "total": 0
+    }
+  },
+  "results": [
+    {
+      "solved": true,
+      "code": "# Template solution using: use_array\nn = int(input())\narr = list(map(int, input().split()))\n\n# Process using suggested algorithms\nresult = 0\nfor x in arr:\n    # Apply logic here based on: ['use_array']\n    if x % 2 == 0:  # Example: count even\n        result += 1\n\nprint(result)\n",
+      "algorithm_sequence": [
+        "use_array"
+      ],
+      "test_results": {
+        "passed": 3,
+        "total": 3,
+        "success_rate": 1.0,
+        "failures": [],
+        "time_avg": 0.03148500124613444
+      },
+      "generation": 1,
+      "time_seconds": 3.1109516620635986,
+      "problem_name": "Count Even Numbers",
+      "difficulty": "Easy",
+      "expected_algorithms": [
+        "use_array",
+        "count_if"
+      ]
+    },
+    {
+      "solved": false,
+      "code": null,
+      "algorithm_sequence": [],
+      "test_results": {},
+      "generation": 0,
+      "time_seconds": 62.6637601852417,
+      "problem_name": "Find Maximum",
+      "difficulty": "Easy",
+      "expected_algorithms": [
+        "use_array",
+        "find_max"
+      ]
+    },
+    {
+      "solved": false,
+      "code": null,
+      "algorithm_sequence": [],
+      "test_results": {},
+      "generation": 0,
+      "time_seconds": 62.39849543571472,
+      "problem_name": "Sum of Array",
+      "difficulty": "Easy",
+      "expected_algorithms": [
+        "use_array"
+      ]
+    }
+  ]
+}
