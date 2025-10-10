@@ -92,7 +92,7 @@
 
 ---
 
-#### 3c. Hierarchical Patterns with Conditionals 🔬 **IN PROGRESS**
+#### 3c. Hierarchical Patterns with Conditionals ❌ **WORSE THAN FLAT**
 **Implementation**:
 - Tree-structured patterns with if-then-else branches
 - 10 grid property detectors (symmetry, sparsity, object count, etc.)
@@ -100,24 +100,25 @@
 - Max depth 3, max size 7 nodes
 - Genetic evolution for tree structures
 
-**Approach**:
-```python
-if has_symmetry_h(grid):
-    apply mirror_h
-else if is_sparse(grid):
-    apply crop
-else:
-    apply identity
-```
+**Results (400 tasks, 200 generations)**:
+- Hierarchical: **19/400 (4.8%)**
+- Flat evolution: 29/400 (7.2%)
+- **-10 tasks worse** (34% performance drop)
+- Duration: 846.9s vs 706s (20% slower)
 
-**Test Results (50 tasks, 100 generations)**:
-- Hierarchical: 2/50 (4.0%)
-- Flat evolution (same tasks): 2/50 (4.0%)
-- No improvement yet - may need more generations or better conditions
+**Conditional Patterns Used** (4/19 solutions):
+- `is_dense → rotate_270 : crop`
+- `has_multiple_colors → flip_v : remove_bg`
+- `is_small → transpose : scale_2x`
+- `is_small → mirror_h : tile_2x2`
 
-**Full Run**: 400 tasks × 200 generations currently running
+**Analysis**:
+- Most tasks (15/19) solved with simple leaf operations
+- Conditionals fragment search space without benefit
+- 200 generations insufficient to explore branching combinations
+- Most ARC tasks need single transformations, not context-aware logic
 
-**Key Insight**: Hierarchical conditionals need careful tuning - premature branching can fragment search space.
+**Key Insight**: Premature abstraction hurts performance - keep it simple!
 
 ---
 
