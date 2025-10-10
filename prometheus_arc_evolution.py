@@ -327,6 +327,197 @@ class ARCPrimitives:
         """Create vertical mirror (top + bottom)"""
         return np.concatenate([grid, np.flip(grid, axis=0)], axis=0)
 
+    # ========================================================================
+    # NEW PRIMITIVES FROM OPTIONS C & E (Strategic Expansion)
+    # ========================================================================
+
+    @staticmethod
+    def color_add(grid: np.ndarray, offset: int = 1, **kwargs) -> np.ndarray:
+        """Add offset to all non-zero colors (mod 10)"""
+        output = grid.copy()
+        mask = output > 0
+        output[mask] = ((output[mask] + offset - 1) % 9) + 1
+        return output
+
+    @staticmethod
+    def color_multiply(grid: np.ndarray, factor: int = 2, **kwargs) -> np.ndarray:
+        """Multiply non-zero colors by factor (mod 10)"""
+        output = grid.copy()
+        mask = output > 0
+        output[mask] = ((output[mask] * factor - 1) % 9) + 1
+        return output
+
+    @staticmethod
+    def color_by_row_col(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Set color based on (row + col) mod 9"""
+        output = np.zeros_like(grid)
+        for r in range(grid.shape[0]):
+            for c in range(grid.shape[1]):
+                if grid[r, c] != 0:
+                    output[r, c] = ((r + c) % 9) + 1
+        return output
+
+    @staticmethod
+    def diagonal_shift(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Shift each row by its row index (diagonal shearing)"""
+        output = np.zeros_like(grid)
+        for r in range(grid.shape[0]):
+            output[r] = np.roll(grid[r], r)
+        return output
+
+    @staticmethod
+    def antidiagonal_mirror(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Mirror along anti-diagonal (bottom-left to top-right)"""
+        return np.flip(grid.T, axis=1)
+
+    @staticmethod
+    def fold_quadrants(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Fold grid into quarters, overlay with max"""
+        h, w = grid.shape
+        if h < 2 or w < 2:
+            return grid.copy()
+
+        h_mid = h // 2
+        w_mid = w // 2
+
+        # Extract quadrants (adjust if odd dimensions)
+        q1 = grid[:h_mid, :w_mid]
+        q2 = grid[:h_mid, w_mid:w_mid+w_mid] if w >= w_mid*2 else np.zeros((h_mid, w_mid), dtype=grid.dtype)
+        q3 = grid[h_mid:h_mid+h_mid, :w_mid] if h >= h_mid*2 else np.zeros((h_mid, w_mid), dtype=grid.dtype)
+        q4_h = min(h - h_mid, h_mid)
+        q4_w = min(w - w_mid, w_mid)
+        q4 = grid[h_mid:h_mid+q4_h, w_mid:w_mid+q4_w]
+
+        # Resize to common size
+        min_h = min(q1.shape[0], q2.shape[0], q3.shape[0], q4.shape[0])
+        min_w = min(q1.shape[1], q2.shape[1], q3.shape[1], q4.shape[1])
+
+        q1 = q1[:min_h, :min_w]
+        q2 = q2[:min_h, :min_w]
+        q3 = q3[:min_h, :min_w]
+        q4 = q4[:min_h, :min_w]
+
+        # Overlay with max
+        return np.maximum(np.maximum(q1, q2), np.maximum(q3, q4))
+
+    @staticmethod
+    def tile_2x1(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Tile grid 2 times horizontally"""
+        return np.concatenate([grid, grid], axis=1)
+
+    @staticmethod
+    def tile_1x2(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Tile grid 2 times vertically"""
+        return np.concatenate([grid, grid], axis=0)
+
+    @staticmethod
+    def tile_3x1(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Tile grid 3 times horizontally"""
+        return np.concatenate([grid, grid, grid], axis=1)
+
+    @staticmethod
+    def tile_1x3(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Tile grid 3 times vertically"""
+        return np.concatenate([grid, grid, grid], axis=0)
+
+    @staticmethod
+    def mask_by_color(grid: np.ndarray, keep_color: int = 1, **kwargs) -> np.ndarray:
+        """Keep only cells matching specific color"""
+        output = np.zeros_like(grid)
+        output[grid == keep_color] = keep_color
+        return output
+
+    @staticmethod
+    def invert_foreground_background(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Swap foreground/background (0 ↔ 1, others unchanged)"""
+        output = grid.copy()
+        mask_0 = (grid == 0)
+        mask_nonzero = (grid > 0)
+        output[mask_0] = 1
+        output[mask_nonzero] = 0
+        return output
+
+    @staticmethod
+    def overlay_max(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Overlay top/bottom halves with max operation"""
+        h, w = grid.shape
+        if h < 2:
+            return grid.copy()
+        h_mid = h // 2
+        top = grid[:h_mid, :]
+        bottom = grid[h_mid:h_mid+h_mid, :]
+        min_h = min(top.shape[0], bottom.shape[0])
+        min_w = min(top.shape[1], bottom.shape[1])
+        return np.maximum(top[:min_h, :min_w], bottom[:min_h, :min_w])
+
+    @staticmethod
+    def extend_edges_outward(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Extend edge pixels outward by 1"""
+        if grid.shape[0] == 0 or grid.shape[1] == 0:
+            return grid.copy()
+        output = np.pad(grid, pad_width=1, mode='edge')
+        return output
+
+    @staticmethod
+    def extract_corners(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Extract 4 corner pixels only"""
+        output = np.zeros_like(grid)
+        if grid.shape[0] > 0 and grid.shape[1] > 0:
+            output[0, 0] = grid[0, 0]
+            output[0, -1] = grid[0, -1]
+            output[-1, 0] = grid[-1, 0]
+            output[-1, -1] = grid[-1, -1]
+        return output
+
+    @staticmethod
+    def replicate_smallest_object(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Find smallest object and tile it across grid"""
+        from scipy import ndimage
+        output = np.zeros_like(grid)
+
+        objects = []
+        for color in np.unique(grid):
+            if color == 0:
+                continue
+            mask = (grid == color)
+            labeled, num = ndimage.label(mask)
+            for i in range(1, num + 1):
+                obj_mask = (labeled == i)
+                objects.append((np.sum(obj_mask), obj_mask, color))
+
+        if len(objects) == 0:
+            return output
+
+        # Get smallest object
+        smallest = min(objects, key=lambda x: x[0])
+        obj_mask, color = smallest[1], smallest[2]
+
+        # Extract bounding box
+        rows = np.any(obj_mask, axis=1)
+        cols = np.any(obj_mask, axis=0)
+        if not rows.any() or not cols.any():
+            return output
+
+        rmin, rmax = np.where(rows)[0][[0, -1]]
+        cmin, cmax = np.where(cols)[0][[0, -1]]
+        obj_pattern = grid[rmin:rmax+1, cmin:cmax+1] * obj_mask[rmin:rmax+1, cmin:cmax+1]
+
+        # Tile across output
+        ph, pw = obj_pattern.shape
+        if ph == 0 or pw == 0:
+            return output
+
+        for r in range(0, output.shape[0], ph):
+            for c in range(0, output.shape[1], pw):
+                h_end = min(r + ph, output.shape[0])
+                w_end = min(c + pw, output.shape[1])
+                output[r:h_end, c:w_end] = np.maximum(
+                    output[r:h_end, c:w_end],
+                    obj_pattern[:h_end-r, :w_end-c]
+                )
+
+        return output
+
 class PrometheusARCEvolution:
     """Evolutionary system for ARC pattern discovery"""
 
@@ -390,6 +581,25 @@ class PrometheusARCEvolution:
             ('color_pos', ARCPrimitives.color_map_to_position, {}),
             ('downsample', ARCPrimitives.downsample_2x, {}),
             ('checkerboard', ARCPrimitives.checkerboard_pattern, {}),
+            # NEW: 17 primitives from Options C & E
+            ('color_add', ARCPrimitives.color_add, {'offset': 1}),
+            ('color_add2', ARCPrimitives.color_add, {'offset': 2}),
+            ('color_mul', ARCPrimitives.color_multiply, {'factor': 2}),
+            ('color_row_col', ARCPrimitives.color_by_row_col, {}),
+            ('diag_shift', ARCPrimitives.diagonal_shift, {}),
+            ('antidiag_mirror', ARCPrimitives.antidiagonal_mirror, {}),
+            ('fold_quads', ARCPrimitives.fold_quadrants, {}),
+            ('tile_2x1', ARCPrimitives.tile_2x1, {}),
+            ('tile_1x2', ARCPrimitives.tile_1x2, {}),
+            ('tile_3x1', ARCPrimitives.tile_3x1, {}),
+            ('tile_1x3', ARCPrimitives.tile_1x3, {}),
+            ('mask_color1', ARCPrimitives.mask_by_color, {'keep_color': 1}),
+            ('mask_color2', ARCPrimitives.mask_by_color, {'keep_color': 2}),
+            ('invert_fg_bg', ARCPrimitives.invert_foreground_background, {}),
+            ('overlay_max', ARCPrimitives.overlay_max, {}),
+            ('extend_out', ARCPrimitives.extend_edges_outward, {}),
+            ('corners', ARCPrimitives.extract_corners, {}),
+            ('replicate_small', ARCPrimitives.replicate_smallest_object, {}),
         ]
 
         for name, func, params in primitive_methods:

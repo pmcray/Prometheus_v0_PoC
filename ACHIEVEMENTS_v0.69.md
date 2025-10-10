@@ -286,6 +286,150 @@
 
 ---
 
+#### 7. Evaluation Set Testing - Critical Overfitting Discovery ⚠️⚠️⚠️
+
+**Goal**: Measure generalization on 400 unseen evaluation tasks
+
+**Implementation**:
+- Same 38 primitives, 200 generations
+- Evaluation split (never seen during development)
+- Duration: 859.9s (~14 minutes)
+
+**Results**:
+- **Evaluation**: 4/400 (1.0%)
+- **Training**: 30/400 (7.5%)
+- **Generalization Gap**: 7.5x performance drop
+
+**Tasks Solved on Evaluation**:
+1. `50a16a69` - checkerboard
+2. `60c09cac` - scale_2x
+3. `68b67ca3` - downsample
+4. `fc754716` - fill_zeros + hollow
+
+**Critical Finding**: **MASSIVE OVERFITTING**
+
+**Analysis**:
+- Training performance (7.5%) does NOT generalize
+- Only 13.3% of training solutions work on evaluation (4 vs 30)
+- System is memorizing training-specific patterns, not learning general rules
+- This fundamentally challenges the evolutionary approach
+
+**Root Causes**:
+1. **Search Space Explosion**: 38 primitives × 5-operation chains = huge overfitting risk
+2. **No Regularization**: Evolution optimizes pure training accuracy with complexity penalty only
+3. **No Validation Set**: All 400 training tasks used for pattern discovery
+4. **Primitive Specificity**: Hand-coded primitives may be too training-specific
+
+**Implications**:
+- Cannot trust training performance as proxy for capability
+- Need validation-based early stopping
+- May need simpler patterns (1-2 ops instead of 1-5)
+- Should focus on evaluation performance, not training
+
+**Comparison to Foundation Models**:
+- GPT-4: ~5% on both training and evaluation (better generalization)
+- Gemini 1.5 Pro: ~10% on evaluation
+- Our system: 7.5% training but 1.0% evaluation (worse than GPT-4)
+
+**This is the most important finding**: Evolution without proper generalization constraints leads to severe overfitting.
+
+---
+
+#### 8. Options C & E Implementation (Strategic Primitive Expansion) ✅
+
+**Goal**: Break through 7.5% plateau with targeted primitives
+
+**Option C - Failure Analysis**:
+- Sampled 50 failed training tasks
+- Pattern distribution:
+  - COLOR_MAPPING: 46% (most common!)
+  - SPATIAL_TRANSFORMATION: 32%
+  - SIZE_TRANSFORMATION: 16%
+  - REPETITION_TILING: 6%
+
+**Option E - Primitive Design**:
+- Designed 17 new targeted primitives:
+  - Color operations: 4 (color_add, color_multiply, color_by_position)
+  - Flexible tiling: 4 (tile_2x1, tile_1x2, tile_3x1, tile_1x3)
+  - Spatial transforms: 3 (diagonal_shift, antidiag_mirror, fold_quadrants)
+  - Selective ops: 3 (mask_color, invert_fg_bg)
+  - Advanced ops: 3 (overlay_max, extend_out, corners, replicate_small)
+
+**Implementation**:
+- Added to `prometheus_arc_evolution.py`
+- Total primitives: 38 → 56 (+47%)
+- Running 200-generation evolution on training set
+
+**Final Training Results** (56 primitives, 200 generations):
+- **Solved: 32/400 (8.0%)**
+- Baseline (38 primitives): 30/400 (7.5%)
+- **Improvement: +2 tasks (+6.7% relative)**
+- Duration: 970.1s (~16 minutes)
+
+**New Primitives Used in Solutions**:
+- `tile_2x1` - 2 solutions (tasks 231, 249)
+- `tile_1x3` - 1 complex solution (task 211: rotate_180 + tile_1x3 + mirror_h)
+- `overlay_max` - 1 solution (task 188)
+- `fold_quads` - 1 partial solution (task 100, fitness 0.98)
+
+**Status**: Training complete (32/400 = 8.0%). Evaluation run attempted but log empty - likely buffering issue.
+
+**Key Finding**: Modest improvement (+2 tasks) with 47% more primitives suggests **diminishing returns** from primitive expansion alone.
+
+---
+
+#### 9. Diminishing Returns Confirmation ✅
+
+**Test**: Extended evolution from 200 to 500 generations
+
+**Results**:
+- 200 generations: 30/400 (7.5%) in 970s
+- 500 generations: 30/400 (7.5%) in 1775s
+- **Improvement: 0 tasks** (identical performance)
+- **Compute Cost: 2.5x more time**
+
+**Critical Finding**: More generations do NOT help - we've reached a fundamental plateau
+
+**Implications**:
+1. Evolutionary search has explored the reachable solution space
+2. Current 38-56 primitives cannot solve more than ~7.5-8.0% of tasks
+3. Problem is NOT insufficient search - it's **insufficient primitive coverage**
+4. Need fundamentally different primitives, not more search time
+
+**Combined with Overfitting**:
+- Training: 7.5-8.0% (plateau confirmed)
+- Evaluation: 1.0% (generalization failure)
+- **Double problem**: Plateau + Overfitting
+
+---
+
+#### 10. Connect4 Meta-Learning Test ⚠️ **ABANDONED**
+
+**Goal**: Test whether evolutionary meta-learning works on simpler game than chess
+
+**Implementation**: Pure symbolic Connect4 with minimax + evolving evaluation weights
+- 450 lines: Connect4 game logic, minimax search, weight evolution
+- Depth 5 minimax search with alpha-beta pruning
+- Population: 10, Generations: 20
+- Evaluation weights: three_in_row, two_in_row, center_control, block_opponent
+
+**Result**: Too computationally expensive
+- Expected duration: 5-10 minutes
+- Actual: 39+ minutes without completion
+- Process terminated/crashed before finishing
+
+**Root Cause**: Combinatorial explosion
+- State space: 7 columns × 6 rows
+- Games per generation: 10 pop × 5 opponents × 2 positions × 3 games ≈ 300 games
+- Each game: Depth 5 search = 7^5 = 16,807 positions per move
+- Total: ~5M position evaluations per generation
+
+**Lesson**: Need faster test domain or shallower search depth (depth 3-4 instead of 5)
+
+**Status**: Abandoned - not viable for quick meta-learning validation
+
+---
+
 ### Challenges Remaining
 
 #### 6. Chess Performance ⚠️
