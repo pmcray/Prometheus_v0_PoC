@@ -1,0 +1,9 @@
+{
+  "game": 40,
+  "wins": 0,
+  "draws": 0,
+  "losses": 40,
+  "win_rate": 0.0,
+  "opponent_skill": 0,
+  "meta_learning_rate": 1.4888637335882218
+}
