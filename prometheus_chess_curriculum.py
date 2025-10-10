@@ -125,9 +125,9 @@ class PrometheusChessCurriculum:
         if not legal_moves:
             return None
 
-        # Depth increases with meta-learning
-        base_depth = 6
-        adjusted_depth = min(8, base_depth + int(self.meta_learning_rate * 0.1))
+        # Depth increases with meta-learning (reduced for speed)
+        base_depth = 3
+        adjusted_depth = min(4, base_depth + int(self.meta_learning_rate * 0.05))
 
         best_move = None
         best_value = float('-inf') if board.turn == chess.WHITE else float('inf')

@@ -188,6 +188,120 @@ class ARCPrimitives:
         return np.pad(grid, pad_width=1, mode='constant', constant_values=0)
 
     @staticmethod
+    def invert_colors(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Invert colors (9 - color for each cell)"""
+        output = grid.copy()
+        output[output > 0] = 10 - output[output > 0]
+        return output
+
+    @staticmethod
+    def hollow_objects(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Convert filled regions to hollow outlines"""
+        from scipy import ndimage
+        output = np.zeros_like(grid)
+        for color in np.unique(grid):
+            if color == 0:
+                continue
+            mask = (grid == color)
+            eroded = ndimage.binary_erosion(mask)
+            outline = mask & ~eroded
+            output[outline] = color
+        return output
+
+    @staticmethod
+    def count_colors_to_value(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Fill grid with count of unique non-zero colors"""
+        num_colors = len(np.unique(grid[grid != 0]))
+        return np.full_like(grid, num_colors)
+
+    @staticmethod
+    def swap_max_min_colors(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Swap most and least common non-zero colors"""
+        colors, counts = np.unique(grid[grid != 0], return_counts=True)
+        if len(colors) < 2:
+            return grid.copy()
+        max_color = int(colors[np.argmax(counts)])
+        min_color = int(colors[np.argmin(counts)])
+        output = grid.copy()
+        output[grid == max_color] = -1  # Temp marker
+        output[grid == min_color] = max_color
+        output[output == -1] = min_color
+        return output
+
+    @staticmethod
+    def extend_edges(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Extend edge colors to fill grid"""
+        output = grid.copy()
+        if grid.shape[0] == 0 or grid.shape[1] == 0:
+            return output
+        # Extend from edges inward
+        for i in range(output.shape[0]):
+            if output[i, 0] != 0:
+                output[i, :] = output[i, 0]
+        for j in range(output.shape[1]):
+            if output[0, j] != 0:
+                output[:, j] = output[0, j]
+        return output
+
+    @staticmethod
+    def crop_to_content(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Crop to bounding box of non-zero content"""
+        rows, cols = np.where(grid != 0)
+        if len(rows) == 0:
+            return grid.copy()
+        return grid[rows.min():rows.max()+1, cols.min():cols.max()+1].copy()
+
+    @staticmethod
+    def symmetrize_horizontal(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Make grid horizontally symmetric (copy left to right)"""
+        output = grid.copy()
+        mid = output.shape[1] // 2
+        output[:, mid:] = np.flip(output[:, :mid], axis=1)
+        return output
+
+    @staticmethod
+    def symmetrize_vertical(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Make grid vertically symmetric (copy top to bottom)"""
+        output = grid.copy()
+        mid = output.shape[0] // 2
+        output[mid:, :] = np.flip(output[:mid, :], axis=0)
+        return output
+
+    @staticmethod
+    def diagonal_flip(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Flip along main diagonal (anti-transpose)"""
+        return np.flip(grid.T, axis=1)
+
+    @staticmethod
+    def color_map_to_position(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Map each color to its row position"""
+        output = np.zeros_like(grid)
+        for i in range(grid.shape[0]):
+            for j in range(grid.shape[1]):
+                if grid[i, j] != 0:
+                    output[i, j] = i + 1
+        return output
+
+    @staticmethod
+    def downsample_2x(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Downsample by 2x (take every other cell)"""
+        return grid[::2, ::2].copy()
+
+    @staticmethod
+    def checkerboard_pattern(grid: np.ndarray, **kwargs) -> np.ndarray:
+        """Create checkerboard from two most common colors"""
+        colors, counts = np.unique(grid, return_counts=True)
+        if len(colors) < 2:
+            return grid.copy()
+        c1, c2 = colors[np.argsort(counts)[-2:]]
+        output = np.zeros_like(grid)
+        output[::2, ::2] = c1
+        output[1::2, 1::2] = c1
+        output[::2, 1::2] = c2
+        output[1::2, ::2] = c2
+        return output
+
+    @staticmethod
     def compress_horizontal(grid: np.ndarray, **kwargs) -> np.ndarray:
         """Remove zero-only columns"""
         mask = np.any(grid != 0, axis=0)
@@ -263,6 +377,19 @@ class PrometheusARCEvolution:
             ('compress_v', ARCPrimitives.compress_vertical, {}),
             ('mirror_h', ARCPrimitives.mirror_horizontal, {}),
             ('mirror_v', ARCPrimitives.mirror_vertical, {}),
+            # NEW: 12 additional primitives for better coverage
+            ('invert', ARCPrimitives.invert_colors, {}),
+            ('hollow', ARCPrimitives.hollow_objects, {}),
+            ('count_colors', ARCPrimitives.count_colors_to_value, {}),
+            ('swap_max_min', ARCPrimitives.swap_max_min_colors, {}),
+            ('extend_edges', ARCPrimitives.extend_edges, {}),
+            ('crop', ARCPrimitives.crop_to_content, {}),
+            ('sym_h', ARCPrimitives.symmetrize_horizontal, {}),
+            ('sym_v', ARCPrimitives.symmetrize_vertical, {}),
+            ('diag_flip', ARCPrimitives.diagonal_flip, {}),
+            ('color_pos', ARCPrimitives.color_map_to_position, {}),
+            ('downsample', ARCPrimitives.downsample_2x, {}),
+            ('checkerboard', ARCPrimitives.checkerboard_pattern, {}),
         ]
 
         for name, func, params in primitive_methods:
