@@ -67,10 +67,17 @@
 - Duration: 706 seconds (~12 minutes)
 
 **Results on ARC-AGI Training Set** (400 tasks):
-- Extended evolution: **29/400 solved (7.2%)**
+- 200 generations: **29/400 solved (7.2%)**
 - Base evolution (26 prims, 50 gen): 19/400 (4.8%)
 - **+50% relative improvement** (4.8% → 7.2%)
 - **29x better than hand-coded** (0.25% baseline)
+
+**Extended to 500 Generations**:
+- 500 generations: **30/400 solved (7.5%)**
+- Duration: 1775 seconds (~30 minutes)
+- **+1 task improvement** over 200 gen (+3.4%)
+- Patterns evolved: 9.5M (2.5x more exploration)
+- **Diminishing returns confirmed**: 2.5x compute → 3.4% gain
 
 **New Primitives Used in Solutions**:
 - `crop` (bounding box): 5 tasks solved
