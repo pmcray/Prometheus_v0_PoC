@@ -179,6 +179,62 @@
 
 ---
 
+#### 5. Phase 2 Exploration Results ⚠️
+
+**Goal**: Break through 7.5% plateau to reach 10% (Gemini 1.5 Pro level)
+
+**Strategies Tested**:
+
+1. **Extended Evolution (500 generations)** ✅
+   - Result: 30/400 (7.5%) vs 29/400 (7.2%) for 200-gen
+   - +1 task improvement for 2.5x compute
+   - **Conclusion**: Diminishing returns - more search doesn't help
+
+2. **Hierarchical Conditional Patterns** ❌
+   - Implementation: Tree structures with if-then-else branches
+   - 10 grid property conditions (symmetry, sparsity, etc.)
+   - Result: 19/400 (4.8%) - **34% worse** than flat evolution
+   - Only 4/19 solutions used conditionals
+   - **Conclusion**: Premature abstraction hurts - keep it simple
+
+3. **Meta-Evolution of Primitives** ❌
+   - Goal: Evolve novel primitives from numpy/scipy operations
+   - 14 meta-operations (dilate, erode, fill_holes, edge_detect, etc.)
+   - 50 tasks × 100 generations
+   - Result: **0 useful primitives discovered**
+   - **Conclusion**: Individual scipy ops too low-level to solve ARC directly
+
+4. **Transfer Learning** (Not tested)
+   - Hypothesis: Share patterns across clustered similar tasks
+   - **Analysis**: Won't help - it's the same evolution, just reorganized
+   - Same primitives, same search space, same 7.5% ceiling
+
+**Key Finding**: Pure symbolic evolution plateau at 7.5%
+
+**Why 7.5% is the ceiling**:
+- Hand-coded 38 primitives cover basic grid transformations
+- Evolution discovers all reasonable 1-5 operation combinations
+- Remaining 360+ tasks require:
+  - Object-level reasoning (not just grid operations)
+  - Abstract rule induction (beyond pattern matching)
+  - Compositional generalization (novel combinations)
+  - Program synthesis with loops/recursion
+
+**What would be needed for 10%+**:
+1. **Program Synthesis**: DSL with loops, conditionals, variables
+2. **Neural-Guided Search**: Use learned models to guide evolution
+3. **Hybrid Architecture**: Neural perception + symbolic reasoning
+4. **Domain-Specific Primitives**: Hand-design for ARC pattern classes
+5. **Ensemble Methods**: Combine multiple solving strategies
+
+**Honest Assessment**:
+- 7.5% (30/400) is **150% of GPT-4 2023 performance** (~5%)
+- Achieved with zero neural networks, zero training data
+- Demonstrates viability of pure symbolic + evolutionary AI
+- But hitting fundamental limits of fixed primitive approach
+
+---
+
 ### Challenges Remaining
 
 #### 6. Chess Performance ⚠️

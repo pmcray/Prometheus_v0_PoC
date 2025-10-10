@@ -29,7 +29,7 @@ import sys
 sys.path.insert(0, str(Path(__file__).parent))
 from prometheus_arc_evolution import (
     ARCPrimitives, PrimitiveOperation, CompositePattern,
-    PatternEvolution
+    PrometheusARCEvolution
 )
 
 
