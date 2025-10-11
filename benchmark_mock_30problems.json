@@ -1,0 +1,293 @@
+{
+  "timestamp": "2025-10-11T08:29:43.871377",
+  "mode": "mock",
+  "total_problems": 30,
+  "problems_solved": 12,
+  "success_rate": 0.4,
+  "by_difficulty": {
+    "Easy": {
+      "solved": 5,
+      "total": 10,
+      "problems": [
+        {
+          "name": "Count Even Numbers",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_array",
+            "count_if"
+          ]
+        },
+        {
+          "name": "Find Maximum",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_array",
+            "find_max"
+          ]
+        },
+        {
+          "name": "Sum of Array",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_array"
+          ]
+        },
+        {
+          "name": "Sort Array",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "sort_ascending",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Range Sum",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": []
+        },
+        {
+          "name": "Min and Max",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "find_min",
+            "find_max",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Reverse String",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "string_reverse"
+          ]
+        },
+        {
+          "name": "Count Vowels",
+          "passed": 2,
+          "total": 3,
+          "success_rate": 0.6666666666666666,
+          "algorithms": [
+            "count_if"
+          ]
+        },
+        {
+          "name": "Cumulative Sum",
+          "passed": 1,
+          "total": 3,
+          "success_rate": 0.3333333333333333,
+          "algorithms": [
+            "cumulative_sum",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Filter Positive Numbers",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "filter_by",
+            "use_array"
+          ]
+        }
+      ]
+    },
+    "Medium": {
+      "solved": 7,
+      "total": 14,
+      "problems": [
+        {
+          "name": "Count Occurrences",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "use_array",
+            "count_if"
+          ]
+        },
+        {
+          "name": "Reverse Array",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_array"
+          ]
+        },
+        {
+          "name": "Check Sorted",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_array"
+          ]
+        },
+        {
+          "name": "Most Frequent Element",
+          "passed": 2,
+          "total": 3,
+          "success_rate": 0.6666666666666666,
+          "algorithms": [
+            "use_frequency_map",
+            "find_max"
+          ]
+        },
+        {
+          "name": "Palindrome String",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "string_is_palindrome"
+          ]
+        },
+        {
+          "name": "Count Unique Elements",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "use_set",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Greatest Common Divisor",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "math_gcd"
+          ]
+        },
+        {
+          "name": "Prime Number Check",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "math_is_prime"
+          ]
+        },
+        {
+          "name": "Nth Fibonacci Number",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "dp_fibonacci"
+          ]
+        },
+        {
+          "name": "Median Value",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "sort_ascending",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Mode Value",
+          "passed": 3,
+          "total": 3,
+          "success_rate": 1.0,
+          "algorithms": [
+            "use_frequency_map",
+            "find_max"
+          ]
+        },
+        {
+          "name": "Second Maximum",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "use_set",
+            "sort_descending"
+          ]
+        },
+        {
+          "name": "Remove Duplicates",
+          "passed": 1,
+          "total": 3,
+          "success_rate": 0.3333333333333333,
+          "algorithms": [
+            "use_set",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Partition Even and Odd",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "filter_by",
+            "use_array"
+          ]
+        }
+      ]
+    },
+    "Hard": {
+      "solved": 0,
+      "total": 4,
+      "problems": [
+        {
+          "name": "Binary Search",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "binary_search",
+            "use_array"
+          ]
+        },
+        {
+          "name": "Maximum Subarray Sum",
+          "passed": 1,
+          "total": 3,
+          "success_rate": 0.3333333333333333,
+          "algorithms": [
+            "dp_max_subarray_sum"
+          ]
+        },
+        {
+          "name": "Longest Increasing Subsequence",
+          "passed": 1,
+          "total": 3,
+          "success_rate": 0.3333333333333333,
+          "algorithms": [
+            "dp_longest_increasing_subsequence"
+          ]
+        },
+        {
+          "name": "Coin Change",
+          "passed": 0,
+          "total": 3,
+          "success_rate": 0.0,
+          "algorithms": [
+            "dp_coin_change"
+          ]
+        }
+      ]
+    }
+  }
+}

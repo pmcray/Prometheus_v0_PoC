@@ -139,9 +139,53 @@ class IOICodeSynthesizer:
                                 primitive_code: str,
                                 algorithm_sequence: List[str],
                                 constraints_str: str) -> str:
-        """Build the complete synthesis prompt"""
+        """Build the complete synthesis prompt with few-shot examples"""
 
-        prompt = f"""You are an expert competitive programmer. Write Python code to solve this problem.
+        # Few-shot examples to guide generation
+        few_shot_examples = """
+EXAMPLE 1 - Count Even Numbers:
+Problem: Count how many even numbers are in an array.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+count = sum(1 for x in arr if x % 2 == 0)
+print(count)
+```
+
+EXAMPLE 2 - Find Maximum:
+Problem: Find the maximum element in an array.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+print(max(arr))
+```
+
+EXAMPLE 3 - Sum of Array:
+Problem: Calculate the sum of all elements.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+print(sum(arr))
+```
+"""
+
+        prompt = f"""You are an expert competitive programmer solving USACO Bronze level problems.
+
+{few_shot_examples}
+
+NOW SOLVE THIS PROBLEM:
 
 PROBLEM:
 {problem_text}
@@ -153,25 +197,34 @@ CONSTRAINTS:
 {constraints_str}
 
 SUGGESTED ALGORITHMS:
-The following algorithms may be useful: {', '.join(algorithm_sequence)}
+Use these algorithms in your solution: {', '.join(algorithm_sequence)}
 
 AVAILABLE PRIMITIVE IMPLEMENTATIONS:
 {primitive_code}
 
-REQUIREMENTS:
-1. Read input from stdin using input() or sys.stdin
-2. Write output to stdout using print()
-3. Use the suggested algorithms where appropriate
-4. Handle all edge cases mentioned in the problem
-5. Ensure your solution runs within time/space constraints
-6. Write clean, readable code with comments
-7. DO NOT include test cases or example usage - only the solution
-8. The code should be complete and runnable as-is
+CRITICAL REQUIREMENTS:
+1. Read input EXACTLY as specified in the problem format
+2. Output EXACTLY matches expected format (no extra text, proper spacing)
+3. Use the suggested algorithms: {', '.join(algorithm_sequence)}
+4. Handle edge cases: empty arrays, single elements, all same values
+5. Ensure O(n) or better time complexity for arrays
+6. Write production-quality code with clear variable names
+7. DO NOT print debugging information
+8. DO NOT include test cases or main() wrapper unless specified
+9. Code must be complete and immediately executable
+
+COMMON PATTERNS FOR BRONZE PROBLEMS:
+- Array input: n = int(input()); arr = list(map(int, input().split()))
+- Single output: print(result)
+- Multiple outputs: print(' '.join(map(str, results))) or multiple print() calls
+- String processing: s = input().strip()
+- Edge case: always check if array is empty or has 1 element
 
 OUTPUT FORMAT:
-Provide ONLY the Python code, no explanations. Start with imports if needed, then the solution.
+Provide ONLY the Python code between triple backticks. No explanations before or after.
+
 ```python
-# Your code here
+# Your complete solution here
 ```
 """
 
@@ -274,32 +327,82 @@ class ProblemClassifier:
             for i, ex in enumerate(examples[:2], 1):
                 examples_str += f"Input: {ex['input']}\nOutput: {ex['output']}\n"
 
-        prompt = f"""Analyze this competitive programming problem and classify it.
+        prompt = f"""Analyze this USACO Bronze competitive programming problem and classify it.
 
 PROBLEM:
 {problem_text}
 {examples_str}
 
-Provide analysis in JSON format:
+CLASSIFICATION EXAMPLES:
+
+Example 1:
+Problem: "Count how many even numbers are in an array"
+→ Categories: ["array", "math"]
+→ Algorithms: ["use_array", "count_if"]
+→ Complexity: "O(n)"
+
+Example 2:
+Problem: "Find the maximum sum of any contiguous subarray"
+→ Categories: ["array", "dp"]
+→ Algorithms: ["use_array", "dp_max_subarray_sum"]
+→ Complexity: "O(n)"
+
+Example 3:
+Problem: "Sort an array and find the median"
+→ Categories: ["array", "sorting"]
+→ Algorithms: ["use_array", "sort_ascending", "find_median"]
+→ Complexity: "O(n log n)"
+
+NOW CLASSIFY THE GIVEN PROBLEM:
+
+Provide analysis in JSON format with these exact keys:
 {{
-    "categories": ["list of problem categories: array, string, graph, dp, greedy, math, simulation"],
-    "algorithms": ["list of IOI primitive names that would be useful"],
-    "complexity": "expected time complexity (e.g., O(n log n))",
-    "difficulty": "bronze/silver/gold",
-    "constraints": {{"n_max": integer, "time_limit_ms": integer}}
+    "categories": ["primary category first", "secondary..."],
+    "algorithms": ["3-5 most relevant primitive names"],
+    "complexity": "expected time complexity",
+    "difficulty": "bronze",
+    "constraints": {{"n_max": 1000, "time_limit_ms": 2000}}
 }}
 
-Available IOI primitives:
-Data structures: use_array, use_2d_array, use_dict, use_set, use_heap, use_queue, use_stack, use_frequency_map, use_prefix_sum
-Search/Sort: linear_search, binary_search, sort_ascending, sort_descending, sort_by_key
-Array ops: find_max, find_min, count_if, filter_by, map_transform, cumulative_sum, sliding_window_max, two_pointers_pair_sum
-String ops: string_reverse, string_split, string_join, string_count, string_is_palindrome
-Graph: graph_adjacency_list_from_edges, graph_bfs, graph_dfs, graph_shortest_path_unweighted, graph_connected_components, graph_is_bipartite, graph_topological_sort, graph_has_cycle
-DP: dp_fibonacci, dp_max_subarray_sum, dp_longest_increasing_subsequence, dp_coin_change, dp_knapsack_01, dp_longest_common_subsequence
-Greedy: greedy_activity_selection, greedy_minimum_coins, greedy_fractional_knapsack, greedy_huffman_encoding
-Math: math_gcd, math_lcm, math_is_prime, math_prime_factorization
+AVAILABLE IOI PRIMITIVES (choose 3-5 most relevant):
 
-Output ONLY the JSON, no other text.
+📦 Data Structures:
+- use_array, use_2d_array, use_dict, use_set, use_heap, use_queue, use_stack
+- use_frequency_map, use_prefix_sum
+
+🔍 Search & Sort:
+- linear_search, binary_search, sort_ascending, sort_descending, sort_by_key
+
+📊 Array Operations:
+- find_max, find_min, count_if, filter_by, map_transform
+- cumulative_sum, sliding_window_max, two_pointers_pair_sum
+
+📝 String Operations:
+- string_reverse, string_split, string_join, string_count, string_is_palindrome
+
+🌐 Graph Algorithms:
+- graph_adjacency_list_from_edges, graph_bfs, graph_dfs
+- graph_shortest_path_unweighted, graph_connected_components
+- graph_is_bipartite, graph_topological_sort, graph_has_cycle
+
+💡 Dynamic Programming:
+- dp_fibonacci, dp_max_subarray_sum, dp_longest_increasing_subsequence
+- dp_coin_change, dp_knapsack_01, dp_longest_common_subsequence
+
+🎯 Greedy Algorithms:
+- greedy_activity_selection, greedy_minimum_coins
+- greedy_fractional_knapsack, greedy_huffman_encoding
+
+🔢 Math:
+- math_gcd, math_lcm, math_is_prime, math_prime_factorization
+
+IMPORTANT:
+- Choose algorithms that directly solve the problem
+- For simple problems, use 2-3 basic primitives
+- For complex problems, use 4-5 including advanced ones
+- Prefer simpler algorithms for Bronze level
+
+Output ONLY the JSON, no explanations:
 """
 
         try:

@@ -242,7 +242,47 @@ print(result)
                                 algorithm_sequence: List[str],
                                 primitive_code: str,
                                 constraints: Dict = None) -> str:
-        """Build prompt for code generation"""
+        """Build prompt for code generation with few-shot examples"""
+
+        # Few-shot examples to guide generation
+        few_shot_examples = """
+EXAMPLE 1 - Count Even Numbers:
+Problem: Count how many even numbers are in an array.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+count = sum(1 for x in arr if x % 2 == 0)
+print(count)
+```
+
+EXAMPLE 2 - Find Maximum:
+Problem: Find the maximum element in an array.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+print(max(arr))
+```
+
+EXAMPLE 3 - Sum of Array:
+Problem: Calculate the sum of all elements.
+Input format: First line N, second line N integers
+Output: Single integer
+
+Solution:
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+print(sum(arr))
+```
+"""
 
         examples_text = "\n".join([
             f"Input:\n{ex['input']}\nOutput:\n{ex['output']}\n"
@@ -253,30 +293,49 @@ print(result)
         if constraints:
             constraints_text = f"\nConstraints:\n{json.dumps(constraints, indent=2)}"
 
-        prompt = f"""You are an expert competitive programmer. Generate a complete, correct Python solution.
+        prompt = f"""You are an expert competitive programmer solving USACO Bronze level problems.
 
-Problem:
+{few_shot_examples}
+
+NOW SOLVE THIS PROBLEM:
+
+PROBLEM:
 {problem_text}
 
-Examples:
+EXAMPLES:
 {examples_text}
 {constraints_text}
 
-Suggested algorithm sequence: {algorithm_sequence}
+SUGGESTED ALGORITHMS:
+Use these algorithms in your solution: {', '.join(algorithm_sequence)}
 
-Available primitive implementations:
+AVAILABLE PRIMITIVE IMPLEMENTATIONS:
 {primitive_code}
 
-Generate a complete Python solution that:
-1. Reads input correctly
-2. Uses the suggested algorithms
-3. Produces the exact expected output
-4. Handles all edge cases
-5. Meets time/space constraints
+CRITICAL REQUIREMENTS:
+1. Read input EXACTLY as specified in the problem format
+2. Output EXACTLY matches expected format (no extra text, proper spacing)
+3. Use the suggested algorithms: {', '.join(algorithm_sequence)}
+4. Handle edge cases: empty arrays, single elements, all same values
+5. Ensure O(n) or better time complexity for arrays
+6. Write production-quality code with clear variable names
+7. DO NOT print debugging information
+8. DO NOT include test cases or main() wrapper unless specified
+9. Code must be complete and immediately executable
 
-Return ONLY the Python code, no explanations.
+COMMON PATTERNS FOR BRONZE PROBLEMS:
+- Array input: n = int(input()); arr = list(map(int, input().split()))
+- Single output: print(result)
+- Multiple outputs: print(' '.join(map(str, results))) or multiple print() calls
+- String processing: s = input().strip()
+- Edge case: always check if array is empty or has 1 element
+
+OUTPUT FORMAT:
+Provide ONLY the Python code between triple backticks. No explanations before or after.
 
 ```python
+# Your complete solution here
+```
 """
 
         return prompt
@@ -368,27 +427,69 @@ class ProblemClassifier:
         }
 
     def _build_classification_prompt(self, problem_text: str, examples: List[Dict]) -> str:
-        """Build classification prompt"""
+        """Build classification prompt with few-shot examples"""
         examples_text = ""
         if examples:
             examples_text = "\nExamples:\n" + "\n".join([
-                f"Input: {ex['input'][:50]}... Output: {ex['output'][:50]}..."
+                f"Input: {ex['input']}\nOutput: {ex['output']}"
                 for ex in examples[:2]
             ])
 
-        return f"""Analyze this competitive programming problem and return a JSON classification.
+        return f"""Analyze this USACO Bronze competitive programming problem and classify it.
 
-Problem:
+PROBLEM:
 {problem_text}
 {examples_text}
 
-Return JSON with these fields:
-- categories: list of problem types (array, graph, dp, greedy, math, string, etc.)
-- algorithms: list of 5-10 suggested primitive algorithms
-- complexity: expected time complexity (e.g. "O(n)", "O(n log n)")
-- constraints: dict with n_max, time_limit_ms
+CLASSIFICATION EXAMPLES:
 
-JSON:
+Example 1:
+Problem: "Count how many even numbers are in an array"
+→ Categories: ["array", "math"]
+→ Algorithms: ["use_array", "count_if"]
+→ Complexity: "O(n)"
+
+Example 2:
+Problem: "Find the maximum sum of any contiguous subarray"
+→ Categories: ["array", "dp"]
+→ Algorithms: ["use_array", "dp_max_subarray_sum"]
+→ Complexity: "O(n)"
+
+Example 3:
+Problem: "Sort an array and find the median"
+→ Categories: ["array", "sorting"]
+→ Algorithms: ["use_array", "sort_ascending"]
+→ Complexity: "O(n log n)"
+
+NOW CLASSIFY THE GIVEN PROBLEM:
+
+Provide analysis in JSON format with these exact keys:
+{{
+    "categories": ["primary category first", "secondary..."],
+    "algorithms": ["3-5 most relevant primitive names"],
+    "complexity": "expected time complexity",
+    "difficulty": "bronze",
+    "constraints": {{"n_max": 1000, "time_limit_ms": 2000}}
+}}
+
+AVAILABLE IOI PRIMITIVES (choose 3-5 most relevant):
+
+Data Structures: use_array, use_2d_array, use_dict, use_set, use_heap, use_queue, use_stack, use_frequency_map, use_prefix_sum
+Search/Sort: linear_search, binary_search, sort_ascending, sort_descending, sort_by_key
+Array ops: find_max, find_min, count_if, filter_by, map_transform, cumulative_sum, sliding_window_max, two_pointers_pair_sum
+String ops: string_reverse, string_split, string_join, string_count, string_is_palindrome
+Graph: graph_bfs, graph_dfs, graph_shortest_path_unweighted, graph_connected_components
+DP: dp_fibonacci, dp_max_subarray_sum, dp_longest_increasing_subsequence, dp_coin_change
+Greedy: greedy_activity_selection, greedy_minimum_coins
+Math: math_gcd, math_lcm, math_is_prime, math_prime_factorization
+
+IMPORTANT:
+- Choose algorithms that directly solve the problem
+- For simple problems, use 2-3 basic primitives
+- For complex problems, use 4-5 including advanced ones
+- Prefer simpler algorithms for Bronze level
+
+Output ONLY the JSON, no explanations:
 """
 
     def _parse_classification(self, response_text: str) -> Dict:
