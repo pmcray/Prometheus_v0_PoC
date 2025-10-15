@@ -10,8 +10,8 @@ import time
 from datetime import datetime
 
 # Set environment
-os.environ['PATH'] = f"{os.environ['HOME']}/llama.cpp/build/bin:{os.environ.get('PATH', '')}"
-os.environ['IOI_LOCAL_MODEL'] = f"{os.environ['HOME']}/ioi_models/deepseek-coder-1.3b-instruct.Q4_K_M.gguf"
+os.environ['PATH'] = f"/home/pmc/llama.cpp/build/bin:{os.environ.get('PATH', '')}"
+os.environ['IOI_LOCAL_MODEL'] = "/home/pmc/ioi_models/deepseek-coder-1.3b-instruct.Q4_K_M.gguf"
 
 from ioi_synthesizer_local import IOICodeSynthesizer, ProblemClassifier
 from usaco_bronze_problems import PROBLEM_1, PROBLEM_2, PROBLEM_3, ALL_PROBLEMS

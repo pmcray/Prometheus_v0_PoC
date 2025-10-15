@@ -89,7 +89,7 @@ class LocalModelInference:
                 cmd,
                 capture_output=True,
                 text=True,
-                timeout=60
+                timeout=180  # 3 minutes for Jetson
             )
 
             if result.returncode != 0:
@@ -319,9 +319,10 @@ CRITICAL REQUIREMENTS:
 4. Handle edge cases: empty arrays, single elements, all same values
 5. Ensure O(n) or better time complexity for arrays
 6. Write production-quality code with clear variable names
-7. DO NOT print debugging information
-8. DO NOT include test cases or main() wrapper unless specified
-9. Code must be complete and immediately executable
+7. DO NOT use type hints (List, Dict, etc.) - keep it simple Python
+8. DO NOT print debugging information
+9. DO NOT include test cases or main() wrapper unless specified
+10. Code must be complete and immediately executable
 
 COMMON PATTERNS FOR BRONZE PROBLEMS:
 - Array input: n = int(input()); arr = list(map(int, input().split()))

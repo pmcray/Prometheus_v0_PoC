@@ -1,0 +1,93 @@
+{
+  "solved_tasks": {
+    "50a16a69": {
+      "solution": [
+        "checkerboard"
+      ],
+      "fitness": 0.2333333333333333,
+      "length": 1
+    },
+    "60c09cac": {
+      "solution": [
+        "scale_2x"
+      ],
+      "fitness": 0.9,
+      "length": 1
+    },
+    "68b67ca3": {
+      "solution": [
+        "downsample"
+      ],
+      "fitness": 0.9,
+      "length": 1
+    },
+    "e633a9e5": {
+      "solution": [
+        "scale_3x",
+        "downsample"
+      ],
+      "fitness": 0.8,
+      "length": 2
+    },
+    "fc754716": {
+      "solution": [
+        "fill_zeros",
+        "border"
+      ],
+      "fitness": 0.8,
+      "length": 2
+    }
+  },
+  "primitive_frequencies": {
+    "checkerboard": 2,
+    "scale_2x": 2,
+    "downsample": 4,
+    "scale_3x": 2,
+    "fill_zeros": 2,
+    "border": 2
+  },
+  "success_primitives": [
+    "fill_zeros",
+    "checkerboard",
+    "downsample",
+    "scale_3x",
+    "border",
+    "scale_2x"
+  ],
+  "sequence_patterns": [
+    [
+      "checkerboard"
+    ],
+    [
+      "scale_2x"
+    ],
+    [
+      "downsample"
+    ],
+    [
+      "scale_3x",
+      "downsample"
+    ],
+    [
+      "fill_zeros",
+      "border"
+    ],
+    [
+      "checkerboard"
+    ],
+    [
+      "scale_2x"
+    ],
+    [
+      "downsample"
+    ],
+    [
+      "scale_3x",
+      "downsample"
+    ],
+    [
+      "fill_zeros",
+      "border"
+    ]
+  ]
+}
