@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Prometheus ARC Recursive Refinement with FUZZY FITNESS (v0.86 - Phase 2)
+Prometheus ARC Recursive Refinement with FUZZY FITNESS (v0.87 - Phase 3)
 
 TRM-inspired recursive refinement for symbolic ARC-AGI solver.
 Adapts the "Less is More" recursive reasoning approach to symbolic pattern evolution.
@@ -321,7 +321,8 @@ class PrometheusARCRecursiveRefinement:
                 failures,
                 failure_summary,
                 train_examples,
-                current_pattern=current_pattern  # Phase 2: Pass current pattern for seeding
+                current_pattern=current_pattern,  # Phase 2: Pass current pattern for seeding
+                current_fitness=current_fitness   # Phase 3: Pass current fitness for targeted selection
             )
 
             if not correction_pattern:
@@ -414,15 +415,127 @@ class PrometheusARCRecursiveRefinement:
 
         return failures
 
+    def _analyze_pixel_patterns(self, failures: List[FailureAnalysis]) -> Dict:
+        """
+        PHASE 3: Analyze pixel-level differences to determine specific failure type.
+
+        For high-fitness tasks (>95%), perform fine-grained pixel analysis to identify:
+        - single_pixel: < 5% pixel errors (micro-adjustments needed)
+        - boundary: Errors concentrated on edges
+        - symmetry: Errors show left/right or top/bottom asymmetry
+        - scaling: Size mismatches or tiling issues
+        """
+        if not failures:
+            return {'pattern_type': 'unknown', 'avg_error_rate': 0.0}
+
+        total_error_rate = 0.0
+        boundary_errors = 0
+        total_errors = 0
+        left_right_imbalance = 0
+        size_mismatches = 0
+
+        for failure in failures:
+            predicted = failure.predicted_output
+            expected = failure.expected_output
+
+            # Size mismatch
+            if predicted.shape != expected.shape:
+                size_mismatches += 1
+                total_error_rate += 1.0
+                continue
+
+            # Pixel-level analysis
+            diff_mask = (predicted != expected)
+            wrong_pixels = np.sum(diff_mask)
+            total_pixels = expected.size
+            error_rate = wrong_pixels / total_pixels if total_pixels > 0 else 0.0
+            total_error_rate += error_rate
+            total_errors += wrong_pixels
+
+            # Boundary error detection
+            h, w = expected.shape
+            if h > 0 and w > 0:
+                boundary_mask = np.zeros_like(diff_mask, dtype=bool)
+                boundary_mask[0, :] = True
+                boundary_mask[-1, :] = True
+                boundary_mask[:, 0] = True
+                boundary_mask[:, -1] = True
+                boundary_err = np.sum(diff_mask & boundary_mask)
+                boundary_errors += boundary_err
+
+                # Left/right imbalance (symmetry issues)
+                left_err = np.sum(diff_mask[:, :w//2])
+                right_err = np.sum(diff_mask[:, w//2:])
+                if wrong_pixels > 0:
+                    imbalance = abs(left_err - right_err) / wrong_pixels
+                    left_right_imbalance += imbalance
+
+        # Aggregate statistics
+        avg_error_rate = total_error_rate / len(failures)
+        boundary_ratio = boundary_errors / total_errors if total_errors > 0 else 0.0
+        avg_imbalance = left_right_imbalance / len(failures) if failures else 0.0
+        size_mismatch_ratio = size_mismatches / len(failures)
+
+        # Classify pattern type
+        if size_mismatch_ratio > 0.5:
+            pattern_type = 'scaling'
+        elif avg_error_rate < 0.05:  # < 5% error
+            pattern_type = 'single_pixel'
+        elif boundary_ratio > 0.5:
+            pattern_type = 'boundary'
+        elif avg_imbalance > 0.6:
+            pattern_type = 'symmetry'
+        else:
+            pattern_type = 'mixed'
+
+        return {
+            'pattern_type': pattern_type,
+            'avg_error_rate': avg_error_rate,
+            'boundary_ratio': boundary_ratio,
+            'imbalance': avg_imbalance,
+            'size_mismatch_ratio': size_mismatch_ratio
+        }
+
+    def _select_targeted_primitives(self, pixel_analysis: Dict) -> Optional[List[str]]:
+        """
+        PHASE 3: Select focused primitive pool based on pixel analysis.
+
+        Returns 3-5 targeted primitives instead of all 25, dramatically reducing
+        search space for high-fitness tasks that are close to perfect.
+        """
+        pattern_type = pixel_analysis.get('pattern_type', 'unknown')
+
+        if pattern_type == 'single_pixel':
+            # < 5% error - micro-adjustments
+            return ['identity', 'fill_zeros', 'remove_bg']
+
+        elif pattern_type == 'boundary':
+            # Errors on edges - boundary operations
+            return ['border', 'extend_edges', 'crop', 'pad_1']
+
+        elif pattern_type == 'symmetry':
+            # Left/right or top/bottom asymmetry - reflection operations
+            return ['flip_h', 'flip_v', 'transpose', 'rotate_90']
+
+        elif pattern_type == 'scaling':
+            # Size mismatches - scaling/tiling operations
+            return ['scale_2x', 'scale_3x', 'tile_2x2']
+
+        else:
+            # Mixed or unknown - fall back to Phase 2 (all primitives)
+            return None
+
     def _synthesize_corrections(self,
                                failures: List[FailureAnalysis],
                                failure_summary: Dict,
                                train_examples: List[Dict],
-                               current_pattern: List[str] = None) -> Optional[List[str]]:
+                               current_pattern: List[str] = None,
+                               current_fitness: float = 0.0) -> Optional[List[str]]:
         """
         Synthesize correction pattern targeted at fixing failures.
 
         Phase 2 Improvement: Seed correction population with variations of current pattern
+        Phase 3 Improvement: Use targeted primitive selection for high-fitness tasks (>95%)
         """
         # Get top suggested corrections
         top_corrections = failure_summary.get('top_corrections', [])
@@ -430,12 +543,36 @@ class PrometheusARCRecursiveRefinement:
         if not top_corrections:
             return None
 
+        # PHASE 3: For high-fitness tasks, use targeted primitive selection
+        targeted_prims = None
+        if current_fitness > 0.95:
+            # Analyze pixel-level patterns
+            pixel_analysis = self._analyze_pixel_patterns(failures)
+            targeted_prims = self._select_targeted_primitives(pixel_analysis)
+
+            if targeted_prims:
+                print(f"    [Phase 3] High fitness ({current_fitness:.2%}): using targeted primitives")
+                print(f"    [Phase 3] Pattern type: {pixel_analysis['pattern_type']}")
+                print(f"    [Phase 3] Targeted primitives: {targeted_prims} ({len(targeted_prims)} vs 25)")
+
         # Use FUZZY FITNESS solver for corrections
         correction_solver = PrometheusARCFuzzyFitness(
             population_size=self.population_size // 2,
             max_pattern_length=min(3, self.max_pattern_length),
             use_fuzzy=self.use_fuzzy
         )
+
+        # PHASE 3: Restrict primitive pool if targeted primitives selected
+        if targeted_prims:
+            # Filter correction_solver's primitives to only targeted ones
+            from prometheus_arc_fuzzy_fitness import PrimitiveOperation
+            filtered_primitives = [
+                p for p in correction_solver.primitives
+                if p.name in targeted_prims
+            ]
+            if filtered_primitives:
+                correction_solver.primitives = filtered_primitives
+                print(f"    [Phase 3] Restricted primitive pool: {len(filtered_primitives)} primitives")
 
         # Convert to tuples for baseline
         train_tuples = [(np.array(ex['input']), np.array(ex['output'])) for ex in train_examples]
@@ -646,7 +783,7 @@ def main():
         task_ids = task_ids[:args.num_tasks]
 
     print("="*80)
-    print("🔬 Prometheus ARC Recursive Refinement - Phase 2 (v0.86)")
+    print("🔬 Prometheus ARC Recursive Refinement - Phase 3 (v0.87)")
     print("="*80)
     print(f"Split: {args.split}")
     print(f"Tasks: {len(task_ids)}")

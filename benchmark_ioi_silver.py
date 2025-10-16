@@ -92,8 +92,7 @@ def benchmark_silver():
             code = synthesizer.synthesize(
                 problem['text'],
                 problem['examples'],
-                classification['algorithms'],
-                max_tokens=8192  # Longer for Silver complexity
+                classification['algorithms']
             )
 
             synth_time = time.time() - start_time
