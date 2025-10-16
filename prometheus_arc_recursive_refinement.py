@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """
-Prometheus ARC Recursive Refinement with FUZZY FITNESS (v0.84)
+Prometheus ARC Recursive Refinement with FUZZY FITNESS (v0.86 - Phase 2)
 
 TRM-inspired recursive refinement for symbolic ARC-AGI solver.
 Adapts the "Less is More" recursive reasoning approach to symbolic pattern evolution.
 
-Key Innovation (v0.84):
+Key Innovations (v0.86 - Phase 2):
+- PHASE 1 (v0.84-v0.85): Fuzzy fitness for pattern evaluation
+- PHASE 2 (v0.86): Population seeding + smarter composition
+  * Seed correction population with variations of current pattern
+  * Try 4 composition strategies and keep best (base→corr, corr→base, interleave, replace)
 - Uses FUZZY FITNESS baseline (partial credit for pixel similarity)
 - Iteratively refine solutions by analyzing failures and generating targeted corrections
 - Compositional pattern building through recursive improvement cycles
 - Failure-guided search instead of random mutations
 - Extended pattern length (up to 5 primitives)
 
-Expected Performance: 2-5% on ARC-AGI-1 (vs 1.25% binary baseline)
+Expected Performance: 2-5% on ARC-AGI-1 (vs 1.25% binary, vs 0% with Phase 1 bugs)
 """
 
 import json
@@ -316,7 +320,8 @@ class PrometheusARCRecursiveRefinement:
             correction_pattern = self._synthesize_corrections(
                 failures,
                 failure_summary,
-                train_examples
+                train_examples,
+                current_pattern=current_pattern  # Phase 2: Pass current pattern for seeding
             )
 
             if not correction_pattern:
@@ -324,7 +329,11 @@ class PrometheusARCRecursiveRefinement:
                 break
 
             # Compose correction with current pattern
-            combined_pattern = self._compose_patterns(current_pattern, correction_pattern)
+            combined_pattern = self._compose_patterns(
+                current_pattern,
+                correction_pattern,
+                train_examples=train_examples  # Phase 2: Pass train_examples for evaluation
+            )
 
             # Evaluate combined pattern
             combined_fitness = self._evaluate_pattern(combined_pattern, train_examples)
@@ -408,9 +417,12 @@ class PrometheusARCRecursiveRefinement:
     def _synthesize_corrections(self,
                                failures: List[FailureAnalysis],
                                failure_summary: Dict,
-                               train_examples: List[Dict]) -> Optional[List[str]]:
+                               train_examples: List[Dict],
+                               current_pattern: List[str] = None) -> Optional[List[str]]:
         """
         Synthesize correction pattern targeted at fixing failures.
+
+        Phase 2 Improvement: Seed correction population with variations of current pattern
         """
         # Get top suggested corrections
         top_corrections = failure_summary.get('top_corrections', [])
@@ -428,6 +440,31 @@ class PrometheusARCRecursiveRefinement:
         # Convert to tuples for baseline
         train_tuples = [(np.array(ex['input']), np.array(ex['output'])) for ex in train_examples]
 
+        # PHASE 2: Seed 50% of population with variations of current pattern
+        if current_pattern and len(current_pattern) > 0:
+            correction_solver.initialize_population()
+
+            # Seed half the population with small mutations of current pattern
+            num_seeded = len(correction_solver.population) // 2
+            for i in range(num_seeded):
+                # Create small variation: add, remove, or replace one operation
+                mutated = self._small_mutation(current_pattern)
+
+                # Convert string names to PrimitiveOperation objects
+                from prometheus_arc_fuzzy_fitness import CompositePattern, PrimitiveOperation
+                ops = []
+                for op_name in mutated:
+                    # Find the corresponding PrimitiveOperation from correction_solver's primitives
+                    matching_prims = [p for p in correction_solver.primitives if p.name == op_name]
+                    if matching_prims:
+                        ops.append(matching_prims[0])
+
+                if ops:  # Only set if we found valid operations
+                    correction_solver.population[i] = CompositePattern(
+                        operations=ops,
+                        generation=0
+                    )
+
         # Evolve correction
         result_pattern = correction_solver.evolve_for_task(
             train_tuples,
@@ -441,22 +478,77 @@ class PrometheusARCRecursiveRefinement:
         threshold = 0.3 if self.use_fuzzy else 0.0
         return pattern_names if result_pattern.fitness > threshold else None
 
+    def _small_mutation(self, pattern: List[str]) -> List[str]:
+        """Create a small mutation of a pattern (for population seeding)"""
+        import random
+
+        if not pattern:
+            return ['identity']
+
+        mutated = pattern.copy()
+        mutation_type = random.choice(['add', 'remove', 'replace', 'identity'])
+
+        if mutation_type == 'add' and len(mutated) < self.max_pattern_length:
+            # Add one random primitive
+            all_prims = list(self.primitive_methods.keys())
+            mutated.append(random.choice(all_prims))
+        elif mutation_type == 'remove' and len(mutated) > 1:
+            # Remove one random operation
+            mutated.pop(random.randint(0, len(mutated) - 1))
+        elif mutation_type == 'replace' and len(mutated) > 0:
+            # Replace one operation
+            pos = random.randint(0, len(mutated) - 1)
+            all_prims = list(self.primitive_methods.keys())
+            mutated[pos] = random.choice(all_prims)
+        # else: identity - return as is
+
+        return mutated
+
     def _compose_patterns(self,
                          base_pattern: List[str],
-                         correction_pattern: List[str]) -> List[str]:
+                         correction_pattern: List[str],
+                         train_examples: List[Dict] = None) -> List[str]:
         """
         Compose correction with base pattern.
-        Strategy: Apply base, then apply correction.
+
+        Phase 2 Improvement: Try multiple composition strategies and return best
         """
-        # Simple concatenation (base → correction)
-        # Limit total length to avoid complexity explosion
-        combined = base_pattern + correction_pattern
-
         max_total_length = self.max_pattern_length * 2
-        if len(combined) > max_total_length:
-            combined = combined[:max_total_length]
 
-        return combined
+        # Strategy 1: Base then correction (base → correction)
+        option1 = base_pattern + correction_pattern
+        if len(option1) > max_total_length:
+            option1 = option1[:max_total_length]
+
+        # Strategy 2: Correction then base (correction → base)
+        option2 = correction_pattern + base_pattern
+        if len(option2) > max_total_length:
+            option2 = option2[:max_total_length]
+
+        # Strategy 3: Interleave operations
+        option3 = []
+        max_len = max(len(base_pattern), len(correction_pattern))
+        for i in range(max_len):
+            if i < len(base_pattern) and len(option3) < max_total_length:
+                option3.append(base_pattern[i])
+            if i < len(correction_pattern) and len(option3) < max_total_length:
+                option3.append(correction_pattern[i])
+
+        # Strategy 4: Just use correction (replace base)
+        option4 = correction_pattern
+        if len(option4) > max_total_length:
+            option4 = option4[:max_total_length]
+
+        # If we have training examples, evaluate all options and return best
+        if train_examples:
+            options = [option1, option2, option3, option4]
+            fitnesses = [self._evaluate_pattern(opt, train_examples) for opt in options]
+
+            best_idx = fitnesses.index(max(fitnesses))
+            return options[best_idx]
+        else:
+            # Fallback to simple concatenation
+            return option1
 
     def _evaluate_pattern(self,
                          pattern: List[str],
@@ -554,7 +646,7 @@ def main():
         task_ids = task_ids[:args.num_tasks]
 
     print("="*80)
-    print("🔬 Prometheus ARC Recursive Refinement with FUZZY FITNESS (v0.84)")
+    print("🔬 Prometheus ARC Recursive Refinement - Phase 2 (v0.86)")
     print("="*80)
     print(f"Split: {args.split}")
     print(f"Tasks: {len(task_ids)}")
