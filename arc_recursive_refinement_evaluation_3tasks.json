@@ -1,0 +1,48 @@
+{
+  "config": {
+    "split": "evaluation",
+    "num_tasks": 3,
+    "generations": 50,
+    "max_cycles": 3,
+    "population": 50
+  },
+  "summary": {
+    "solved": 0,
+    "total": 3,
+    "accuracy": 0.0,
+    "time": 2.558359384536743,
+    "avg_time_per_task": 0.8527864615122477
+  },
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.0,
+      "pattern": [
+        "identity"
+      ],
+      "refinement_cycles": 0,
+      "improvements": []
+    },
+    {
+      "task_id": "135a2760",
+      "success": false,
+      "fitness": 0.0,
+      "pattern": [
+        "identity"
+      ],
+      "refinement_cycles": 0,
+      "improvements": []
+    },
+    {
+      "task_id": "136b0064",
+      "success": false,
+      "fitness": 0.0,
+      "pattern": [
+        "identity"
+      ],
+      "refinement_cycles": 0,
+      "improvements": []
+    }
+  ]
+}

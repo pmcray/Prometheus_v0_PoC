@@ -1,0 +1,329 @@
+{
+  "model": "Phi-3-mini-4k-instruct-q4",
+  "level": "Silver",
+  "total_problems": 20,
+  "timestamp": "2025-10-16T17:20:59.333515",
+  "problems": [
+    {
+      "id": "silver_01",
+      "name": "Distinct Numbers",
+      "difficulty": "Easy-Silver",
+      "topic": "Sorting",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_02",
+      "name": "Sum of Two Values",
+      "difficulty": "Easy-Silver",
+      "topic": "Two Pointers",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_03",
+      "name": "Subarray Sums I",
+      "difficulty": "Easy-Silver",
+      "topic": "Prefix Sums",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_04",
+      "name": "Movie Festival",
+      "difficulty": "Easy-Silver",
+      "topic": "Greedy",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_05",
+      "name": "Binary Search",
+      "difficulty": "Easy-Silver",
+      "topic": "Binary Search",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_06",
+      "name": "Maximum Subarray Sum",
+      "difficulty": "Medium-Silver",
+      "topic": "Prefix Sums",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_07",
+      "name": "Sliding Window Maximum",
+      "difficulty": "Medium-Silver",
+      "topic": "Two Pointers",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_08",
+      "name": "Ferris Wheel",
+      "difficulty": "Medium-Silver",
+      "topic": "Greedy + Two Pointers",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_09",
+      "name": "Subarray Divisibility",
+      "difficulty": "Medium-Silver",
+      "topic": "Prefix Sums + Hashing",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_10",
+      "name": "Sum of Three Values",
+      "difficulty": "Medium-Silver",
+      "topic": "Two Pointers + Sorting",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_11",
+      "name": "Factory Machines",
+      "difficulty": "Medium-Silver",
+      "topic": "Binary Search on Answer",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_12",
+      "name": "Apartments",
+      "difficulty": "Medium-Silver",
+      "topic": "Greedy + Two Pointers",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_13",
+      "name": "Concert Tickets",
+      "difficulty": "Medium-Silver",
+      "topic": "Binary Search + Multiset",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_14",
+      "name": "Restaurant Customers",
+      "difficulty": "Medium-Silver",
+      "topic": "Sorting + Sweep Line",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_15",
+      "name": "Tasks and Deadlines",
+      "difficulty": "Medium-Silver",
+      "topic": "Greedy + Sorting",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_16",
+      "name": "Subarray Sums II",
+      "difficulty": "Hard-Silver",
+      "topic": "Prefix Sums + Hashing",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_17",
+      "name": "Subarray Distinct Values",
+      "difficulty": "Hard-Silver",
+      "topic": "Two Pointers + Sliding Window",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_18",
+      "name": "Array Division",
+      "difficulty": "Hard-Silver",
+      "topic": "Binary Search on Answer",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_19",
+      "name": "Nearest Smaller Values",
+      "difficulty": "Hard-Silver",
+      "topic": "Stack + Greedy",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    },
+    {
+      "id": "silver_20",
+      "name": "Room Allocation",
+      "difficulty": "Hard-Silver",
+      "topic": "Greedy + Priority Queue",
+      "success": false,
+      "time_seconds": 0,
+      "code_length": 0,
+      "test_passed": 0,
+      "test_total": 0,
+      "error": "SimpleIOICodeSynthesizer.synthesize() got an unexpected keyword argument 'max_tokens'"
+    }
+  ],
+  "solved": 0,
+  "total_time_seconds": 0,
+  "avg_time_seconds": 0.0,
+  "success_rate": 0.0,
+  "status": "too_difficult",
+  "by_difficulty": {
+    "Easy-Silver": {
+      "solved": 0,
+      "total": 5
+    },
+    "Medium-Silver": {
+      "solved": 0,
+      "total": 10
+    },
+    "Hard-Silver": {
+      "solved": 0,
+      "total": 5
+    }
+  },
+  "by_topic": {
+    "Sorting": {
+      "solved": 0,
+      "total": 1
+    },
+    "Two Pointers": {
+      "solved": 0,
+      "total": 2
+    },
+    "Prefix Sums": {
+      "solved": 0,
+      "total": 2
+    },
+    "Greedy": {
+      "solved": 0,
+      "total": 1
+    },
+    "Binary Search": {
+      "solved": 0,
+      "total": 1
+    },
+    "Greedy + Two Pointers": {
+      "solved": 0,
+      "total": 2
+    },
+    "Prefix Sums + Hashing": {
+      "solved": 0,
+      "total": 2
+    },
+    "Two Pointers + Sorting": {
+      "solved": 0,
+      "total": 1
+    },
+    "Binary Search on Answer": {
+      "solved": 0,
+      "total": 2
+    },
+    "Binary Search + Multiset": {
+      "solved": 0,
+      "total": 1
+    },
+    "Sorting + Sweep Line": {
+      "solved": 0,
+      "total": 1
+    },
+    "Greedy + Sorting": {
+      "solved": 0,
+      "total": 1
+    },
+    "Two Pointers + Sliding Window": {
+      "solved": 0,
+      "total": 1
+    },
+    "Stack + Greedy": {
+      "solved": 0,
+      "total": 1
+    },
+    "Greedy + Priority Queue": {
+      "solved": 0,
+      "total": 1
+    }
+  }
+}

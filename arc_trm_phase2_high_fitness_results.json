@@ -22,8 +22,8 @@
     "solved": 0,
     "total": 11,
     "accuracy": 0.0,
-    "time": 4.260002136230469,
-    "avg_time_per_task": 0.38727292147549713
+    "time": 4.352628231048584,
+    "avg_time_per_task": 0.3956934755498713
   },
   "results": [
     {
@@ -167,8 +167,8 @@
       "fitness": 0.92,
       "pattern": [
         "rotate_180",
-        "tile_2x2",
-        "sym_v",
+        "mirror_v",
+        "tile_2x1",
         "sym_h"
       ],
       "refinement_cycles": 3,

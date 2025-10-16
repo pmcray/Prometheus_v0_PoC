@@ -52,7 +52,7 @@ class LocalModelInference:
         except:
             return False
 
-    def generate(self, prompt: str, temperature: float = 0.3, max_tokens: int = 2048) -> str:
+    def generate(self, prompt: str, temperature: float = 0.3, max_tokens: int = 4096) -> str:
         """
         Generate text using llama.cpp
 
@@ -201,7 +201,8 @@ class IOICodeSynthesizer:
 
     def _generate_local(self, prompt: str) -> str:
         """Generate using local model"""
-        return self.local_model.generate(prompt, temperature=0.3, max_tokens=2048)
+        # Increased max_tokens to avoid truncation (was 4096, now 8192)
+        return self.local_model.generate(prompt, temperature=0.3, max_tokens=8192)
 
     def _generate_cloud(self, prompt: str) -> str:
         """Generate using cloud model"""
@@ -312,31 +313,78 @@ Use these algorithms in your solution: {', '.join(algorithm_sequence)}
 AVAILABLE PRIMITIVE IMPLEMENTATIONS:
 {primitive_code}
 
-CRITICAL REQUIREMENTS:
-1. Read input EXACTLY as specified in the problem format
-2. Output EXACTLY matches expected format (no extra text, proper spacing)
-3. Use the suggested algorithms: {', '.join(algorithm_sequence)}
-4. Handle edge cases: empty arrays, single elements, all same values
-5. Ensure O(n) or better time complexity for arrays
-6. Write production-quality code with clear variable names
-7. DO NOT use type hints (List, Dict, etc.) - keep it simple Python
-8. DO NOT print debugging information
-9. DO NOT include test cases or main() wrapper unless specified
-10. Code must be complete and immediately executable
+CRITICAL REQUIREMENTS (MUST FOLLOW):
 
-COMMON PATTERNS FOR BRONZE PROBLEMS:
-- Array input: n = int(input()); arr = list(map(int, input().split()))
-- Single output: print(result)
-- Multiple outputs: print(' '.join(map(str, results))) or multiple print() calls
-- String processing: s = input().strip()
-- Edge case: always check if array is empty or has 1 element
+🚨 CODE-ONLY OUTPUT - ABSOLUTELY NO TEXT BESIDES CODE:
+- Output ONLY valid Python code (no markdown, no comments, no explanations)
+- DO NOT write "Here's the solution" or ANY explanatory text
+- DO NOT use markdown formatting like "```python" or "```"
+- DO NOT write "EOF by user", "Written in clean Python code", or similar
+- DO NOT describe what the code does
+- Start IMMEDIATELY with the first line of executable Python code
+- If you write ANYTHING other than pure Python code, the solution will FAIL
 
-OUTPUT FORMAT:
-Provide ONLY the Python code between triple backticks. No explanations before or after.
+📝 COMPETITIVE PROGRAMMING FORMAT (STDIN/STDOUT):
+- INPUT: Use input() to read from stdin - NO PROMPTS like input("Enter N:")
+- OUTPUT: Use print() to write to stdout
+- Common input patterns (USE THESE EXACTLY):
+  * Single integer: n = int(input())
+  * Array from single line: arr = list(map(int, input().split()))
+  * Two values from single line: a, b = map(int, input().split())
+  * String: s = input().strip()
+  * Multiple lines: Use input() once per line
+- Output format must EXACTLY match examples (spaces, newlines, etc.)
 
+✅ BREVITY AND SIMPLICITY (CRITICAL FOR CORRECTNESS):
+- Write the SHORTEST possible correct solution
+- For simple problems, prefer 3-5 line solutions
+- DO NOT create functions unless absolutely necessary
+- DO NOT add type hints, docstrings, or comments
+- DO NOT add error handling or validation (assume valid input)
+- Prefer built-in functions (sum, max, min) over loops
+- Example BAD (too verbose):
+  def count_evens(arr):
+      \"\"\"Count even numbers\"\"\"
+      count = 0
+      for x in arr:
+          if x % 2 == 0:
+              count += 1
+      return count
+
+  n = int(input())
+  arr = list(map(int, input().split()))
+  print(count_evens(arr))
+
+- Example GOOD (brief):
+  n = int(input())
+  arr = list(map(int, input().split()))
+  print(sum(1 for x in arr if x % 2 == 0))
+
+⚡ CODE REQUIREMENTS:
+- Complete, immediately executable code
+- NO functions, classes, or type hints
+- NO debugging print statements or test cases
+- Handle edge cases: empty arrays, single elements
+- Ensure correct time complexity (O(n) or better for most Bronze)
+
+EXAMPLE OF CORRECT OUTPUT:
+n = int(input())
+arr = list(map(int, input().split()))
+count = sum(1 for x in arr if x % 2 == 0)
+print(count)
+
+EXAMPLE OF INCORRECT OUTPUT (DO NOT DO THIS):
+Here's the solution:
 ```python
-# Your complete solution here
+n = int(input())
+arr = list(map(int, input().split()))
+# Count even numbers
+count = sum(1 for x in arr if x % 2 == 0)
+print(count)
 ```
+Written in clean Python code
+
+NOW WRITE YOUR SOLUTION (CODE ONLY, NO EXTRA TEXT):
 """
 
         return prompt
