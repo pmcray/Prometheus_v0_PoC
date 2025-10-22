@@ -1,0 +1,103 @@
+{
+  "success_db": {
+    "6364276be11e0b2b": {
+      "pad_4": {
+        "successes": 0,
+        "total": 2,
+        "best_fitness": 0.20597472299168976
+      },
+      "border": {
+        "successes": 0,
+        "total": 2,
+        "best_fitness": 0.20597472299168976
+      }
+    },
+    "4cf06ae693513b14": {
+      "identity": {
+        "successes": 0,
+        "total": 1,
+        "best_fitness": 0.4912837162837163
+      }
+    },
+    "35ee4895a8325e83": {
+      "isolate_5": {
+        "successes": 0,
+        "total": 1,
+        "best_fitness": 0.20734122174122174
+      },
+      "scale_5x": {
+        "successes": 0,
+        "total": 1,
+        "best_fitness": 0.20734122174122174
+      }
+    }
+  },
+  "pattern_db": {
+    "6364276be11e0b2b": [
+      {
+        "pattern": [
+          "pad_4",
+          "border"
+        ],
+        "fitness": 0.20597472299168976,
+        "task_id": "0934a4d8"
+      },
+      {
+        "pattern": [
+          "pad_4",
+          "border"
+        ],
+        "fitness": 0.20597472299168976,
+        "task_id": "0934a4d8"
+      }
+    ],
+    "4cf06ae693513b14": [
+      {
+        "pattern": [
+          "identity"
+        ],
+        "fitness": 0.4912837162837163,
+        "task_id": "135a2760"
+      }
+    ],
+    "35ee4895a8325e83": [
+      {
+        "pattern": [
+          "isolate_5",
+          "scale_5x"
+        ],
+        "fitness": 0.20734122174122174,
+        "task_id": "136b0064"
+      }
+    ]
+  },
+  "constraint_cache": {
+    "6364276be11e0b2b": {
+      "size": "cropped",
+      "color": "colors_reduced",
+      "symmetry": "no_symmetry",
+      "object": "object_count_preserved"
+    },
+    "4cf06ae693513b14": {
+      "size": "size_preserved",
+      "color": "colors_preserved",
+      "symmetry": "horizontal_symmetry",
+      "object": "object_count_preserved"
+    },
+    "35ee4895a8325e83": {
+      "size": "size_variable",
+      "color": "colors_reduced",
+      "symmetry": "no_symmetry",
+      "object": "object_count_decreased"
+    }
+  },
+  "statistics": {
+    "total_attempts": 4,
+    "total_successes": 0,
+    "success_rate": 0.0,
+    "unique_constraint_patterns": 3,
+    "tasks_seen": 3,
+    "total_patterns_stored": 4,
+    "primitives_learned": 5
+  }
+}
