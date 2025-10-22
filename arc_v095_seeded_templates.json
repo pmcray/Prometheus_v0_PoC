@@ -1,0 +1,622 @@
+{
+  "templates": {
+    "crop()": {
+      "count": 16,
+      "tasks": [
+        "135a2760",
+        "1818057f",
+        "195c6913",
+        "221dfab4",
+        "271d71e2",
+        "36a08778",
+        "3e6067c3",
+        "409aa875",
+        "4c416de3",
+        "53fb4810",
+        "64efde09",
+        "135a2760",
+        "135a2760",
+        "409aa875",
+        "135a2760",
+        "409aa875"
+      ],
+      "fitness_sum": 9.683250213027446,
+      "avg_fitness": 0.6052031383142153
+    },
+    "rotate_90() -> rotate_270()": {
+      "count": 1,
+      "tasks": [
+        "142ca369"
+      ],
+      "fitness_sum": 0.4514300411522634,
+      "avg_fitness": 0.4514300411522634
+    },
+    "flip_h() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "16b78196"
+      ],
+      "fitness_sum": 0.46638888888888885,
+      "avg_fitness": 0.46638888888888885
+    },
+    "flip_h() -> flip_h()": {
+      "count": 1,
+      "tasks": [
+        "16de56c4"
+      ],
+      "fitness_sum": 0.4395502645502645,
+      "avg_fitness": 0.4395502645502645
+    },
+    "flip_v() -> flip_v()": {
+      "count": 2,
+      "tasks": [
+        "1ae2feb7",
+        "35ab12c3"
+      ],
+      "fitness_sum": 0.8418394414227748,
+      "avg_fitness": 0.4209197207113874
+    },
+    "crop() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "247ef758"
+      ],
+      "fitness_sum": 0.43130952380952375,
+      "avg_fitness": 0.43130952380952375
+    },
+    "scale_2x() -> downsample()": {
+      "count": 2,
+      "tasks": [
+        "28a6681f",
+        "3dc255db"
+      ],
+      "fitness_sum": 0.9191666666666667,
+      "avg_fitness": 0.45958333333333334
+    },
+    "crop() -> fill_interior()": {
+      "count": 3,
+      "tasks": [
+        "2b83f449",
+        "2c181942",
+        "5961cc34"
+      ],
+      "fitness_sum": 1.3105320468157997,
+      "avg_fitness": 0.4368440156052666
+    },
+    "flip_v()": {
+      "count": 1,
+      "tasks": [
+        "31f7f899"
+      ],
+      "fitness_sum": 0.46172657623207075,
+      "avg_fitness": 0.46172657623207075
+    },
+    "crop() -> fill_zeros()": {
+      "count": 1,
+      "tasks": [
+        "332f06d7"
+      ],
+      "fitness_sum": 0.481058983489229,
+      "avg_fitness": 0.481058983489229
+    },
+    "flip_h() -> fill_interior()": {
+      "count": 2,
+      "tasks": [
+        "446ef5d2",
+        "581f7754"
+      ],
+      "fitness_sum": 0.7561873879487515,
+      "avg_fitness": 0.37809369397437576
+    },
+    "crop() -> detect_objects()": {
+      "count": 1,
+      "tasks": [
+        "4a21e3da"
+      ],
+      "fitness_sum": 0.44393004115226337,
+      "avg_fitness": 0.44393004115226337
+    },
+    "flip_h() -> flip_h() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "4c3d4a41"
+      ],
+      "fitness_sum": 0.44375,
+      "avg_fitness": 0.44375
+    },
+    "rotate_180() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "62593bfd"
+      ],
+      "fitness_sum": 0.4633395989974937,
+      "avg_fitness": 0.4633395989974937
+    }
+  },
+  "successful_programs": [
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.4912837162837163
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "142ca369",
+      "fitness": 0.4514300411522634
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "16b78196",
+      "fitness": 0.46638888888888885
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "16de56c4",
+      "fitness": 0.4395502645502645
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1818057f",
+      "fitness": 0.45206971677559915
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "195c6913",
+      "fitness": 0.43578333333333336
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1ae2feb7",
+      "fitness": 0.44890734265734267
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "221dfab4",
+      "fitness": 0.43025078369905956
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "247ef758",
+      "fitness": 0.43130952380952375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "271d71e2",
+      "fitness": 0.3248790529283609
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "scale_2x",
+            "params": {}
+          },
+          {
+            "name": "downsample",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "28a6681f",
+      "fitness": 0.4533333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2b83f449",
+      "fitness": 0.41164427677585574
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2c181942",
+      "fitness": 0.46746813894639977
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "31f7f899",
+      "fitness": 0.46172657623207075
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "332f06d7",
+      "fitness": 0.481058983489229
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "35ab12c3",
+      "fitness": 0.39293209876543206
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "36a08778",
+      "fitness": 0.35610700476771906
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "scale_2x",
+            "params": {}
+          },
+          {
+            "name": "downsample",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3dc255db",
+      "fitness": 0.4658333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3e6067c3",
+      "fitness": 0.4793911575393057
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "409aa875",
+      "fitness": 0.4869791666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "446ef5d2",
+      "fitness": 0.3277083333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4a21e3da",
+      "fitness": 0.44393004115226337
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4c3d4a41",
+      "fitness": 0.44375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4c416de3",
+      "fitness": 0.47505311723513177
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "53fb4810",
+      "fitness": 0.47342082736104474
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "581f7754",
+      "fitness": 0.42847905461541824
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5961cc34",
+      "fitness": 0.43141963109354414
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "62593bfd",
+      "fitness": 0.4633395989974937
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "64efde09",
+      "fitness": 0.43241337206854447
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.9725674325674326
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.9725674325674326
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "409aa875",
+      "fitness": 0.9639583333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.9725674325674326
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "409aa875",
+      "fitness": 0.9639583333333334
+    }
+  ],
+  "stats": {
+    "total_templates": 14,
+    "total_successes": 34
+  }
+}

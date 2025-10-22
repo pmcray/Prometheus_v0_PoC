@@ -1,0 +1,80 @@
+{
+  "success_db": {
+    "d90a228cf142f703": {
+      "crop": {
+        "successes": 5,
+        "total": 5,
+        "best_fitness": 0.9725674325674326
+      }
+    }
+  },
+  "pattern_db": {
+    "d90a228cf142f703": [
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      }
+    ]
+  },
+  "constraint_cache": {
+    "d90a228cf142f703": {
+      "size": "variable",
+      "color": "variable",
+      "symmetry": "no_symmetry",
+      "object": "unknown"
+    }
+  },
+  "param_success_db": {
+    "d90a228cf142f703": {
+      "crop@()": {
+        "successes": 5,
+        "total": 5,
+        "best_fitness": 0.9725674325674326
+      }
+    }
+  },
+  "param_distributions": {
+    "d90a228cf142f703": {
+      "crop": {}
+    }
+  },
+  "stats": {
+    "total_attempts": 10,
+    "total_successes": 10,
+    "tasks_seen": [
+      "409aa875",
+      "135a2760"
+    ]
+  }
+}

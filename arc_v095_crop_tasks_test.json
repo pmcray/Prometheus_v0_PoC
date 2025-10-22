@@ -1,0 +1,99 @@
+{
+  "version": "v0.95",
+  "test_set": "top_7_crop_tasks",
+  "summary": {
+    "solved": 2,
+    "total": 7,
+    "improved": 0,
+    "accuracy": 0.2857142857142857,
+    "time": 14.081924200057983
+  },
+  "results": [
+    {
+      "task_id": "135a2760",
+      "success": true,
+      "fitness": 0.9725674325674326,
+      "pattern": [
+        "crop"
+      ],
+      "method": "template_transfer",
+      "baseline_fitness": 0.4912837162837163,
+      "improvement": 0.4812837162837163,
+      "time": 0.0026366710662841797
+    },
+    {
+      "task_id": "409aa875",
+      "success": true,
+      "fitness": 0.9639583333333334,
+      "pattern": [
+        "crop"
+      ],
+      "method": "template_transfer",
+      "baseline_fitness": 0.4869791666666667,
+      "improvement": 0.4769791666666667,
+      "time": 0.0022711753845214844
+    },
+    {
+      "task_id": "332f06d7",
+      "success": false,
+      "fitness": 0.481058983489229,
+      "pattern": [
+        "crop",
+        "fill_zeros"
+      ],
+      "method": "v092_fallback",
+      "baseline_fitness": 0.481058983489229,
+      "improvement": 0.0,
+      "time": 1.9197568893432617
+    },
+    {
+      "task_id": "3e6067c3",
+      "success": false,
+      "fitness": 0.4793911575393057,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_fallback",
+      "baseline_fitness": 0.4793911575393057,
+      "improvement": 0.0,
+      "time": 3.3071038722991943
+    },
+    {
+      "task_id": "4c416de3",
+      "success": false,
+      "fitness": 0.47505311723513177,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_fallback",
+      "baseline_fitness": 0.47505311723513177,
+      "improvement": 0.0,
+      "time": 3.1340205669403076
+    },
+    {
+      "task_id": "53fb4810",
+      "success": false,
+      "fitness": 0.47342082736104474,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_fallback",
+      "baseline_fitness": 0.47342082736104474,
+      "improvement": 0.0,
+      "time": 2.3279693126678467
+    },
+    {
+      "task_id": "2c181942",
+      "success": false,
+      "fitness": 0.46746813894639977,
+      "pattern": [
+        "crop",
+        "fill_interior"
+      ],
+      "method": "v092_fallback",
+      "baseline_fitness": 0.46746813894639977,
+      "improvement": 0.0,
+      "time": 3.3821325302124023
+    }
+  ]
+}
