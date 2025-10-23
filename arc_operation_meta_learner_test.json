@@ -1,0 +1,96 @@
+{
+  "operation_counts": {
+    "crop": 22,
+    "rotate_90": 2,
+    "rotate_270": 2,
+    "flip_h": 14,
+    "extract_largest": 8,
+    "flip_v": 10,
+    "scale_2x": 4,
+    "downsample": 4,
+    "fill_interior": 10,
+    "fill_zeros": 2,
+    "detect_objects": 2,
+    "rotate_180": 2,
+    "crop(mode=?)": 3
+  },
+  "operation_successes": {
+    "crop": 11.26718796262636,
+    "rotate_90": 0.9028600823045267,
+    "rotate_270": 0.9028600823045267,
+    "flip_h": 5.9783536118763365,
+    "extract_largest": 3.6095760233918126,
+    "flip_v": 4.290810918155241,
+    "scale_2x": 1.8383333333333334,
+    "downsample": 1.8383333333333334,
+    "fill_interior": 4.133438869529102,
+    "fill_zeros": 0.962117966978458,
+    "detect_objects": 0.8878600823045267,
+    "rotate_180": 0.9266791979949874,
+    "crop(mode=?)": 2.862217454027333
+  },
+  "operation_by_position": {
+    "0": {
+      "crop": 22,
+      "rotate_90": 2,
+      "flip_h": 10,
+      "flip_v": 6,
+      "scale_2x": 4,
+      "rotate_180": 2,
+      "crop(mode=?)": 3
+    },
+    "1": {
+      "rotate_270": 2,
+      "extract_largest": 6,
+      "flip_h": 4,
+      "flip_v": 4,
+      "downsample": 4,
+      "fill_interior": 10,
+      "fill_zeros": 2,
+      "detect_objects": 2
+    },
+    "2": {
+      "extract_largest": 2
+    }
+  },
+  "operation_pairs": {
+    "rotate_90->rotate_270": 2,
+    "flip_h->extract_largest": 4,
+    "flip_h->flip_h": 4,
+    "flip_v->flip_v": 4,
+    "crop->extract_largest": 2,
+    "scale_2x->downsample": 4,
+    "crop->fill_interior": 6,
+    "crop->fill_zeros": 2,
+    "flip_h->fill_interior": 4,
+    "crop->detect_objects": 2,
+    "rotate_180->extract_largest": 2
+  },
+  "operation_sequences": {
+    "crop": 10,
+    "rotate_90->rotate_270": 2,
+    "flip_h->extract_largest": 2,
+    "flip_h->flip_h": 2,
+    "flip_v->flip_v": 4,
+    "crop->extract_largest": 2,
+    "scale_2x->downsample": 4,
+    "crop->fill_interior": 6,
+    "flip_v": 2,
+    "crop->fill_zeros": 2,
+    "flip_h->fill_interior": 4,
+    "crop->detect_objects": 2,
+    "flip_h->flip_h->extract_largest": 2,
+    "rotate_180->extract_largest": 2,
+    "crop(mode=?)": 3
+  },
+  "parameter_values": {},
+  "constraint_operation_map": {},
+  "statistics": {
+    "programs_learned": 49,
+    "average_fitness": 0.5023706764973886,
+    "unique_operations": 13,
+    "unique_pairs": 11,
+    "unique_sequences": 15,
+    "constraint_types": 0
+  }
+}

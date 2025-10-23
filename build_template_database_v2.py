@@ -215,10 +215,12 @@ def build_template_database():
     output_file = 'arc_v095_training_400_templates.json'
     template_learner.save_database(output_file)
 
-    # Get statistics
-    db = template_learner.get_database()
-    num_programs = len(db['programs'])
-    num_templates = len(db['templates'])
+    # Get statistics from saved file
+    with open(output_file, 'r') as f:
+        db = json.load(f)
+
+    num_programs = len(db.get('programs', []))
+    num_templates = len(db.get('templates', {}))
 
     print(f"✅ Template database saved: {output_file}")
     print(f"   Programs: {num_programs}")

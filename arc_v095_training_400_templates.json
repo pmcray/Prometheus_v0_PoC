@@ -1,0 +1,4726 @@
+{
+  "templates": {
+    "rotate_90() -> rotate_270() -> extract_largest()": {
+      "count": 4,
+      "tasks": [
+        "009d5c81",
+        "1e0a9b12",
+        "1efba499",
+        "6855a6e4"
+      ],
+      "fitness_sum": 1.7416175359032502,
+      "avg_fitness": 0.43540438397581255
+    },
+    "gravity_down() -> flip_v() -> extract_largest()": {
+      "count": 2,
+      "tasks": [
+        "00d62c1b",
+        "18419cfa"
+      ],
+      "fitness_sum": 0.7292085313923549,
+      "avg_fitness": 0.36460426569617743
+    },
+    "transpose() -> transpose()": {
+      "count": 40,
+      "tasks": [
+        "00dbd492",
+        "05a7bcf2",
+        "0962bcdd",
+        "09c534e7",
+        "0e671a1a",
+        "11852cab",
+        "11e1fe23",
+        "13f06aa5",
+        "14b8e18c",
+        "15113be4",
+        "1b60fb0c",
+        "1c02dbbe",
+        "1d398264",
+        "1f876c06",
+        "212895b5",
+        "22233c11",
+        "2c608aff",
+        "30f42897",
+        "319f2597",
+        "36d67576",
+        "3e980e27",
+        "3f23242b",
+        "423a55dc",
+        "42a50994",
+        "444801d8",
+        "44d8ac46",
+        "4a1cacc2",
+        "4b6b68e5",
+        "4c5c2cf0",
+        "4e469f39",
+        "52fd389e",
+        "543a7ed5",
+        "56ff96f3",
+        "575b1a71",
+        "58743b76",
+        "5adee1b2",
+        "5c0a986e",
+        "67a423a3",
+        "689c358e",
+        "69889d6e"
+      ],
+      "fitness_sum": 17.312088939813815,
+      "avg_fitness": 0.43280222349534536
+    },
+    "rotate_90() -> transpose() -> flip_h()": {
+      "count": 13,
+      "tasks": [
+        "025d127b",
+        "070dd51e",
+        "178fcbfb",
+        "1b8318e3",
+        "1c56ad9f",
+        "1caeab9d",
+        "1e81d6f9",
+        "1f642eb9",
+        "25d487eb",
+        "2685904e",
+        "52364a65",
+        "57aa92db",
+        "6350f1f4"
+      ],
+      "fitness_sum": 5.660661047672151,
+      "avg_fitness": 0.43543546520555004
+    },
+    "rotate_90() -> flip_h() -> rotate_270() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "03560426"
+      ],
+      "fitness_sum": 0.42,
+      "avg_fitness": 0.42
+    },
+    "rotate_90() -> rotate_270()": {
+      "count": 41,
+      "tasks": [
+        "045e512c",
+        "0607ce86",
+        "1478ab18",
+        "15663ba9",
+        "1a244afd",
+        "1d61978c",
+        "1e32b0e9",
+        "22168020",
+        "228f6490",
+        "230f2e48",
+        "253bf280",
+        "29700607",
+        "2e65ae53",
+        "305b1341",
+        "342ae2ed",
+        "3490cc26",
+        "34cfa167",
+        "396d80d7",
+        "39e1d7f9",
+        "3ad05f52",
+        "3bdb4ada",
+        "3d588dc9",
+        "3eda0437",
+        "40f6cd08",
+        "41e4d17e",
+        "4258a5f9",
+        "42918530",
+        "4364c1c4",
+        "45bbe264",
+        "46c35fc7",
+        "48634b99",
+        "4938f0c2",
+        "4f537728",
+        "5034a0b5",
+        "50846271",
+        "54d82841",
+        "54db823b",
+        "54dc2872",
+        "55059096",
+        "5b692c0f",
+        "696d4842"
+      ],
+      "fitness_sum": 18.302621360637346,
+      "avg_fitness": 0.44640539903993526
+    },
+    "transpose() -> rotate_90() -> extract_largest()": {
+      "count": 3,
+      "tasks": [
+        "05f2a901",
+        "3391f8c0",
+        "3d6c6e23"
+      ],
+      "fitness_sum": 1.334235590117943,
+      "avg_fitness": 0.444745196705981
+    },
+    "rotate_90() -> transpose() -> crop() -> flip_h()": {
+      "count": 1,
+      "tasks": [
+        "06df4c85"
+      ],
+      "fitness_sum": 0.46898235664776305,
+      "avg_fitness": 0.46898235664776305
+    },
+    "transpose() -> transpose() -> detect_objects()": {
+      "count": 4,
+      "tasks": [
+        "08ed6ac7",
+        "103eff5b",
+        "37d3e8b2",
+        "626c0bcc"
+      ],
+      "fitness_sum": 2.1582397927561767,
+      "avg_fitness": 0.5395599481890442
+    },
+    "invert()": {
+      "count": 7,
+      "tasks": [
+        "0a2355a6",
+        "14754a24",
+        "2281f1f4",
+        "31adaf00",
+        "3aa6fb7a",
+        "5207a7b5",
+        "639f5a19"
+      ],
+      "fitness_sum": 2.7234004423566898,
+      "avg_fitness": 0.3890572060509557
+    },
+    "gravity_down()": {
+      "count": 12,
+      "tasks": [
+        "0a938d79",
+        "18286ef8",
+        "1e5d6875",
+        "23581191",
+        "25ff71a9",
+        "292dd178",
+        "3618c87e",
+        "3bd67248",
+        "41ace6b5",
+        "4ff4c9da",
+        "60d73be6",
+        "66ac4c3b"
+      ],
+      "fitness_sum": 4.823470622948401,
+      "avg_fitness": 0.4019558852457001
+    },
+    "transpose()": {
+      "count": 4,
+      "tasks": [
+        "0b17323b",
+        "5751f35e",
+        "5c2c9af4",
+        "623ea044"
+      ],
+      "fitness_sum": 1.5728947821514658,
+      "avg_fitness": 0.39322369553786646
+    },
+    "transpose() -> transpose() -> fill_interior()": {
+      "count": 3,
+      "tasks": [
+        "0becf7df",
+        "320afe60",
+        "45737921"
+      ],
+      "fitness_sum": 1.2994190552239084,
+      "avg_fitness": 0.4331396850746361
+    },
+    "gravity_down() -> extract_largest()": {
+      "count": 3,
+      "tasks": [
+        "0ca9ddb6",
+        "29c11459",
+        "5af49b42"
+      ],
+      "fitness_sum": 1.236455654190697,
+      "avg_fitness": 0.41215188473023234
+    },
+    "crop() -> detect_objects()": {
+      "count": 1,
+      "tasks": [
+        "0d87d2a6"
+      ],
+      "fitness_sum": 0.33402472527472526,
+      "avg_fitness": 0.33402472527472526
+    },
+    "gravity_down() -> extract_largest() -> fill_interior()": {
+      "count": 2,
+      "tasks": [
+        "0e206a2e",
+        "5168d44c"
+      ],
+      "fitness_sum": 0.8473957424850281,
+      "avg_fitness": 0.42369787124251407
+    },
+    "gravity_down() -> fill_interior()": {
+      "count": 2,
+      "tasks": [
+        "11dc524f",
+        "18447a8d"
+      ],
+      "fitness_sum": 0.8199028221652657,
+      "avg_fitness": 0.40995141108263283
+    },
+    "gravity_down() -> flip_v()": {
+      "count": 4,
+      "tasks": [
+        "12422b43",
+        "150deff5",
+        "3ac3eb23",
+        "68b16354"
+      ],
+      "fitness_sum": 2.067158017908018,
+      "avg_fitness": 0.5167895044770044
+    },
+    "crop()": {
+      "count": 15,
+      "tasks": [
+        "12eac192",
+        "17829a00",
+        "1cf80156",
+        "22806e14",
+        "2546ccf6",
+        "264363fd",
+        "2f767503",
+        "37ce87bb",
+        "465b7d93",
+        "52df9849",
+        "538b439f",
+        "5a5a2103",
+        "5b37cb25",
+        "62ab2642",
+        "642248e4"
+      ],
+      "fitness_sum": 7.231105268758542,
+      "avg_fitness": 0.4820736845839028
+    },
+    "rotate_90() -> flip_v() -> transpose()": {
+      "count": 1,
+      "tasks": [
+        "17b80ad2"
+      ],
+      "fitness_sum": 0.44200171657014126,
+      "avg_fitness": 0.44200171657014126
+    },
+    "transpose() -> rotate_90()": {
+      "count": 2,
+      "tasks": [
+        "17b866bd",
+        "496994bd"
+      ],
+      "fitness_sum": 0.8175688244047619,
+      "avg_fitness": 0.40878441220238093
+    },
+    "rotate_90() -> rotate_270() -> fill_interior()": {
+      "count": 2,
+      "tasks": [
+        "182e5d0f",
+        "22208ba4"
+      ],
+      "fitness_sum": 0.8915184184571523,
+      "avg_fitness": 0.44575920922857615
+    },
+    "invert() -> detect_objects()": {
+      "count": 4,
+      "tasks": [
+        "1acc24af",
+        "21f83797",
+        "2204b7a8",
+        "692cd3b6"
+      ],
+      "fitness_sum": 1.5092078950252028,
+      "avg_fitness": 0.3773019737563007
+    },
+    "rotate_90() -> crop() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "1b59e163"
+      ],
+      "fitness_sum": 0.45987654320987653,
+      "avg_fitness": 0.45987654320987653
+    },
+    "rotate_90() -> rotate_90() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "1c0d0a4b"
+      ],
+      "fitness_sum": 0.39749920861031973,
+      "avg_fitness": 0.39749920861031973
+    },
+    "crop() -> fill_zeros()": {
+      "count": 1,
+      "tasks": [
+        "1d0a4b61"
+      ],
+      "fitness_sum": 0.4666666666666666,
+      "avg_fitness": 0.4666666666666666
+    },
+    "rotate_180() -> rotate_180()": {
+      "count": 2,
+      "tasks": [
+        "1f0c79e5",
+        "63613498"
+      ],
+      "fitness_sum": 0.8488271604938271,
+      "avg_fitness": 0.42441358024691356
+    },
+    "scale_2x() -> crop() -> detect_objects()": {
+      "count": 1,
+      "tasks": [
+        "2072aba6"
+      ],
+      "fitness_sum": 0.3703703703703704,
+      "avg_fitness": 0.3703703703703704
+    },
+    "transpose() -> flip_h() -> rotate_90()": {
+      "count": 1,
+      "tasks": [
+        "22eb0ac0"
+      ],
+      "fitness_sum": 0.6266666666666666,
+      "avg_fitness": 0.6266666666666666
+    },
+    "mirror_v()": {
+      "count": 3,
+      "tasks": [
+        "25094a63",
+        "4612dd53",
+        "60a26a3e"
+      ],
+      "fitness_sum": 1.3742627084454009,
+      "avg_fitness": 0.4580875694818003
+    },
+    "gravity_down() -> crop() -> fill_interior() -> fill_zeros()": {
+      "count": 1,
+      "tasks": [
+        "252143c9"
+      ],
+      "fitness_sum": 0.46719514251981786,
+      "avg_fitness": 0.46719514251981786
+    },
+    "gravity_down() -> flip_h()": {
+      "count": 2,
+      "tasks": [
+        "2601afb7",
+        "67c52801"
+      ],
+      "fitness_sum": 0.8275267396552795,
+      "avg_fitness": 0.4137633698276397
+    },
+    "transpose() -> extract_largest() -> transpose()": {
+      "count": 1,
+      "tasks": [
+        "29623171"
+      ],
+      "fitness_sum": 0.44903581267217635,
+      "avg_fitness": 0.44903581267217635
+    },
+    "crop() -> fill_interior() -> fill_zeros()": {
+      "count": 1,
+      "tasks": [
+        "2a28add5"
+      ],
+      "fitness_sum": 0.405,
+      "avg_fitness": 0.405
+    },
+    "rotate_90() -> gravity_down() -> transpose() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "2a5f8217"
+      ],
+      "fitness_sum": 0.3183433663231643,
+      "avg_fitness": 0.3183433663231643
+    },
+    "rotate_90() -> transpose() -> flip_h() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "2c737e39"
+      ],
+      "fitness_sum": 0.4706018518518518,
+      "avg_fitness": 0.4706018518518518
+    },
+    "flip_h() -> transpose() -> rotate_270()": {
+      "count": 1,
+      "tasks": [
+        "2dd70a9a"
+      ],
+      "fitness_sum": 0.4687037037037037,
+      "avg_fitness": 0.4687037037037037
+    },
+    "transpose() -> rotate_270() -> remove_bg()": {
+      "count": 1,
+      "tasks": [
+        "2de01db2"
+      ],
+      "fitness_sum": 0.5111111111111111,
+      "avg_fitness": 0.5111111111111111
+    },
+    "rotate_180() -> rotate_180() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "2faf500b"
+      ],
+      "fitness_sum": 0.3802083333333333,
+      "avg_fitness": 0.3802083333333333
+    },
+    "crop() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "31aa019c"
+      ],
+      "fitness_sum": 0.4383333333333333,
+      "avg_fitness": 0.4383333333333333
+    },
+    "rotate_90() -> extract_largest() -> rotate_270()": {
+      "count": 1,
+      "tasks": [
+        "321b1fc6"
+      ],
+      "fitness_sum": 0.4325,
+      "avg_fitness": 0.4325
+    },
+    "rotate_180() -> rotate_180() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "3345333e"
+      ],
+      "fitness_sum": 0.484375,
+      "avg_fitness": 0.484375
+    },
+    "crop() -> extract_largest() -> sort_by_size()": {
+      "count": 1,
+      "tasks": [
+        "337b420f"
+      ],
+      "fitness_sum": 0.31,
+      "avg_fitness": 0.31
+    },
+    "invert() -> detect_objects() -> detect_objects()": {
+      "count": 1,
+      "tasks": [
+        "33b52de3"
+      ],
+      "fitness_sum": 0.390359168241966,
+      "avg_fitness": 0.390359168241966
+    },
+    "rotate_90() -> transpose() -> fill_interior()": {
+      "count": 2,
+      "tasks": [
+        "342dd610",
+        "4e45f183"
+      ],
+      "fitness_sum": 0.9372333795013851,
+      "avg_fitness": 0.46861668975069254
+    },
+    "transpose() -> extract_largest() -> sort_by_size()": {
+      "count": 1,
+      "tasks": [
+        "358ba94e"
+      ],
+      "fitness_sum": 0.445,
+      "avg_fitness": 0.445
+    },
+    "transpose() -> transpose() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "3906de3d"
+      ],
+      "fitness_sum": 0.4666666666666666,
+      "avg_fitness": 0.4666666666666666
+    },
+    "transpose() -> rotate_90() -> flip_v()": {
+      "count": 3,
+      "tasks": [
+        "3a301edc",
+        "494ef9d7",
+        "58e15b12"
+      ],
+      "fitness_sum": 1.246236606804651,
+      "avg_fitness": 0.415412202268217
+    },
+    "rotate_90() -> fill_interior() -> rotate_90()": {
+      "count": 1,
+      "tasks": [
+        "3befdf3e"
+      ],
+      "fitness_sum": 0.335,
+      "avg_fitness": 0.335
+    },
+    "rotate_180() -> gravity_down()": {
+      "count": 1,
+      "tasks": [
+        "3c9b0459"
+      ],
+      "fitness_sum": 1.0,
+      "avg_fitness": 1.0
+    },
+    "invert() -> extract_largest() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "4093f84a"
+      ],
+      "fitness_sum": 0.4804421768707483,
+      "avg_fitness": 0.4804421768707483
+    },
+    "gravity_down() -> rotate_180()": {
+      "count": 1,
+      "tasks": [
+        "42a15761"
+      ],
+      "fitness_sum": 0.4456469456469456,
+      "avg_fitness": 0.4456469456469456
+    },
+    "gravity_down() -> flip_v() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "4347f46a"
+      ],
+      "fitness_sum": 0.32480309042809047,
+      "avg_fitness": 0.32480309042809047
+    },
+    "transpose() -> crop() -> transpose()": {
+      "count": 1,
+      "tasks": [
+        "456873bc"
+      ],
+      "fitness_sum": 0.3592904619094495,
+      "avg_fitness": 0.3592904619094495
+    },
+    "scale_2x()": {
+      "count": 2,
+      "tasks": [
+        "46f33fce",
+        "60c09cac"
+      ],
+      "fitness_sum": 1.415,
+      "avg_fitness": 0.7075
+    },
+    "crop() -> transpose() -> rotate_90() -> flip_v()": {
+      "count": 2,
+      "tasks": [
+        "470c91de",
+        "50f325b5"
+      ],
+      "fitness_sum": 0.8214987987848951,
+      "avg_fitness": 0.41074939939244753
+    },
+    "rotate_180() -> tile_2x2() -> rotate_90()": {
+      "count": 1,
+      "tasks": [
+        "48131b3c"
+      ],
+      "fitness_sum": 0.4537037037037037,
+      "avg_fitness": 0.4537037037037037
+    },
+    "transpose() -> crop() -> transpose() -> fill_zeros()": {
+      "count": 1,
+      "tasks": [
+        "484b58aa"
+      ],
+      "fitness_sum": 0.47205707491082044,
+      "avg_fitness": 0.47205707491082044
+    },
+    "rotate_90() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "4acc7107"
+      ],
+      "fitness_sum": 0.38625,
+      "avg_fitness": 0.38625
+    },
+    "transpose() -> fill_interior() -> rotate_90()": {
+      "count": 1,
+      "tasks": [
+        "4df5b0ae"
+      ],
+      "fitness_sum": 0.425,
+      "avg_fitness": 0.425
+    },
+    "rotate_90() -> transpose()": {
+      "count": 2,
+      "tasks": [
+        "4e7e0eb9",
+        "64a7c07e"
+      ],
+      "fitness_sum": 0.9206309633733456,
+      "avg_fitness": 0.4603154816866728
+    },
+    "gravity_down() -> invert() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "508bd3b6"
+      ],
+      "fitness_sum": 0.3576388888888889,
+      "avg_fitness": 0.3576388888888889
+    },
+    "rotate_90() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "50c07299"
+      ],
+      "fitness_sum": 0.494140625,
+      "avg_fitness": 0.494140625
+    },
+    "gravity_down() -> fill_interior() -> fill_zeros()": {
+      "count": 3,
+      "tasks": [
+        "522fdd07",
+        "5582e5ca",
+        "5623160b"
+      ],
+      "fitness_sum": 1.8058686985596708,
+      "avg_fitness": 0.6019562328532236
+    },
+    "rotate_90() -> extract_largest() -> rotate_180()": {
+      "count": 1,
+      "tasks": [
+        "5521c0d9"
+      ],
+      "fitness_sum": 0.4185185185185185,
+      "avg_fitness": 0.4185185185185185
+    },
+    "rotate_90() -> rotate_270() -> flip_v()": {
+      "count": 1,
+      "tasks": [
+        "56dc2b01"
+      ],
+      "fitness_sum": 0.3505514705882353,
+      "avg_fitness": 0.3505514705882353
+    },
+    "rotate_90() -> transpose() -> gravity_down() -> flip_h()": {
+      "count": 1,
+      "tasks": [
+        "5792cb4d"
+      ],
+      "fitness_sum": 0.46,
+      "avg_fitness": 0.46
+    },
+    "crop() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "5a719d11"
+      ],
+      "fitness_sum": 0.45389978213507626,
+      "avg_fitness": 0.45389978213507626
+    },
+    "rotate_90() -> transpose() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "5ffb2104"
+      ],
+      "fitness_sum": 0.3578347578347578,
+      "avg_fitness": 0.3578347578347578
+    },
+    "gravity_down() -> rotate_90() -> rotate_180() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "60b61512"
+      ],
+      "fitness_sum": 0.4012345679012346,
+      "avg_fitness": 0.4012345679012346
+    },
+    "gravity_down() -> flip_h() -> fill_interior()": {
+      "count": 1,
+      "tasks": [
+        "6150a2bd"
+      ],
+      "fitness_sum": 0.3611111111111111,
+      "avg_fitness": 0.3611111111111111
+    },
+    "rotate_90() -> sort_by_size() -> rotate_180()": {
+      "count": 1,
+      "tasks": [
+        "67636eac"
+      ],
+      "fitness_sum": 0.4572530864197531,
+      "avg_fitness": 0.4572530864197531
+    },
+    "rotate_90() -> gravity_down() -> transpose()": {
+      "count": 1,
+      "tasks": [
+        "67a3c6ac"
+      ],
+      "fitness_sum": 1.0,
+      "avg_fitness": 1.0
+    },
+    "transpose() -> invert() -> transpose() -> detect_objects()": {
+      "count": 1,
+      "tasks": [
+        "694f12f3"
+      ],
+      "fitness_sum": 0.3375,
+      "avg_fitness": 0.3375
+    },
+    "invert() -> extract_largest()": {
+      "count": 1,
+      "tasks": [
+        "6a1e5592"
+      ],
+      "fitness_sum": 0.31999999999999995,
+      "avg_fitness": 0.31999999999999995
+    }
+  },
+  "successful_programs": [
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "009d5c81",
+      "fitness": 0.4413265306122449
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "00d62c1b",
+      "fitness": 0.3396666666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "00dbd492",
+      "fitness": 0.38777504953329134
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "025d127b",
+      "fitness": 0.4265873015873016
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "03560426",
+      "fitness": 0.42
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "045e512c",
+      "fitness": 0.4652305366591081
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "05a7bcf2",
+      "fitness": 0.362962962962963
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "05f2a901",
+      "fitness": 0.42407407407407405
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0607ce86",
+      "fitness": 0.4535879689041744
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "06df4c85",
+      "fitness": 0.46898235664776305
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "070dd51e",
+      "fitness": 0.4633333333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "08ed6ac7",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0962bcdd",
+      "fitness": 0.4166666666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "09c534e7",
+      "fitness": 0.4656738683127572
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0a2355a6",
+      "fitness": 0.37746727478870334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0a938d79",
+      "fitness": 0.3427463405404982
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0b17323b",
+      "fitness": 0.49444444444444446
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0becf7df",
+      "fitness": 0.41500000000000004
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0ca9ddb6",
+      "fitness": 0.40534979423868317
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0d87d2a6",
+      "fitness": 0.33402472527472526
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0e206a2e",
+      "fitness": 0.4567625661375661
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "0e671a1a",
+      "fitness": 0.4356508875739645
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "103eff5b",
+      "fitness": 0.4448572261072261
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "11852cab",
+      "fitness": 0.48500000000000004
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "11dc524f",
+      "fitness": 0.4763313609467456
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "11e1fe23",
+      "fitness": 0.4840909090909091
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "12422b43",
+      "fitness": 0.34834188034188035
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "12eac192",
+      "fitness": 0.37286706349206344
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "13f06aa5",
+      "fitness": 0.4243677618677619
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "14754a24",
+      "fitness": 0.4564549394319131
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1478ab18",
+      "fitness": 0.3984375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "14b8e18c",
+      "fitness": 0.4466666666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "150deff5",
+      "fitness": 0.33310185185185187
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "15113be4",
+      "fitness": 0.49054820415879014
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "15663ba9",
+      "fitness": 0.4440210074825459
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "17829a00",
+      "fitness": 0.40234375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "178fcbfb",
+      "fitness": 0.33484614665170226
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "17b80ad2",
+      "fitness": 0.44200171657014126
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "17b866bd",
+      "fitness": 0.4425688244047619
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "18286ef8",
+      "fitness": 0.313900462962963
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "182e5d0f",
+      "fitness": 0.4654018128911291
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "18419cfa",
+      "fitness": 0.38954186472568825
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "18447a8d",
+      "fitness": 0.34357146121852006
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1a244afd",
+      "fitness": 0.4717708333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1acc24af",
+      "fitness": 0.4635416666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1b59e163",
+      "fitness": 0.45987654320987653
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1b60fb0c",
+      "fitness": 0.4533333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1b8318e3",
+      "fitness": 0.45148148148148154
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1c02dbbe",
+      "fitness": 0.36296296296296293
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1c0d0a4b",
+      "fitness": 0.39749920861031973
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1c56ad9f",
+      "fitness": 0.44847985347985353
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1caeab9d",
+      "fitness": 0.42
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1cf80156",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1d0a4b61",
+      "fitness": 0.4666666666666666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1d398264",
+      "fitness": 0.40726851851851853
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1d61978c",
+      "fitness": 0.447265625
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1e0a9b12",
+      "fitness": 0.3781018518518519
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1e32b0e9",
+      "fitness": 0.4325259515570934
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1e5d6875",
+      "fitness": 0.4296875
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1e81d6f9",
+      "fitness": 0.49037037037037035
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1efba499",
+      "fitness": 0.4555224867724868
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1f0c79e5",
+      "fitness": 0.3688271604938272
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1f642eb9",
+      "fitness": 0.4766666666666666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "1f876c06",
+      "fitness": 0.45333333333333337
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "scale_2x",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2072aba6",
+      "fitness": 0.3703703703703704
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "212895b5",
+      "fitness": 0.44227453847035897
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "21f83797",
+      "fitness": 0.3002958579881657
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2204b7a8",
+      "fitness": 0.4283333333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "22168020",
+      "fitness": 0.43
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "22208ba4",
+      "fitness": 0.42611660556602315
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "22233c11",
+      "fitness": 0.48
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "22806e14",
+      "fitness": 0.4869791666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2281f1f4",
+      "fitness": 0.4366666666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "228f6490",
+      "fitness": 0.40666666666666673
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "22eb0ac0",
+      "fitness": 0.6266666666666666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "230f2e48",
+      "fitness": 0.4543981481481481
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "23581191",
+      "fitness": 0.3148148148148148
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "mirror_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "25094a63",
+      "fitness": 0.4355555555555556
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "252143c9",
+      "fitness": 0.46719514251981786
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "253bf280",
+      "fitness": 0.5946510665260666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2546ccf6",
+      "fitness": 0.48882008943928446
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "25d487eb",
+      "fitness": 0.47495370370370366
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "25ff71a9",
+      "fitness": 0.6388888888888888
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2601afb7",
+      "fitness": 0.40481881968173455
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "264363fd",
+      "fitness": 0.4557407407407408
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2685904e",
+      "fitness": 0.4583333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "292dd178",
+      "fitness": 0.43989898989898996
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "29623171",
+      "fitness": 0.44903581267217635
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "29700607",
+      "fitness": 0.40680287725742276
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "29c11459",
+      "fitness": 0.39090909090909093
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2a28add5",
+      "fitness": 0.405
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2a5f8217",
+      "fitness": 0.3183433663231643
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2c608aff",
+      "fitness": 0.48381283068783065
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2c737e39",
+      "fitness": 0.4706018518518518
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2dd70a9a",
+      "fitness": 0.4687037037037037
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "remove_bg",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2de01db2",
+      "fitness": 0.5111111111111111
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2e65ae53",
+      "fitness": 0.4199380165289256
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2f767503",
+      "fitness": 0.4752350427350427
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "2faf500b",
+      "fitness": 0.3802083333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "305b1341",
+      "fitness": 0.315
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "30f42897",
+      "fitness": 0.41111111111111115
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "319f2597",
+      "fitness": 0.42208333333333337
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "31aa019c",
+      "fitness": 0.4383333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "31adaf00",
+      "fitness": 0.38000000000000006
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "320afe60",
+      "fitness": 0.4486836927028315
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "321b1fc6",
+      "fitness": 0.4325
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3345333e",
+      "fitness": 0.484375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "sort_by_size",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "337b420f",
+      "fitness": 0.31
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3391f8c0",
+      "fitness": 0.43244825708060997
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "33b52de3",
+      "fitness": 0.390359168241966
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "342ae2ed",
+      "fitness": 0.47265625
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "342dd610",
+      "fitness": 0.49125
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3490cc26",
+      "fitness": 0.4561824633699634
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "34cfa167",
+      "fitness": 0.3850281662781663
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "sort_by_size",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "358ba94e",
+      "fitness": 0.445
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3618c87e",
+      "fitness": 0.43333333333333335
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "36d67576",
+      "fitness": 0.4763313609467456
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "37ce87bb",
+      "fitness": 0.46861471861471865
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "37d3e8b2",
+      "fitness": 0.3188247435196989
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3906de3d",
+      "fitness": 0.4666666666666666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "396d80d7",
+      "fitness": 0.4736328125
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "39e1d7f9",
+      "fitness": 0.45113168724279834
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3a301edc",
+      "fitness": 0.3769479540067776
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3aa6fb7a",
+      "fitness": 0.3979591836734694
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3ac3eb23",
+      "fitness": 0.3857142857142857
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3ad05f52",
+      "fitness": 0.3973738187100256
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3bd67248",
+      "fitness": 0.36436885865457286
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3bdb4ada",
+      "fitness": 0.46510416666666665
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3befdf3e",
+      "fitness": 0.335
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3c9b0459",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3d588dc9",
+      "fitness": 0.4892578125
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3d6c6e23",
+      "fitness": 0.4777132589632589
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3e980e27",
+      "fitness": 0.47485207100591714
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3eda0437",
+      "fitness": 0.4342013888888889
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "3f23242b",
+      "fitness": 0.3903125
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4093f84a",
+      "fitness": 0.4804421768707483
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "40f6cd08",
+      "fitness": 0.4523045267489712
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "41ace6b5",
+      "fitness": 0.33349151064768784
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "41e4d17e",
+      "fitness": 0.41888888888888887
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "423a55dc",
+      "fitness": 0.4330512344798059
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4258a5f9",
+      "fitness": 0.3271604938271605
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "42918530",
+      "fitness": 0.48468570210952483
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "42a15761",
+      "fitness": 0.4456469456469456
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "42a50994",
+      "fitness": 0.4721475428954144
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4347f46a",
+      "fitness": 0.32480309042809047
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4364c1c4",
+      "fitness": 0.44257478632478636
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "444801d8",
+      "fitness": 0.41333333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "44d8ac46",
+      "fitness": 0.5989583333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "456873bc",
+      "fitness": 0.3592904619094495
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "45737921",
+      "fitness": 0.43573536252107686
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "45bbe264",
+      "fitness": 0.35463381913416253
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "mirror_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4612dd53",
+      "fitness": 0.4605821528898452
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "465b7d93",
+      "fitness": 0.4583333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "46c35fc7",
+      "fitness": 0.3877551020408163
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "scale_2x",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "46f33fce",
+      "fitness": 0.415
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "470c91de",
+      "fitness": 0.33874655647382923
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "tile_2x2",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "48131b3c",
+      "fitness": 0.4537037037037037
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "484b58aa",
+      "fitness": 0.47205707491082044
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "48634b99",
+      "fitness": 0.4889322916666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4938f0c2",
+      "fitness": 0.6283333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "494ef9d7",
+      "fitness": 0.4465476190476191
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "496994bd",
+      "fitness": 0.375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4a1cacc2",
+      "fitness": 0.4321180555555556
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4acc7107",
+      "fitness": 0.38625
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4b6b68e5",
+      "fitness": 0.4006121454429725
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4c5c2cf0",
+      "fitness": 0.4392715419501134
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4df5b0ae",
+      "fitness": 0.425
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4e45f183",
+      "fitness": 0.44598337950138506
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4e469f39",
+      "fitness": 0.4216666666666667
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4e7e0eb9",
+      "fitness": 0.4811865189289012
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4f537728",
+      "fitness": 0.4425
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "4ff4c9da",
+      "fitness": 0.35176313257304354
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5034a0b5",
+      "fitness": 0.40939472386587766
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "50846271",
+      "fitness": 0.48861576289207864
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "508bd3b6",
+      "fitness": 0.3576388888888889
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "50c07299",
+      "fitness": 0.494140625
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "50f325b5",
+      "fitness": 0.48275224231106584
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5168d44c",
+      "fitness": 0.39063317634746203
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5207a7b5",
+      "fitness": 0.33364254792826226
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "522fdd07",
+      "fitness": 0.36328125
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "52364a65",
+      "fitness": 0.43403734312825226
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "52df9849",
+      "fitness": 0.4912109375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "52fd389e",
+      "fitness": 0.35546666666666665
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "538b439f",
+      "fitness": 0.4239583333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "543a7ed5",
+      "fitness": 0.3422222222222222
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "54d82841",
+      "fitness": 0.4786011904761905
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "54db823b",
+      "fitness": 0.45499999999999996
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "54dc2872",
+      "fitness": 0.4423076923076923
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "55059096",
+      "fitness": 0.48580967643467643
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5521c0d9",
+      "fitness": 0.4185185185185185
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5582e5ca",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          },
+          {
+            "name": "fill_zeros",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5623160b",
+      "fitness": 0.4425874485596708
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "56dc2b01",
+      "fitness": 0.3505514705882353
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "56ff96f3",
+      "fitness": 0.37222943722943724
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5751f35e",
+      "fitness": 0.3075
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "575b1a71",
+      "fitness": 0.4483333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5792cb4d",
+      "fitness": 0.46
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "57aa92db",
+      "fitness": 0.4597120098039216
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "58743b76",
+      "fitness": 0.4584027777777778
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "58e15b12",
+      "fitness": 0.4227410337502544
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5a5a2103",
+      "fitness": 0.35487449827576456
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5a719d11",
+      "fitness": 0.45389978213507626
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5adee1b2",
+      "fitness": 0.35562499999999997
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5af49b42",
+      "fitness": 0.4401967690429229
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5b37cb25",
+      "fitness": 0.4861111111111111
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5b692c0f",
+      "fitness": 0.46766601377393063
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5c0a986e",
+      "fitness": 0.4633333333333333
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5c2c9af4",
+      "fitness": 0.334593572778828
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "5ffb2104",
+      "fitness": 0.3578347578347578
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "mirror_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "60a26a3e",
+      "fitness": 0.4781250000000001
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "60b61512",
+      "fitness": 0.4012345679012346
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "scale_2x",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "60c09cac",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "60d73be6",
+      "fitness": 0.39673381542699726
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          },
+          {
+            "name": "fill_interior",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "6150a2bd",
+      "fitness": 0.3611111111111111
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "623ea044",
+      "fitness": 0.4363567649281935
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "626c0bcc",
+      "fitness": 0.3945578231292517
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "62ab2642",
+      "fitness": 0.39361111111111113
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "6350f1f4",
+      "fitness": 0.32185950413223136
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_180",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "63613498",
+      "fitness": 0.48
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "639f5a19",
+      "fitness": 0.3412098298676749
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "642248e4",
+      "fitness": 0.47240537240537234
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "64a7c07e",
+      "fitness": 0.43944444444444447
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "66ac4c3b",
+      "fitness": 0.46384297520661155
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "sort_by_size",
+            "params": {}
+          },
+          {
+            "name": "rotate_180",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "67636eac",
+      "fitness": 0.4572530864197531
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "67a3c6ac",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "67a423a3",
+      "fitness": 0.3587962962962963
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_h",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "67c52801",
+      "fitness": 0.42270791997354495
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "6855a6e4",
+      "fitness": 0.4666666666666666
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "689c358e",
+      "fitness": 0.4669421487603306
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "gravity_down",
+            "params": {}
+          },
+          {
+            "name": "flip_v",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "68b16354",
+      "fitness": 1.0
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "692cd3b6",
+      "fitness": 0.31703703703703706
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "detect_objects",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "694f12f3",
+      "fitness": 0.3375
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "rotate_90",
+            "params": {}
+          },
+          {
+            "name": "rotate_270",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "696d4842",
+      "fitness": 0.48259259259259263
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "69889d6e",
+      "fitness": 0.4225
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "invert",
+            "params": {}
+          },
+          {
+            "name": "extract_largest",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "6a1e5592",
+      "fitness": 0.31999999999999995
+    }
+  ],
+  "stats": {
+    "total_templates": 75,
+    "total_successes": 235
+  }
+}
