@@ -21,7 +21,7 @@
       "avg_fitness": 0.36460426569617743
     },
     "transpose() -> transpose()": {
-      "count": 40,
+      "count": 42,
       "tasks": [
         "00dbd492",
         "05a7bcf2",
@@ -62,10 +62,12 @@
         "5c0a986e",
         "67a423a3",
         "689c358e",
-        "69889d6e"
+        "69889d6e",
+        "135a2760",
+        "409aa875"
       ],
-      "fitness_sum": 17.312088939813815,
-      "avg_fitness": 0.43280222349534536
+      "fitness_sum": 19.22861470571458,
+      "avg_fitness": 0.45782415965987094
     },
     "rotate_90() -> transpose() -> flip_h()": {
       "count": 13,
@@ -759,6 +761,16 @@
       ],
       "fitness_sum": 0.31999999999999995,
       "avg_fitness": 0.31999999999999995
+    },
+    "crop(mode=?)": {
+      "count": 3,
+      "tasks": [
+        "332f06d7",
+        "3e6067c3",
+        "4c416de3"
+      ],
+      "fitness_sum": 2.862217454027333,
+      "avg_fitness": 0.9540724846757777
     }
   },
   "successful_programs": [
@@ -4717,10 +4729,84 @@
       },
       "task_id": "6a1e5592",
       "fitness": 0.31999999999999995
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.9625674325674326
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "332f06d7",
+      "fitness": 0.953328904478458
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "3e6067c3",
+      "fitness": 0.9587823150786114
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "transpose",
+            "params": {}
+          },
+          {
+            "name": "transpose",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "409aa875",
+      "fitness": 0.9539583333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "4c416de3",
+      "fitness": 0.9501062344702635
     }
   ],
   "stats": {
-    "total_templates": 75,
-    "total_successes": 235
+    "total_templates": 76,
+    "total_successes": 240
   }
 }
