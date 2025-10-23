@@ -85,12 +85,12 @@ class ProgramSynthesizer:
         
         # Determine candidate operations
         if biased_operations and len(biased_operations) > 0:
-            candidate_ops = biased_operations[:15]  # Limit to top 15
+            candidate_ops = biased_operations[:20]  # Limit to top 20
             print(f"  [Synthesizer] Using {len(candidate_ops)} biased operations")
         else:
-            # Use all operations
-            candidate_ops = list(PARAMETRIC_OPERATIONS.keys())[:15]
-            print(f"  [Synthesizer] Using {len(candidate_ops)} default operations")
+            # Use all 25 operations (v0.96 Phase 1)
+            candidate_ops = list(PARAMETRIC_OPERATIONS.keys())
+            print(f"  [Synthesizer] Using {len(candidate_ops)} operations (v0.96)")
         
         # Initialize beam with empty program
         beam = [(0.0, ARCProgram([]))]
