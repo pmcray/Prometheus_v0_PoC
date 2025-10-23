@@ -153,24 +153,31 @@ class ProgramSynthesizer:
     
     def _evaluate(self,
                   program: ARCProgram,
-                  train_examples: List[Tuple[np.ndarray, np.ndarray]]) -> float:
+                  train_examples: List) -> float:
         """
         Evaluate program on training examples.
-        
+
         Args:
             program: Program to evaluate
-            train_examples: List of (input, output) pairs
-        
+            train_examples: List of dicts with 'input' and 'output' keys OR tuples
+
         Returns:
             Fitness score (0.0 to 1.0)
         """
         if not train_examples or len(program) == 0:
             return 0.0
-        
+
         total_similarity = 0.0
-        
-        for input_grid, expected_output in train_examples:
+
+        for example in train_examples:
             try:
+                # Handle both dict format and tuple format
+                if isinstance(example, dict):
+                    input_grid = np.array(example['input'])
+                    expected_output = np.array(example['output'])
+                else:
+                    input_grid, expected_output = example
+
                 predicted = program.execute(input_grid, self.operation_map)
                 similarity = self._compute_similarity(predicted, expected_output)
                 total_similarity += similarity

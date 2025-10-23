@@ -2,11 +2,11 @@
   "version": "v0.95",
   "test_set": "top_7_crop_tasks",
   "summary": {
-    "solved": 2,
+    "solved": 5,
     "total": 7,
-    "improved": 0,
-    "accuracy": 0.2857142857142857,
-    "time": 14.081924200057983
+    "improved": 2,
+    "accuracy": 0.7142857142857143,
+    "time": 3.4784209728240967
   },
   "results": [
     {
@@ -19,7 +19,7 @@
       "method": "template_transfer",
       "baseline_fitness": 0.4912837162837163,
       "improvement": 0.4812837162837163,
-      "time": 0.0026366710662841797
+      "time": 0.0027501583099365234
     },
     {
       "task_id": "409aa875",
@@ -31,69 +31,67 @@
       "method": "template_transfer",
       "baseline_fitness": 0.4869791666666667,
       "improvement": 0.4769791666666667,
-      "time": 0.0022711753845214844
+      "time": 0.0021028518676757812
     },
     {
       "task_id": "332f06d7",
-      "success": false,
-      "fitness": 0.481058983489229,
+      "success": true,
+      "fitness": 0.953328904478458,
       "pattern": [
-        "crop",
-        "fill_zeros"
+        "crop(mode=content)"
       ],
-      "method": "v092_fallback",
+      "method": "beam_search",
       "baseline_fitness": 0.481058983489229,
-      "improvement": 0.0,
-      "time": 1.9197568893432617
+      "improvement": 0.472269920989229,
+      "time": 0.6313285827636719
     },
     {
       "task_id": "3e6067c3",
-      "success": false,
-      "fitness": 0.4793911575393057,
+      "success": true,
+      "fitness": 0.9587823150786114,
       "pattern": [
-        "crop"
+        "crop(mode=content)"
       ],
-      "method": "v092_fallback",
+      "method": "beam_search",
       "baseline_fitness": 0.4793911575393057,
-      "improvement": 0.0,
-      "time": 3.3071038722991943
+      "improvement": 0.4793911575393057,
+      "time": 0.795903205871582
     },
     {
       "task_id": "4c416de3",
-      "success": false,
-      "fitness": 0.47505311723513177,
+      "success": true,
+      "fitness": 0.9501062344702635,
       "pattern": [
-        "crop"
+        "crop(mode=content)"
       ],
-      "method": "v092_fallback",
+      "method": "beam_search",
       "baseline_fitness": 0.47505311723513177,
-      "improvement": 0.0,
-      "time": 3.1340205669403076
+      "improvement": 0.47505311723513177,
+      "time": 0.8271327018737793
     },
     {
       "task_id": "53fb4810",
       "success": false,
-      "fitness": 0.47342082736104474,
+      "fitness": 0.9468416547220895,
       "pattern": [
-        "crop"
+        "crop(mode=content)"
       ],
-      "method": "v092_fallback",
+      "method": "beam_search_partial",
       "baseline_fitness": 0.47342082736104474,
-      "improvement": 0.0,
-      "time": 2.3279693126678467
+      "improvement": 0.47342082736104474,
+      "time": 0.44995999336242676
     },
     {
       "task_id": "2c181942",
       "success": false,
-      "fitness": 0.46746813894639977,
+      "fitness": 0.900445671344222,
       "pattern": [
-        "crop",
-        "fill_interior"
+        "crop(mode=content)"
       ],
-      "method": "v092_fallback",
+      "method": "beam_search_partial",
       "baseline_fitness": 0.46746813894639977,
-      "improvement": 0.0,
-      "time": 3.3821325302124023
+      "improvement": 0.4329775323978223,
+      "time": 0.763300895690918
     }
   ]
 }
