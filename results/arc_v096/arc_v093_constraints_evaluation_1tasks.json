@@ -1,0 +1,94 @@
+{
+  "version": "v0.93",
+  "improvements": [
+    "constraint_extraction",
+    "primitive_filtering",
+    "search_space_reduction",
+    "constraint_guided_evolution"
+  ],
+  "config": {
+    "split": "evaluation",
+    "num_tasks": 1,
+    "max_cycles": 1
+  },
+  "summary": {
+    "solved": 0,
+    "total": 1,
+    "accuracy": 0.0,
+    "time": 21.01141333580017
+  },
+  "statistics": {
+    "total_solves": 0,
+    "phase5_solves": 0,
+    "phase6_solves": 0,
+    "phase7_improves": 0,
+    "meta_stats": {
+      "strategy_weights": {
+        "llm_guided": 1.0,
+        "local_search": 1.0,
+        "evolution": 1.0,
+        "adaptive_ops": 1.0,
+        "hybrid": 1.0
+      },
+      "strategy_performance": {
+        "llm_guided": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "local_search": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "evolution": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "adaptive_ops": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "hybrid": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        }
+      }
+    },
+    "hybrid_fitness_improvements": 0,
+    "object_primitive_usage": {},
+    "avg_generation_budget": 100.0,
+    "constraint_usage": {
+      "size:cropped": 1,
+      "color:colors_reduced": 1,
+      "symmetry:no_symmetry": 1,
+      "object:object_count_preserved": 1
+    },
+    "avg_search_space_reduction": 0.9891357899204746,
+    "constraint_help_count": 0
+  },
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.20597472299168976,
+      "pattern": [
+        "pad_4",
+        "fix_center_0"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "constraints": {
+        "size": "cropped",
+        "color": "colors_reduced",
+        "symmetry": "no_symmetry",
+        "object": "object_count_preserved"
+      },
+      "search_space_reduction": 0.9891357899204746,
+      "filter_mode": "soft"
+    }
+  ]
+}

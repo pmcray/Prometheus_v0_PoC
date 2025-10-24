@@ -1,0 +1,355 @@
+{
+  "penalty_values": [
+    0.005,
+    0.003,
+    0.001,
+    0.0
+  ],
+  "summary": {
+    "0.005": {
+      "solved": 0,
+      "solve_rate": 0.0
+    },
+    "0.003": {
+      "solved": 0,
+      "solve_rate": 0.0
+    },
+    "0.001": {
+      "solved": 0,
+      "solve_rate": 0.0
+    },
+    "0.0": {
+      "solved": 0,
+      "solve_rate": 0.0
+    }
+  },
+  "best_penalty": 0.005,
+  "best_solved": 0,
+  "baseline_solved": 0,
+  "all_results": [
+    {
+      "task_id": "16b78196",
+      "penalty": 0.005,
+      "fitness": 0.9094444444444444,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 9.515747785568237
+    },
+    {
+      "task_id": "28a6681f",
+      "penalty": 0.005,
+      "fitness": 0.9016666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6723005771636963
+    },
+    {
+      "task_id": "2c181942",
+      "penalty": 0.005,
+      "fitness": 0.9007366766352274,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 14.782515287399292
+    },
+    {
+      "task_id": "31f7f899",
+      "penalty": 0.005,
+      "fitness": 0.9184531524641415,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 7.559203863143921
+    },
+    {
+      "task_id": "3dc255db",
+      "penalty": 0.005,
+      "fitness": 0.9266666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.8235585689544678
+    },
+    {
+      "task_id": "4c416de3",
+      "penalty": 0.005,
+      "fitness": 0.9451062344702635,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 12.143889427185059
+    },
+    {
+      "task_id": "53fb4810",
+      "penalty": 0.005,
+      "fitness": 0.9418416547220895,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.802804708480835
+    },
+    {
+      "task_id": "62593bfd",
+      "penalty": 0.005,
+      "fitness": 0.9149707602339181,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 9.514950275421143
+    },
+    {
+      "task_id": "16b78196",
+      "penalty": 0.003,
+      "fitness": 0.9094444444444444,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 9.556866645812988
+    },
+    {
+      "task_id": "28a6681f",
+      "penalty": 0.003,
+      "fitness": 0.9016666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6620006561279297
+    },
+    {
+      "task_id": "2c181942",
+      "penalty": 0.003,
+      "fitness": 0.9007366766352274,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 7.97977876663208
+    },
+    {
+      "task_id": "31f7f899",
+      "penalty": 0.003,
+      "fitness": 0.9184531524641415,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 5.0427327156066895
+    },
+    {
+      "task_id": "3dc255db",
+      "penalty": 0.003,
+      "fitness": 0.9266666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.7833282947540283
+    },
+    {
+      "task_id": "4c416de3",
+      "penalty": 0.003,
+      "fitness": 0.9451062344702635,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 11.170863389968872
+    },
+    {
+      "task_id": "53fb4810",
+      "penalty": 0.003,
+      "fitness": 0.9418416547220895,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.734547138214111
+    },
+    {
+      "task_id": "62593bfd",
+      "penalty": 0.003,
+      "fitness": 0.9149707602339181,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 7.849678039550781
+    },
+    {
+      "task_id": "16b78196",
+      "penalty": 0.001,
+      "fitness": 0.9094444444444444,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 9.888704061508179
+    },
+    {
+      "task_id": "28a6681f",
+      "penalty": 0.001,
+      "fitness": 0.9016666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6382224559783936
+    },
+    {
+      "task_id": "2c181942",
+      "penalty": 0.001,
+      "fitness": 0.9007366766352274,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 18.913262605667114
+    },
+    {
+      "task_id": "31f7f899",
+      "penalty": 0.001,
+      "fitness": 0.9184531524641415,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 8.435737371444702
+    },
+    {
+      "task_id": "3dc255db",
+      "penalty": 0.001,
+      "fitness": 0.9266666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5737998485565186
+    },
+    {
+      "task_id": "4c416de3",
+      "penalty": 0.001,
+      "fitness": 0.9451062344702635,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.324630975723267
+    },
+    {
+      "task_id": "53fb4810",
+      "penalty": 0.001,
+      "fitness": 0.9418416547220895,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.678351640701294
+    },
+    {
+      "task_id": "62593bfd",
+      "penalty": 0.001,
+      "fitness": 0.9149707602339181,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 7.777107000350952
+    },
+    {
+      "task_id": "16b78196",
+      "penalty": 0.0,
+      "fitness": 0.9094444444444444,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 9.578659296035767
+    },
+    {
+      "task_id": "28a6681f",
+      "penalty": 0.0,
+      "fitness": 0.9016666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.671056032180786
+    },
+    {
+      "task_id": "2c181942",
+      "penalty": 0.0,
+      "fitness": 0.9007366766352274,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 13.906522512435913
+    },
+    {
+      "task_id": "31f7f899",
+      "penalty": 0.0,
+      "fitness": 0.9184531524641415,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 8.907894372940063
+    },
+    {
+      "task_id": "3dc255db",
+      "penalty": 0.0,
+      "fitness": 0.9266666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.640369415283203
+    },
+    {
+      "task_id": "4c416de3",
+      "penalty": 0.0,
+      "fitness": 0.9451062344702635,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 9.027492046356201
+    },
+    {
+      "task_id": "53fb4810",
+      "penalty": 0.0,
+      "fitness": 0.9418416547220895,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.699735164642334
+    },
+    {
+      "task_id": "62593bfd",
+      "penalty": 0.0,
+      "fitness": 0.9149707602339181,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 8.371082782745361
+    }
+  ]
+}

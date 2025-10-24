@@ -1,0 +1,114 @@
+{
+  "results": [
+    {
+      "task_id": "b0039139",
+      "fitness": 0.17504509379509378,
+      "method": "v092_fallback",
+      "pattern": [
+        "downsample",
+        "rotate_90",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "a47bf94d",
+      "fitness": 0.464078584891982,
+      "method": "v092_fallback",
+      "pattern": [
+        "rotate_90",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "f560132c",
+      "fitness": 0.24319444444444444,
+      "method": "v092_fallback",
+      "pattern": [
+        "tile_3x3",
+        "extract_largest"
+      ]
+    }
+  ],
+  "summary": {
+    "solved": 0,
+    "total": 3,
+    "solve_rate": 0.0,
+    "avg_fitness": 0.2941060410438401,
+    "total_time": 32.00204801559448
+  },
+  "statistics": {
+    "total_solves": 0,
+    "phase5_solves": 0,
+    "phase6_solves": 0,
+    "phase7_improves": 0,
+    "meta_stats": {
+      "strategy_weights": {
+        "llm_guided": 1.0,
+        "local_search": 1.0,
+        "evolution": 1.0,
+        "adaptive_ops": 1.0,
+        "hybrid": 1.0
+      },
+      "strategy_performance": {
+        "llm_guided": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "local_search": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "evolution": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "adaptive_ops": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "hybrid": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        }
+      }
+    },
+    "hybrid_fitness_improvements": 3,
+    "object_primitive_usage": {
+      "extract_largest": 2,
+      "detect_objects": 1
+    },
+    "avg_generation_budget": 83.33333333333333,
+    "v095_solve_methods": {
+      "v092_fallback": 3
+    },
+    "v095_synthesis_stats": {
+      "template_attempts": 3,
+      "template_successes": 0,
+      "beam_attempts": 3,
+      "beam_successes": 0,
+      "fallback_uses": 3
+    },
+    "parametric_meta_learner": {
+      "total_attempts": 0,
+      "total_successes": 0,
+      "success_rate": 0.0,
+      "unique_constraint_patterns": 0,
+      "tasks_seen": 0,
+      "total_patterns_stored": 0,
+      "primitives_learned": 0,
+      "parametric_combinations_learned": 0,
+      "operations_with_params": 0
+    },
+    "template_learner": {
+      "total_templates": 0,
+      "total_successes": 0,
+      "avg_uses_per_template": 0,
+      "most_common_template": null
+    }
+  }
+}

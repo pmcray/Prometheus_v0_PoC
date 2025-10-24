@@ -1,0 +1,911 @@
+{
+  "start_time": "2025-10-21T16:22:04.026004",
+  "end_time": "2025-10-21T16:43:27.600629",
+  "total_games": 100,
+  "duration_hours": 0.35654850694444445,
+  "final_depth": 9,
+  "draw_rate": 0.4,
+  "perfect_play_convergence": 0.4210526315789474,
+  "games": [
+    {
+      "game_number": 1,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1713898181915283
+    },
+    {
+      "game_number": 2,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1669666767120361
+    },
+    {
+      "game_number": 3,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1718032360076904
+    },
+    {
+      "game_number": 4,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1693377494812012
+    },
+    {
+      "game_number": 5,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.174924612045288
+    },
+    {
+      "game_number": 6,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1729028224945068
+    },
+    {
+      "game_number": 7,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.174333095550537
+    },
+    {
+      "game_number": 8,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1710896492004395
+    },
+    {
+      "game_number": 9,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.169929027557373
+    },
+    {
+      "game_number": 10,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.175297737121582
+    },
+    {
+      "game_number": 11,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1702847480773926
+    },
+    {
+      "game_number": 12,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1699788570404053
+    },
+    {
+      "game_number": 13,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1714916229248047
+    },
+    {
+      "game_number": 14,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1712560653686523
+    },
+    {
+      "game_number": 15,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1728847026824951
+    },
+    {
+      "game_number": 16,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1777853965759277
+    },
+    {
+      "game_number": 17,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1725740432739258
+    },
+    {
+      "game_number": 18,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1743085384368896
+    },
+    {
+      "game_number": 19,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.157641887664795
+    },
+    {
+      "game_number": 20,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": 0.0,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.1348192691802979
+    },
+    {
+      "game_number": 21,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 1.0,
+      "time_seconds": 1.2379333972930908
+    },
+    {
+      "game_number": 22,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.9569377990430622,
+      "time_seconds": 1.2342631816864014
+    },
+    {
+      "game_number": 23,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.9153318077803204,
+      "time_seconds": 1.2340795993804932
+    },
+    {
+      "game_number": 24,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.8771929824561404,
+      "time_seconds": 1.2331788539886475
+    },
+    {
+      "game_number": 25,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.8421052631578948,
+      "time_seconds": 1.233856439590454
+    },
+    {
+      "game_number": 26,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.8097165991902835,
+      "time_seconds": 1.2337431907653809
+    },
+    {
+      "game_number": 27,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.7797270955165692,
+      "time_seconds": 1.2341547012329102
+    },
+    {
+      "game_number": 28,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.7518796992481204,
+      "time_seconds": 1.2338685989379883
+    },
+    {
+      "game_number": 29,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.7259528130671508,
+      "time_seconds": 1.2335824966430664
+    },
+    {
+      "game_number": 30,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.7017543859649122,
+      "time_seconds": 1.234278917312622
+    },
+    {
+      "game_number": 31,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.6791171477079796,
+      "time_seconds": 1.234011173248291
+    },
+    {
+      "game_number": 32,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.6578947368421053,
+      "time_seconds": 1.2345004081726074
+    },
+    {
+      "game_number": 33,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.6379585326953748,
+      "time_seconds": 1.2349567413330078
+    },
+    {
+      "game_number": 34,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.6191950464396285,
+      "time_seconds": 1.2333488464355469
+    },
+    {
+      "game_number": 35,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.6015037593984962,
+      "time_seconds": 1.2333533763885498
+    },
+    {
+      "game_number": 36,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.584795321637427,
+      "time_seconds": 1.2335820198059082
+    },
+    {
+      "game_number": 37,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.5689900426742532,
+      "time_seconds": 1.2331187725067139
+    },
+    {
+      "game_number": 38,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.554016620498615,
+      "time_seconds": 1.23402738571167
+    },
+    {
+      "game_number": 39,
+      "result": "loss",
+      "moves": 53,
+      "prometheus_player": 2,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.5398110661268556,
+      "time_seconds": 1.2333459854125977
+    },
+    {
+      "game_number": 40,
+      "result": "win",
+      "moves": 53,
+      "prometheus_player": 1,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.5263157894736842,
+      "time_seconds": 1.232182264328003
+    },
+    {
+      "game_number": 41,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.5134788189987163,
+      "time_seconds": 3.7026548385620117
+    },
+    {
+      "game_number": 42,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.5012531328320802,
+      "time_seconds": 3.698138475418091
+    },
+    {
+      "game_number": 43,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.4895960832313342,
+      "time_seconds": 3.7002503871917725
+    },
+    {
+      "game_number": 44,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.4784688995215311,
+      "time_seconds": 3.704685926437378
+    },
+    {
+      "game_number": 45,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.4678362573099415,
+      "time_seconds": 3.70263409614563
+    },
+    {
+      "game_number": 46,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.4576659038901602,
+      "time_seconds": 3.700798273086548
+    },
+    {
+      "game_number": 47,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.4479283314669653,
+      "time_seconds": 3.7016661167144775
+    },
+    {
+      "game_number": 48,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.4385964912280702,
+      "time_seconds": 3.701982021331787
+    },
+    {
+      "game_number": 49,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.42964554242749736,
+      "time_seconds": 3.700924873352051
+    },
+    {
+      "game_number": 50,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.4210526315789474,
+      "time_seconds": 3.7010765075683594
+    },
+    {
+      "game_number": 51,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.412796697626419,
+      "time_seconds": 3.7033777236938477
+    },
+    {
+      "game_number": 52,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.40485829959514175,
+      "time_seconds": 3.7079899311065674
+    },
+    {
+      "game_number": 53,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.39721946375372397,
+      "time_seconds": 3.706214427947998
+    },
+    {
+      "game_number": 54,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.3898635477582846,
+      "time_seconds": 3.7003061771392822
+    },
+    {
+      "game_number": 55,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.38277511961722493,
+      "time_seconds": 3.699709177017212
+    },
+    {
+      "game_number": 56,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.3759398496240602,
+      "time_seconds": 3.698702573776245
+    },
+    {
+      "game_number": 57,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.3693444136657433,
+      "time_seconds": 3.702312469482422
+    },
+    {
+      "game_number": 58,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.3629764065335754,
+      "time_seconds": 3.6991844177246094
+    },
+    {
+      "game_number": 59,
+      "result": "win",
+      "moves": 70,
+      "prometheus_player": 2,
+      "final_position_eval": 2,
+      "perfect_play_score": 0.3568242640499554,
+      "time_seconds": 3.7003743648529053
+    },
+    {
+      "game_number": 60,
+      "result": "loss",
+      "moves": 70,
+      "prometheus_player": 1,
+      "final_position_eval": -2,
+      "perfect_play_score": 0.3508771929824561,
+      "time_seconds": 3.7038497924804688
+    },
+    {
+      "game_number": 61,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.34512510785159617,
+      "time_seconds": 6.56151270866394
+    },
+    {
+      "game_number": 62,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.3395585738539898,
+      "time_seconds": 6.573841333389282
+    },
+    {
+      "game_number": 63,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.3341687552213868,
+      "time_seconds": 6.572707891464233
+    },
+    {
+      "game_number": 64,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.32894736842105265,
+      "time_seconds": 6.568688154220581
+    },
+    {
+      "game_number": 65,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.3238866396761134,
+      "time_seconds": 6.569692850112915
+    },
+    {
+      "game_number": 66,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.3189792663476874,
+      "time_seconds": 6.569868326187134
+    },
+    {
+      "game_number": 67,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.31421838177533384,
+      "time_seconds": 6.57281231880188
+    },
+    {
+      "game_number": 68,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.30959752321981426,
+      "time_seconds": 6.578621864318848
+    },
+    {
+      "game_number": 69,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.30511060259344014,
+      "time_seconds": 6.573929786682129
+    },
+    {
+      "game_number": 70,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.3007518796992481,
+      "time_seconds": 6.576933145523071
+    },
+    {
+      "game_number": 71,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.2965159377316531,
+      "time_seconds": 6.574584007263184
+    },
+    {
+      "game_number": 72,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.2923976608187135,
+      "time_seconds": 6.575666427612305
+    },
+    {
+      "game_number": 73,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.2883922134102379,
+      "time_seconds": 6.573194265365601
+    },
+    {
+      "game_number": 74,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.2844950213371266,
+      "time_seconds": 6.5759594440460205
+    },
+    {
+      "game_number": 75,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.2807017543859649,
+      "time_seconds": 6.572595119476318
+    },
+    {
+      "game_number": 76,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.2770083102493075,
+      "time_seconds": 6.574123859405518
+    },
+    {
+      "game_number": 77,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.27341079972658916,
+      "time_seconds": 6.57996129989624
+    },
+    {
+      "game_number": 78,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.2699055330634278,
+      "time_seconds": 6.574666500091553
+    },
+    {
+      "game_number": 79,
+      "result": "loss",
+      "moves": 43,
+      "prometheus_player": 2,
+      "final_position_eval": -6,
+      "perfect_play_score": 0.2664890073284477,
+      "time_seconds": 6.577623128890991
+    },
+    {
+      "game_number": 80,
+      "result": "win",
+      "moves": 43,
+      "prometheus_player": 1,
+      "final_position_eval": 6,
+      "perfect_play_score": 0.2631578947368421,
+      "time_seconds": 6.5770838260650635
+    },
+    {
+      "game_number": 81,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.2729044834307992,
+      "time_seconds": 51.47107696533203
+    },
+    {
+      "game_number": 82,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.282413350449294,
+      "time_seconds": 51.51194739341736
+    },
+    {
+      "game_number": 83,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.29169308814204187,
+      "time_seconds": 51.51587390899658
+    },
+    {
+      "game_number": 84,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.3007518796992481,
+      "time_seconds": 51.51460528373718
+    },
+    {
+      "game_number": 85,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.30959752321981426,
+      "time_seconds": 51.490450620651245
+    },
+    {
+      "game_number": 86,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.3182374541003672,
+      "time_seconds": 51.511669874191284
+    },
+    {
+      "game_number": 87,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.3266787658802178,
+      "time_seconds": 51.478514671325684
+    },
+    {
+      "game_number": 88,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.3349282296650718,
+      "time_seconds": 51.50870752334595
+    },
+    {
+      "game_number": 89,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.3429923122412774,
+      "time_seconds": 51.49300789833069
+    },
+    {
+      "game_number": 90,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.3508771929824561,
+      "time_seconds": 51.46919274330139
+    },
+    {
+      "game_number": 91,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.3585887796414112,
+      "time_seconds": 51.494982957839966
+    },
+    {
+      "game_number": 92,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.36613272311212813,
+      "time_seconds": 51.50711965560913
+    },
+    {
+      "game_number": 93,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.3735144312393888,
+      "time_seconds": 51.49486970901489
+    },
+    {
+      "game_number": 94,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.38073908174692056,
+      "time_seconds": 51.49680542945862
+    },
+    {
+      "game_number": 95,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.3878116343490305,
+      "time_seconds": 51.48475503921509
+    },
+    {
+      "game_number": 96,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.39473684210526316,
+      "time_seconds": 51.51536560058594
+    },
+    {
+      "game_number": 97,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.40151926207270755,
+      "time_seconds": 51.529531478881836
+    },
+    {
+      "game_number": 98,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.40816326530612246,
+      "time_seconds": 51.48906373977661
+    },
+    {
+      "game_number": 99,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 2,
+      "final_position_eval": 2.0,
+      "perfect_play_score": 0.41467304625199364,
+      "time_seconds": 51.50534152984619
+    },
+    {
+      "game_number": 100,
+      "result": "draw",
+      "moves": 200,
+      "prometheus_player": 1,
+      "final_position_eval": -2.0,
+      "perfect_play_score": 0.4210526315789474,
+      "time_seconds": 51.49866318702698
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "task_id": "3e6067c3",
+    "fitness": 0.9487823150786114,
+    "solved": false,
+    "program": [
+      "map_color(from_color=0,to_color=1)"
+    ],
+    "time": 10.040707349777222
+  },
+  {
+    "task_id": "142ca369",
+    "fitness": 0.8928600823045267,
+    "solved": false,
+    "program": [
+      "map_color(from_color=1,to_color=1)"
+    ],
+    "time": 7.210567951202393
+  }
+]

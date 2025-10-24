@@ -1,7 +1,7 @@
 {
   "templates": {
     "crop()": {
-      "count": 16,
+      "count": 18,
       "tasks": [
         "135a2760",
         "1818057f",
@@ -18,10 +18,12 @@
         "135a2760",
         "409aa875",
         "135a2760",
+        "409aa875",
+        "135a2760",
         "409aa875"
       ],
-      "fitness_sum": 9.683250213027446,
-      "avg_fitness": 0.6052031383142153
+      "fitness_sum": 11.619775978928212,
+      "avg_fitness": 0.6455431099404563
     },
     "rotate_90() -> rotate_270()": {
       "count": 1,
@@ -131,6 +133,16 @@
       ],
       "fitness_sum": 0.4633395989974937,
       "avg_fitness": 0.4633395989974937
+    },
+    "crop(mode=?)": {
+      "count": 3,
+      "tasks": [
+        "332f06d7",
+        "3e6067c3",
+        "4c416de3"
+      ],
+      "fitness_sum": 2.862217454027333,
+      "avg_fitness": 0.9540724846757777
     }
   },
   "successful_programs": [
@@ -613,10 +625,76 @@
       },
       "task_id": "409aa875",
       "fitness": 0.9639583333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "135a2760",
+      "fitness": 0.9725674325674326
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {}
+          }
+        ]
+      },
+      "task_id": "409aa875",
+      "fitness": 0.9639583333333334
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "332f06d7",
+      "fitness": 0.953328904478458
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "3e6067c3",
+      "fitness": 0.9587823150786114
+    },
+    {
+      "program": {
+        "operations": [
+          {
+            "name": "crop",
+            "params": {
+              "mode": "content"
+            }
+          }
+        ]
+      },
+      "task_id": "4c416de3",
+      "fitness": 0.9501062344702635
     }
   ],
   "stats": {
-    "total_templates": 14,
-    "total_successes": 34
+    "total_templates": 15,
+    "total_successes": 39
   }
 }

@@ -1,12 +1,93 @@
 {
-  "total_tasks": 120,
-  "solved": 0,
-  "success_rate": 0.0,
-  "patterns_evolved": 1200000,
-  "successful_patterns": 0,
-  "meta_learning_rate": 2.5358425572390904e+206,
-  "duration": 451.4127571582794,
+  "total_tasks": 50,
+  "solved": 1,
+  "success_rate": 2.0,
+  "patterns_evolved": 500000,
+  "successful_patterns": 1,
+  "meta_learning_rate": 1.0039627955013478e+86,
+  "duration": 160.5916268825531,
   "results": [
+    {
+      "task_id": "00576224",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "009d5c81",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "00dbd492",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "03560426",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "05a7bcf2",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0607ce86",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0692e18c",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "070dd51e",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "08573cc6",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
     {
       "task_id": "0934a4d8",
       "success": false,
@@ -17,7 +98,142 @@
       ]
     },
     {
-      "task_id": "135a2760",
+      "task_id": "09c534e7",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0a1d4ef5",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0a2355a6",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0b17323b",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0bb8deee",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0becf7df",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0c786b71",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0c9aba6e",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0d87d2a6",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0e671a1a",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "0f63c0b9",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "103eff5b",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "11e1fe23",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "12422b43",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "12997ef3",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "12eac192",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -35,7 +251,7 @@
       ]
     },
     {
-      "task_id": "13e47133",
+      "task_id": "13713586",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -44,7 +260,52 @@
       ]
     },
     {
-      "task_id": "142ca369",
+      "task_id": "137f0df0",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "140c817e",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "14754a24",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "15113be4",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "15663ba9",
+      "success": false,
+      "train_fitness": 0.0,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "15696249",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -62,7 +323,7 @@
       ]
     },
     {
-      "task_id": "16de56c4",
+      "task_id": "17b80ad2",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -71,7 +332,7 @@
       ]
     },
     {
-      "task_id": "1818057f",
+      "task_id": "17cae0c1",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -80,7 +341,7 @@
       ]
     },
     {
-      "task_id": "195c6913",
+      "task_id": "18419cfa",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -89,7 +350,7 @@
       ]
     },
     {
-      "task_id": "1ae2feb7",
+      "task_id": "184a9768",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -98,7 +359,7 @@
       ]
     },
     {
-      "task_id": "20270e3b",
+      "task_id": "195ba7dc",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -107,7 +368,7 @@
       ]
     },
     {
-      "task_id": "20a9e565",
+      "task_id": "1990f7a8",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -116,7 +377,7 @@
       ]
     },
     {
-      "task_id": "21897d95",
+      "task_id": "19bb5feb",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -125,905 +386,19 @@
       ]
     },
     {
-      "task_id": "221dfab4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "247ef758",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "269e22fb",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "271d71e2",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "28a6681f",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "291dc1e1",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "2b83f449",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "2ba387bc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "2c181942",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "2d0172a1",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "31f7f899",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "332f06d7",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "35ab12c3",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "36a08778",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "38007db0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "3a25b0d8",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "3dc255db",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "3e6067c3",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "409aa875",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "446ef5d2",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "45a5af55",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "4a21e3da",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "4c3d4a41",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "4c416de3",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "4c7dc4dd",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "4e34c42c",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "53fb4810",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "5545f144",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "581f7754",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "58490d8a",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "58f5dbd5",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "5961cc34",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "5dbc8537",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "62593bfd",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "64efde09",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "65b59efc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "67e490f4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "6e453dd6",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "6e4f6532",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "6ffbe589",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "71e489b6",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7491f3cf",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7666fa5d",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "78332cb0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7b0280bc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7b3084d4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7b5033c1",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7b80bb43",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7c66cb00",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "7ed72f31",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "800d221b",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "80a900e0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8698868d",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "88bcf3b4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "88e364bc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "89565ca0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "898e7135",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8b7bacbf",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8b9c3697",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8e5c0c38",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8f215267",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "8f3a5a89",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "9385bd28",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "97d7923e",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "981571dc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "9aaea919",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "9bbf930d",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a251c730",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a25697e4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a32d8b75",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a395ee82",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a47bf94d",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "a6f40cea",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "aa4ec2a5",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "abc82100",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "b0039139",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "b10624e5",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "b5ca7ac4",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "b6f77b65",
-      "success": false,
-      "train_fitness": 0.2,
-      "pattern_length": 0,
-      "pattern_ops": []
-    },
-    {
-      "task_id": "b99e7126",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "b9e38dc0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "bf45cf4b",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "c4d067a0",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "c7f57c3e",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "cb2d8a2c",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "cbebaa4b",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "d35bdbdc",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "d59b0160",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "d8e07eb2",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "da515329",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "db0c5428",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "db695cfb",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "dbff022c",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "dd6b8c4b",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "de809cff",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "dfadab01",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "e12f9a14",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "e3721c99",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "e376de54",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
-      "pattern_ops": [
-        "identity"
-      ]
-    },
-    {
-      "task_id": "e8686506",
-      "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
+      "task_id": "1a2e2828",
+      "success": true,
+      "train_fitness": 0.5599999999999999,
+      "pattern_length": 4,
       "pattern_ops": [
-        "identity"
+        "fold_quads",
+        "fold_quads",
+        "corners",
+        "fold_quads"
       ]
     },
     {
-      "task_id": "e87109e9",
+      "task_id": "1a6449f1",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -1032,7 +407,7 @@
       ]
     },
     {
-      "task_id": "edb79dae",
+      "task_id": "1acc24af",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -1041,7 +416,7 @@
       ]
     },
     {
-      "task_id": "eee78d87",
+      "task_id": "1c02dbbe",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -1050,7 +425,7 @@
       ]
     },
     {
-      "task_id": "f560132c",
+      "task_id": "1c0d0a4b",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -1059,7 +434,7 @@
       ]
     },
     {
-      "task_id": "f931b4a8",
+      "task_id": "1c56ad9f",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,
@@ -1068,16 +443,17 @@
       ]
     },
     {
-      "task_id": "faa9f03d",
+      "task_id": "1d0a4b61",
       "success": false,
-      "train_fitness": 0.0,
-      "pattern_length": 1,
+      "train_fitness": 0.3133333333333333,
+      "pattern_length": 2,
       "pattern_ops": [
-        "identity"
+        "mirror_v",
+        "overlay_max"
       ]
     },
     {
-      "task_id": "fc7cae8d",
+      "task_id": "1d398264",
       "success": false,
       "train_fitness": 0.0,
       "pattern_length": 1,

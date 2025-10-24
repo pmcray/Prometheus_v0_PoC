@@ -1,9 +1,13 @@
 import logging
 import random
+import numpy as np
 from .resource_manager import ResourceManager
 from .tools.flaky_compiler_tool import FlakyCompilerTool
 from .tools import CompilerTool
 from .gene_archive import GeneArchive
+from .value_learning import ValueLearningAgent
+from .human_feedback import get_human_preference
+from benchmarks.value_learning_benchmark import GridWorld
 
 class MCSSupervisor:
     def __init__(self, planner, resource_manager: ResourceManager, coder=None, evaluator=None, corrector=None):
@@ -17,6 +21,7 @@ class MCSSupervisor:
             "FlakyCompilerTool": FlakyCompilerTool(),
             "ReliableCompilerTool": CompilerTool()
         }
+        self.value_learning_agent = None
 
     def run_budgeted_cycle(self, goal: str):
         logging.info(f"--- Starting Budgeted Cycle for goal: {goal} ---")
@@ -132,3 +137,48 @@ class MCSSupervisor:
             fitness += 50
 
         return fitness
+
+    def run_value_learning_cycle(self, num_iterations=10):
+        logging.info("--- Starting Value Learning Cycle ---")
+
+        grid_world = GridWorld()
+        feature_size = len(grid_world.get_features(grid_world.get_state()))
+        self.value_learning_agent = ValueLearningAgent(feature_size)
+
+        for i in range(num_iterations):
+            logging.info(f"--- Iteration {i + 1}/{num_iterations} ---")
+
+            # Generate two different policies by creating two random weight vectors
+            weights1 = np.random.rand(feature_size)
+            weights2 = np.random.rand(feature_size)
+
+            # Policies that select actions based on the dot product of features and weights
+            def policy1(state):
+                features = grid_world.get_features(state)
+                # Simple policy: move towards the direction with the highest reward
+                action_rewards = [np.dot(weights1, grid_world.get_features(grid_world.step(a)[0])) for a in range(4)]
+                return np.argmax(action_rewards)
+
+            def policy2(state):
+                features = grid_world.get_features(state)
+                action_rewards = [np.dot(weights2, grid_world.get_features(grid_world.step(a)[0])) for a in range(4)]
+                return np.argmax(action_rewards)
+
+            # Generate trajectories
+            trajectory1, sum_features1 = grid_world.generate_trajectory(policy1)
+            trajectory2, sum_features2 = grid_world.generate_trajectory(policy2)
+
+            # Get human preference
+            preference = get_human_preference(trajectory1, trajectory2)
+
+            # Update weights
+            if preference == 1:
+                self.value_learning_agent.update_weights(sum_features1, sum_features2)
+            else:
+                self.value_learning_agent.update_weights(sum_features2, sum_features1)
+
+            logging.info(f"Updated weights: {self.value_learning_agent.get_weights()}")
+
+        logging.info("--- Value Learning Cycle Finished ---")
+        logging.info(f"Final learned weights: {self.value_learning_agent.get_weights()}")
+        return self.value_learning_agent.get_weights()

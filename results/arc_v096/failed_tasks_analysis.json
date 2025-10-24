@@ -1,0 +1,22 @@
+{
+  "num_tasks_analyzed": 45,
+  "task_patterns": [
+    {
+      "task_id": "0934a4d8",
+      "num_examples": 4,
+      "transformations": [
+        {
+          "size_change": {
+            "input_shape": [
+              30,
+              30
+            ],
+            "output_shape": [
+              9,
+              4
+            ],
+            "same_size": false
+          },
+          "color_change": {
+            "input_colors": [
+              

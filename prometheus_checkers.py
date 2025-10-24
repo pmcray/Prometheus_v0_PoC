@@ -10,6 +10,7 @@ Author: Patrick Mineault & Claude Code
 Date: October 9, 2025
 """
 
+import time
 import random
 import json
 from pathlib import Path
@@ -278,12 +279,8 @@ class PrometheusCheckersPlayer:
         while not board.is_game_over() and moves < 200:  # Max 200 moves
             current_player = board.current_player
 
-            if current_player == prometheus_player:
-                move = self.select_move(board, prometheus_player)
-            else:
-                # Opponent uses similar strategy but weaker
-                legal_moves = board.get_legal_moves(current_player)
-                move = random.choice(legal_moves)  # Random for simplicity
+            # Both players use the same logic
+            move = self.select_move(board, current_player)
 
             board.make_move(move)
             moves += 1
@@ -293,7 +290,9 @@ class PrometheusCheckersPlayer:
             result = "draw"
         else:
             winner = board.get_winner()
-            if winner == prometheus_player:
+            if winner is None:
+                result = "draw"
+            elif winner == prometheus_player:
                 result = "win"
             else:
                 result = "loss"

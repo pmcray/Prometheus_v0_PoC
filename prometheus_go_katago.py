@@ -225,48 +225,42 @@ class PrometheusGoPlayer:
     def play_game_vs_katago(self, prometheus_color: str = "black") -> Tuple[str, str, int]:
         """
         Play a complete game against KataGo.
-
         Args:
             prometheus_color: 'black' or 'white'
-
         Returns:
             (result, sgf, moves)
         """
         self.send_gtp_command("clear_board")
         self.send_gtp_command(f"komi 6.5")  # Standard komi
-
         moves = []
         pass_count = 0
         move_number = 0
-
         while move_number < 500 and pass_count < 2:  # Max 500 moves or 2 passes
             current_color = "black" if move_number % 2 == 0 else "white"
-
             if current_color == prometheus_color:
-                # Prometheus's turn - simplified move selection
-                # In a real implementation, would analyze board and select strategically
-                move = "pass"  # Simplified: just pass after a while
-                if move_number < 50:
-                    # Play random legal moves early game
-                    response = self.send_gtp_command(f"genmove {current_color}")
-                    # KataGo will generate a move for us, let's use that as inspiration
-                    # but for now, let's just pass to avoid complexity
+                # Prometheus's turn - use KataGo's engine but with reduced strength
+                # We can simulate this by using a lower number of playouts or visits
+                visits = 50 + int(self.strength / 10) # Scale visits with strength
+                response = self.send_gtp_command(f"kata-genmove_analyze {current_color} {visits}")
+                match = re.search(r'info move (\S+)', response)
+                if match:
+                    move = match.group(1).lower()
+                else:
                     move = "pass"
             else:
-                # KataGo's turn
+                # KataGo's turn at full strength
                 response = self.send_gtp_command(f"genmove {current_color}")
-                # Parse move from response (format: "= D4" or "= pass")
                 match = re.search(r'=\s+(\S+)', response)
                 if match:
                     move = match.group(1).lower()
                 else:
                     move = "pass"
-
+            # Apply move to board for both players
+            self.send_gtp_command(f"play {current_color} {move}")
             if move == "pass":
                 pass_count += 1
             else:
                 pass_count = 0
-
             moves.append(f"{current_color[0].upper()}{move}")
             move_number += 1
 
