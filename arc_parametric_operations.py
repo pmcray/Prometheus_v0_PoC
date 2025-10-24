@@ -1,28 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-ARC Parametric Operations Library (v0.96 - Option E Phase 1)
+ARC Parametric Operations Library (v0.96c - Option I: Reduce Complexity Penalty)
 
 This module provides a clean, unified library of parametric operations for
 ARC-AGI program synthesis. Each operation supports flexible parameters and
 can be composed into programs.
 
 Key Features:
-- 25 parametric operations (15 base + 10 Phase 1 new)
+- 19 parametric operations (15 base + 4 Phase 1 new)
 - Type-checked parameter validation
 - Comprehensive operation catalog
 - Integration with ARCProgram execution
 
 Phase 1 New Operations (Option E):
-- 5 Size operations: expand_to_size, compress_to_fit, crop_to_content, resize_with_padding, fit_to_canvas
-- 5 Color filtering operations: isolate_color, extract_color, filter_by_color, remove_color, keep_colors
+- 3 Size operations: expand_to_size, compress_to_fit, fit_to_canvas
+- 2 Color filtering operations: filter_by_color, remove_color
+
+Removed operations (Phase 1 cleanup):
+- resize_with_padding: Too buggy (100+ failures per task)
+- isolate_color: Redundant with filter_color (0 usage)
+- extract_color: Redundant with filter_color (0 usage)
+- keep_colors: Redundant with filter_color (0 usage)
+
+Removed operations (Option H: reduce tying noise):
+- gravity_down: Ties with crop at 0.949 fitness, creates search noise
+- crop_to_content: Ties with crop at 0.949 fitness (3 param variants), creates search noise
 
 Based on failed task analysis showing 44% of unsolved tasks need size operations
 and 33% need color filtering operations.
 
 Version History:
-- v0.95: 15 base operations
-- v0.96: +10 Phase 1 operations (Option E) - targeting 10% → 15-18% solve rate
+- v0.95: 15 base operations - achieved 10% (5/50 tasks)
+- v0.96: +10 Phase 1 operations (Option E) - achieved 8% (below target, search dilution)
+- v0.96a: Removed 4 redundant/buggy operations (25 → 21) - still 8%
+- v0.96b: Removed 2 tying operations (21 → 19) - still 8%
+- v0.96c: Reduced complexity penalty 0.01→0.005 (Option I) - expected 10%+ (restore baseline)
 """
 
 import numpy as np
@@ -819,11 +832,12 @@ PARAMETRIC_OPERATIONS = {
         'params': {},
         'description': 'Return copy of grid'
     },
-    'gravity_down': {
-        'function': lambda grid, **kwargs: _apply_gravity(grid, direction='down'),
-        'params': {},
-        'description': 'Apply gravity downward (non-zero cells fall)'
-    },
+    # REMOVED (Option H): gravity_down - Ties with crop at 0.949, creates search noise
+    # 'gravity_down': {
+    #     'function': lambda grid, **kwargs: _apply_gravity(grid, direction='down'),
+    #     'params': {},
+    #     'description': 'Apply gravity downward (non-zero cells fall)'
+    # },
 
     # --- Phase 1 New Operations (Option E) ---
 
@@ -846,23 +860,25 @@ PARAMETRIC_OPERATIONS = {
         },
         'description': 'Compress grid to fit target size'
     },
-    'crop_to_content': {
-        'function': crop_to_content,
-        'params': {
-            'margin': {'type': int, 'values': [0, 1, 2, 3], 'default': 0},
-            'preserve_aspect': {'type': bool, 'values': [True, False], 'default': False}
-        },
-        'description': 'Crop to minimal bounding box of content'
-    },
-    'resize_with_padding': {
-        'function': resize_with_padding,
-        'params': {
-            'target_h': {'type': int, 'values': [5, 10, 15, 20, 30], 'default': 10},
-            'target_w': {'type': int, 'values': [5, 10, 15, 20, 30], 'default': 10},
-            'padding_color': {'type': int, 'values': list(range(10)), 'default': 0}
-        },
-        'description': 'Resize with padding to reach target size'
-    },
+    # REMOVED (Option H): crop_to_content - Ties with crop at 0.949 (3 param variants), creates search noise
+    # 'crop_to_content': {
+    #     'function': crop_to_content,
+    #     'params': {
+    #         'margin': {'type': int, 'values': [0, 1, 2, 3], 'default': 0},
+    #         'preserve_aspect': {'type': bool, 'values': [True, False], 'default': False}
+    #     },
+    #     'description': 'Crop to minimal bounding box of content'
+    # },
+    # REMOVED: resize_with_padding - too buggy (100+ failures per task)
+    # 'resize_with_padding': {
+    #     'function': resize_with_padding,
+    #     'params': {
+    #         'target_h': {'type': int, 'values': [5, 10, 15, 20, 30], 'default': 10},
+    #         'target_w': {'type': int, 'values': [5, 10, 15, 20, 30], 'default': 10},
+    #         'padding_color': {'type': int, 'values': list(range(10)), 'default': 0}
+    #     },
+    #     'description': 'Resize with padding to reach target size'
+    # },
     'fit_to_canvas': {
         'function': fit_to_canvas,
         'params': {
@@ -874,21 +890,23 @@ PARAMETRIC_OPERATIONS = {
     },
 
     # Color filtering operations
-    'isolate_color': {
-        'function': isolate_color,
-        'params': {
-            'color': {'type': int, 'values': list(range(10)), 'default': 1},
-            'background': {'type': int, 'values': list(range(10)), 'default': 0}
-        },
-        'description': 'Keep only specified color, set rest to background'
-    },
-    'extract_color': {
-        'function': extract_color,
-        'params': {
-            'color': {'type': int, 'values': list(range(10)), 'default': 1}
-        },
-        'description': 'Extract objects of specified color'
-    },
+    # REMOVED: isolate_color - redundant with filter_color (0 usage in 50-task benchmark)
+    # 'isolate_color': {
+    #     'function': isolate_color,
+    #     'params': {
+    #         'color': {'type': int, 'values': list(range(10)), 'default': 1},
+    #         'background': {'type': int, 'values': list(range(10)), 'default': 0}
+    #     },
+    #     'description': 'Keep only specified color, set rest to background'
+    # },
+    # REMOVED: extract_color - redundant with filter_color (0 usage in 50-task benchmark)
+    # 'extract_color': {
+    #     'function': extract_color,
+    #     'params': {
+    #         'color': {'type': int, 'values': list(range(10)), 'default': 1}
+    #     },
+    #     'description': 'Extract objects of specified color'
+    # },
     'filter_by_color': {
         'function': filter_by_color,
         'params': {
@@ -904,14 +922,15 @@ PARAMETRIC_OPERATIONS = {
         },
         'description': 'Remove all pixels of specified color'
     },
-    'keep_colors': {
-        'function': keep_colors,
-        'params': {
-            'colors': {'type': tuple, 'values': [(1,), (2,), (1, 2), (1, 2, 3)], 'default': (1,)},
-            'background': {'type': int, 'values': list(range(10)), 'default': 0}
-        },
-        'description': 'Keep multiple specified colors'
-    }
+    # REMOVED: keep_colors - redundant with filter_color (0 usage in 50-task benchmark)
+    # 'keep_colors': {
+    #     'function': keep_colors,
+    #     'params': {
+    #         'colors': {'type': tuple, 'values': [(1,), (2,), (1, 2), (1, 2, 3)], 'default': (1,)},
+    #         'background': {'type': int, 'values': list(range(10)), 'default': 0}
+    #     },
+    #     'description': 'Keep multiple specified colors'
+    # }
 }
 
 
@@ -949,37 +968,55 @@ def build_operation_map() -> Dict[str, Callable]:
 
 def get_parameter_candidates(op_name: str, task: Dict = None, constraints: Dict = None) -> List[Dict]:
     """
-    Get parameter candidates for operation.
-    
+    Get parameter candidates for operation (v0.96 - task-aware, validated).
+
     Args:
         op_name: Operation name
         task: Task data (optional, for extracting task-specific values)
         constraints: Task constraints (optional, for filtering)
-    
+
     Returns:
-        List of parameter dictionaries
+        List of parameter dictionaries (validated, no invalid values)
     """
     if op_name not in PARAMETRIC_OPERATIONS:
         return [{}]
-    
+
     spec = PARAMETRIC_OPERATIONS[op_name]
-    
+
     if not spec['params']:
         return [{}]
-    
-    # Generate all combinations (limited to top-k to avoid explosion)
+
+    # Extract task properties for smart parameter generation
+    task_sizes = []
+    if task and 'train' in task:
+        for example in task['train']:
+            if isinstance(example, dict):
+                input_grid = np.array(example['input'])
+                output_grid = np.array(example['output'])
+            else:
+                input_grid, output_grid = example
+
+            task_sizes.append({
+                'input_h': input_grid.shape[0],
+                'input_w': input_grid.shape[1],
+                'output_h': output_grid.shape[0],
+                'output_w': output_grid.shape[1]
+            })
+
+    # Size operation parameter generation (task-aware)
+    if op_name in ['expand_to_size', 'compress_to_fit', 'resize_with_padding', 'fit_to_canvas']:
+        return _get_size_op_candidates(op_name, spec, task_sizes)
+
+    # Default parameter generation
     candidates = []
-    
-    # For now, generate default + a few variations
-    # In full implementation, this would use constraints and task data
-    
+
     # Always include default
     default_params = {
         name: param_spec['default']
         for name, param_spec in spec['params'].items()
     }
     candidates.append(default_params)
-    
+
     # Add a few variations for each parameter
     for param_name, param_spec in spec['params'].items():
         for value in param_spec['values'][:3]:  # Limit to first 3 values
@@ -987,9 +1024,95 @@ def get_parameter_candidates(op_name: str, task: Dict = None, constraints: Dict 
                 variant = default_params.copy()
                 variant[param_name] = value
                 candidates.append(variant)
-    
+
     # Limit total candidates
     return candidates[:5]
+
+
+def _get_size_op_candidates(op_name: str, spec: Dict, task_sizes: List[Dict]) -> List[Dict]:
+    """
+    Generate task-aware size operation parameters.
+
+    Avoids invalid parameters like width=0, uses actual task sizes.
+    """
+    candidates = []
+
+    if not task_sizes:
+        # No task info - use safe defaults only
+        if op_name == 'expand_to_size':
+            candidates.append({'target_h': 10, 'target_w': 10, 'fill': 'tile'})
+            candidates.append({'target_h': 15, 'target_w': 15, 'fill': 'tile'})
+        elif op_name == 'compress_to_fit':
+            candidates.append({'target_h': 5, 'target_w': 5, 'method': 'downsample'})
+            candidates.append({'target_h': 7, 'target_w': 7, 'method': 'select'})
+        elif op_name == 'resize_with_padding':
+            candidates.append({'target_h': 10, 'target_w': 10, 'padding_color': 0})
+        elif op_name == 'fit_to_canvas':
+            candidates.append({'canvas_h': 10, 'canvas_w': 10, 'align': 'center'})
+
+        return candidates[:3]
+
+    # Get common sizes from task
+    output_sizes = [(s['output_h'], s['output_w']) for s in task_sizes]
+    input_sizes = [(s['input_h'], s['input_w']) for s in task_sizes]
+
+    # Most common output size
+    from collections import Counter
+    size_counts = Counter(output_sizes)
+    most_common_output = size_counts.most_common(1)[0][0] if size_counts else (10, 10)
+
+    if op_name == 'expand_to_size':
+        # Target: common output size
+        h, w = most_common_output
+        candidates.append({'target_h': h, 'target_w': w, 'fill': 'tile'})
+        candidates.append({'target_h': h, 'target_w': w, 'fill': 'background'})
+
+        # Also try slightly larger
+        candidates.append({'target_h': h + 5, 'target_w': w + 5, 'fill': 'tile'})
+
+    elif op_name == 'compress_to_fit':
+        # Target: common output size (usually smaller than input)
+        h, w = most_common_output
+        if h > 0 and w > 0:
+            candidates.append({'target_h': max(1, h), 'target_w': max(1, w), 'method': 'downsample'})
+            candidates.append({'target_h': max(1, h), 'target_w': max(1, w), 'method': 'select'})
+
+        # Also try half of common input size
+        if input_sizes:
+            avg_h = int(np.mean([s[0] for s in input_sizes]))
+            avg_w = int(np.mean([s[1] for s in input_sizes]))
+            candidates.append({'target_h': max(1, avg_h // 2), 'target_w': max(1, avg_w // 2), 'method': 'max'})
+
+    elif op_name == 'resize_with_padding':
+        # Target: common output size
+        h, w = most_common_output
+        if h > 0 and w > 0:
+            candidates.append({'target_h': max(1, h), 'target_w': max(1, w), 'padding_color': 0})
+
+            # Try with different padding colors if outputs use non-zero backgrounds
+            if task_sizes:
+                candidates.append({'target_h': max(1, h), 'target_w': max(1, w), 'padding_color': 1})
+
+    elif op_name == 'fit_to_canvas':
+        # Canvas: common output size
+        h, w = most_common_output
+        if h > 0 and w > 0:
+            candidates.append({'canvas_h': max(1, h), 'canvas_w': max(1, w), 'align': 'center'})
+            candidates.append({'canvas_h': max(1, h), 'canvas_w': max(1, w), 'align': 'topleft'})
+
+    # Validate: ensure all h/w > 0
+    valid_candidates = []
+    for c in candidates:
+        is_valid = True
+        for key, value in c.items():
+            if 'h' in key or 'w' in key or 'height' in key or 'width' in key:
+                if isinstance(value, int) and value <= 0:
+                    is_valid = False
+                    break
+        if is_valid:
+            valid_candidates.append(c)
+
+    return valid_candidates[:3]  # Limit to 3 candidates per operation
 
 
 # ============================================================================
