@@ -1,6 +1,7 @@
 import logging
 import random
 import numpy as np
+import importlib
 from .resource_manager import ResourceManager
 from .tools.flaky_compiler_tool import FlakyCompilerTool
 from .tools import CompilerTool
@@ -22,6 +23,65 @@ class MCSSupervisor:
             "ReliableCompilerTool": CompilerTool()
         }
         self.value_learning_agent = None
+
+    def register_new_tool(self, tool_path: str):
+        """
+        Dynamically loads and registers a new tool.
+        """
+        try:
+            module_name = tool_path.replace("/", ".").replace(".py", "")
+            module = importlib.import_module(module_name)
+            # Assumes the class name is the same as the file name, but capitalized.
+            class_name = os.path.basename(tool_path).replace('.py', '').capitalize()
+            tool_class = getattr(module, class_name)
+            self.tool_registry[class_name] = tool_class()
+            logging.info(f"Successfully registered new tool: {class_name}")
+        except Exception as e:
+            logging.error(f"Failed to register new tool from {tool_path}: {e}")
+
+    def run_tool_rsi_cycle(self, benchmark_path: str):
+        """Orchestrates the full tool-making RSI loop."""
+        logging.info(f"--- Starting Tool RSI Cycle with benchmark: {benchmark_path} ---")
+
+        # 1. Run the initial benchmark
+        logging.info("--- Running initial benchmark ---")
+        # This is a simplified representation of running the benchmark
+        start_time = time.time()
+        # Assume the benchmark uses the 'ToyChemistrySim' and is inefficient
+        time.sleep(11) # Simulate long execution time
+        execution_time = time.time() - start_time
+        self.performance_logger.log_tool_usage('ToyChemistrySim', execution_time, False, "Inefficient benchmark")
+
+        # 2. Analyze performance and generate critique
+        critique = self.planner.generate_tool_critique(self.performance_logger.log)
+        if not critique:
+            logging.info("No tool-related performance bottlenecks found.")
+            return
+
+        logging.info(f"Generated Tool Critique: {critique}")
+
+        # 3. Generate tool specification
+        specification = self.planner.generate_tool_specification(critique)
+        logging.info(f"Generated Tool Specification: {specification}")
+
+        # 4. Synthesize the new tool
+        new_tool_path = self.coder.synthesize_tool(specification)
+
+        # 5. Register the new tool
+        self.register_new_tool(new_tool_path)
+
+        # 6. Run the benchmark again with the new tool
+        logging.info("--- Re-running benchmark with new tool ---")
+        new_tool_name = os.path.basename(new_tool_path).replace('.py', '').capitalize()
+        if new_tool_name in self.tool_registry:
+            start_time = time.time()
+            # This is a simplified representation of running the benchmark with the new tool
+            time.sleep(1) # Simulate much faster execution time
+            execution_time = time.time() - start_time
+            self.performance_logger.log_tool_usage(new_tool_name, execution_time, True, "Inefficient benchmark with new tool")
+            logging.info(f"New tool {new_tool_name} completed the benchmark in {execution_time:.2f}s.")
+        else:
+            logging.error("New tool was not registered correctly.")
 
     def run_budgeted_cycle(self, goal: str):
         logging.info(f"--- Starting Budgeted Cycle for goal: {goal} ---")
@@ -138,47 +198,64 @@ class MCSSupervisor:
 
         return fitness
 
-    def run_value_learning_cycle(self, num_iterations=10):
-        logging.info("--- Starting Value Learning Cycle ---")
+    def run_parallel_experiments(self, goal: str):
+        """Runs multiple experiments in parallel to test competing hypotheses."""
+        logging.info(f"--- Starting Parallel Experimentation for goal: {goal} ---")
 
-        grid_world = GridWorld()
-        feature_size = len(grid_world.get_features(grid_world.get_state()))
-        self.value_learning_agent = ValueLearningAgent(feature_size)
+        # 1. Generate hypotheses
+        hypotheses = self.planner.generate_hypotheses(goal)
+        if not hypotheses:
+            logging.warning("No hypotheses generated.")
+            return
 
-        for i in range(num_iterations):
-            logging.info(f"--- Iteration {i + 1}/{num_iterations} ---")
+        logging.info(f"Generated {len(hypotheses)} hypotheses:")
+        for i, h in enumerate(hypotheses):
+            logging.info(f"  {i+1}. {h}")
 
-            # Generate two different policies by creating two random weight vectors
-            weights1 = np.random.rand(feature_size)
-            weights2 = np.random.rand(feature_size)
+        # 2. Simulate parallel execution
+        # In a real implementation, this would use multiprocessing or asyncio
+        results = []
+        for hypothesis in hypotheses:
+            # Each experiment is a simplified simulation
+            success = "heat" in hypothesis.lower() or ("mix" in hypothesis.lower() and "reagent_a" in hypothesis.lower())
+            results.append({'hypothesis': hypothesis, 'success': success})
 
-            # Policies that select actions based on the dot product of features and weights
-            def policy1(state):
-                features = grid_world.get_features(state)
-                # Simple policy: move towards the direction with the highest reward
-                action_rewards = [np.dot(weights1, grid_world.get_features(grid_world.step(a)[0])) for a in range(4)]
-                return np.argmax(action_rewards)
+        # 3. Perform comparative analysis
+        best_hypothesis = self.evaluator.analyze_experiment_results(results)
+        logging.info(f"Best hypothesis determined by Evaluator: {best_hypothesis}")
 
-            def policy2(state):
-                features = grid_world.get_features(state)
-                action_rewards = [np.dot(weights2, grid_world.get_features(grid_world.step(a)[0])) for a in range(4)]
-                return np.argmax(action_rewards)
+    def form_and_run_circuit(self, goal: str):
+        """Dynamically forms, manages, and dissolves an expert circuit."""
+        logging.info(f"--- Forming and running expert circuit for goal: {goal} ---")
 
-            # Generate trajectories
-            trajectory1, sum_features1 = grid_world.generate_trajectory(policy1)
-            trajectory2, sum_features2 = grid_world.generate_trajectory(policy2)
+        # 1. Get the circuit definition from the Planner
+        circuit_def = self.planner.form_circuit(goal)
+        if not circuit_def:
+            logging.warning("Could not form a circuit for the given goal.")
+            return
 
-            # Get human preference
-            preference = get_human_preference(trajectory1, trajectory2)
+        logging.info(f"Circuit to be formed: {circuit_def['name']}")
 
-            # Update weights
-            if preference == 1:
-                self.value_learning_agent.update_weights(sum_features1, sum_features2)
-            else:
-                self.value_learning_agent.update_weights(sum_features2, sum_features1)
+        # 2. Dynamically instantiate and run the circuit
+        results = {}
+        for stage in circuit_def['stages']:
+            logging.info(f"-- Running stage: {stage['name']} --")
+            stage_input = results
+            for agent_name in stage['agents']:
+                try:
+                    # Dynamically import and instantiate the agent template
+                    agent_module = importlib.import_module('prometheus.agent_templates')
+                    agent_class = getattr(agent_module, agent_name)
+                    agent_instance = agent_class()
+                    
+                    # Run the agent
+                    result = agent_instance.run(stage_input)
+                    stage_input = result # Pass the result to the next agent in the stage
+                    logging.info(f"{agent_name} executed successfully.")
+                except Exception as e:
+                    logging.error(f"Failed to instantiate or run agent {agent_name}: {e}")
+                    return
+            results = stage_input
 
-            logging.info(f"Updated weights: {self.value_learning_agent.get_weights()}")
-
-        logging.info("--- Value Learning Cycle Finished ---")
-        logging.info(f"Final learned weights: {self.value_learning_agent.get_weights()}")
-        return self.value_learning_agent.get_weights()
+        logging.info("--- Expert circuit finished ---")
+        logging.info(f"Final result: {results}")

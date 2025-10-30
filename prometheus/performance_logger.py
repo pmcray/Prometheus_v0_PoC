@@ -5,141 +5,52 @@ Logs game results to CSV and provides live performance visualization
 using matplotlib.animation for real-time learning feedback.
 """
 
-import csv
+import json
 import os
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from datetime import datetime
-import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
-from collections import deque
-import numpy as np
-
 
 class PerformanceLogger:
-    """
-    Logs game performance to CSV and creates live visualizations
-
-    CSV Format:
-    game_number, timestamp, result, winner, agent_player, moves_count, win_rate_rolling
-    """
-
-    def __init__(self, log_file: str = "performance_log.csv", window_size: int = 20):
+    def __init__(self, log_file: str = "performance_log.json"):
         self.log_file = log_file
-        self.window_size = window_size
-        self.games_logged = 0
-        self.results_history = deque(maxlen=window_size)  # For rolling win rate
+        self.log = self._load_log()
 
-        # Initialize CSV file
-        self._initialize_csv()
+    def _load_log(self) -> Dict[str, List[Any]]:
+        if os.path.exists(self.log_file):
+            with open(self.log_file, 'r') as f:
+                return json.load(f)
+        return {'actions': [], 'tool_usage': []}
 
-    def _initialize_csv(self):
-        """Create CSV file with headers if it doesn't exist"""
-        file_exists = os.path.exists(self.log_file)
+    def _save_log(self):
+        with open(self.log_file, 'w') as f:
+            json.dump(self.log, f, indent=2)
 
-        if not file_exists:
-            with open(self.log_file, 'w', newline='') as f:
-                writer = csv.writer(f)
-                writer.writerow([
-                    'game_number',
-                    'timestamp',
-                    'result',
-                    'winner',
-                    'agent_player',
-                    'moves_count',
-                    'win_rate_rolling',
-                    'generation'
-                ])
-
-    def log_game(self, game_history: Dict[str, Any], agent_player: int, generation: int = 0):
-        """
-        Log a single game result to CSV
-
-        Args:
-            game_history: Dict with 'moves', 'result', 'winner', 'agent_player'
-            agent_player: Which player the agent was (1 or -1)
-            generation: Current generation number
-        """
-        result = game_history['result']
-        winner = game_history['winner']
-        moves = game_history['moves']
-
-        # Determine if agent won
-        agent_won = (winner == agent_player)
-
-        # Update rolling window
-        self.results_history.append(1 if agent_won else 0)
-
-        # Calculate rolling win rate
-        if len(self.results_history) > 0:
-            win_rate_rolling = sum(self.results_history) / len(self.results_history)
-        else:
-            win_rate_rolling = 0.0
-
-        # Log to CSV
-        self.games_logged += 1
-        timestamp = datetime.now().isoformat()
-
-        with open(self.log_file, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([
-                self.games_logged,
-                timestamp,
-                result,
-                winner,
-                agent_player,
-                len(moves),
-                f"{win_rate_rolling:.3f}",
-                generation
-            ])
-
-    def read_log(self) -> List[Dict[str, Any]]:
-        """
-        Read all logged games from CSV
-
-        Returns:
-            List of game result dictionaries
-        """
-        games = []
-
-        if not os.path.exists(self.log_file):
-            return games
-
-        with open(self.log_file, 'r') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                games.append({
-                    'game_number': int(row['game_number']),
-                    'timestamp': row['timestamp'],
-                    'result': row['result'],
-                    'winner': int(row['winner']) if row['winner'] != 'None' else None,
-                    'agent_player': int(row['agent_player']),
-                    'moves_count': int(row['moves_count']),
-                    'win_rate_rolling': float(row['win_rate_rolling']),
-                    'generation': int(row['generation'])
-                })
-
-        return games
-
-    def get_stats(self) -> Dict[str, Any]:
-        """Get summary statistics"""
-        games = self.read_log()
-
-        if not games:
-            return {
-                'total_games': 0,
-                'overall_win_rate': 0.0,
-                'current_rolling_win_rate': 0.0
-            }
-
-        wins = sum(1 for g in games if g['winner'] == g['agent_player'])
-        total = len(games)
-
-        return {
-            'total_games': total,
-            'overall_win_rate': wins / total if total > 0 else 0.0,
-            'current_rolling_win_rate': games[-1]['win_rate_rolling'] if games else 0.0,
-            'latest_generation': games[-1]['generation'] if games else 0
+    def log_action(self, agent_name: str, action: str, cost: int, success: bool, details: Dict[str, Any]):
+        entry = {
+            'timestamp': datetime.now().isoformat(),
+            'agent': agent_name,
+            'action': action,
+            'cost': cost,
+            'success': success,
+            'details': details
         }
+        self.log['actions'].append(entry)
+        self._save_log()
+
+    def log_tool_usage(self, tool_name: str, execution_time: float, success: bool, task_description: str):
+        entry = {
+            'timestamp': datetime.now().isoformat(),
+            'tool_name': tool_name,
+            'execution_time': execution_time,
+            'success': success,
+            'task_description': task_description
+        }
+        self.log['tool_usage'].append(entry)
+        self._save_log()
+
+    def get_last_solved_complexity(self) -> int:
+        # This is a placeholder for a more sophisticated complexity tracking.
+        return 0
 
 
 class LivePerformanceVisualizer:

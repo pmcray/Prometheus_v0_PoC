@@ -114,11 +114,11 @@ class EvaluatorAgent:
         response = self.model.generate_content(prompt)
         return response.text.strip()
 
-    def _find_solved_node(self, node):
-        if node.is_solved:
-            return node
-        for child in node.children:
-            solved = self._find_solved_node(child)
-            if solved:
-                return solved
+    def analyze_experiment_results(self, results: list):
+        """
+        Analyzes the results of parallel experiments to find the best hypothesis.
+        """
+        for result in results:
+            if result['success']:
+                return result['hypothesis']
         return None
