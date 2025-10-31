@@ -7,8 +7,9 @@ using matplotlib.animation for real-time learning feedback.
 
 import json
 import os
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from datetime import datetime
+import matplotlib.pyplot as plt
 
 class PerformanceLogger:
     def __init__(self, log_file: str = "performance_log.json"):

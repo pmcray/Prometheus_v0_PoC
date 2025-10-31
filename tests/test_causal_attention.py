@@ -1,6 +1,6 @@
 
 import pytest
-from src.causal_attention import CausalAttentionWrapper
+from prometheus.causal_attention import CausalAttentionWrapper
 
 @pytest.fixture
 def wrapper():

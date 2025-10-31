@@ -1,0 +1,18 @@
+{
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(levelname)s - %(message)s"
+  },
+  "api_keys": {
+    "coder_agent": "dummy_api_key",
+    "evaluator_agent": "dummy_api_key"
+  },
+  "experiments": {
+    "parallel_experiments": {
+      "goal": "Find the best way to create a stable chemical compound."
+    },
+    "form_and_run_circuit": {
+      "goal": "Analyze this scientific paper and then try to replicate its findings in the ToyChemistrySim"
+    }
+  }
+}
