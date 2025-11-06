@@ -7,7 +7,9 @@ The three Good/Hofstadter demonstration notebooks were created to explain theore
 ## Objective
 
 Transform the notebooks from "pretty visualizations" into **working scientific demonstrations** that:
-1. Run actual experiments (runtime: 5-60 minutes each)
+1. Run actual experiments with **dual runtime modes**:
+   - **Quick Demo Mode**: 5-15 min - Fast proof-of-concept demonstrations
+   - **Full Validation Mode**: 2-4 hours - Rigorous scientific validation
 2. Compare Prometheus vs baseline approaches empirically
 3. Generate real performance data
 4. Prove Good's and Hofstadter's principles through measurement
@@ -25,7 +27,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 **What Was Added**:
 - Real experimental framework comparing Static Agent vs Prometheus Agent
 - Task suite with progressively difficult pattern recognition problems
-- 8-generation evolutionary experiment (runtime: ~5-10 min)
+- **Dual-mode configuration** with toggle variable:
+  - **Quick Demo Mode**: 8 generations × 50 tasks (~5-10 min)
+  - **Full Validation Mode**: 50 generations × 200 tasks (~2-3 hours)
 - Performance tracking and visualization
 - Statistical analysis and conclusion
 - **Embedded MetaLearner** (no imports needed - runs immediately on Colab)
@@ -42,7 +46,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 - Prometheus reaches ~75-85% capability
 - Clear demonstration of intelligence explosion vs saturation
 
-**Runtime**: 5-10 minutes on Colab
+**Runtime**:
+- Quick Demo Mode: 5-10 minutes (default: `QUICK_DEMO_MODE = True`)
+- Full Validation Mode: 2-3 hours (set: `QUICK_DEMO_MODE = False`)
 
 **Colab URL**: `https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_1_intelligence_explosion.ipynb`
 
@@ -58,7 +64,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 - Real ARC pattern transformation experiment
 - Embedded MetaLearner and ARC primitives (rotate, flip, transpose, invert)
 - Static vs Prometheus solver comparison
-- 6-round experiment with 50 tasks per round
+- **Dual-mode configuration** with toggle variable:
+  - **Quick Demo Mode**: 6 rounds × 50 tasks (~10-15 min)
+  - **Full Validation Mode**: 20 rounds × 300 tasks (~3-4 hours)
 - Task distribution shifts across rounds (pattern→sequence→transform)
 - Weight evolution visualization showing adaptation
 - Performance comparison showing dynamic learning superiority
@@ -76,7 +84,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 - Prometheus solver: Average ~60-80% success (adapts to each task type)
 - Clear demonstration of dynamic learning adapting to distribution shifts
 
-**Runtime**: 10-15 minutes on Colab
+**Runtime**:
+- Quick Demo Mode: 10-15 minutes (default: `QUICK_DEMO_MODE = True`)
+- Full Validation Mode: 3-4 hours (set: `QUICK_DEMO_MODE = False`)
 
 **Colab URL**: `https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_2_dynamic_arc_solver.ipynb`
 
@@ -94,7 +104,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 - Meta-level agent that observes and modifies object-level
 - Gödelian safety checks (PROVABLY_SAFE/UNSAFE/UNDECIDABLE)
 - Causal attribution K(E:F) computing true causes vs correlations
-- 6-cycle self-improvement demonstration
+- **Dual-mode configuration** with toggle variable:
+  - **Quick Demo Mode**: 6 cycles × 30 tasks (~5-10 min)
+  - **Full Validation Mode**: 20 cycles × 200 tasks (~2-3 hours)
 - Strange loop: A' becomes new A, closing the tangled hierarchy
 
 **Key Features**:
@@ -118,7 +130,9 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 - Causal scores correctly track which strategies cause success
 - Strange loop demonstrated: Each generation observes and modifies previous
 
-**Runtime**: 5-10 minutes on Colab
+**Runtime**:
+- Quick Demo Mode: 5-10 minutes (default: `QUICK_DEMO_MODE = True`)
+- Full Validation Mode: 2-3 hours (set: `QUICK_DEMO_MODE = False`)
 
 **Colab URL**: `https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_3_strange_loop.ipynb`
 
@@ -130,19 +144,22 @@ Transform the notebooks from "pretty visualizations" into **working scientific d
 
 All three Good/Hofstadter notebooks have been transformed from pure visualization into **working scientific demonstrations** with real experiments:
 
-| Notebook | Topic | Runtime | Status |
-|----------|-------|---------|--------|
-| **1** | Intelligence Explosion | 5-10 min | ✅ Complete |
-| **2** | Dynamic ARC Learning | 10-15 min | ✅ Complete |
-| **3** | Strange Loop & CRLS | 5-10 min | ✅ Complete |
+| Notebook | Topic | Quick Demo | Full Validation | Status |
+|----------|-------|------------|-----------------|--------|
+| **1** | Intelligence Explosion | 5-10 min | 2-3 hours | ✅ Complete |
+| **2** | Dynamic ARC Learning | 10-15 min | 3-4 hours | ✅ Complete |
+| **3** | Strange Loop & CRLS | 5-10 min | 2-3 hours | ✅ Complete |
 
 ### Key Achievements
 
-1. **All code self-contained**: Embedded MetaLearner in each notebook (no imports needed)
-2. **Colab-ready**: Run immediately without setup or dependencies
-3. **Real experiments**: Actual compute, not simulations
-4. **Empirical validation**: Measured performance data proves superiority
-5. **Visualizations**: Clear graphs showing Prometheus vs baseline
+1. **Dual-mode configuration**: Toggle between quick demo (5-15 min) and full validation (2-4 hours)
+   - Set `QUICK_DEMO_MODE = True` for fast demonstrations
+   - Set `QUICK_DEMO_MODE = False` for publication-grade data
+2. **All code self-contained**: Embedded MetaLearner in each notebook (no imports needed)
+3. **Colab-ready**: Run immediately without setup or dependencies
+4. **Real experiments**: Actual compute, not simulations
+5. **Empirical validation**: Measured performance data proves superiority
+6. **Visualizations**: Clear graphs showing Prometheus vs baseline
 
 ### Principles Validated
 
