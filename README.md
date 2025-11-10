@@ -56,6 +56,13 @@ Unlike Foundation Models (GPT-4, Claude, Gemini) which freeze weights after trai
 **Runtime**: 10-15 minutes (Quick Demo) | 3-4 hours (Full Validation)
 **Result**: 0% unsafe modifications, causal attribution correctly identifies success factors
 
+#### Experiment 4: Chess Learning & Domain Transfer
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_4_chess_learning.ipynb)
+
+**Demonstrates**: Adaptive learning in strategic domains, self-play training
+**Runtime**: 30-45 minutes (Quick Demo) | 4-6 hours (Full Validation)
+**Result**: Prometheus reaches ~1200 ELO with +400 advantage over Static, demonstrating domain transfer from visual patterns to strategic games
+
 ---
 
 ### 2. Local Installation (Optional)

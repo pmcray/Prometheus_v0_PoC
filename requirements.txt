@@ -1,2 +1,13 @@
-pytest
-matplotlib
+# Core dependencies
+numpy>=1.24.0
+matplotlib>=3.7.0
+scipy>=1.11.0
+
+# Deep learning
+tensorflow>=2.15.0
+
+# Chess
+python-chess>=1.999
+
+# Testing
+pytest>=7.4.0
