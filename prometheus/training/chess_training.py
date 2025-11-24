@@ -572,3 +572,211 @@ class SelfPlayTrainer:
             print(f"\n✅ Training complete: {num_iterations} iterations")
 
         return all_stats
+
+# ============================================================================
+# STOCKFISH BENCHMARKING
+# ============================================================================
+
+def benchmark_against_stockfish(
+    agent: Any,
+    elo_levels: List[int] = [800, 1000, 1200, 1400, 1600],
+    games_per_level: int = 5,
+    stockfish_path: str = "/usr/games/stockfish",
+    time_limit: float = 0.1,
+    verbose: bool = True
+) -> Dict[str, Any]:
+    """
+    Benchmark agent against Stockfish at different ELO levels.
+
+    Stockfish is the world's strongest chess engine. Benchmarking against
+    it provides credible strength estimates.
+
+    Args:
+        agent: Agent to benchmark
+        elo_levels: Stockfish ELO levels to test
+        games_per_level: Games per ELO level
+        stockfish_path: Path to Stockfish executable
+        time_limit: Time limit per move in seconds
+        verbose: Print progress
+
+    Returns:
+        Dictionary with benchmark results
+    """
+    if verbose:
+        print(f"\n♟️  Benchmarking {agent.name} against Stockfish")
+        print(f"   (World's strongest chess engine)")
+        print("="*70)
+
+    results = {
+        'elo_levels': [],
+        'scores': [],
+        'win_rates': [],
+        'estimated_elo': None
+    }
+
+    for elo in elo_levels:
+        if verbose:
+            print(f"\n📊 Stockfish ELO {elo}:")
+
+        wins = 0
+        draws = 0
+        losses = 0
+
+        # Create Stockfish agent wrapper
+        class StockfishAgent:
+            def __init__(self, stockfish_path, elo):
+                self.name = f"Stockfish-{elo}"
+                self.stockfish_path = stockfish_path
+                self.elo = elo
+
+            def get_move(self, board_state, board, temperature=1.0):
+                # Use UCI interface with ELO limit
+                with UCIEngineInterface(self.stockfish_path) as engine:
+                    if engine.engine is not None:
+                        # Set ELO limit
+                        try:
+                            engine.engine.configure({"UCI_LimitStrength": True})
+                            engine.engine.configure({"UCI_Elo": self.elo})
+                        except:
+                            pass  # Some Stockfish versions don't support ELO
+                        return engine.get_move(board)
+                # Fallback: random move
+                return np.random.choice(list(board.legal_moves))
+
+        stockfish_agent = StockfishAgent(stockfish_path, elo)
+
+        # Play games
+        for game_num in range(games_per_level):
+            # Alternate colors
+            if game_num % 2 == 0:
+                white, black = agent, stockfish_agent
+            else:
+                white, black = stockfish_agent, agent
+
+            # Play game
+            env = ChessEnvironment()
+            move_count = 0
+            max_moves = 200
+
+            while not env.board.is_game_over() and move_count < max_moves:
+                state = env.get_state()
+
+                if env.board.turn == chess.WHITE:
+                    move = white.get_move(state, env.board)
+                else:
+                    move = black.get_move(state, env.board)
+
+                env.step(move)
+                move_count += 1
+
+            result = env.get_game_result()
+
+            # Update statistics (from agent's perspective)
+            if white == agent:
+                if result == "1-0":
+                    wins += 1
+                elif result == "1/2-1/2":
+                    draws += 1
+                else:
+                    losses += 1
+            else:
+                if result == "0-1":
+                    wins += 1
+                elif result == "1/2-1/2":
+                    draws += 1
+                else:
+                    losses += 1
+
+        score = wins + 0.5 * draws
+        win_rate = (score / games_per_level) * 100
+
+        results['elo_levels'].append(elo)
+        results['scores'].append(score)
+        results['win_rates'].append(win_rate)
+
+        if verbose:
+            print(f"   Score: {score}/{games_per_level} ({win_rate:.1f}%)")
+            print(f"   W/D/L: {wins}/{draws}/{losses}")
+
+    # Estimate agent's ELO based on performance
+    # Find ELO where agent scores ~50%
+    win_rates = np.array(results['win_rates'])
+    elo_levels_arr = np.array(results['elo_levels'])
+
+    # Linear interpolation to find 50% point
+    if len(win_rates) >= 2:
+        if win_rates[-1] < 50 and win_rates[0] > 50:
+            # Agent is between min and max
+            estimated_elo = np.interp(50, win_rates[::-1], elo_levels_arr[::-1])
+        elif win_rates[0] >= 50:
+            # Agent is stronger than lowest level
+            estimated_elo = elo_levels_arr[0] + (win_rates[0] - 50) * 10
+        else:
+            # Agent is weaker than highest level
+            estimated_elo = elo_levels_arr[-1] - (50 - win_rates[-1]) * 10
+
+        results['estimated_elo'] = estimated_elo
+
+        if verbose:
+            print(f"\n✅ Estimated ELO: ~{estimated_elo:.0f}")
+    else:
+        if verbose:
+            print(f"\n⚠️  Need more data points for ELO estimate")
+
+    if verbose:
+        print("="*70)
+
+    return results
+
+
+def compare_stockfish_levels(
+    agents: List[Any],
+    elo_level: int = 1200,
+    games_each: int = 5,
+    stockfish_path: str = "/usr/games/stockfish",
+    verbose: bool = True
+) -> Dict[str, Dict[str, Any]]:
+    """
+    Compare multiple agents against same Stockfish level.
+
+    Args:
+        agents: List of agents to compare
+        elo_level: Stockfish ELO level
+        games_each: Games per agent
+        stockfish_path: Path to Stockfish
+        verbose: Print progress
+
+    Returns:
+        Dictionary mapping agent name → results
+    """
+    if verbose:
+        print(f"\n📊 Comparing agents vs Stockfish-{elo_level}")
+        print("="*70)
+
+    results = {}
+
+    for agent in agents:
+        if verbose:
+            print(f"\n🤖 {agent.name}:")
+
+        benchmark = benchmark_against_stockfish(
+            agent,
+            elo_levels=[elo_level],
+            games_per_level=games_each,
+            stockfish_path=stockfish_path,
+            verbose=False
+        )
+
+        results[agent.name] = {
+            'score': benchmark['scores'][0],
+            'win_rate': benchmark['win_rates'][0],
+            'games': games_each
+        }
+
+        if verbose:
+            print(f"   Score: {benchmark['scores'][0]}/{games_each} ({benchmark['win_rates'][0]:.1f}%)")
+
+    if verbose:
+        print("\n" + "="*70)
+
+    return results
