@@ -5,6 +5,7 @@ Visualization tools for Prometheus experiments:
 - Performance plots and comparisons
 - Chess game visualization and replay
 - Position heatmaps and move overlays
+- Attention/saliency for explainability
 """
 
 # Import from plots.py (existing)
@@ -14,7 +15,7 @@ from prometheus.visualization.plots import (
     plot_capability_growth
 )
 
-# Import from chess_viz.py (new)
+# Import from chess_viz.py
 from prometheus.visualization.chess_viz import (
     ChessBoardVisualizer,
     GameReplayer,
@@ -22,6 +23,14 @@ from prometheus.visualization.chess_viz import (
     PositionHeatmap,
     MoveProbabilityOverlay,
     visualize_game_comparison
+)
+
+# Import from attention.py
+from prometheus.visualization.attention import (
+    ChessAttentionVisualizer,
+    compute_gradcam,
+    compute_saliency_map,
+    explain_position
 )
 
 __all__ = [
@@ -35,5 +44,10 @@ __all__ = [
     'SideBySideComparison',
     'PositionHeatmap',
     'MoveProbabilityOverlay',
-    'visualize_game_comparison'
+    'visualize_game_comparison',
+    # Attention/Explainability
+    'ChessAttentionVisualizer',
+    'compute_gradcam',
+    'compute_saliency_map',
+    'explain_position'
 ]
