@@ -1,0 +1,11 @@
+include README.md
+include LICENSE
+include requirements.txt
+include IMPLEMENTATION_SUMMARY.md
+include EXECUTIVE_SUMMARY.md
+include DEMONSTRATION_GUIDE.md
+
+recursive-include prometheus *.py
+recursive-exclude tests *
+recursive-exclude notebooks *
+recursive-exclude docs *

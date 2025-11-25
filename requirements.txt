@@ -1,2 +1,22 @@
-pytest
-matplotlib
+# Core dependencies
+numpy>=1.24.0
+matplotlib>=3.7.0
+scipy>=1.11.0
+
+# Deep learning
+tensorflow>=2.15.0
+
+# Chess
+python-chess>=1.999
+
+# Online play integrations
+berserk>=0.12.0  # Lichess API client
+websocket-client>=1.6.0  # For OGS WebSocket connection
+requests>=2.31.0  # HTTP requests for APIs
+
+# Interactive play (Jupyter/Colab)
+ipywidgets>=8.1.0  # Interactive widgets for notebooks
+IPython>=8.12.0  # Display utilities
+
+# Testing
+pytest>=7.4.0

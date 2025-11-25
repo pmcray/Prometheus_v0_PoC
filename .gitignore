@@ -37,10 +37,15 @@ benchmark_results/
 simulation_cache/
 
 # Model files (too large for git)
-models/
+# Note: /models/ would match top-level only, but we want to allow prometheus/models/
 *.gguf
 *.bin
 *.safetensors
+*.h5
+*.keras
+/models/
+/saved_models/
+/checkpoints/
 
 # Generated reports (can regenerate)
 *_verification_report.json
