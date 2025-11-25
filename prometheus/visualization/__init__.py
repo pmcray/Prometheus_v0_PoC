@@ -11,8 +11,12 @@ Visualization tools for Prometheus experiments:
 # Import from plots.py (existing)
 from prometheus.visualization.plots import (
     plot_performance_comparison,
-    plot_learning_curves,
-    plot_capability_growth
+    plot_training_progress,
+    plot_distribution_shift,
+    plot_causal_attribution,
+    plot_safety_decisions,
+    plot_sample_patterns,
+    configure_plot_style
 )
 
 # Import from chess_viz.py
@@ -36,8 +40,12 @@ from prometheus.visualization.attention import (
 __all__ = [
     # Performance visualization
     'plot_performance_comparison',
-    'plot_learning_curves',
-    'plot_capability_growth',
+    'plot_training_progress',
+    'plot_distribution_shift',
+    'plot_causal_attribution',
+    'plot_safety_decisions',
+    'plot_sample_patterns',
+    'configure_plot_style',
     # Chess visualization
     'ChessBoardVisualizer',
     'GameReplayer',
