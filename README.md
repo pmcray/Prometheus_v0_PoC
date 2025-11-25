@@ -36,32 +36,47 @@ Unlike Foundation Models (GPT-4, Claude, Gemini) which freeze weights after trai
 **No installation needed!** Click the links below to run experiments directly in your browser with free GPU:
 
 #### Experiment 1: Intelligence Explosion
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_1_intelligence_explosion.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_1_intelligence_explosion.ipynb)
 
 **Demonstrates**: Exponential capability growth vs sigmoid saturation
 **Runtime**: 10-15 minutes (Quick Demo) | 3-4 hours (Full Validation)
 **Result**: Prometheus maintains 86%+ accuracy as Static degrades to 68%
 
 #### Experiment 2: Dynamic ARC Learning
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_2_dynamic_arc_solver.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_2_dynamic_arc_solver.ipynb)
 
 **Demonstrates**: Adaptation to distribution shifts
 **Runtime**: 15-20 minutes (Quick Demo) | 4-5 hours (Full Validation)
 **Result**: Prometheus maintains 81%+ as transformations shift, Static drops to 65%
 
 #### Experiment 3: CRLS Strange Loop
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_3_strange_loop.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_3_strange_loop.ipynb)
 
 **Demonstrates**: Meta-level self-modification with Gödelian safety
 **Runtime**: 10-15 minutes (Quick Demo) | 3-4 hours (Full Validation)
 **Result**: 0% unsafe modifications, causal attribution correctly identifies success factors
 
 #### Experiment 4: Chess Learning & Domain Transfer
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/claude/codebase-status-check-011CUoMNvwFABNBfYYQxEYDu/notebooks/good_notebook_4_chess_learning.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_4_chess_learning.ipynb)
 
 **Demonstrates**: Adaptive learning in strategic domains, self-play training
 **Runtime**: 30-45 minutes (Quick Demo) | 4-6 hours (Full Validation)
 **Result**: Prometheus reaches ~1200 ELO with +400 advantage over Static, demonstrating domain transfer from visual patterns to strategic games
+
+#### Experiment 5: Executive Demo - Multi-Game AI with Online Play 🆕
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_5_executive_demo.ipynb)
+
+**Demonstrates**: Complete Path B implementation with Go, online play, and interactive modes
+**Runtime**: 5-10 minutes (Quick Demo) | 2-3 hours (Full Training)
+**Features**:
+- 🎴 **Complete Go implementation** (capture, ko, superko, territory scoring)
+- ♟️ **Chess + Go agents** with policy-value networks
+- 🌐 **Online play integration** (Lichess for chess, OGS for Go)
+- 🎮 **Interactive human vs AI** play modes
+- 💾 **Model checkpointing** and persistence
+- 🔄 **Self-play training** with recursive improvement
+
+**Result**: Demonstrates multi-game intelligence with ability to play online against human and computer opponents
 
 ---
 
@@ -107,17 +122,34 @@ Prometheus is organized as a professional Python package:
 
 ```
 prometheus/
-├── models/          # Neural network architectures
-│   └── architectures.py    # ResNet, CNN builders, Static/Prometheus agents
-├── data/            # Data generators
+├── models/                 # Neural network architectures
+│   ├── architectures.py    # ResNet, CNN builders, Static/Prometheus agents
+│   └── go_models.py        # Go policy-value networks (NEW)
+├── environments/           # Game environments (NEW)
+│   ├── chess.py            # Chess board, UCI interface
+│   └── go.py               # Go board with capture, ko, superko
+├── training/               # Training utilities
+│   ├── loops.py            # Pretrain, online learning, metrics
+│   ├── chess_training.py   # Chess self-play, Stockfish benchmark
+│   └── go_training.py      # Go self-play, matchmaking (NEW)
+├── online_play/            # Online platform integration (NEW)
+│   ├── lichess.py          # Lichess bot for chess
+│   ├── ogs.py              # OGS bot for Go
+│   └── manager.py          # Unified bot manager
+├── interactive/            # Human vs AI interfaces (NEW)
+│   ├── chess_play.py       # Interactive chess with SVG board
+│   └── go_play.py          # Interactive Go with ASCII board
+├── visualization/          # Plotting and visualization
+│   ├── plots.py            # Performance comparison, safety decisions
+│   ├── chess_viz.py        # Chess board rendering, game replay
+│   └── attention.py        # GradCAM attention maps
+├── utils/                  # Utilities
+│   └── model_io.py         # Model checkpointing, save/load
+├── data/                   # Data generators
 │   └── generators.py       # Pattern, ARC, Task generators
-├── training/        # Training utilities
-│   └── loops.py            # Pretrain, online learning, metrics
-├── visualization/   # Plotting functions
-│   └── plots.py            # Performance comparison, safety decisions
-├── metrics/         # Performance analysis
+├── metrics/                # Performance analysis
 │   └── performance.py      # Statistical significance, advantage gaps
-└── safety/          # Gödelian safety checks
+└── safety/                 # Gödelian safety checks
     └── checks.py           # Safety governor, undecidability detection
 ```
 
@@ -272,6 +304,22 @@ Prometheus implements principles from two seminal works:
 - [ ] Zero-shot domain transfer via analogy
 - [ ] Hierarchical planning and goal decomposition
 - [ ] Integration with existing AI infrastructure
+
+---
+
+## 📚 Quick Notebook Reference
+
+All notebooks can be opened directly in Google Colab with one click:
+
+| # | Notebook | Description | Runtime | Colab Link |
+|---|----------|-------------|---------|------------|
+| 1 | **Intelligence Explosion** | Exponential growth vs sigmoid saturation | 10-15 min | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_1_intelligence_explosion.ipynb) |
+| 2 | **Dynamic ARC Solver** | Adaptation to distribution shifts | 15-20 min | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_2_dynamic_arc_solver.ipynb) |
+| 3 | **CRLS Strange Loop** | Meta-level self-modification with safety | 10-15 min | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_3_strange_loop.ipynb) |
+| 4 | **Chess Learning** | Strategic game learning via self-play | 30-45 min | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_4_chess_learning.ipynb) |
+| 5 | **Executive Demo** 🆕 | Multi-game AI + Online play + Interactive modes | 5-10 min | [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/good_notebook_5_executive_demo.ipynb) |
+
+**Tip**: Start with Notebook 5 (Executive Demo) for the fastest overview of all capabilities!
 
 ---
 
