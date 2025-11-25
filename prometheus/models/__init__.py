@@ -10,7 +10,8 @@ Neural network architectures and agents:
 # Import from architectures.py (existing)
 from prometheus.models.architectures import (
     residual_block,
-    build_resnet_model,
+    build_resnet,
+    build_simple_cnn,
     StaticAgent,
     PrometheusAgent
 )
@@ -37,7 +38,8 @@ from prometheus.models.mcts import (
 __all__ = [
     # Architectures
     'residual_block',
-    'build_resnet_model',
+    'build_resnet',
+    'build_simple_cnn',
     'StaticAgent',
     'PrometheusAgent',
     # Chess models
