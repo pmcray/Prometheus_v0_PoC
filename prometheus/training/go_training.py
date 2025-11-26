@@ -113,8 +113,8 @@ def generate_selfplay_game(
 
     # Get game outcome (scoring)
     score_dict = env.board.score()
-    black_score = score_dict['black']
-    white_score = score_dict['white']
+    black_score = score_dict['black_score']
+    white_score = score_dict['white_score']
     score_diff = black_score - white_score
 
     if verbose:
@@ -300,8 +300,8 @@ def play_match(
 
         # Score game
         score_dict = env.board.score()
-        black_score = score_dict['black']
-        white_score = score_dict['white']
+        black_score = score_dict['black_score']
+        white_score = score_dict['white_score']
         score_diff = black_score - white_score
 
         # Determine winner

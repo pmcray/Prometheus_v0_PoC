@@ -344,6 +344,8 @@ class GoBoard:
             'white_score': float(white_score),
             'black_territory': int(black_territory),
             'white_territory': int(white_territory),
+            'black_captures': int(self.captured_stones[self.BLACK]),
+            'white_captures': int(self.captured_stones[self.WHITE]),
             'winner': winner,
             'margin': float(margin)
         }

@@ -329,8 +329,8 @@ class GoInteractiveGame:
     def _show_score(self):
         """Show current territory score."""
         score_dict = self.board.score()
-        black_score = score_dict['black']
-        white_score = score_dict['white']
+        black_score = score_dict['black_score']
+        white_score = score_dict['white_score']
 
         print("\n📊 Current Score:")
         print(f"   Black (●): {black_score:.1f}")
@@ -351,8 +351,8 @@ class GoInteractiveGame:
 
         # Calculate final score
         score_dict = self.board.score()
-        black_score = score_dict['black']
-        white_score = score_dict['white']
+        black_score = score_dict['black_score']
+        white_score = score_dict['white_score']
         score_diff = black_score - white_score
 
         print(f"Final Score:")
