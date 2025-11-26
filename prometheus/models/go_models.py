@@ -111,13 +111,14 @@ class RandomGoAgent:
         self.board_size = board_size
         self.name = "RandomGoAgent"
 
-    def get_move(self, state: np.ndarray, legal_moves: list) -> Tuple[int, int]:
+    def get_move(self, state: np.ndarray, legal_moves: list, temperature: float = 1.0) -> Tuple[int, int]:
         """
         Get a random legal move.
 
         Args:
             state: Board state (not used for random agent)
             legal_moves: List of legal moves as (row, col) tuples or ('pass',)
+            temperature: Temperature parameter (ignored for random agent, included for API compatibility)
 
         Returns:
             Random move from legal moves
