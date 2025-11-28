@@ -1,0 +1,123 @@
+version: '3.8'
+
+services:
+  # Go 9x9 Bot on OGS
+  go-9x9-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: prometheus-go-9x9
+    environment:
+      - PROMETHEUS_LOG_LEVEL=INFO
+      - OGS_USERNAME=${OGS_USERNAME_9X9}
+      - OGS_API_TOKEN=${OGS_API_TOKEN_9X9}
+    volumes:
+      - ./models:/app/models:ro
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    command: >
+      python scripts/deploy_ogs_bot.py
+      --model models/go_9x9.h5
+      --board-sizes 9
+      --mcts
+      --mcts-sims 400
+      --auto-accept
+      --max-games 5
+    restart: unless-stopped
+    networks:
+      - prometheus-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Go 19x19 Bot on OGS
+  go-19x19-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: prometheus-go-19x19
+    environment:
+      - PROMETHEUS_LOG_LEVEL=INFO
+      - OGS_USERNAME=${OGS_USERNAME_19X19}
+      - OGS_API_TOKEN=${OGS_API_TOKEN_19X19}
+    volumes:
+      - ./models:/app/models:ro
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    command: >
+      python scripts/deploy_ogs_bot.py
+      --model models/go_19x19.h5
+      --board-sizes 19
+      --mcts
+      --mcts-sims 800
+      --auto-accept
+      --max-games 3
+    restart: unless-stopped
+    networks:
+      - prometheus-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Chess Bot on Lichess
+  chess-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: prometheus-chess
+    environment:
+      - PROMETHEUS_LOG_LEVEL=INFO
+      - LICHESS_TOKEN=${LICHESS_TOKEN}
+    volumes:
+      - ./models:/app/models:ro
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro
+    command: >
+      python scripts/deploy_lichess_bot.py
+      --model models/chess.h5
+      --mcts
+      --mcts-sims 400
+      --time-control blitz rapid
+      --auto-accept
+      --max-games 5
+    restart: unless-stopped
+    networks:
+      - prometheus-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  # Monitoring Dashboard (optional)
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    container_name: prometheus-dashboard
+    ports:
+      - "8050:8050"
+    volumes:
+      - ./logs:/app/logs:ro
+      - ./models:/app/models:ro
+    command: python prometheus_dashboard.py
+    restart: unless-stopped
+    networks:
+      - prometheus-network
+    depends_on:
+      - go-9x9-bot
+      - go-19x19-bot
+      - chess-bot
+
+networks:
+  prometheus-network:
+    driver: bridge
+
+# Volume definitions (optional - for persistence)
+volumes:
+  models:
+  logs:

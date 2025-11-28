@@ -44,6 +44,11 @@ setup(
         'Source': 'https://github.com/pmcray/Prometheus_v0_PoC',
         'Documentation': 'https://github.com/pmcray/Prometheus_v0_PoC/blob/main/README.md',
     },
+    entry_points={
+        'console_scripts': [
+            'prometheus=prometheus_cli:main',
+        ],
+    },
     include_package_data=True,
     zip_safe=False,
 )
