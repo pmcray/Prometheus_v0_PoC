@@ -227,6 +227,11 @@ See [Docker Deployment Guide](DOCKER_DEPLOYMENT.md) for complete instructions.
 - **[Contributing Guide](CONTRIBUTING.md)**: How to extend Prometheus (coming soon)
 - **[Unit Tests](tests/)**: Test suite for validation (coming soon)
 
+### Support & Help
+- **[FAQ](FAQ.md)**: Frequently asked questions 🆕
+- **[Troubleshooting Guide](TROUBLESHOOTING.md)**: Common issues and solutions 🆕
+- **[GitHub Issues](https://github.com/pmcray/Prometheus_v0_PoC/issues)**: Report bugs or request features
+
 ---
 
 ## Architecture
