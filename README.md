@@ -220,6 +220,7 @@ See [Docker Deployment Guide](DOCKER_DEPLOYMENT.md) for complete instructions.
 - **[API Reference](docs/api/)**: Detailed module documentation (coming soon)
 
 ### For Developers
+- **[Phase B Training Guide](PHASE_B_TRAINING_GUIDE.md)**: Complete guide to training pre-trained models 🆕
 - **[Docker Deployment Guide](DOCKER_DEPLOYMENT.md)**: Production deployment instructions 🆕
 - **[Training Scripts](scripts/)**: Automated model training 🆕
 - **[Benchmark Scripts](scripts/)**: Performance testing suite 🆕
