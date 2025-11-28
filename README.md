@@ -94,9 +94,116 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 
+# Install as package (enables CLI)
+pip install -e .
+
 # Run notebooks locally
 jupyter notebook notebooks/
 ```
+
+---
+
+### 3. Command-Line Interface 🆕
+
+Prometheus now includes a professional CLI for training, evaluation, and deployment:
+
+```bash
+# Quick start guide
+prometheus quickstart
+
+# Train a Go agent
+prometheus train --game go --board-size 9 --games 100 --mcts
+
+# Evaluate agents
+prometheus evaluate --model1 models/go_9x9.h5 --model2 random --num-games 50
+
+# Deploy to online platforms
+prometheus deploy --platform ogs --model models/go_9x9.h5 --mcts --auto-accept
+
+# Run performance benchmarks
+prometheus benchmark --model models/go_9x9.h5 --all
+
+# Transfer learning
+prometheus transfer --source models/go_9x9.h5 --target-size 19 --fine-tune-games 100
+
+# Show version
+prometheus version
+```
+
+**Available Commands**:
+- `train` - Train new agents from scratch
+- `evaluate` - Evaluate agent performance
+- `deploy` - Deploy bots to OGS/Lichess
+- `benchmark` - Performance testing
+- `transfer` - Transfer learning between board sizes
+- `quickstart` - Quick start guide
+- `version` - Version information
+
+Each command has comprehensive help: `prometheus <command> --help`
+
+---
+
+### 4. Docker Deployment 🆕
+
+**One-command deployment** for production bots:
+
+```bash
+# Setup environment
+cp .env.example .env
+# Edit .env with your OGS/Lichess API tokens
+
+# Deploy all bots (Go 9x9, Go 19x19, Chess)
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop all bots
+docker-compose down
+```
+
+**Features**:
+- 🐳 Multi-bot orchestration (Go 9×9, Go 19×19, Chess)
+- 🔄 Automatic restart on failure
+- 📊 Monitoring dashboard (optional)
+- 🔐 Secure environment configuration
+- 📝 Log rotation and management
+
+See [Docker Deployment Guide](DOCKER_DEPLOYMENT.md) for complete instructions.
+
+---
+
+### 5. Interactive Tutorials 🆕
+
+**4 comprehensive notebooks** for mastering Prometheus:
+
+#### MCTS Deep Dive
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/mcts_deep_dive.ipynb)
+
+**Learn**: Monte Carlo Tree Search from basics to AlphaGo
+**Topics**: PUCT formula, tree building, parameter tuning, AlphaGo architecture
+**Time**: 45 minutes
+
+#### Transfer Learning Tutorial
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/transfer_learning_tutorial.ipynb)
+
+**Learn**: Train large-board agents 10x faster
+**Topics**: Board size transfer (9×9→19×19), fine-tuning strategies, 90% time savings
+**Time**: 45 minutes
+
+#### Deployment Workshop
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/deployment_workshop.ipynb)
+
+**Learn**: Deploy bots to OGS and Lichess
+**Topics**: Bot setup, API authentication, multi-bot management, monitoring
+**Time**: 60 minutes
+
+#### Performance Optimization
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/pmcray/Prometheus_v0_PoC/blob/main/notebooks/performance_optimization.ipynb)
+
+**Learn**: Optimize for speed and memory
+**Topics**: Quantization (2-4x), MCTS caching (2-5x), mixed precision, benchmarking
+**Time**: 60 minutes
 
 ---
 
@@ -105,12 +212,17 @@ jupyter notebook notebooks/
 ### For Decision Makers
 - **[Executive Summary](EXECUTIVE_SUMMARY.md)**: Business value, competitive advantages, ROI analysis
 - **[Demonstration Guide](DEMONSTRATION_GUIDE.md)**: Step-by-step instructions for running experiments
+- **[Recommendations Implemented](RECOMMENDATIONS_IMPLEMENTED.md)**: Recent enhancements and features 🆕
 
 ### For Technical Evaluators
 - **[Architecture Documentation](prometheus/)**: Python package with shared utilities
+- **[Verification Checklist](VERIFICATION_CHECKLIST.md)**: Complete testing guide 🆕
 - **[API Reference](docs/api/)**: Detailed module documentation (coming soon)
 
 ### For Developers
+- **[Docker Deployment Guide](DOCKER_DEPLOYMENT.md)**: Production deployment instructions 🆕
+- **[Training Scripts](scripts/)**: Automated model training 🆕
+- **[Benchmark Scripts](scripts/)**: Performance testing suite 🆕
 - **[Contributing Guide](CONTRIBUTING.md)**: How to extend Prometheus (coming soon)
 - **[Unit Tests](tests/)**: Test suite for validation (coming soon)
 
