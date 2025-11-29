@@ -103,6 +103,25 @@ def main():
     benchmark_parser.add_argument('--output', type=str,
                                  help='Save results to file')
 
+    # ========== COMPARE COMMAND ==========
+    compare_parser = subparsers.add_parser('compare', help='Compare two models head-to-head')
+    compare_parser.add_argument('--model1', required=True,
+                               help='Path to first model (or "random")')
+    compare_parser.add_argument('--model2', required=True,
+                               help='Path to second model (or "random")')
+    compare_parser.add_argument('--game', choices=['go', 'chess'],
+                               help='Game type (auto-detected if not specified)')
+    compare_parser.add_argument('--board-size', type=int, default=9,
+                               help='Board size (for Go)')
+    compare_parser.add_argument('--num-games', type=int, default=50,
+                               help='Number of games to play')
+    compare_parser.add_argument('--mcts1', type=int, default=0,
+                               help='MCTS simulations for model1 (0 = no MCTS)')
+    compare_parser.add_argument('--mcts2', type=int, default=0,
+                               help='MCTS simulations for model2 (0 = no MCTS)')
+    compare_parser.add_argument('--output', type=str,
+                               help='Save comparison results to file')
+
     # ========== TRANSFER COMMAND ==========
     transfer_parser = subparsers.add_parser('transfer', help='Transfer learning between board sizes')
     transfer_parser.add_argument('--source', required=True,
@@ -148,6 +167,8 @@ def main():
         handle_deploy(args)
     elif args.command == 'benchmark':
         handle_benchmark(args)
+    elif args.command == 'compare':
+        handle_compare(args)
     elif args.command == 'transfer':
         handle_transfer(args)
     elif args.command == 'quickstart':
@@ -276,6 +297,49 @@ def handle_benchmark(args):
     # TODO: Implement benchmarking
     print("\n✓ Benchmark results would appear here")
     print("For now, see: notebooks/performance_optimization.ipynb")
+
+
+def handle_compare(args):
+    """Handle model comparison command."""
+    import subprocess
+
+    print(f"🔬 Comparing models head-to-head...")
+    print(f"   Model 1: {args.model1}")
+    print(f"   Model 2: {args.model2}")
+    print(f"   Games: {args.num_games}")
+    if args.mcts1 > 0:
+        print(f"   MCTS 1: {args.mcts1} simulations")
+    if args.mcts2 > 0:
+        print(f"   MCTS 2: {args.mcts2} simulations")
+    print()
+
+    # Build command for compare_models.py
+    cmd = [
+        sys.executable,
+        'scripts/compare_models.py',
+        '--model1', args.model1,
+        '--model2', args.model2,
+        '--num-games', str(args.num_games),
+    ]
+
+    if args.game:
+        cmd.extend(['--game', args.game])
+
+    if args.board_size:
+        cmd.extend(['--board-size', str(args.board_size)])
+
+    if args.mcts1 > 0:
+        cmd.extend(['--mcts1', str(args.mcts1)])
+
+    if args.mcts2 > 0:
+        cmd.extend(['--mcts2', str(args.mcts2)])
+
+    if args.output:
+        cmd.extend(['--output', args.output])
+
+    # Run comparison
+    result = subprocess.run(cmd)
+    sys.exit(result.returncode)
 
 
 def handle_transfer(args):
