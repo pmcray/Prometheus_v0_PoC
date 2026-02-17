@@ -114,6 +114,12 @@ class GeneralistPlannerAgent:
                 "domain": "code_optimization",
                 "approach": "self_modification",
                 "difficulty": 0.7
+            },
+            "connect4": {
+                "benchmark": "GGP-connect4",
+                "domain": "general_game_playing",
+                "approach": "evolutionary_game_agent",
+                "difficulty": 0.6
             }
         }
 
