@@ -127,6 +127,15 @@ class RandomGoAgent:
             return ('pass',)
         return legal_moves[np.random.randint(len(legal_moves))]
 
+    def predict(self, state: np.ndarray) -> Tuple[np.ndarray, float]:
+        """
+        Return uniform policy and neutral value.
+        Added for compatibility with MCTS.
+        """
+        num_moves = self.board_size * self.board_size + 1
+        policy = np.ones(num_moves) / num_moves
+        return policy, 0.0
+
     def evaluate(self, state: np.ndarray) -> float:
         """Random agent has no position evaluation."""
         return 0.0
