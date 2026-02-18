@@ -1,0 +1,1795 @@
+{
+  "by_complexity": {
+    "simple": {
+      "structure": [
+        {
+          "pattern": [
+            "crop"
+          ],
+          "pattern_str": "crop()",
+          "count": 45,
+          "avg_fitness": 0.65,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17",
+            "seed_18",
+            "seed_19",
+            "seed_20",
+            "seed_21",
+            "seed_22",
+            "seed_23",
+            "seed_24",
+            "seed_25",
+            "seed_26",
+            "seed_27",
+            "seed_28",
+            "seed_29",
+            "seed_30",
+            "seed_31",
+            "seed_32",
+            "seed_33",
+            "seed_34",
+            "seed_35",
+            "seed_36",
+            "seed_37",
+            "seed_38",
+            "seed_39",
+            "seed_40",
+            "seed_41",
+            "seed_42",
+            "seed_43",
+            "seed_44"
+          ],
+          "complexity": 1,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "scale"
+          ],
+          "pattern_str": "scale()",
+          "count": 15,
+          "avg_fitness": 0.48,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14"
+          ],
+          "complexity": 1,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "pad"
+          ],
+          "pattern_str": "pad()",
+          "count": 12,
+          "avg_fitness": 0.45,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11"
+          ],
+          "complexity": 1,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ],
+      "geometric": [
+        {
+          "pattern": [
+            "rotate"
+          ],
+          "pattern_str": "rotate()",
+          "count": 30,
+          "avg_fitness": 0.55,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17",
+            "seed_18",
+            "seed_19",
+            "seed_20",
+            "seed_21",
+            "seed_22",
+            "seed_23",
+            "seed_24",
+            "seed_25",
+            "seed_26",
+            "seed_27",
+            "seed_28",
+            "seed_29"
+          ],
+          "complexity": 1,
+          "category": "geometric",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "flip"
+          ],
+          "pattern_str": "flip()",
+          "count": 28,
+          "avg_fitness": 0.58,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17",
+            "seed_18",
+            "seed_19",
+            "seed_20",
+            "seed_21",
+            "seed_22",
+            "seed_23",
+            "seed_24",
+            "seed_25",
+            "seed_26",
+            "seed_27"
+          ],
+          "complexity": 1,
+          "category": "geometric",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "transpose"
+          ],
+          "pattern_str": "transpose()",
+          "count": 20,
+          "avg_fitness": 0.6,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17",
+            "seed_18",
+            "seed_19"
+          ],
+          "complexity": 1,
+          "category": "geometric",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        }
+      ],
+      "color": [
+        {
+          "pattern": [
+            "filter_color"
+          ],
+          "pattern_str": "filter_color()",
+          "count": 25,
+          "avg_fitness": 0.52,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17",
+            "seed_18",
+            "seed_19",
+            "seed_20",
+            "seed_21",
+            "seed_22",
+            "seed_23",
+            "seed_24"
+          ],
+          "complexity": 1,
+          "category": "color",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        }
+      ],
+      "pattern": [
+        {
+          "pattern": [
+            "tile"
+          ],
+          "pattern_str": "tile()",
+          "count": 18,
+          "avg_fitness": 0.5,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14",
+            "seed_15",
+            "seed_16",
+            "seed_17"
+          ],
+          "complexity": 1,
+          "category": "pattern",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        }
+      ]
+    },
+    "medium": {
+      "structure": [
+        {
+          "pattern": [
+            "crop",
+            "rotate"
+          ],
+          "pattern_str": "crop() -> rotate()",
+          "count": 12,
+          "avg_fitness": 0.58,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "flip"
+          ],
+          "pattern_str": "crop() -> flip()",
+          "count": 10,
+          "avg_fitness": 0.56,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "filter_color"
+          ],
+          "pattern_str": "crop() -> filter_color()",
+          "count": 15,
+          "avg_fitness": 0.62,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10",
+            "seed_11",
+            "seed_12",
+            "seed_13",
+            "seed_14"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "scale",
+            "tile"
+          ],
+          "pattern_str": "scale() -> tile()",
+          "count": 8,
+          "avg_fitness": 0.42,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "pad"
+          ],
+          "pattern_str": "crop() -> pad()",
+          "count": 6,
+          "avg_fitness": 0.4,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ],
+      "color": [
+        {
+          "pattern": [
+            "filter_color",
+            "rotate"
+          ],
+          "pattern_str": "filter_color() -> rotate()",
+          "count": 7,
+          "avg_fitness": 0.45,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6"
+          ],
+          "complexity": 2,
+          "category": "color",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ],
+      "geometric": [
+        {
+          "pattern": [
+            "rotate",
+            "flip"
+          ],
+          "pattern_str": "rotate() -> flip()",
+          "count": 9,
+          "avg_fitness": 0.48,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "transpose",
+            "flip"
+          ],
+          "pattern_str": "transpose() -> flip()",
+          "count": 11,
+          "avg_fitness": 0.52,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5",
+            "seed_6",
+            "seed_7",
+            "seed_8",
+            "seed_9",
+            "seed_10"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        }
+      ]
+    },
+    "complex": {
+      "structure": [
+        {
+          "pattern": [
+            "crop",
+            "filter_color",
+            "rotate"
+          ],
+          "pattern_str": "crop() -> filter_color() -> rotate()",
+          "count": 5,
+          "avg_fitness": 0.54,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4"
+          ],
+          "complexity": 3,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "rotate",
+            "flip"
+          ],
+          "pattern_str": "crop() -> rotate() -> flip()",
+          "count": 4,
+          "avg_fitness": 0.51,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3"
+          ],
+          "complexity": 3,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "transpose",
+            "flip"
+          ],
+          "pattern_str": "crop() -> transpose() -> flip()",
+          "count": 6,
+          "avg_fitness": 0.55,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2",
+            "seed_3",
+            "seed_4",
+            "seed_5"
+          ],
+          "complexity": 3,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        }
+      ],
+      "color": [
+        {
+          "pattern": [
+            "filter_color",
+            "scale",
+            "tile"
+          ],
+          "pattern_str": "filter_color() -> scale() -> tile()",
+          "count": 3,
+          "avg_fitness": 0.47,
+          "task_ids": [
+            "seed_0",
+            "seed_1",
+            "seed_2"
+          ],
+          "complexity": 3,
+          "category": "color",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ]
+    }
+  },
+  "by_success_rate": {
+    "medium": [
+      {
+        "pattern": [
+          "crop"
+        ],
+        "pattern_str": "crop()",
+        "count": 45,
+        "avg_fitness": 0.65,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17",
+          "seed_18",
+          "seed_19",
+          "seed_20",
+          "seed_21",
+          "seed_22",
+          "seed_23",
+          "seed_24",
+          "seed_25",
+          "seed_26",
+          "seed_27",
+          "seed_28",
+          "seed_29",
+          "seed_30",
+          "seed_31",
+          "seed_32",
+          "seed_33",
+          "seed_34",
+          "seed_35",
+          "seed_36",
+          "seed_37",
+          "seed_38",
+          "seed_39",
+          "seed_40",
+          "seed_41",
+          "seed_42",
+          "seed_43",
+          "seed_44"
+        ],
+        "complexity": 1,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "rotate"
+        ],
+        "pattern_str": "rotate()",
+        "count": 30,
+        "avg_fitness": 0.55,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17",
+          "seed_18",
+          "seed_19",
+          "seed_20",
+          "seed_21",
+          "seed_22",
+          "seed_23",
+          "seed_24",
+          "seed_25",
+          "seed_26",
+          "seed_27",
+          "seed_28",
+          "seed_29"
+        ],
+        "complexity": 1,
+        "category": "geometric",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip"
+        ],
+        "pattern_str": "flip()",
+        "count": 28,
+        "avg_fitness": 0.58,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17",
+          "seed_18",
+          "seed_19",
+          "seed_20",
+          "seed_21",
+          "seed_22",
+          "seed_23",
+          "seed_24",
+          "seed_25",
+          "seed_26",
+          "seed_27"
+        ],
+        "complexity": 1,
+        "category": "geometric",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "transpose"
+        ],
+        "pattern_str": "transpose()",
+        "count": 20,
+        "avg_fitness": 0.6,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17",
+          "seed_18",
+          "seed_19"
+        ],
+        "complexity": 1,
+        "category": "geometric",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "filter_color"
+        ],
+        "pattern_str": "filter_color()",
+        "count": 25,
+        "avg_fitness": 0.52,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17",
+          "seed_18",
+          "seed_19",
+          "seed_20",
+          "seed_21",
+          "seed_22",
+          "seed_23",
+          "seed_24"
+        ],
+        "complexity": 1,
+        "category": "color",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "tile"
+        ],
+        "pattern_str": "tile()",
+        "count": 18,
+        "avg_fitness": 0.5,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14",
+          "seed_15",
+          "seed_16",
+          "seed_17"
+        ],
+        "complexity": 1,
+        "category": "pattern",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "rotate"
+        ],
+        "pattern_str": "crop() -> rotate()",
+        "count": 12,
+        "avg_fitness": 0.58,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "flip"
+        ],
+        "pattern_str": "crop() -> flip()",
+        "count": 10,
+        "avg_fitness": 0.56,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "filter_color"
+        ],
+        "pattern_str": "crop() -> filter_color()",
+        "count": 15,
+        "avg_fitness": 0.62,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "transpose",
+          "flip"
+        ],
+        "pattern_str": "transpose() -> flip()",
+        "count": 11,
+        "avg_fitness": 0.52,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "filter_color",
+          "rotate"
+        ],
+        "pattern_str": "crop() -> filter_color() -> rotate()",
+        "count": 5,
+        "avg_fitness": 0.54,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4"
+        ],
+        "complexity": 3,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "rotate",
+          "flip"
+        ],
+        "pattern_str": "crop() -> rotate() -> flip()",
+        "count": 4,
+        "avg_fitness": 0.51,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3"
+        ],
+        "complexity": 3,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "transpose",
+          "flip"
+        ],
+        "pattern_str": "crop() -> transpose() -> flip()",
+        "count": 6,
+        "avg_fitness": 0.55,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5"
+        ],
+        "complexity": 3,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      }
+    ],
+    "low": [
+      {
+        "pattern": [
+          "scale"
+        ],
+        "pattern_str": "scale()",
+        "count": 15,
+        "avg_fitness": 0.48,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11",
+          "seed_12",
+          "seed_13",
+          "seed_14"
+        ],
+        "complexity": 1,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "pad"
+        ],
+        "pattern_str": "pad()",
+        "count": 12,
+        "avg_fitness": 0.45,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8",
+          "seed_9",
+          "seed_10",
+          "seed_11"
+        ],
+        "complexity": 1,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "scale",
+          "tile"
+        ],
+        "pattern_str": "scale() -> tile()",
+        "count": 8,
+        "avg_fitness": 0.42,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "filter_color",
+          "rotate"
+        ],
+        "pattern_str": "filter_color() -> rotate()",
+        "count": 7,
+        "avg_fitness": 0.45,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6"
+        ],
+        "complexity": 2,
+        "category": "color",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "rotate",
+          "flip"
+        ],
+        "pattern_str": "rotate() -> flip()",
+        "count": 9,
+        "avg_fitness": 0.48,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5",
+          "seed_6",
+          "seed_7",
+          "seed_8"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "pad"
+        ],
+        "pattern_str": "crop() -> pad()",
+        "count": 6,
+        "avg_fitness": 0.4,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2",
+          "seed_3",
+          "seed_4",
+          "seed_5"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "filter_color",
+          "scale",
+          "tile"
+        ],
+        "pattern_str": "filter_color() -> scale() -> tile()",
+        "count": 3,
+        "avg_fitness": 0.47,
+        "task_ids": [
+          "seed_0",
+          "seed_1",
+          "seed_2"
+        ],
+        "complexity": 3,
+        "category": "color",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      }
+    ]
+  },
+  "by_pattern": {
+    "crop()": {
+      "pattern": [
+        "crop"
+      ],
+      "pattern_str": "crop()",
+      "count": 45,
+      "avg_fitness": 0.65,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27",
+        "seed_28",
+        "seed_29",
+        "seed_30",
+        "seed_31",
+        "seed_32",
+        "seed_33",
+        "seed_34",
+        "seed_35",
+        "seed_36",
+        "seed_37",
+        "seed_38",
+        "seed_39",
+        "seed_40",
+        "seed_41",
+        "seed_42",
+        "seed_43",
+        "seed_44"
+      ],
+      "complexity": 1,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "rotate()": {
+      "pattern": [
+        "rotate"
+      ],
+      "pattern_str": "rotate()",
+      "count": 30,
+      "avg_fitness": 0.55,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27",
+        "seed_28",
+        "seed_29"
+      ],
+      "complexity": 1,
+      "category": "geometric",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "flip()": {
+      "pattern": [
+        "flip"
+      ],
+      "pattern_str": "flip()",
+      "count": 28,
+      "avg_fitness": 0.58,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27"
+      ],
+      "complexity": 1,
+      "category": "geometric",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "transpose()": {
+      "pattern": [
+        "transpose"
+      ],
+      "pattern_str": "transpose()",
+      "count": 20,
+      "avg_fitness": 0.6,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19"
+      ],
+      "complexity": 1,
+      "category": "geometric",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "filter_color()": {
+      "pattern": [
+        "filter_color"
+      ],
+      "pattern_str": "filter_color()",
+      "count": 25,
+      "avg_fitness": 0.52,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24"
+      ],
+      "complexity": 1,
+      "category": "color",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "scale()": {
+      "pattern": [
+        "scale"
+      ],
+      "pattern_str": "scale()",
+      "count": 15,
+      "avg_fitness": 0.48,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14"
+      ],
+      "complexity": 1,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "tile()": {
+      "pattern": [
+        "tile"
+      ],
+      "pattern_str": "tile()",
+      "count": 18,
+      "avg_fitness": 0.5,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17"
+      ],
+      "complexity": 1,
+      "category": "pattern",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "pad()": {
+      "pattern": [
+        "pad"
+      ],
+      "pattern_str": "pad()",
+      "count": 12,
+      "avg_fitness": 0.45,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11"
+      ],
+      "complexity": 1,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> rotate()": {
+      "pattern": [
+        "crop",
+        "rotate"
+      ],
+      "pattern_str": "crop() -> rotate()",
+      "count": 12,
+      "avg_fitness": 0.58,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "crop() -> flip()": {
+      "pattern": [
+        "crop",
+        "flip"
+      ],
+      "pattern_str": "crop() -> flip()",
+      "count": 10,
+      "avg_fitness": 0.56,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "crop() -> filter_color()": {
+      "pattern": [
+        "crop",
+        "filter_color"
+      ],
+      "pattern_str": "crop() -> filter_color()",
+      "count": 15,
+      "avg_fitness": 0.62,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "scale() -> tile()": {
+      "pattern": [
+        "scale",
+        "tile"
+      ],
+      "pattern_str": "scale() -> tile()",
+      "count": 8,
+      "avg_fitness": 0.42,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "filter_color() -> rotate()": {
+      "pattern": [
+        "filter_color",
+        "rotate"
+      ],
+      "pattern_str": "filter_color() -> rotate()",
+      "count": 7,
+      "avg_fitness": 0.45,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6"
+      ],
+      "complexity": 2,
+      "category": "color",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "rotate() -> flip()": {
+      "pattern": [
+        "rotate",
+        "flip"
+      ],
+      "pattern_str": "rotate() -> flip()",
+      "count": 9,
+      "avg_fitness": 0.48,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "transpose() -> flip()": {
+      "pattern": [
+        "transpose",
+        "flip"
+      ],
+      "pattern_str": "transpose() -> flip()",
+      "count": 11,
+      "avg_fitness": 0.52,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "crop() -> pad()": {
+      "pattern": [
+        "crop",
+        "pad"
+      ],
+      "pattern_str": "crop() -> pad()",
+      "count": 6,
+      "avg_fitness": 0.4,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> filter_color() -> rotate()": {
+      "pattern": [
+        "crop",
+        "filter_color",
+        "rotate"
+      ],
+      "pattern_str": "crop() -> filter_color() -> rotate()",
+      "count": 5,
+      "avg_fitness": 0.54,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4"
+      ],
+      "complexity": 3,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "crop() -> rotate() -> flip()": {
+      "pattern": [
+        "crop",
+        "rotate",
+        "flip"
+      ],
+      "pattern_str": "crop() -> rotate() -> flip()",
+      "count": 4,
+      "avg_fitness": 0.51,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3"
+      ],
+      "complexity": 3,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "filter_color() -> scale() -> tile()": {
+      "pattern": [
+        "filter_color",
+        "scale",
+        "tile"
+      ],
+      "pattern_str": "filter_color() -> scale() -> tile()",
+      "count": 3,
+      "avg_fitness": 0.47,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2"
+      ],
+      "complexity": 3,
+      "category": "color",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> transpose() -> flip()": {
+      "pattern": [
+        "crop",
+        "transpose",
+        "flip"
+      ],
+      "pattern_str": "crop() -> transpose() -> flip()",
+      "count": 6,
+      "avg_fitness": 0.55,
+      "task_ids": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5"
+      ],
+      "complexity": 3,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    }
+  },
+  "statistics": {
+    "total_templates": 20,
+    "total_programs": 289
+  }
+}

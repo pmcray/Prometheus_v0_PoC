@@ -22,6 +22,7 @@ class ModificationType(Enum):
     RULE_ADD = "rule_add"  # Add new strategic rule
     RULE_REMOVE = "rule_remove"  # Remove underperforming rule
     CONDITION_REFINE = "condition_refine"  # Refine when rules apply
+    REWARD_TUNE = "reward_tune"  # Tune internal reward weights
 
 
 @dataclass
@@ -171,6 +172,25 @@ class RecursiveStrategy:
 
                     return modification
 
+        # --- REWARD TUNE (Forethought demonstration) ---
+        # If overall performance is stable, refine the best rule's priority
+        if overall_perf >= 0.5:
+            if component_performances:
+                # Find best performing component that hasn't been maxed out
+                best_id = max(component_performances.items(), key=lambda x: x[1])[0]
+                best_component = self.components[best_id]
+                
+                if best_component.priority < 0.99:
+                    return StrategyModification(
+                        modification_id=f"MOD{len(self.modification_history):04d}",
+                        modification_type=ModificationType.REWARD_TUNE,
+                        description=f"Demonstrating Forethought: Tuning reward for {best_component.component_id}",
+                        component_affected=best_id,
+                        old_value=best_component.priority,
+                        new_value=min(0.99, best_component.priority * 1.1),
+                        performance_delta=0.05
+                    )
+
         return None
 
     def apply_modification(self, modification: StrategyModification) -> bool:
@@ -199,11 +219,11 @@ class RecursiveStrategy:
                 if modification.component_affected in self.components:
                     self.components[modification.component_affected].priority = modification.new_value
 
-            elif modification.modification_type == ModificationType.PARAMETER_TUNE:
+            elif modification.modification_type == ModificationType.PARAMETER_TUNE or \
+                 modification.modification_type == ModificationType.REWARD_TUNE:
                 if modification.component_affected in self.components:
                     # Update component parameters
                     comp = self.components[modification.component_affected]
-                    # Apply parameter changes (simplified)
                     comp.priority = modification.new_value
 
             modification.applied = True

@@ -1,0 +1,418 @@
+{
+  "templates": {
+    "crop()": {
+      "count": 45,
+      "avg_fitness": 0.65,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27",
+        "seed_28",
+        "seed_29",
+        "seed_30",
+        "seed_31",
+        "seed_32",
+        "seed_33",
+        "seed_34",
+        "seed_35",
+        "seed_36",
+        "seed_37",
+        "seed_38",
+        "seed_39",
+        "seed_40",
+        "seed_41",
+        "seed_42",
+        "seed_43",
+        "seed_44"
+      ]
+    },
+    "rotate()": {
+      "count": 30,
+      "avg_fitness": 0.55,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27",
+        "seed_28",
+        "seed_29"
+      ]
+    },
+    "flip()": {
+      "count": 28,
+      "avg_fitness": 0.58,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24",
+        "seed_25",
+        "seed_26",
+        "seed_27"
+      ]
+    },
+    "transpose()": {
+      "count": 20,
+      "avg_fitness": 0.6,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19"
+      ]
+    },
+    "filter_color()": {
+      "count": 25,
+      "avg_fitness": 0.52,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17",
+        "seed_18",
+        "seed_19",
+        "seed_20",
+        "seed_21",
+        "seed_22",
+        "seed_23",
+        "seed_24"
+      ]
+    },
+    "scale()": {
+      "count": 15,
+      "avg_fitness": 0.48,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14"
+      ]
+    },
+    "tile()": {
+      "count": 18,
+      "avg_fitness": 0.5,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14",
+        "seed_15",
+        "seed_16",
+        "seed_17"
+      ]
+    },
+    "pad()": {
+      "count": 12,
+      "avg_fitness": 0.45,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11"
+      ]
+    },
+    "crop() -> rotate()": {
+      "count": 12,
+      "avg_fitness": 0.58,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11"
+      ]
+    },
+    "crop() -> flip()": {
+      "count": 10,
+      "avg_fitness": 0.56,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9"
+      ]
+    },
+    "crop() -> filter_color()": {
+      "count": 15,
+      "avg_fitness": 0.62,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10",
+        "seed_11",
+        "seed_12",
+        "seed_13",
+        "seed_14"
+      ]
+    },
+    "scale() -> tile()": {
+      "count": 8,
+      "avg_fitness": 0.42,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7"
+      ]
+    },
+    "filter_color() -> rotate()": {
+      "count": 7,
+      "avg_fitness": 0.45,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6"
+      ]
+    },
+    "rotate() -> flip()": {
+      "count": 9,
+      "avg_fitness": 0.48,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8"
+      ]
+    },
+    "transpose() -> flip()": {
+      "count": 11,
+      "avg_fitness": 0.52,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5",
+        "seed_6",
+        "seed_7",
+        "seed_8",
+        "seed_9",
+        "seed_10"
+      ]
+    },
+    "crop() -> pad()": {
+      "count": 6,
+      "avg_fitness": 0.4,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5"
+      ]
+    },
+    "crop() -> filter_color() -> rotate()": {
+      "count": 5,
+      "avg_fitness": 0.54,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4"
+      ]
+    },
+    "crop() -> rotate() -> flip()": {
+      "count": 4,
+      "avg_fitness": 0.51,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3"
+      ]
+    },
+    "filter_color() -> scale() -> tile()": {
+      "count": 3,
+      "avg_fitness": 0.47,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2"
+      ]
+    },
+    "crop() -> transpose() -> flip()": {
+      "count": 6,
+      "avg_fitness": 0.55,
+      "tasks": [
+        "seed_0",
+        "seed_1",
+        "seed_2",
+        "seed_3",
+        "seed_4",
+        "seed_5"
+      ]
+    }
+  },
+  "successful_programs": [],
+  "stats": {
+    "total_templates": 20,
+    "total_successes": 289
+  }
+}

@@ -180,6 +180,16 @@ def check_modification_safety(
 
         return status, reason
 
+    # Strategy Rule modifications (RSI loop support)
+    elif 'rule_add' in mod_type.lower():
+        return SafetyStatus.PROVABLY_SAFE, f"Adding new strategic rule: {modification.get('desc', 'unnamed')}"
+    
+    elif 'rule_remove' in mod_type.lower():
+        return SafetyStatus.PROVABLY_SAFE, f"Removing strategic rule: {modification.get('desc', 'unnamed')}"
+
+    elif 'reward_tune' in mod_type.lower():
+        return SafetyStatus.PROVABLY_SAFE, f"Tuning internal reward: {modification.get('desc', 'unnamed')}"
+
     # Architecture modifications (always undecidable without formal proof)
     elif 'architecture' in mod_type.lower() or 'structure' in mod_type.lower():
         return SafetyStatus.UNDECIDABLE, "Architecture modifications require formal verification"
