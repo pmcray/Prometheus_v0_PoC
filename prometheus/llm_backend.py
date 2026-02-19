@@ -1,4 +1,3 @@
-
 import os
 import torch
 from typing import Optional, List
@@ -19,7 +18,6 @@ class LLMBackend:
         if self.use_gemini:
             import google.generativeai as genai
             genai.configure(api_key=self.api_key)
-            # Use flash for speed/cost efficiency if we do use Gemini
             self.gemini_model = genai.GenerativeModel('gemini-1.5-flash')
             print(f"LLMBackend: Using Gemini API (flash).")
         else:
@@ -27,17 +25,34 @@ class LLMBackend:
             self._init_local_model()
 
     def _init_local_model(self):
-        from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
+        from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig
         
         self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
-        # Using 4-bit quantization to ensure it fits easily on Colab T4/L4
-        self.local_model = AutoModelForCausalLM.from_pretrained(
-            self.model_name,
-            device_map="auto",
-            torch_dtype=torch.float16,
-            load_in_4bit=True,
-            trust_remote_code=True
-        )
+        
+        if self.device == "cuda":
+            # 4-bit quantization only works on CUDA
+            bnb_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True,
+            )
+            self.local_model = AutoModelForCausalLM.from_pretrained(
+                self.model_name,
+                device_map="auto",
+                quantization_config=bnb_config,
+                trust_remote_code=True
+            )
+        else:
+            # Fallback for CPU
+            print("LLMBackend: CUDA not available, loading model on CPU without quantization (this may be slow and memory-intensive).")
+            self.local_model = AutoModelForCausalLM.from_pretrained(
+                self.model_name,
+                device_map="cpu",
+                torch_dtype=torch.float32,
+                trust_remote_code=True
+            )
+            
         self.pipe = pipeline(
             "text-generation",
             model=self.local_model,
@@ -51,7 +66,9 @@ class LLMBackend:
         else:
             # Local Inference
             messages = [{"role": "user", "content": prompt}]
-            output = self.pipe(messages, max_new_tokens=max_new_tokens, return_full_text=False)
+            # Phi-3 prompt template
+            full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"
+            output = self.pipe(full_prompt, max_new_tokens=max_new_tokens, return_full_text=False)
             return output[0]['generated_text'].strip()
 
 # Global singleton for easier access across agents
