@@ -1,4 +1,4 @@
-import google.generativeai as genai
+from prometheus.llm_backend import get_llm_backend
 import ast
 from prometheus.code_evaluator import CodeEvaluator
 
@@ -37,10 +37,9 @@ class CausalTokenVisitor(ast.NodeVisitor):
         self.generic_visit(node)
 
 class CausalAttentionWrapper:
-    def __init__(self, api_key):
-        genai.configure(api_key=api_key)
-        # Using a default Gemini model
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+    def __init__(self, api_key=None, model_name=None):
+        # Using the new unified backend
+        self.backend = get_llm_backend(model_name=model_name)
         self.evaluator = CodeEvaluator()
 
     def _get_causal_tokens(self, code):
@@ -96,20 +95,21 @@ Instruction: {instruction}.
 Please provide the complete, optimized Python code within a single markdown code block. Do not include any explanation outside the code block.
 """
         print("--- Causal Attention Prompt (Phase 2 Enhanced) ---")
-        print(prompt)
+        # print(prompt) # Reduced noise
         print("-----------------------------")
 
         try:
-            response = self.model.generate_content(prompt)
-            new_code = response.text.strip()
+            new_code = self.backend.generate(prompt)
             
             # Extract code from markdown block
             if "```python" in new_code:
                 new_code = new_code.split("```python")[1].split("```")[0].strip()
             elif "```" in new_code:
-                new_code = new_code.split("```")[1].split("```")[0].strip()
+                parts = new_code.split("```")
+                if len(parts) >= 2:
+                    new_code = parts[1].strip()
                 
             return new_code
         except Exception as e:
-            print(f"API Error: {e}")
+            print(f"LLM Error: {e}")
             return original_code
