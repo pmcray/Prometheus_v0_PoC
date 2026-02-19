@@ -3,14 +3,17 @@ import os
 import re
 import random
 
+from prometheus.safety.mcs_supervisor import MCSSupervisor
+
 class CoderAgent:
-    def __init__(self, api_key, compiler, analyzer, lean_tool, knowledge_agent):
+    def __init__(self, api_key, compiler, analyzer, lean_tool, knowledge_agent, mcs_supervisor=None):
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel('generic-cloud-fm')
         self.compiler = compiler
         self.analyzer = analyzer
         self.lean_tool = lean_tool
         self.knowledge_agent = knowledge_agent
+        self.mcs_supervisor = mcs_supervisor or MCSSupervisor()
 
     def synthesize_tool(self, specification: str):
         """
@@ -29,9 +32,16 @@ class CoderAgent:
         response = self.model.generate_content(prompt)
         code = response.text.strip().replace("```python", "").replace("```", "")
         
-        # Save the new tool to a file
+        # Safety Check
         tool_name = self._extract_tool_name(specification)
         file_path = f"prometheus/tools/{tool_name.lower()}.py"
+        
+        critique = self.mcs_supervisor.verify_modification("", code, file_path)
+        if not critique.is_safe:
+            print(f"CoderAgent: SAFETY VIOLATION during synthesis! {critique.violation_type}: {critique.description}")
+            return None
+
+        # Save the new tool to a file
         with open(file_path, "w") as f:
             f.write(code)
             
@@ -101,17 +111,26 @@ class CoderAgent:
         return self.refactor(original_code, instruction, max_retries)
 
     def refactor(self, code, instruction, max_retries=3):
-        """Refactors code based on instructions with verification."""
+        """Refactors code based on instructions with verification and safety oversight."""
         current_code = code
         for i in range(max_retries):
             print(f"CoderAgent: Refactoring attempt {i+1}")
             prompt = f"Instruction: {instruction}\n\n```python\n{current_code}\n```"
             response = self.model.generate_content(prompt)
             new_code = self._clean_code(response.text)
+            
+            # 1. Functional Verification (Compilation/Analysis)
             if self._verify_code(new_code):
-                return new_code, code
+                # 2. Safety Verification (MCSSupervisor)
+                # Note: We assume 'target.py' as a generic name for now, or use context if available
+                critique = self.mcs_supervisor.verify_modification(current_code, new_code, "target.py")
+                if critique.is_safe:
+                    return new_code, code
+                else:
+                    print(f"CoderAgent: SAFETY VIOLATION! {critique.violation_type}: {critique.description}")
+                    instruction = f"The previous attempt failed safety verification: {critique.description}. Please try again.\nInstruction: {instruction}"
             else:
-                instruction = f"The previous attempt failed verification. Please try again.\nInstruction: {instruction}"
+                instruction = f"The previous attempt failed functional verification. Please try again.\nInstruction: {instruction}"
                 current_code = new_code
         return code, code
 
