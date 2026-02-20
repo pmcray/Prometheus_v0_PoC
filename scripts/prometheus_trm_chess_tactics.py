@@ -347,7 +347,7 @@ class TRMChessTactics:
             try:
                 move = chess.Move.from_uci(move_uci)
                 board_copy.push(move)
-            except:
+            except (ValueError, chess.IllegalMoveError):
                 return 0.0  # Invalid move sequence
 
         # Material count after

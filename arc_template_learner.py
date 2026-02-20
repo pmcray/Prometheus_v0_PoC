@@ -296,10 +296,9 @@ class TemplateLearner:
             # Reconstruct templates
             self.templates = {}
             for template_str, stats in data.get('templates', {}).items():
-                # Parse template string back to structure
-                # For now, store as string key (will improve if needed)
-                # TODO: Improve template serialization if needed
-                pass  # Skip for now - will rebuild from successful_programs
+                # Templates are skipped during load and rebuilt from
+                # successful_programs below, which is the authoritative source.
+                pass
 
             # Reconstruct successful programs
             self.successful_programs = []

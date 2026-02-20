@@ -194,7 +194,7 @@ class ARCDSLInterpreter:
                               cmin:cmin+transformed.shape[1]],
                         transformed
                     )
-            except:
+            except (ValueError, IndexError):
                 pass
 
         return result
@@ -309,7 +309,7 @@ class DSLProgramSynthesis:
                     if predicted.shape == expected.shape:
                         if np.array_equal(predicted, expected):
                             correct += 1
-                except:
+                except Exception:
                     pass
 
             fitness = correct / len(train_pairs)

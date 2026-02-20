@@ -400,7 +400,7 @@ class NeuralProgramSynthesizer:
                 if isinstance(node, ast.FunctionDef):
                     self.program_modules[node.name] = program.code
                     logger.debug(f"📦 Extracted module: {node.name}")
-        except:
+        except SyntaxError:
             pass
 
     def get_statistics(self) -> Dict[str, Any]:

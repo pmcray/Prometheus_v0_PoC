@@ -153,7 +153,7 @@ class OGSBot:
                 if self.verbose:
                     print("⚠️  OGS authentication not fully implemented")
                     print("   This is a demo implementation showing the structure")
-        except:
+        except (requests.RequestException, OSError):
             self.user_id = hash(self.username) % 1000000
 
     def start(self):
@@ -210,7 +210,7 @@ class OGSBot:
         if self.ws:
             try:
                 self.ws.close()
-            except:
+            except OSError:
                 pass
 
         if self.verbose:
@@ -336,7 +336,7 @@ class OGSBot:
             response = self.session.get(f"{self.api_url}/games/{game_id}", timeout=10)
             if response.status_code == 200:
                 return response.json()
-        except:
+        except (requests.RequestException, ValueError):
             pass
         return {}
 
@@ -346,7 +346,7 @@ class OGSBot:
             response = self.session.get(f"{self.api_url}/games/{game_id}/state", timeout=10)
             if response.status_code == 200:
                 return response.json()
-        except:
+        except (requests.RequestException, ValueError):
             pass
         return {}
 

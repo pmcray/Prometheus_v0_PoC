@@ -37,7 +37,7 @@ class Condition:
         """Test if condition holds for this grid"""
         try:
             return self.test(grid)
-        except:
+        except Exception:
             return False
 
 

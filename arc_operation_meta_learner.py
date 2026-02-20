@@ -208,7 +208,7 @@ class OperationMetaLearner:
                 try:
                     import ast
                     result.append(ast.literal_eval(value_str))
-                except:
+                except (ValueError, SyntaxError):
                     result.append(value_str)
 
             return result

@@ -312,7 +312,7 @@ class LichessBot:
             try:
                 move = chess.Move.from_uci(move_uci)
                 new_board.push(move)
-            except:
+            except (ValueError, chess.IllegalMoveError):
                 if self.verbose:
                     print(f"   ⚠️  Invalid move: {move_uci}")
 

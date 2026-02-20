@@ -116,8 +116,8 @@ class ChessInteractiveGame:
                 orientation=self.human_color
             )
             display(SVG(svg_board))
-        except:
-            # Fallback to text display
+        except Exception:
+            # Fallback to text display (e.g., not running in Jupyter)
             print("\n" + str(self.board) + "\n")
 
         # Show game status
@@ -238,8 +238,8 @@ class ChessInteractiveGame:
                 prob = legal_probs[idx]
                 print(f"      {rank}. {move.uci()} ({prob:.1%})")
 
-        except:
-            pass  # Silently skip if not supported
+        except Exception:
+            pass  # Skip probability display if numpy ops fail (e.g., shape mismatch)
 
     def _display_result(self):
         """Display game result."""

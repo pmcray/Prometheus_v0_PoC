@@ -25,3 +25,31 @@ IPython>=8.12.0  # Display utilities
 
 # Testing
 pytest>=7.4.0
+
+# Optional: system monitoring
+psutil>=5.9.0  # Memory/CPU metrics (used by longrun training monitor)
+
+# Optional: symbolic math
+sympy>=1.12  # Symbolic expression evaluation (used by benchmarks)
+
+# Optional: graph operations
+networkx>=3.1  # Graph-based world model (prometheus/v0_110_isomorphic_world_model.py)
+
+# Optional: LLM providers (install as needed)
+# openai>=1.0.0        # OpenAI GPT models
+# anthropic>=0.20.0    # Anthropic Claude models
+
+# External binaries (NOT pip-installable — see install scripts):
+#   Stockfish chess engine:  run ./install_chess_engines.sh
+#   FreeCiv server:          run ./install_freeciv.sh
+#   llama.cpp (local LLM):   run ./install_local_models.sh
+#
+# API credentials (set as environment variables):
+#   OGS bot:     (no env var needed for demo mode; full mode requires OGS OAuth2)
+#   Lichess bot: LICHESS_TOKEN=<your token from lichess.org/account/oauth/token>
+#   Gemini LLM:  GOOGLE_API_KEY=<your key from aistudio.google.com>
+#   OpenAI:      OPENAI_API_KEY=<your key>
+#   Anthropic:   ANTHROPIC_API_KEY=<your key>
+#
+# ARC Challenge dataset (required for ARC benchmark tests):
+#   Run: python scripts/download_arc_dataset.py

@@ -144,7 +144,7 @@ class IOITester:
             # Clean up temp file
             try:
                 os.unlink(code_file)
-            except:
+            except OSError:
                 pass
 
     def _compare_outputs(self, actual: str, expected: str) -> bool:

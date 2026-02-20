@@ -49,7 +49,7 @@ class LocalModelInference:
                 text=True
             )
             return result.returncode == 0
-        except:
+        except (OSError, FileNotFoundError):
             return False
 
     def generate(self, prompt: str, temperature: float = 0.3, max_tokens: int = 4096) -> str:
@@ -548,7 +548,7 @@ Output ONLY the JSON, no explanations:
             json_match = re.search(r'\{.*\}', response_text, re.DOTALL)
             if json_match:
                 return json.loads(json_match.group(0))
-        except:
+        except (ValueError, AttributeError):
             pass
 
         # Fallback

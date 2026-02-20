@@ -51,7 +51,7 @@ class CausalAttentionWrapper:
             visitor = CausalTokenVisitor(function_names=function_names)
             visitor.visit(tree)
             return list(visitor.causal_vars)
-        except:
+        except SyntaxError:
             return []
 
     def generate_with_causal_focus(self, original_code, instruction):

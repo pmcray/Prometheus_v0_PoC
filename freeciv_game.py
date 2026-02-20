@@ -133,7 +133,7 @@ class FreeCivAIGame:
                             if verbose:
                                 print(f"   🏆 Game ended!")
                             break
-                except:
+                except OSError:
                     pass
 
                 time.sleep(0.1)
@@ -152,7 +152,7 @@ class FreeCivAIGame:
                 remaining, _ = self.server_process.communicate(timeout=2)
                 if remaining:
                     output_lines.extend(remaining.split('\n'))
-            except:
+            except (OSError, subprocess.TimeoutExpired):
                 pass
 
             elapsed = time.time() - start_time
@@ -169,7 +169,7 @@ class FreeCivAIGame:
             if self.server_process:
                 try:
                     self.server_process.kill()
-                except:
+                except OSError:
                     pass
 
     def _parse_results(self, lines: list, turn_count: int, elapsed: float, verbose: bool) -> Dict:

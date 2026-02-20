@@ -167,7 +167,7 @@ Response:"""
             # Cleanup temp file
             try:
                 Path(prompt_file).unlink()
-            except:
+            except OSError:
                 pass
 
     def _parse_primitives(self, response: str) -> List[str]:

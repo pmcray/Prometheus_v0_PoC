@@ -260,7 +260,7 @@ class HybridARCSolver:
                     if predicted.shape == expected.shape:
                         if np.array_equal(predicted, expected):
                             correct += 1
-                except:
+                except Exception:
                     pass
 
             fitness = correct / len(train_pairs)

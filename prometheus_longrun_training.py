@@ -279,7 +279,7 @@ class LongRunTrainer:
             )
             if result.returncode == 0:
                 return float(result.stdout.strip()) / 100.0
-        except:
+        except (OSError, ValueError, subprocess.TimeoutExpired):
             pass
 
         # Fallback: simulate GPU usage
@@ -292,7 +292,7 @@ class LongRunTrainer:
             import psutil
             process = psutil.Process()
             return process.memory_info().rss / 1024 / 1024  # MB
-        except:
+        except (ImportError, OSError):
             pass
 
         # Fallback: estimate

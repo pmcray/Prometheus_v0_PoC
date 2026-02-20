@@ -239,8 +239,9 @@ def handle_train(args):
 
         # Visualize
         if args.visualize:
-            # TODO: Add visualization
-            print("\n📊 Visualization coming soon...")
+            print("\n📊 Training visualization:")
+            print("   Run the live dashboard with: python prometheus_live_dashboard.py")
+            print("   Or open: notebooks/performance_optimization.ipynb")
 
     elif args.game == 'chess':
         print("Chess training not fully implemented yet")
@@ -256,9 +257,9 @@ def handle_evaluate(args):
     print(f"   Model 2: {args.model2 or 'random'}")
     print(f"   Games: {args.num_games}")
 
-    # TODO: Implement full evaluation
-    print("\n✓ Evaluation would run here")
-    print("For now, use: python examples/evaluate_agents.py")
+    # Full evaluation is implemented in examples/evaluate_agents.py
+    print("\n✓ To run a full evaluation, use:")
+    print("   python examples/evaluate_agents.py")
 
 
 def handle_deploy(args):
@@ -294,9 +295,11 @@ def handle_benchmark(args):
     print(f"   Metrics: {', '.join(args.metric)}")
     print(f"   Runs: {args.num_runs}")
 
-    # TODO: Implement benchmarking
-    print("\n✓ Benchmark results would appear here")
-    print("For now, see: notebooks/performance_optimization.ipynb")
+    # Benchmarking is implemented in prometheus_chess_benchmark.py and benchmarks/
+    print("\n✓ To run benchmarks, use:")
+    print("   python prometheus_chess_benchmark.py        # Chess benchmarks")
+    print("   python benchmarks/prometheus_bench_v0_3.py  # General benchmarks")
+    print("   See also: notebooks/performance_optimization.ipynb")
 
 
 def handle_compare(args):
@@ -348,10 +351,10 @@ def handle_transfer(args):
     print(f"   Source: {args.source}")
     print(f"   Fine-tune games: {args.fine_tune_games}")
 
-    # TODO: Implement transfer
-    print("\n✓ Transfer learning would run here")
-    print("For now, use: python examples/transfer_learning.py")
-    print("Or see: notebooks/transfer_learning_tutorial.ipynb")
+    # Transfer learning is implemented in examples/transfer_learning.py
+    print("\n✓ To run transfer learning, use:")
+    print("   python examples/transfer_learning.py")
+    print("   See also: notebooks/transfer_learning_tutorial.ipynb")
 
 
 def handle_quickstart(args):

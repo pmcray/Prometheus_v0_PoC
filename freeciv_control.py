@@ -122,7 +122,7 @@ class FreeCivGame:
             if self.process:
                 try:
                     self.process.kill()
-                except:
+                except OSError:
                     pass
 
     def _parse_output(self, lines: list, verbose: bool) -> Dict:

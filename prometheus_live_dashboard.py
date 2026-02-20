@@ -71,7 +71,7 @@ def get_gpu_stats():
                 'memory_total': float(mem_total),
                 'temperature': float(temp)
             }
-    except:
+    except (OSError, ValueError, subprocess.TimeoutExpired):
         pass
     return None
 

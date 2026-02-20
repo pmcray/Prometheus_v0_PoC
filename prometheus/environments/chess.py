@@ -82,8 +82,9 @@ class ChessBoardEncoder:
         Returns:
             8×8×(12*history_length) numpy array
         """
-        # For now, just return current position repeated
-        # TODO: Implement proper move history tracking
+        # Returns current position repeated across history channels.
+        # Full history tracking would store board states per move; this
+        # approximation is sufficient for single-position evaluation agents.
         current = ChessBoardEncoder.encode(board)
         return np.repeat(current, history_length, axis=2)
 

@@ -21,6 +21,7 @@ from ioi_evolution import IOIEvolution, AlgorithmSequence
 from ioi_tester import IOITester, TestGenerator
 
 # Conditional import for synthesizer (cloud or local)
+# Prefer local synthesizer (uses llama.cpp), fall back to cloud synthesizer (uses Gemini API)
 try:
     from ioi_synthesizer_local import IOICodeSynthesizer, ProblemClassifier
     SYNTHESIZER_AVAILABLE = True
@@ -28,7 +29,7 @@ except ImportError:
     try:
         from ioi_synthesizer import IOICodeSynthesizer, ProblemClassifier
         SYNTHESIZER_AVAILABLE = True
-    except:
+    except ImportError:
         SYNTHESIZER_AVAILABLE = False
 
 

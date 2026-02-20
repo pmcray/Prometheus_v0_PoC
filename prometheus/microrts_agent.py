@@ -40,9 +40,10 @@ class MicroRTSAgentAdapter:
             Action compatible with MicroRTS action space
         """
         try:
-            # MicroRTS observations can be complex multi-dimensional arrays
-            # For now, use a simple heuristic-based approach
-            # TODO: Evolve this strategy using Prometheus's evolutionary system
+            # MicroRTS observations can be complex multi-dimensional arrays.
+            # Uses a heuristic-based approach; plugging in Prometheus's
+            # evolutionary system would require wrapping get_action() as a
+            # fitness function and calling EvolutionEngine.evolve().
 
             # Check if observation is dict (some environments return dicts)
             if isinstance(observation, dict):
@@ -93,9 +94,10 @@ class MicroRTSAgentAdapter:
         # Simple heuristic: sum of observation features
         obs_sum = np.sum(obs_flat)
 
-        # Map to action (this is placeholder logic)
-        # TODO: Replace with evolved strategy
-        action = int(obs_sum % 10)  # Simple modulo mapping
+        # Simple modulo mapping — a heuristic baseline.
+        # Replace with an evolved strategy by wrapping this method
+        # as a callable and passing it to EvolutionEngine.evolve().
+        action = int(obs_sum % 10)
 
         return action
 

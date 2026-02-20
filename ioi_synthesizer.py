@@ -45,7 +45,7 @@ class IOICodeSynthesizer:
             try:
                 source = inspect.getsource(method)
                 cache[name] = source
-            except:
+            except (OSError, TypeError):
                 pass
 
         return cache

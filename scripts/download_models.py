@@ -282,6 +282,7 @@ def save_model_metadata(model_name: str, model_info: Dict):
 
 
 def main():
+    global MODELS_DIR
     parser = argparse.ArgumentParser(
         description="Download pre-trained Prometheus models",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -320,7 +321,6 @@ Examples:
     args = parser.parse_args()
 
     # Update output directory if specified
-    global MODELS_DIR
     MODELS_DIR = args.output_dir
 
     # Handle commands

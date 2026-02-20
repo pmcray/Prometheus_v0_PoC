@@ -171,7 +171,7 @@ def estimate_training_time():
             time_estimate = "6-10 hours (CPU only, slower)"
 
         print(f"\n⏱️  Estimated training time: {time_estimate}")
-    except:
+    except Exception:
         print(f"\n⏱️  Estimated training time: 2-10 hours (depends on hardware)")
 
 def print_next_steps(all_ok):

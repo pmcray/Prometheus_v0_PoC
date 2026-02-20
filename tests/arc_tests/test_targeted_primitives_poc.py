@@ -148,7 +148,7 @@ def evaluate_pattern(pattern: List[str], examples: List[Dict],
                 fitness = correct / total if total > 0 else 0.0
 
             total_fitness += fitness
-        except:
+        except Exception:
             continue
 
     return total_fitness / len(examples) if examples else 0.0

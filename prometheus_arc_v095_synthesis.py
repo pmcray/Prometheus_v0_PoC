@@ -353,7 +353,7 @@ class PrometheusARC_v095_Synthesis(PrometheusARC_v092_Baseline):
                             # Try to parse value
                             try:
                                 value = eval(value)
-                            except:
+                            except (ValueError, SyntaxError, NameError):
                                 pass
                             params[key] = value
                     operations.append((op_name, params))

@@ -162,8 +162,8 @@ class PrometheusARCReasoner:
                     predicted = strategy_func(example['input'])
                     if np.array_equal(predicted, example['output']):
                         matches += 1
-                except:
-                    pass  # Strategy failed, skip
+                except Exception:
+                    pass  # Strategy failed on this example, skip
 
             # Score = (matches / total) * historical success rate * meta-learning boost
             score = (matches / len(train_examples)) * self.strategy_success[strategy_name] * self.meta_stats.improvement_rate

@@ -193,7 +193,7 @@ class PrometheusChessUCI:
 
                 try:
                     return chess.Move.from_uci(move_str)
-                except:
+                except ValueError:
                     pass
 
         # Search with alpha-beta pruning

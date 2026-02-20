@@ -405,7 +405,7 @@ class PrometheusARCRecursiveRefinement:
             # Apply current pattern
             try:
                 predicted = self._apply_pattern_from_names(pattern, input_grid)
-            except:
+            except Exception:
                 predicted = input_grid.copy()
 
             # Check if it matches
@@ -795,7 +795,7 @@ class PrometheusARCRecursiveRefinement:
                     # Use baseline's fuzzy match method
                     similarity = self.baseline._fuzzy_match(predicted, expected)
                     total_similarity += similarity
-                except:
+                except Exception:
                     total_similarity += 0.0
 
             return total_similarity / len(train_examples) if train_examples else 0.0
@@ -810,7 +810,7 @@ class PrometheusARCRecursiveRefinement:
                     predicted = self._apply_pattern_from_names(pattern, input_grid)
                     if np.array_equal(predicted, expected):
                         correct += 1
-                except:
+                except Exception:
                     pass
 
             return correct / len(train_examples) if train_examples else 0.0

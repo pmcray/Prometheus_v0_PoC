@@ -566,7 +566,7 @@ Win Rate: {sum(wins)/len(wins)*100:.1f}%
         if self.stockfish_engine:
             try:
                 self.stockfish_engine.quit()
-            except:
+            except Exception:
                 pass
 
 

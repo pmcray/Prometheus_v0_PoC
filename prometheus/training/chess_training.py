@@ -637,7 +637,7 @@ def benchmark_against_stockfish(
                         try:
                             engine.engine.configure({"UCI_LimitStrength": True})
                             engine.engine.configure({"UCI_Elo": self.elo})
-                        except:
+                        except Exception:
                             pass  # Some Stockfish versions don't support ELO
                         return engine.get_move(board)
                 # Fallback: random move

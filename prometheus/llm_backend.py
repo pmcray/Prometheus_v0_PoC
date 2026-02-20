@@ -2,6 +2,13 @@ import os
 import torch
 from typing import Optional, List
 
+# Pinned revision of Phi-3-mini-4k-instruct that is compatible with the
+# transformers version shipped in Colab (≈4.41).  The July 2024 update
+# changed rope_scaling to use "rope_type" instead of "type", which causes
+# a KeyError in the cached modeling_phi3.py when using older transformers.
+# Revision ff07dc01 is the last stable April-2024 checkpoint.
+_PHI3_STABLE_REVISION = "ff07dc01615f8113924aed013115ab2abd32115b"
+
 class LLMBackend:
     """
     Unified backend to switch between Gemini API and Local HuggingFace models.
@@ -26,9 +33,28 @@ class LLMBackend:
 
     def _init_local_model(self):
         from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig
-        
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, trust_remote_code=True)
-        
+
+        # Determine whether to pin a revision.  Only needed for Phi-3-mini
+        # to avoid the rope_scaling KeyError introduced in the July 2024 update.
+        revision = None
+        if "Phi-3-mini-4k-instruct" in self.model_name:
+            revision = _PHI3_STABLE_REVISION
+
+        tokenizer_kwargs = dict(trust_remote_code=True)
+        if revision:
+            tokenizer_kwargs["revision"] = revision
+
+        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name, **tokenizer_kwargs)
+
+        model_kwargs = dict(
+            trust_remote_code=True,
+            # Use eager attention to avoid the flash-attention window_size warning
+            # that can escalate to an error on some transformers versions.
+            attn_implementation="eager",
+        )
+        if revision:
+            model_kwargs["revision"] = revision
+
         if self.device == "cuda":
             # 4-bit quantization only works on CUDA
             bnb_config = BitsAndBytesConfig(
@@ -41,7 +67,7 @@ class LLMBackend:
                 self.model_name,
                 device_map="auto",
                 quantization_config=bnb_config,
-                trust_remote_code=True
+                **model_kwargs,
             )
         else:
             # Fallback for CPU
@@ -50,9 +76,9 @@ class LLMBackend:
                 self.model_name,
                 device_map="cpu",
                 torch_dtype=torch.float32,
-                trust_remote_code=True
+                **model_kwargs,
             )
-            
+
         self.pipe = pipeline(
             "text-generation",
             model=self.local_model,
@@ -64,9 +90,7 @@ class LLMBackend:
             response = self.gemini_model.generate_content(prompt)
             return response.text.strip()
         else:
-            # Local Inference
-            messages = [{"role": "user", "content": prompt}]
-            # Phi-3 prompt template
+            # Local Inference — Phi-3 chat template
             full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"
             output = self.pipe(full_prompt, max_new_tokens=max_new_tokens, return_full_text=False)
             return output[0]['generated_text'].strip()

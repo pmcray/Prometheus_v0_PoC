@@ -292,7 +292,7 @@ class PrometheusARCLLMGuided:
                 predicted = self._apply_pattern(pattern, input_grid)
                 if np.array_equal(predicted, expected):
                     correct += 1
-            except:
+            except Exception:
                 pass
 
         return correct / len(train_examples) if train_examples else 0.0
