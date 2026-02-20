@@ -2,13 +2,19 @@ import logging
 import random
 import numpy as np
 import importlib
+from typing import Any, Dict, Optional
 from .resource_manager import ResourceManager
 from .tools.flaky_compiler_tool import FlakyCompilerTool
 from .tools import CompilerTool
 from .gene_archive import GeneArchive
 from .value_learning import ValueLearningAgent
 from .human_feedback import get_human_preference
-from benchmarks.value_learning_benchmark import GridWorld
+from benchmarks.value_learning_benchmark import (
+    GridWorld,
+    GridWorldExperiment,
+    make_default_experiment,
+    FEATURE_SIZE,
+)
 
 class MCSSupervisor:
     def __init__(self, planner, resource_manager: ResourceManager, coder=None, evaluator=None, corrector=None):
@@ -247,7 +253,7 @@ class MCSSupervisor:
                     agent_module = importlib.import_module('prometheus.agent_templates')
                     agent_class = getattr(agent_module, agent_name)
                     agent_instance = agent_class()
-                    
+
                     # Run the agent
                     result = agent_instance.run(stage_input)
                     stage_input = result # Pass the result to the next agent in the stage
@@ -259,3 +265,105 @@ class MCSSupervisor:
 
         logging.info("--- Expert circuit finished ---")
         logging.info(f"Final result: {results}")
+
+    # ------------------------------------------------------------------
+    # Value Learning Cycle
+    # ------------------------------------------------------------------
+
+    def run_value_learning_cycle(
+        self,
+        grid_size: int = 5,
+        n_pairs: int = 40,
+        trajectory_len: int = 12,
+        noise_level: float = 0.0,
+        max_epochs: int = 200,
+        tol: float = 1e-4,
+        walls: Optional[list] = None,
+        save_path: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Run one full value-learning cycle using the GridWorld benchmark.
+
+        This is the entry point called by scripts/run_value_learning.py.
+        It:
+          1. Builds a GridWorld environment with optional walls.
+          2. Initialises (or reuses) a ValueLearningAgent.
+          3. Runs the GridWorldExperiment pipeline:
+               collect preferences → train (Bradley-Terry IRL) → evaluate.
+          4. Stores the trained agent on self.value_learning_agent.
+          5. Optionally serialises the weights to `save_path`.
+
+        Args:
+            grid_size:      Side length of the GridWorld (default 5).
+            n_pairs:        Number of preference pairs to collect (default 40).
+            trajectory_len: Steps per trajectory (default 12).
+            noise_level:    Oracle noise level — 0.0 = deterministic oracle.
+            max_epochs:     Maximum training epochs (default 200).
+            tol:            Convergence tolerance on weight-delta norm.
+            walls:          Optional list of (row, col) wall positions.
+            save_path:      If given, save the trained weights to this JSON file.
+
+        Returns:
+            Dict with keys:
+              converged        — bool, whether training converged
+              ranking_accuracy — float in [0, 1], held-out ranking accuracy
+              epochs_run       — int, training epochs used
+              learnt_weights   — list[float], final weight vector
+              eval_result      — detailed evaluation dict
+              training_result  — detailed training dict
+        """
+        logging.info("--- Starting Value Learning Cycle ---")
+
+        # Reuse existing agent if weights are already initialised
+        if self.value_learning_agent is None or \
+                len(self.value_learning_agent.weights) != FEATURE_SIZE:
+            self.value_learning_agent = ValueLearningAgent(
+                feature_size=FEATURE_SIZE,
+                learning_rate=0.05,
+                l2_reg=1e-3,
+            )
+            logging.info("Initialised new ValueLearningAgent (feature_size=%d)", FEATURE_SIZE)
+        else:
+            logging.info(
+                "Reusing existing ValueLearningAgent "
+                "(updates so far: %d)", self.value_learning_agent._update_count
+            )
+
+        # Build the experiment
+        env = GridWorld(size=grid_size, walls=walls)
+        experiment = GridWorldExperiment(
+            env=env,
+            vl_agent=self.value_learning_agent,
+            n_pairs=n_pairs,
+            trajectory_len=trajectory_len,
+            noise_level=noise_level,
+            max_epochs=max_epochs,
+            tol=tol,
+        )
+
+        # Run collect → train → evaluate
+        result = experiment.run()
+
+        # Persist weights if requested
+        if save_path:
+            self.value_learning_agent.save(save_path)
+            logging.info("Saved value learning weights to %s", save_path)
+
+        # Surface the key metrics
+        summary = {
+            "converged": result["converged"],
+            "ranking_accuracy": result["ranking_accuracy"],
+            "epochs_run": result["training_result"]["epochs_run"],
+            "learnt_weights": result["learnt_weights"],
+            "eval_result": result["eval_result"],
+            "training_result": result["training_result"],
+        }
+
+        logging.info(
+            "--- Value Learning Cycle complete | converged=%s | "
+            "ranking_accuracy=%.3f | epochs=%d ---",
+            summary["converged"],
+            summary["ranking_accuracy"],
+            summary["epochs_run"],
+        )
+        return summary
