@@ -266,6 +266,86 @@ Total: ~45-57 hours across 4 Colab sessions (one per week)
 
 ---
 
+## 📊 WP6: Strategy Visualisation Dashboard
+
+**PrometheusStar** ships an interactive Streamlit dashboard for exploring and
+interpreting the strategies learned by evolutionary agents across curriculum
+stages (WP6).
+
+### Installation
+
+```bash
+pip install streamlit pandas matplotlib
+```
+
+### Launch
+
+```bash
+# from the repository root
+streamlit run prometheus_dashboard.py
+```
+
+The dashboard opens in your browser at `http://localhost:8501`.
+
+### Pages
+
+| Page | Description |
+|------|-------------|
+| **Overview** | Stage badges (✅/❌), key metrics, summary table |
+| **Learning Curves** | Win-rate over generations — cumulative or per-stage view, mean/target overlays |
+| **Strategy Evolution** | Parallel coordinates (stage-end params), per-parameter time series, radar chart |
+| **Agent Inspector** | Per-stage / per-generation parameter bar chart + generation log table |
+| **OOD Dashboard** | Inline OOD benchmark (WP2) — AUROC, TPR, FPR bars + scenario flagging rates |
+| **Value Learning** | Bradley-Terry IRL weight convergence demo (WP4) |
+
+### Data Sources
+
+The sidebar lets you choose between:
+
+1. **Synthetic data** (default) — generated from `prometheus.strategy_data`
+   using realistic sigmoid learning curves + noise. No real run required.
+2. **Real run JSON** — pass the path to a JSON file saved by `save_run()`:
+
+```python
+from prometheus.strategy_data import save_run, load_run
+
+# After a real run:
+save_run(stage_results, "run_openra_seed42.json")
+
+# In the dashboard sidebar, enter the path to that file.
+```
+
+### Data Layer API (`prometheus/strategy_data.py`)
+
+```python
+# Synthetic data generation
+generate_synthetic_openra_run(seed=42, n_stages=4) → List[stage_result_dict]
+generate_synthetic_microrts_run(seed=7, n_stages=3) → List[stage_result_dict]
+
+# DataFrame helpers (used by dashboard pages)
+flatten_generation_log(stage_results) → pd.DataFrame     # one row per generation
+agent_params_over_generations(stage_results) → pd.DataFrame  # one row per (gen, param)
+stage_summary_df(stage_results) → pd.DataFrame           # one row per stage
+ood_summary_df(benchmark_results) → pd.DataFrame         # OOD benchmark results
+value_weight_df(weight_history, names) → pd.DataFrame    # IRL weight convergence
+
+# JSON persistence
+save_run(stage_results, filepath)
+load_run(filepath) → List[stage_result_dict]
+```
+
+### Colab Demo
+
+`notebooks/wp6_dashboard_demo.ipynb` runs all dashboard charts as static
+matplotlib figures in Google Colab — no Streamlit server required.
+
+```bash
+# Open and run in Colab:
+notebooks/wp6_dashboard_demo.ipynb
+```
+
+---
+
 ## 🛠️ Development Roadmap
 
 ### Phase 1: Proof of Concept ✅
@@ -277,8 +357,8 @@ Total: ~45-57 hours across 4 Colab sessions (one per week)
 ### Phase 2: Full Demo (Current)
 - [x] MicroRTS automated training
 - [x] FreeCiv Colab integration
-- [ ] OpenRA benchmark (planned)
-- [ ] Multi-game transfer experiments
+- [x] OpenRA curriculum integration
+- [x] Strategy Visualisation Dashboard (WP6)
 
 ### Phase 3: Research Publication
 - [ ] Run full MicroRTS curriculum
@@ -288,10 +368,9 @@ Total: ~45-57 hours across 4 Colab sessions (one per week)
 - [ ] Paper writing
 
 ### Phase 4: Extensions
-- [ ] OpenRA integration
+- [ ] Multi-game transfer experiments
 - [ ] Human vs AI tournaments
-- [ ] Strategy visualization tools
-- [ ] Real-time demo application
+- [ ] Real-time streaming dashboard
 
 ---
 
