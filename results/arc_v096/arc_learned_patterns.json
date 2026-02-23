@@ -1,0 +1,76 @@
+{
+  "solved_tasks": {
+    "50a16a69": {
+      "solution": [
+        "checkerboard"
+      ],
+      "fitness": 0.233,
+      "length": 1
+    },
+    "60c09cac": {
+      "solution": [
+        "scale_2x"
+      ],
+      "fitness": 0.9,
+      "length": 1
+    },
+    "68b67ca3": {
+      "solution": [
+        "downsample"
+      ],
+      "fitness": 0.9,
+      "length": 1
+    },
+    "e633a9e5": {
+      "solution": [
+        "scale_3x",
+        "downsample"
+      ],
+      "fitness": 0.8,
+      "length": 2
+    },
+    "fc754716": {
+      "solution": [
+        "fill_zeros",
+        "border"
+      ],
+      "fitness": 0.8,
+      "length": 2
+    }
+  },
+  "primitive_frequencies": {
+    "checkerboard": 1,
+    "scale_2x": 1,
+    "downsample": 2,
+    "scale_3x": 1,
+    "fill_zeros": 1,
+    "border": 1
+  },
+  "success_primitives": [
+    "checkerboard",
+    "border",
+    "downsample",
+    "fill_zeros",
+    "scale_3x",
+    "scale_2x"
+  ],
+  "sequence_patterns": [
+    [
+      "checkerboard"
+    ],
+    [
+      "scale_2x"
+    ],
+    [
+      "downsample"
+    ],
+    [
+      "scale_3x",
+      "downsample"
+    ],
+    [
+      "fill_zeros",
+      "border"
+    ]
+  ]
+}

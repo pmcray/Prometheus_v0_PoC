@@ -1,0 +1,6226 @@
+{
+  "tasks_completed": 650,
+  "tasks_solved": 80,
+  "solve_rate": 0.12307692307692308,
+  "results": [
+    {
+      "task_id": "00576224",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "expand_to_size(fill=tile,target_h=6,target_w=6)"
+      ],
+      "time": 1.8601200580596924
+    },
+    {
+      "task_id": "007bbfb7",
+      "fitness": 0.7776543209876543,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 4.050044298171997
+    },
+    {
+      "task_id": "009d5c81",
+      "fitness": 0.8776530612244898,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 8.259699583053589
+    },
+    {
+      "task_id": "00d62c1b",
+      "fitness": 0.9363888888888888,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.9309515953063965
+    },
+    {
+      "task_id": "00dbd492",
+      "fitness": 0.7705500990665827,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 5.277546167373657
+    },
+    {
+      "task_id": "017c7c7b",
+      "fitness": 0.9653086419753086,
+      "solved": true,
+      "program": [
+        "expand_to_size(fill=tile,target_h=9,target_w=3)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 2.7477831840515137
+    },
+    {
+      "task_id": "025d127b",
+      "fitness": 0.8481746031746032,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.408165216445923
+    },
+    {
+      "task_id": "03560426",
+      "fitness": 0.8233333333333334,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "flip(axis=vertical)"
+      ],
+      "time": 3.7431066036224365
+    },
+    {
+      "task_id": "045e512c",
+      "fitness": 0.9254610733182161,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.10054612159729
+    },
+    {
+      "task_id": "0520fde7",
+      "fitness": 0.7998148148148148,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)",
+        "fit_to_canvas(align=topleft,canvas_h=3,canvas_w=3)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 2.571488380432129
+    },
+    {
+      "task_id": "05269061",
+      "fitness": 0.6720748299319728,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "compress_to_fit(method=max,target_h=3,target_w=3)",
+        "expand_to_size(fill=tile,target_h=7,target_w=7)"
+      ],
+      "time": 4.63426399230957
+    },
+    {
+      "task_id": "05a7bcf2",
+      "fitness": 0.720925925925926,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 12.18209719657898
+    },
+    {
+      "task_id": "05f2a901",
+      "fitness": 0.9154906204906206,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.520659923553467
+    },
+    {
+      "task_id": "0607ce86",
+      "fitness": 0.9182599855129501,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 9.001596927642822
+    },
+    {
+      "task_id": "0692e18c",
+      "fitness": 0.7924691358024691,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 2.6977012157440186
+    },
+    {
+      "task_id": "06df4c85",
+      "fitness": 0.9329647132955261,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 9.286597728729248
+    },
+    {
+      "task_id": "070dd51e",
+      "fitness": 0.9216666666666667,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.044627904891968
+    },
+    {
+      "task_id": "08ed6ac7",
+      "fitness": 0.7172222222222222,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 2.527102470397949
+    },
+    {
+      "task_id": "09629e4f",
+      "fitness": 0.5655785123966942,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "border(operation=fill,value=0)",
+        "rotate(angle=90)"
+      ],
+      "time": 5.174142837524414
+    },
+    {
+      "task_id": "0962bcdd",
+      "fitness": 0.8283333333333334,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.0171704292297363
+    },
+    {
+      "task_id": "09c534e7",
+      "fitness": 0.9263477366255144,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 9.10682201385498
+    },
+    {
+      "task_id": "0a1d4ef5",
+      "fitness": 0.4942592592592592,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=4)",
+        "compress_to_fit(method=max,target_h=15,target_w=15)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=3)"
+      ],
+      "time": 61.10555601119995
+    },
+    {
+      "task_id": "0a2355a6",
+      "fitness": 0.6647459286745001,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 5.4454076290130615
+    },
+    {
+      "task_id": "0a938d79",
+      "fitness": 0.6882657240102892,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 5.840639591217041
+    },
+    {
+      "task_id": "0b148d64",
+      "fitness": 0.6666666666666666,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)",
+        "crop(mode=content)",
+        "remove_color(background=0,color=2)",
+        "crop(mode=content)"
+      ],
+      "time": 6.951077938079834
+    },
+    {
+      "task_id": "0b17323b",
+      "fitness": 0.9838888888888889,
+      "solved": true,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.32920503616333
+    },
+    {
+      "task_id": "0bb8deee",
+      "fitness": 0.5127777777777778,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "compress_to_fit(method=select,target_h=6,target_w=6)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 4.807517051696777
+    },
+    {
+      "task_id": "0becf7df",
+      "fitness": 0.805,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.452085494995117
+    },
+    {
+      "task_id": "0c786b71",
+      "fitness": 0.985,
+      "solved": true,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "rotate(angle=180)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 2.660621404647827
+    },
+    {
+      "task_id": "0c9aba6e",
+      "fitness": 0.6775,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=6,target_w=4)",
+        "filter_color(color=1)"
+      ],
+      "time": 3.9868366718292236
+    },
+    {
+      "task_id": "0ca9ddb6",
+      "fitness": 0.8633127572016461,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.865546226501465
+    },
+    {
+      "task_id": "0d3d703e",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.009396553039550781
+    },
+    {
+      "task_id": "0d87d2a6",
+      "fitness": 0.8144047619047619,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 5.384030103683472
+    },
+    {
+      "task_id": "0e206a2e",
+      "fitness": 0.9459920634920634,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)"
+      ],
+      "time": 5.2336931228637695
+    },
+    {
+      "task_id": "0e671a1a",
+      "fitness": 0.8663017751479289,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.039952516555786
+    },
+    {
+      "task_id": "0f63c0b9",
+      "fitness": 0.5733333333333334,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=3)",
+        "compress_to_fit(method=select,target_h=15,target_w=15)"
+      ],
+      "time": 7.141016483306885
+    },
+    {
+      "task_id": "103eff5b",
+      "fitness": 0.835034965034965,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.226545572280884
+    },
+    {
+      "task_id": "10fcaaa3",
+      "fitness": 0.6658333333333334,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)"
+      ],
+      "time": 3.219430685043335
+    },
+    {
+      "task_id": "11852cab",
+      "fitness": 0.9650000000000001,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4462881088256836
+    },
+    {
+      "task_id": "1190bc91",
+      "fitness": 0.32666666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.290015697479248
+    },
+    {
+      "task_id": "1190e5a7",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=3,target_w=2)"
+      ],
+      "time": 5.705271005630493
+    },
+    {
+      "task_id": "11dc524f",
+      "fitness": 0.9426627218934912,
+      "solved": false,
+      "program": [
+        "scale(factor=4)",
+        "fit_to_canvas(align=center,canvas_h=13,canvas_w=13)"
+      ],
+      "time": 4.705361843109131
+    },
+    {
+      "task_id": "11e1fe23",
+      "fitness": 0.9631818181818183,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.672555923461914
+    },
+    {
+      "task_id": "12422b43",
+      "fitness": 0.8247521367521368,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.9939024448394775
+    },
+    {
+      "task_id": "12997ef3",
+      "fitness": 0.3025,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=6,target_w=3)",
+        "crop(mode=border)"
+      ],
+      "time": 5.100823879241943
+    },
+    {
+      "task_id": "12eac192",
+      "fitness": 0.7407341269841269,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5494327545166016
+    },
+    {
+      "task_id": "13713586",
+      "fitness": 0.6299192618223761,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.819785118103027
+    },
+    {
+      "task_id": "137eaa0f",
+      "fitness": 0.43444444444444447,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)"
+      ],
+      "time": 3.916961908340454
+    },
+    {
+      "task_id": "137f0df0",
+      "fitness": 0.6783333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "swap_colors(color_a=2,color_b=1)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 3.6095266342163086
+    },
+    {
+      "task_id": "13f06aa5",
+      "fitness": 0.8437355237355237,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.574925422668457
+    },
+    {
+      "task_id": "140c817e",
+      "fitness": 0.5524400923546222,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.142875909805298
+    },
+    {
+      "task_id": "14754a24",
+      "fitness": 0.9558422096908938,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.650549411773682
+    },
+    {
+      "task_id": "1478ab18",
+      "fitness": 0.791875,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.980675458908081
+    },
+    {
+      "task_id": "14b8e18c",
+      "fitness": 0.8883333333333334,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.5204567909240723
+    },
+    {
+      "task_id": "150deff5",
+      "fitness": 0.7719781144781144,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.421180248260498
+    },
+    {
+      "task_id": "15113be4",
+      "fitness": 0.9760964083175803,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.499048233032227
+    },
+    {
+      "task_id": "15660dd6",
+      "fitness": 0.24676470588235289,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=17)",
+        "swap_colors(color_a=0,color_b=1)"
+      ],
+      "time": 5.273925065994263
+    },
+    {
+      "task_id": "15663ba9",
+      "fitness": 0.8830420149650918,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.708788633346558
+    },
+    {
+      "task_id": "15696249",
+      "fitness": 0.7677777777777777,
+      "solved": false,
+      "program": [
+        "tile(times_h=1,times_v=2)",
+        "expand_to_size(fill=background,target_h=9,target_w=9)"
+      ],
+      "time": 3.1954071521759033
+    },
+    {
+      "task_id": "17829a00",
+      "fitness": 0.7996875,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.582063436508179
+    },
+    {
+      "task_id": "178fcbfb",
+      "fitness": 0.6730256266367378,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 3.058675765991211
+    },
+    {
+      "task_id": "17b80ad2",
+      "fitness": 0.8790034331402825,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.564710378646851
+    },
+    {
+      "task_id": "17b866bd",
+      "fitness": 0.8820907738095238,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 4.25943922996521
+    },
+    {
+      "task_id": "17cae0c1",
+      "fitness": 0.15666666666666665,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 3.1072869300842285
+    },
+    {
+      "task_id": "18286ef8",
+      "fitness": 0.9679861111111111,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.188866853713989
+    },
+    {
+      "task_id": "182e5d0f",
+      "fitness": 0.898887245233399,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.9022045135498047
+    },
+    {
+      "task_id": "18419cfa",
+      "fitness": 0.9732181496335909,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.616575241088867
+    },
+    {
+      "task_id": "18447a8d",
+      "fitness": 0.6302666940902235,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.103910684585571
+    },
+    {
+      "task_id": "184a9768",
+      "fitness": 0.8756865236213062,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))"
+      ],
+      "time": 8.049951553344727
+    },
+    {
+      "task_id": "195ba7dc",
+      "fitness": 0.7099999999999999,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "map_color(from_color=0,to_color=1)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=6)"
+      ],
+      "time": 4.046380519866943
+    },
+    {
+      "task_id": "1990f7a8",
+      "fitness": 0.6294557823129251,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=7,canvas_w=7)"
+      ],
+      "time": 6.0364837646484375
+    },
+    {
+      "task_id": "19bb5feb",
+      "fitness": 0.485,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=select,target_h=2,target_w=2)",
+        "filter_by_color(colors=(1, 2))"
+      ],
+      "time": 4.3845086097717285
+    },
+    {
+      "task_id": "1a07d186",
+      "fitness": 0.95765664160401,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.6077656745910645
+    },
+    {
+      "task_id": "1a244afd",
+      "fitness": 0.9385416666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.864858627319336
+    },
+    {
+      "task_id": "1a2e2828",
+      "fitness": 0.775,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "border(operation=remove,value=0)",
+        "border(operation=remove,value=0)",
+        "fit_to_canvas(align=center,canvas_h=1,canvas_w=1)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.603765964508057
+    },
+    {
+      "task_id": "1a6449f1",
+      "fitness": 0.4511111111111111,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)",
+        "compress_to_fit(method=downsample,target_h=8,target_w=10)"
+      ],
+      "time": 6.787550210952759
+    },
+    {
+      "task_id": "1acc24af",
+      "fitness": 0.930763888888889,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.308148145675659
+    },
+    {
+      "task_id": "1b2d62fb",
+      "fitness": 0.75,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=3)"
+      ],
+      "time": 4.248541831970215
+    },
+    {
+      "task_id": "1b59e163",
+      "fitness": 0.9082098765432098,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 4.788397789001465
+    },
+    {
+      "task_id": "1b60fb0c",
+      "fitness": 0.9016666666666666,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.560697317123413
+    },
+    {
+      "task_id": "1b8318e3",
+      "fitness": 0.9085185185185185,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 4.294402599334717
+    },
+    {
+      "task_id": "1be83260",
+      "fitness": 0.4285573122529644,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)",
+        "crop(mode=content)",
+        "compress_to_fit(method=max,target_h=11,target_w=8)",
+        "symmetrize(axis=horizontal)",
+        "expand_to_size(fill=tile,target_h=23,target_w=11)"
+      ],
+      "time": 9.236291408538818
+    },
+    {
+      "task_id": "1bfc4729",
+      "fitness": 0.56,
+      "solved": false,
+      "program": [
+        "swap_colors(color_a=0,color_b=1)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 2.7496497631073
+    },
+    {
+      "task_id": "1c02dbbe",
+      "fitness": 0.7268518518518519,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 5.2212889194488525
+    },
+    {
+      "task_id": "1c0d0a4b",
+      "fitness": 0.8208942703387149,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.2453103065490723
+    },
+    {
+      "task_id": "1c56ad9f",
+      "fitness": 0.891959706959707,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.172929763793945
+    },
+    {
+      "task_id": "1c786137",
+      "fitness": 0.29722222222222217,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "crop(mode=center)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=3)",
+        "flip(axis=horizontal)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 4.958420991897583
+    },
+    {
+      "task_id": "1caeab9d",
+      "fitness": 0.875,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.099804639816284
+    },
+    {
+      "task_id": "1cf80156",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "crop(mode=content)"
+      ],
+      "time": 0.004468679428100586
+    },
+    {
+      "task_id": "1d0a4b61",
+      "fitness": 0.9283333333333332,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 10.049463748931885
+    },
+    {
+      "task_id": "1d398264",
+      "fitness": 0.809537037037037,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.025533199310303
+    },
+    {
+      "task_id": "1d61978c",
+      "fitness": 0.88953125,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.073778867721558
+    },
+    {
+      "task_id": "1da012fc",
+      "fitness": 0.901296992481203,
+      "solved": false,
+      "program": [
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 4.678342342376709
+    },
+    {
+      "task_id": "1e0a9b12",
+      "fitness": 0.7276851851851852,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 2.583228826522827
+    },
+    {
+      "task_id": "1e32b0e9",
+      "fitness": 0.8600519031141868,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.538365602493286
+    },
+    {
+      "task_id": "1e5d6875",
+      "fitness": 0.854375,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.209998607635498
+    },
+    {
+      "task_id": "1e81d6f9",
+      "fitness": 0.9757407407407407,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.87453031539917
+    },
+    {
+      "task_id": "1efba499",
+      "fitness": 0.8984391534391535,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.160902500152588
+    },
+    {
+      "task_id": "1f0c79e5",
+      "fitness": 0.7326543209876544,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.996598482131958
+    },
+    {
+      "task_id": "1f642eb9",
+      "fitness": 0.9483333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.344569206237793
+    },
+    {
+      "task_id": "1f85a75f",
+      "fitness": 0.725,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "crop(mode=content)",
+        "crop(mode=center)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=3)",
+        "crop(mode=content)"
+      ],
+      "time": 5.307170867919922
+    },
+    {
+      "task_id": "1f876c06",
+      "fitness": 0.9016666666666667,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.400984048843384
+    },
+    {
+      "task_id": "1fad071e",
+      "fitness": 0.8516666666666667,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=4,target_w=4)",
+        "expand_to_size(fill=background,target_h=1,target_w=5)",
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 8.75480341911316
+    },
+    {
+      "task_id": "2013d3e2",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)"
+      ],
+      "time": 0.02055835723876953
+    },
+    {
+      "task_id": "2037f2c7",
+      "fitness": 0.3744246031746032,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=4,target_w=8)",
+        "filter_color(color=1)"
+      ],
+      "time": 5.630747079849243
+    },
+    {
+      "task_id": "2072aba6",
+      "fitness": 0.5135185185185185,
+      "solved": false,
+      "program": [
+        "scale(factor=2)"
+      ],
+      "time": 2.513669013977051
+    },
+    {
+      "task_id": "20818e16",
+      "fitness": 0.3773611111111111,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "scale(factor=3)",
+        "fit_to_canvas(align=center,canvas_h=6,canvas_w=9)"
+      ],
+      "time": 5.200820684432983
+    },
+    {
+      "task_id": "20981f0e",
+      "fitness": 0.9041759375815104,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.366785287857056
+    },
+    {
+      "task_id": "20fb2937",
+      "fitness": 0.450034965034965,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "compress_to_fit(method=downsample,target_h=13,target_w=11)",
+        "rotate(angle=180)"
+      ],
+      "time": 3.6908304691314697
+    },
+    {
+      "task_id": "212895b5",
+      "fitness": 0.8795490769407179,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.55293083190918
+    },
+    {
+      "task_id": "21f83797",
+      "fitness": 0.601508875739645,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 3.6690125465393066
+    },
+    {
+      "task_id": "2204b7a8",
+      "fitness": 0.9483333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6063458919525146
+    },
+    {
+      "task_id": "22168020",
+      "fitness": 0.855,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4184861183166504
+    },
+    {
+      "task_id": "22208ba4",
+      "fitness": 0.7888742709650706,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.357157468795776
+    },
+    {
+      "task_id": "22233c11",
+      "fitness": 0.955,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.37843918800354
+    },
+    {
+      "task_id": "22425bda",
+      "fitness": 0.045000000000000005,
+      "solved": false,
+      "program": [
+        "rotate(angle=270)"
+      ],
+      "time": 0.016266584396362305
+    },
+    {
+      "task_id": "22806e14",
+      "fitness": 0.9689583333333334,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.761742830276489
+    },
+    {
+      "task_id": "2281f1f4",
+      "fitness": 0.8683333333333334,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.44891095161438
+    },
+    {
+      "task_id": "228f6490",
+      "fitness": 0.8250000000000001,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.569781541824341
+    },
+    {
+      "task_id": "22a4bbc2",
+      "fitness": 0.7454542606516291,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.631387233734131
+    },
+    {
+      "task_id": "22eb0ac0",
+      "fitness": 0.9149999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4467413425445557
+    },
+    {
+      "task_id": "230f2e48",
+      "fitness": 0.9037962962962962,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.778665781021118
+    },
+    {
+      "task_id": "234bbc79",
+      "fitness": 0.6050000000000001,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "compress_to_fit(method=select,target_h=3,target_w=9)",
+        "crop(mode=content)",
+        "filter_by_color(colors=(1, 2))"
+      ],
+      "time": 5.005392074584961
+    },
+    {
+      "task_id": "23581191",
+      "fitness": 0.6246296296296296,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.1575422286987305
+    },
+    {
+      "task_id": "239be575",
+      "fitness": 0.8183333333333334,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "crop(mode=border)",
+        "compress_to_fit(method=downsample,target_h=1,target_w=1)"
+      ],
+      "time": 4.1244215965271
+    },
+    {
+      "task_id": "23b5c85d",
+      "fitness": 0.475,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "crop(mode=content)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=4)",
+        "symmetrize(axis=both)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.853765487670898
+    },
+    {
+      "task_id": "25094a63",
+      "fitness": 0.8661111111111112,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 9.79365348815918
+    },
+    {
+      "task_id": "252143c9",
+      "fitness": 0.6460372744138978,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.368839979171753
+    },
+    {
+      "task_id": "253bf280",
+      "fitness": 0.9343021330521332,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.203439712524414
+    },
+    {
+      "task_id": "2546ccf6",
+      "fitness": 0.9726401788785689,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.390864610671997
+    },
+    {
+      "task_id": "256b0a75",
+      "fitness": 0.46156648854191384,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.624973773956299
+    },
+    {
+      "task_id": "25c199f5",
+      "fitness": 0.609,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=5)",
+        "flip(axis=horizontal)"
+      ],
+      "time": 5.028628826141357
+    },
+    {
+      "task_id": "25d487eb",
+      "fitness": 0.9449074074074073,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.335535287857056
+    },
+    {
+      "task_id": "25d8a9c8",
+      "fitness": 0.5783333333333333,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 2.7727930545806885
+    },
+    {
+      "task_id": "25e02866",
+      "fitness": 0.51125,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "crop(mode=border)",
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=4)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 2.804189920425415
+    },
+    {
+      "task_id": "25ff71a9",
+      "fitness": 0.841111111111111,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=3)",
+        "flip(axis=horizontal)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 3.865931272506714
+    },
+    {
+      "task_id": "2601afb7",
+      "fitness": 0.8046376393634691,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 3.5535006523132324
+    },
+    {
+      "task_id": "264363fd",
+      "fitness": 0.9064814814814816,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 15.062536478042603
+    },
+    {
+      "task_id": "2685904e",
+      "fitness": 0.9116666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.630702495574951
+    },
+    {
+      "task_id": "2697da3f",
+      "fitness": 0.5441276400367309,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=11,canvas_w=11)",
+        "filter_color(color=1)",
+        "pad(size=2,value=0)"
+      ],
+      "time": 5.554721117019653
+    },
+    {
+      "task_id": "272f95fa",
+      "fitness": 0.5760359231411863,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.001935005187988
+    },
+    {
+      "task_id": "2753e76c",
+      "fitness": 0.475,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=4,target_w=4)",
+        "border(operation=extract,value=0)",
+        "crop(mode=content)",
+        "rotate(angle=90)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 4.696562767028809
+    },
+    {
+      "task_id": "278e5215",
+      "fitness": 0.24166666666666667,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)",
+        "rotate(angle=270)",
+        "map_color(from_color=0,to_color=1)",
+        "crop(mode=border)"
+      ],
+      "time": 4.600423097610474
+    },
+    {
+      "task_id": "27a28665",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.01361846923828125
+    },
+    {
+      "task_id": "27a77e38",
+      "fitness": 0.9378269085411941,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.5138275623321533
+    },
+    {
+      "task_id": "27f8ce4f",
+      "fitness": 0.6640123456790124,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=2)",
+        "expand_to_size(fill=background,target_h=9,target_w=9)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.3217406272888184
+    },
+    {
+      "task_id": "281123b4",
+      "fitness": 0.23458333333333334,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=4,target_w=4)"
+      ],
+      "time": 7.879007339477539
+    },
+    {
+      "task_id": "28bf18c6",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "crop(mode=content)",
+        "replicate(direction=horizontal,times=2)"
+      ],
+      "time": 0.017475605010986328
+    },
+    {
+      "task_id": "28e73c20",
+      "fitness": 0.38898487836949375,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)"
+      ],
+      "time": 6.4829041957855225
+    },
+    {
+      "task_id": "292dd178",
+      "fitness": 0.8747979797979799,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.49743390083313
+    },
+    {
+      "task_id": "29623171",
+      "fitness": 0.8770523415977961,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.817999839782715
+    },
+    {
+      "task_id": "29700607",
+      "fitness": 0.8086057545148455,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.362496614456177
+    },
+    {
+      "task_id": "29c11459",
+      "fitness": 0.8313636363636363,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.259521961212158
+    },
+    {
+      "task_id": "2a28add5",
+      "fitness": 0.785,
+      "solved": false,
+      "program": [
+        "scale(factor=4)",
+        "fit_to_canvas(align=center,canvas_h=10,canvas_w=10)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 8.409189224243164
+    },
+    {
+      "task_id": "2a5f8217",
+      "fitness": 0.8621138999421828,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.2542643547058105
+    },
+    {
+      "task_id": "2b01abd0",
+      "fitness": 0.8731465448132115,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 4.662544250488281
+    },
+    {
+      "task_id": "2b9ef948",
+      "fitness": 0.0036608380726027784,
+      "solved": false,
+      "program": [
+        "crop(mode=content)"
+      ],
+      "time": 0.0456089973449707
+    },
+    {
+      "task_id": "2bcee788",
+      "fitness": 0.04750000000000001,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 0.0182647705078125
+    },
+    {
+      "task_id": "2bee17df",
+      "fitness": 0.6901851851851852,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.033589601516724
+    },
+    {
+      "task_id": "2c0b0aff",
+      "fitness": 0.45788690476190474,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "crop(mode=center)",
+        "fit_to_canvas(align=center,canvas_h=8,canvas_w=8)",
+        "crop(mode=content)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 48.79392623901367
+    },
+    {
+      "task_id": "2c608aff",
+      "fitness": 0.9626256613756613,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.811438798904419
+    },
+    {
+      "task_id": "2c737e39",
+      "fitness": 0.9274074074074075,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.674884557723999
+    },
+    {
+      "task_id": "2ccd9fef",
+      "fitness": 0.6735714285714286,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=8,canvas_w=11)"
+      ],
+      "time": 3.9058003425598145
+    },
+    {
+      "task_id": "2dc579da",
+      "fitness": 0.601111111111111,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "compress_to_fit(method=select,target_h=3,target_w=3)"
+      ],
+      "time": 3.49426531791687
+    },
+    {
+      "task_id": "2dd70a9a",
+      "fitness": 0.9324074074074074,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.0920820236206055
+    },
+    {
+      "task_id": "2de01db2",
+      "fitness": 0.6788888888888888,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 2.4451165199279785
+    },
+    {
+      "task_id": "2dee498d",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=topleft,canvas_h=4,canvas_w=4)"
+      ],
+      "time": 2.424192190170288
+    },
+    {
+      "task_id": "2e65ae53",
+      "fitness": 0.8348760330578512,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.915484189987183
+    },
+    {
+      "task_id": "2f0c5170",
+      "fitness": 0.5285582010582011,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=5)",
+        "filter_color(color=1)",
+        "pad(size=2,value=0)"
+      ],
+      "time": 6.028653144836426
+    },
+    {
+      "task_id": "2f767503",
+      "fitness": 0.9454700854700854,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.710008382797241
+    },
+    {
+      "task_id": "2faf500b",
+      "fitness": 0.7476041666666666,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)"
+      ],
+      "time": 4.097974538803101
+    },
+    {
+      "task_id": "305b1341",
+      "fitness": 0.6341666666666667,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 7.482783317565918
+    },
+    {
+      "task_id": "30f42897",
+      "fitness": 0.8267460317460318,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 3.3659403324127197
+    },
+    {
+      "task_id": "310f3251",
+      "fitness": 0.7163333333333333,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "filter_color(color=0)"
+      ],
+      "time": 4.602140188217163
+    },
+    {
+      "task_id": "3194b014",
+      "fitness": 0.3233333333333333,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)"
+      ],
+      "time": 7.049668788909912
+    },
+    {
+      "task_id": "319f2597",
+      "fitness": 0.8391666666666667,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.219236612319946
+    },
+    {
+      "task_id": "31aa019c",
+      "fitness": 0.905,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 3.8650403022766113
+    },
+    {
+      "task_id": "31adaf00",
+      "fitness": 0.7550000000000001,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6939339637756348
+    },
+    {
+      "task_id": "31d5ba1a",
+      "fitness": 0.5633333333333334,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=3,target_w=5)",
+        "filter_color(color=1)"
+      ],
+      "time": 4.251276731491089
+    },
+    {
+      "task_id": "320afe60",
+      "fitness": 0.8187234270248624,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "symmetrize(axis=vertical)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 8.389509439468384
+    },
+    {
+      "task_id": "321b1fc6",
+      "fitness": 0.86,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 2.701770544052124
+    },
+    {
+      "task_id": "32597951",
+      "fitness": 0.9592445213379469,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.270195722579956
+    },
+    {
+      "task_id": "32e9702f",
+      "fitness": 0.3183333333333333,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "compress_to_fit(method=max,target_h=3,target_w=3)",
+        "crop(mode=border)"
+      ],
+      "time": 9.177550077438354
+    },
+    {
+      "task_id": "33067df9",
+      "fitness": 0.6185059171597632,
+      "solved": false,
+      "program": [
+        "scale(factor=4)",
+        "compress_to_fit(method=select,target_h=26,target_w=26)",
+        "fit_to_canvas(align=center,canvas_h=26,canvas_w=26)"
+      ],
+      "time": 6.988736152648926
+    },
+    {
+      "task_id": "332202d5",
+      "fitness": 0.2378125,
+      "solved": false,
+      "program": [
+        "rotate(angle=270)",
+        "filter_color(color=2)",
+        "map_color(from_color=0,to_color=1)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 8.143473148345947
+    },
+    {
+      "task_id": "332efdb3",
+      "fitness": 0.8145985554715713,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.142897129058838
+    },
+    {
+      "task_id": "3345333e",
+      "fitness": 0.956796875,
+      "solved": true,
+      "program": [
+        "remove_color(background=0,color=1)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 3.9485597610473633
+    },
+    {
+      "task_id": "337b420f",
+      "fitness": 0.615,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=5)"
+      ],
+      "time": 4.351557731628418
+    },
+    {
+      "task_id": "3391f8c0",
+      "fitness": 0.8594459298871064,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 5.022634983062744
+    },
+    {
+      "task_id": "33b52de3",
+      "fitness": 0.775718336483932,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.376201868057251
+    },
+    {
+      "task_id": "3428a4f5",
+      "fitness": 0.42333333333333334,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=6,canvas_w=5)",
+        "filter_color(color=1)"
+      ],
+      "time": 4.476439952850342
+    },
+    {
+      "task_id": "342ae2ed",
+      "fitness": 0.9403125,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.013873338699341
+    },
+    {
+      "task_id": "342dd610",
+      "fitness": 0.9725,
+      "solved": true,
+      "program": [
+        "flip(axis=horizontal)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 6.0447399616241455
+    },
+    {
+      "task_id": "3490cc26",
+      "fitness": 0.9073649267399267,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.472602605819702
+    },
+    {
+      "task_id": "34b99a2b",
+      "fitness": 0.46499999999999997,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=5,target_w=4)",
+        "filter_color(color=1)"
+      ],
+      "time": 3.7739381790161133
+    },
+    {
+      "task_id": "34cfa167",
+      "fitness": 0.7650563325563325,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.010867357254028
+    },
+    {
+      "task_id": "351d6448",
+      "fitness": 0.9258974358974359,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=13)"
+      ],
+      "time": 2.9753777980804443
+    },
+    {
+      "task_id": "358ba94e",
+      "fitness": 0.8749999999999999,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "scale(factor=3)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=5)"
+      ],
+      "time": 11.904669284820557
+    },
+    {
+      "task_id": "3618c87e",
+      "fitness": 0.9283333333333332,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 2.857334852218628
+    },
+    {
+      "task_id": "363442ee",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.526387691497803
+    },
+    {
+      "task_id": "36d67576",
+      "fitness": 0.9476627218934912,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.131182432174683
+    },
+    {
+      "task_id": "36fdfd69",
+      "fitness": 0.9439456893868658,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.382292747497559
+    },
+    {
+      "task_id": "37ce87bb",
+      "fitness": 0.9322294372294373,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.8572559356689453
+    },
+    {
+      "task_id": "37d3e8b2",
+      "fitness": 0.6212975778546713,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 5.959934949874878
+    },
+    {
+      "task_id": "3906de3d",
+      "fitness": 0.9283333333333332,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.682553291320801
+    },
+    {
+      "task_id": "396d80d7",
+      "fitness": 0.942265625,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.8205952644348145
+    },
+    {
+      "task_id": "3979b1a8",
+      "fitness": 0.495,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)"
+      ],
+      "time": 2.2447900772094727
+    },
+    {
+      "task_id": "39a8645d",
+      "fitness": 0.8688888888888888,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "crop(mode=content)",
+        "expand_to_size(fill=tile,target_h=3,target_w=3)"
+      ],
+      "time": 13.542773723602295
+    },
+    {
+      "task_id": "39e1d7f9",
+      "fitness": 0.8972633744855967,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.674858808517456
+    },
+    {
+      "task_id": "3a301edc",
+      "fitness": 0.7488959080135552,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 12.690706491470337
+    },
+    {
+      "task_id": "3aa6fb7a",
+      "fitness": 0.9439795918367347,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.3826401233673096
+    },
+    {
+      "task_id": "3ac3eb23",
+      "fitness": 0.7664285714285713,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.1535778045654297
+    },
+    {
+      "task_id": "3ad05f52",
+      "fitness": 0.7897476374200512,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.828396797180176
+    },
+    {
+      "task_id": "3af2c5a8",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "fit_to_canvas(align=topleft,canvas_h=6,canvas_w=8)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 0.014923810958862305
+    },
+    {
+      "task_id": "3b4c2228",
+      "fitness": 0.8022222222222222,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "fit_to_canvas(align=topleft,canvas_h=3,canvas_w=3)",
+        "border(operation=fill,value=0)",
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 4.745173215866089
+    },
+    {
+      "task_id": "3bd292e8",
+      "fitness": 0.30686224489795916,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 2.9772844314575195
+    },
+    {
+      "task_id": "3bd67248",
+      "fitness": 0.7237377173091457,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 3.1488025188446045
+    },
+    {
+      "task_id": "3bdb4ada",
+      "fitness": 0.9252083333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.172497272491455
+    },
+    {
+      "task_id": "3befdf3e",
+      "fitness": 0.7633333333333332,
+      "solved": false,
+      "program": [
+        "scale(factor=2)",
+        "crop(mode=center)",
+        "flip(axis=vertical)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 6.1964569091796875
+    },
+    {
+      "task_id": "3c9b0459",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 0.0006814002990722656
+    },
+    {
+      "task_id": "3cd86f4f",
+      "fitness": 0.46222222222222226,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)",
+        "compress_to_fit(method=max,target_h=2,target_w=3)"
+      ],
+      "time": 7.307172060012817
+    },
+    {
+      "task_id": "3d31c5b3",
+      "fitness": 0.6061111111111112,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=6)"
+      ],
+      "time": 5.545629262924194
+    },
+    {
+      "task_id": "3d588dc9",
+      "fitness": 0.973515625,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.8939554691314697
+    },
+    {
+      "task_id": "3d6c6e23",
+      "fitness": 0.9571281496281497,
+      "solved": true,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 5.044583797454834
+    },
+    {
+      "task_id": "3de23699",
+      "fitness": 0.5426041666666667,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "crop(mode=border)"
+      ],
+      "time": 4.627963304519653
+    },
+    {
+      "task_id": "3e980e27",
+      "fitness": 0.9447041420118343,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.196512699127197
+    },
+    {
+      "task_id": "3eda0437",
+      "fitness": 0.8634027777777777,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.823979139328003
+    },
+    {
+      "task_id": "3ee1011a",
+      "fitness": 0.33185185185185184,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)",
+        "symmetrize(axis=vertical)",
+        "expand_to_size(fill=tile,target_h=6,target_w=6)"
+      ],
+      "time": 6.946081638336182
+    },
+    {
+      "task_id": "3f23242b",
+      "fitness": 0.775625,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.9719297885894775
+    },
+    {
+      "task_id": "3f7978a0",
+      "fitness": 0.545952380952381,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=7)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 3.1463541984558105
+    },
+    {
+      "task_id": "4093f84a",
+      "fitness": 0.9304761904761903,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 4.842212438583374
+    },
+    {
+      "task_id": "40f6cd08",
+      "fitness": 0.8996090534979424,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 13.19796895980835
+    },
+    {
+      "task_id": "412b6263",
+      "fitness": 0.5191682391682392,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "rotate(angle=90)",
+        "swap_colors(color_a=0,color_b=1)",
+        "expand_to_size(fill=tile,target_h=15,target_w=11)"
+      ],
+      "time": 9.302186012268066
+    },
+    {
+      "task_id": "414297c0",
+      "fitness": 0.5340123456790123,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)",
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=9,canvas_w=6)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.624223947525024
+    },
+    {
+      "task_id": "41ace6b5",
+      "fitness": 0.6619830212953757,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 5.065560340881348
+    },
+    {
+      "task_id": "41e4d17e",
+      "fitness": 0.8327777777777777,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.744211435317993
+    },
+    {
+      "task_id": "423a55dc",
+      "fitness": 0.8768017696589124,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)",
+        "filter_color(color=1)"
+      ],
+      "time": 8.905990839004517
+    },
+    {
+      "task_id": "4258a5f9",
+      "fitness": 0.649320987654321,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.6651439666748047
+    },
+    {
+      "task_id": "4290ef0e",
+      "fitness": 0.26391156462585036,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=7,canvas_w=7)",
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 5.160662412643433
+    },
+    {
+      "task_id": "42918530",
+      "fitness": 0.9643714042190497,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 15.167887210845947
+    },
+    {
+      "task_id": "42a15761",
+      "fitness": 0.9517740901074234,
+      "solved": true,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 4.534489870071411
+    },
+    {
+      "task_id": "42a50994",
+      "fitness": 0.9392950857908288,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.6385178565979
+    },
+    {
+      "task_id": "42f14c03",
+      "fitness": 0.4233333333333333,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "crop(mode=content)"
+      ],
+      "time": 6.804342031478882
+    },
+    {
+      "task_id": "42f83767",
+      "fitness": 0.2352314814814815,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "fit_to_canvas(align=center,canvas_h=15,canvas_w=15)",
+        "expand_to_size(fill=tile,target_h=20,target_w=20)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 7.044064283370972
+    },
+    {
+      "task_id": "4347f46a",
+      "fitness": 0.8740584415584416,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.1184399127960205
+    },
+    {
+      "task_id": "4364c1c4",
+      "fitness": 0.8801495726495727,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.598634958267212
+    },
+    {
+      "task_id": "444801d8",
+      "fitness": 0.8216666666666667,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4785115718841553
+    },
+    {
+      "task_id": "445eab21",
+      "fitness": 0.975,
+      "solved": true,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=2,target_w=2)",
+        "crop(mode=content)",
+        "scale(factor=2)",
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=2,canvas_w=2)"
+      ],
+      "time": 7.360767602920532
+    },
+    {
+      "task_id": "447fd412",
+      "fitness": 0.8898412698412698,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.438765525817871
+    },
+    {
+      "task_id": "44d8ac46",
+      "fitness": 0.9429166666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.289421081542969
+    },
+    {
+      "task_id": "44f52bb0",
+      "fitness": 0.49,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)",
+        "compress_to_fit(method=max,target_h=1,target_w=1)"
+      ],
+      "time": 4.310085773468018
+    },
+    {
+      "task_id": "4522001f",
+      "fitness": 0.6690123456790124,
+      "solved": false,
+      "program": [
+        "scale(factor=2)",
+        "expand_to_size(fill=background,target_h=9,target_w=9)"
+      ],
+      "time": 1.8453080654144287
+    },
+    {
+      "task_id": "456873bc",
+      "fitness": 0.9297160855597018,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 5.8818886280059814
+    },
+    {
+      "task_id": "45737921",
+      "fitness": 0.781211407639979,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.7008843421936035
+    },
+    {
+      "task_id": "458e3a53",
+      "fitness": 0.48,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=select,target_h=2,target_w=2)",
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)"
+      ],
+      "time": 5.900848865509033
+    },
+    {
+      "task_id": "45bbe264",
+      "fitness": 0.7042676382683251,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 5.107161998748779
+    },
+    {
+      "task_id": "4612dd53",
+      "fitness": 0.9161643057796904,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 5.8876118659973145
+    },
+    {
+      "task_id": "46442a0e",
+      "fitness": 0.9159259259259259,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 2.676401138305664
+    },
+    {
+      "task_id": "465b7d93",
+      "fitness": 0.9116666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.5889313220977783
+    },
+    {
+      "task_id": "469497ad",
+      "fitness": 0.4457407407407407,
+      "solved": false,
+      "program": [
+        "scale(factor=4)"
+      ],
+      "time": 3.4126217365264893
+    },
+    {
+      "task_id": "46c35fc7",
+      "fitness": 0.7773129251700681,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 3.799271821975708
+    },
+    {
+      "task_id": "46f33fce",
+      "fitness": 0.825,
+      "solved": false,
+      "program": [
+        "scale(factor=2)"
+      ],
+      "time": 4.537045478820801
+    },
+    {
+      "task_id": "470c91de",
+      "fitness": 0.6724931129476585,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.024839162826538
+    },
+    {
+      "task_id": "47c1f68c",
+      "fitness": 0.4662268518518518,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)",
+        "compress_to_fit(method=downsample,target_h=8,target_w=8)",
+        "pad(size=1,value=0)",
+        "flip(axis=vertical)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 4.717039585113525
+    },
+    {
+      "task_id": "48131b3c",
+      "fitness": 0.6183333333333333,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "tile(times_h=2,times_v=2)",
+        "crop(mode=content)"
+      ],
+      "time": 2.986912488937378
+    },
+    {
+      "task_id": "484b58aa",
+      "fitness": 0.9299980182322631,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 12.863568544387817
+    },
+    {
+      "task_id": "4852f2fa",
+      "fitness": 0.3894444444444444,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=3,target_w=9)"
+      ],
+      "time": 5.054513454437256
+    },
+    {
+      "task_id": "48634b99",
+      "fitness": 0.9728645833333334,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.794714450836182
+    },
+    {
+      "task_id": "48d8fb45",
+      "fitness": 0.6837037037037037,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=5,target_w=5)",
+        "fit_to_canvas(align=topleft,canvas_h=3,canvas_w=3)",
+        "flip(axis=vertical)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 6.050401926040649
+    },
+    {
+      "task_id": "48f8583b",
+      "fitness": 0.7945267489711935,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "scale(factor=3)"
+      ],
+      "time": 6.271613836288452
+    },
+    {
+      "task_id": "4938f0c2",
+      "fitness": 0.9183333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.6177544593811035
+    },
+    {
+      "task_id": "494ef9d7",
+      "fitness": 0.8880952380952382,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4165070056915283
+    },
+    {
+      "task_id": "496994bd",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 0.004286050796508789
+    },
+    {
+      "task_id": "49d1d64f",
+      "fitness": 0.5566666666666668,
+      "solved": false,
+      "program": [
+        "scale(factor=2)",
+        "compress_to_fit(method=select,target_h=4,target_w=5)"
+      ],
+      "time": 3.259321689605713
+    },
+    {
+      "task_id": "4a1cacc2",
+      "fitness": 0.8705555555555555,
+      "solved": false,
+      "program": [
+        "scale(factor=2)",
+        "crop(mode=center)"
+      ],
+      "time": 3.545910596847534
+    },
+    {
+      "task_id": "4acc7107",
+      "fitness": 0.78,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 4.7453625202178955
+    },
+    {
+      "task_id": "4b6b68e5",
+      "fitness": 0.796224290885945,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.049036979675293
+    },
+    {
+      "task_id": "4be741c5",
+      "fitness": 0.606111111111111,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=3,target_w=1)"
+      ],
+      "time": 4.353393316268921
+    },
+    {
+      "task_id": "4c177718",
+      "fitness": 0.9424074074074074,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=15)",
+        "flip(axis=vertical)"
+      ],
+      "time": 6.064188241958618
+    },
+    {
+      "task_id": "4c4377d9",
+      "fitness": 0.985,
+      "solved": true,
+      "program": [
+        "flip(axis=vertical)",
+        "tile(times_h=1,times_v=2)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 3.1214284896850586
+    },
+    {
+      "task_id": "4c5c2cf0",
+      "fitness": 0.8735430839002268,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.062180757522583
+    },
+    {
+      "task_id": "4cd1b7b2",
+      "fitness": 0.7241666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.367387533187866
+    },
+    {
+      "task_id": "4df5b0ae",
+      "fitness": 0.8099999999999999,
+      "solved": false,
+      "program": [
+        "scale(factor=2)",
+        "crop(mode=center)",
+        "rotate(angle=90)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 3.8681275844573975
+    },
+    {
+      "task_id": "4e45f183",
+      "fitness": 0.8749630655586333,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)"
+      ],
+      "time": 6.461632966995239
+    },
+    {
+      "task_id": "4e469f39",
+      "fitness": 0.8383333333333334,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5810418128967285
+    },
+    {
+      "task_id": "4e7e0eb9",
+      "fitness": 0.7073730378578024,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 13.104686260223389
+    },
+    {
+      "task_id": "4f537728",
+      "fitness": 0.88,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.638619661331177
+    },
+    {
+      "task_id": "4ff4c9da",
+      "fitness": 0.9613201356750121,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 15.213274240493774
+    },
+    {
+      "task_id": "5034a0b5",
+      "fitness": 0.8137894477317553,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.373678922653198
+    },
+    {
+      "task_id": "505fff84",
+      "fitness": 0.4333333333333333,
+      "solved": false,
+      "program": [
+        "expand_to_size(fill=tile,target_h=8,target_w=9)",
+        "crop(mode=center)",
+        "compress_to_fit(method=select,target_h=3,target_w=4)",
+        "symmetrize(axis=vertical)",
+        "filter_color(color=2)"
+      ],
+      "time": 8.09123182296753
+    },
+    {
+      "task_id": "506d28a5",
+      "fitness": 0.195,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=5)"
+      ],
+      "time": 5.434816360473633
+    },
+    {
+      "task_id": "50846271",
+      "fitness": 0.9722315257841573,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.220757007598877
+    },
+    {
+      "task_id": "508bd3b6",
+      "fitness": 0.9301851851851851,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.220661878585815
+    },
+    {
+      "task_id": "50a16a69",
+      "fitness": 0.4039737654320988,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 4.824594974517822
+    },
+    {
+      "task_id": "50aad11f",
+      "fitness": 0.3389583333333333,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=2)",
+        "compress_to_fit(method=select,target_h=4,target_w=8)"
+      ],
+      "time": 5.318413496017456
+    },
+    {
+      "task_id": "50c07299",
+      "fitness": 0.98328125,
+      "solved": true,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 6.225028038024902
+    },
+    {
+      "task_id": "50cb2852",
+      "fitness": 0.8756526806526808,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 23.653355598449707
+    },
+    {
+      "task_id": "50f325b5",
+      "fitness": 0.9605044846221317,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 20.877758264541626
+    },
+    {
+      "task_id": "5117e062",
+      "fitness": 0.5405555555555555,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "filter_color(color=2)"
+      ],
+      "time": 5.3242292404174805
+    },
+    {
+      "task_id": "5168d44c",
+      "fitness": 0.9217399267399267,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 12.102843523025513
+    },
+    {
+      "task_id": "516b51b7",
+      "fitness": 0.80487900987901,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 8.285561561584473
+    },
+    {
+      "task_id": "5207a7b5",
+      "fitness": 0.6622850958565245,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.1722941398620605
+    },
+    {
+      "task_id": "522fdd07",
+      "fitness": 0.6590625,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.163326740264893
+    },
+    {
+      "task_id": "52364a65",
+      "fitness": 0.8630746862565045,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.289144515991211
+    },
+    {
+      "task_id": "5289ad53",
+      "fitness": 0.48,
+      "solved": false,
+      "program": [
+        "pad(size=3,value=0)",
+        "crop(mode=center)",
+        "fit_to_canvas(align=center,canvas_h=2,canvas_w=3)",
+        "swap_colors(color_a=0,color_b=1)"
+      ],
+      "time": 4.602936744689941
+    },
+    {
+      "task_id": "52df9849",
+      "fitness": 0.977421875,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.096376419067383
+    },
+    {
+      "task_id": "52fd389e",
+      "fitness": 0.7059333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 13.385952949523926
+    },
+    {
+      "task_id": "538b439f",
+      "fitness": 0.8429166666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.598798990249634
+    },
+    {
+      "task_id": "539a4f51",
+      "fitness": 0.7900000000000001,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "expand_to_size(fill=tile,target_h=10,target_w=10)"
+      ],
+      "time": 3.35125994682312
+    },
+    {
+      "task_id": "53b68214",
+      "fitness": 0.9483333333333333,
+      "solved": false,
+      "program": [
+        "expand_to_size(fill=background,target_h=10,target_w=10)"
+      ],
+      "time": 2.9919590950012207
+    },
+    {
+      "task_id": "543a7ed5",
+      "fitness": 0.6794444444444444,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.474126815795898
+    },
+    {
+      "task_id": "54d82841",
+      "fitness": 0.952202380952381,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.8097007274627686
+    },
+    {
+      "task_id": "54d9e175",
+      "fitness": 0.20603896103896102,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 5.298737287521362
+    },
+    {
+      "task_id": "54db823b",
+      "fitness": 0.9049999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.676421165466309
+    },
+    {
+      "task_id": "54dc2872",
+      "fitness": 0.881559829059829,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)",
+        "rotate(angle=270)"
+      ],
+      "time": 4.905309677124023
+    },
+    {
+      "task_id": "55059096",
+      "fitness": 0.9666193528693529,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.474120616912842
+    },
+    {
+      "task_id": "551d5bf1",
+      "fitness": 0.8250892857142857,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 7.415964365005493
+    },
+    {
+      "task_id": "5521c0d9",
+      "fitness": 0.8753703703703704,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=15,canvas_w=15)",
+        "flip(axis=vertical)"
+      ],
+      "time": 5.473095893859863
+    },
+    {
+      "task_id": "5582e5ca",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "compress_to_fit(method=max,target_h=1,target_w=1)",
+        "scale(factor=3)"
+      ],
+      "time": 0.010535478591918945
+    },
+    {
+      "task_id": "5587a8d0",
+      "fitness": 0.3638888888888888,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)",
+        "compress_to_fit(method=max,target_h=3,target_w=3)",
+        "symmetrize(axis=vertical)",
+        "crop(mode=border)",
+        "scale(factor=3)"
+      ],
+      "time": 4.957608699798584
+    },
+    {
+      "task_id": "5614dbcf",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=select,target_h=3,target_w=3)"
+      ],
+      "time": 0.05109524726867676
+    },
+    {
+      "task_id": "5623160b",
+      "fitness": 0.8364506172839506,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=both)"
+      ],
+      "time": 6.574031591415405
+    },
+    {
+      "task_id": "56dc2b01",
+      "fitness": 0.8135661764705882,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.9055614471435547
+    },
+    {
+      "task_id": "56ff96f3",
+      "fitness": 0.7394588744588745,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.0560057163238525
+    },
+    {
+      "task_id": "5751f35e",
+      "fitness": 0.615,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 2.9657912254333496
+    },
+    {
+      "task_id": "575b1a71",
+      "fitness": 0.92,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 3.921942710876465
+    },
+    {
+      "task_id": "5783df64",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "compress_to_fit(method=max,target_h=3,target_w=3)"
+      ],
+      "time": 0.010313272476196289
+    },
+    {
+      "task_id": "5792cb4d",
+      "fitness": 0.915,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.8734347820281982
+    },
+    {
+      "task_id": "57aa92db",
+      "fitness": 0.9144240196078431,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.709218978881836
+    },
+    {
+      "task_id": "57edb29d",
+      "fitness": 0.3278571428571428,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=7)"
+      ],
+      "time": 7.433406114578247
+    },
+    {
+      "task_id": "5833af48",
+      "fitness": 0.5282098765432099,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "rotate(angle=180)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=15)"
+      ],
+      "time": 16.774630784988403
+    },
+    {
+      "task_id": "58743b76",
+      "fitness": 0.9168055555555555,
+      "solved": false,
+      "program": [
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 3.1295711994171143
+    },
+    {
+      "task_id": "58c02a16",
+      "fitness": 0.5697616948013774,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.3243086338043213
+    },
+    {
+      "task_id": "58e15b12",
+      "fitness": 0.8404820675005088,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.533175945281982
+    },
+    {
+      "task_id": "59341089",
+      "fitness": 0.7172222222222222,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=4)"
+      ],
+      "time": 3.051036834716797
+    },
+    {
+      "task_id": "5a5a2103",
+      "fitness": 0.7175040985923455,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 9.029370784759521
+    },
+    {
+      "task_id": "5a719d11",
+      "fitness": 0.8277668845315904,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 17.585930824279785
+    },
+    {
+      "task_id": "5ad4f10b",
+      "fitness": 0.5875925925925926,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)"
+      ],
+      "time": 5.15958833694458
+    },
+    {
+      "task_id": "5ad8a7c0",
+      "fitness": 0.8616666666666666,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 3.5377447605133057
+    },
+    {
+      "task_id": "5adee1b2",
+      "fitness": 0.7062499999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.7817840576171875
+    },
+    {
+      "task_id": "5af49b42",
+      "fitness": 0.9235667324128863,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.5635316371917725
+    },
+    {
+      "task_id": "5b37cb25",
+      "fitness": 0.9672222222222222,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.282455682754517
+    },
+    {
+      "task_id": "5b526a93",
+      "fitness": 0.8772825781030115,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 4.716038703918457
+    },
+    {
+      "task_id": "5b692c0f",
+      "fitness": 0.9303320275478613,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.072974681854248
+    },
+    {
+      "task_id": "5b6cbef5",
+      "fitness": 0.76453125,
+      "solved": false,
+      "program": [
+        "scale(factor=4)"
+      ],
+      "time": 4.902311563491821
+    },
+    {
+      "task_id": "5bd6f4ac",
+      "fitness": 0.985,
+      "solved": true,
+      "program": [
+        "flip(axis=horizontal)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "flip(axis=horizontal)"
+      ],
+      "time": 3.8310129642486572
+    },
+    {
+      "task_id": "5c0a986e",
+      "fitness": 0.9216666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.52828311920166
+    },
+    {
+      "task_id": "5c2c9af4",
+      "fitness": 0.664187145557656,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 13.141881227493286
+    },
+    {
+      "task_id": "5d2a5c43",
+      "fitness": 0.18666666666666665,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=6,canvas_w=4)"
+      ],
+      "time": 5.736296892166138
+    },
+    {
+      "task_id": "5d588b4d",
+      "fitness": 0.514604743083004,
+      "solved": false,
+      "program": [
+        "scale(factor=4)",
+        "fit_to_canvas(align=topleft,canvas_h=1,canvas_w=23)"
+      ],
+      "time": 7.064049482345581
+    },
+    {
+      "task_id": "5daaa586",
+      "fitness": 0.4819444444444444,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "crop(mode=center)",
+        "remove_color(background=0,color=2)",
+        "compress_to_fit(method=downsample,target_h=8,target_w=8)",
+        "crop(mode=content)"
+      ],
+      "time": 9.259521722793579
+    },
+    {
+      "task_id": "5e6bbc0b",
+      "fitness": 0.5586968537414966,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)",
+        "swap_colors(color_a=0,color_b=1)"
+      ],
+      "time": 3.5756802558898926
+    },
+    {
+      "task_id": "5ecac7f7",
+      "fitness": 0.7416666666666666,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=5,target_w=5)"
+      ],
+      "time": 7.6243181228637695
+    },
+    {
+      "task_id": "5ffb2104",
+      "fitness": 0.7942592592592593,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "border(operation=extract,value=0)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.388277292251587
+    },
+    {
+      "task_id": "60a26a3e",
+      "fitness": 0.9512500000000002,
+      "solved": true,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 7.054295063018799
+    },
+    {
+      "task_id": "60b61512",
+      "fitness": 0.9270987654320987,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4776477813720703
+    },
+    {
+      "task_id": "60c09cac",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "scale(factor=2)"
+      ],
+      "time": 0.0010209083557128906
+    },
+    {
+      "task_id": "60d73be6",
+      "fitness": 0.827982093663912,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.54292368888855
+    },
+    {
+      "task_id": "6150a2bd",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 0.0004668235778808594
+    },
+    {
+      "task_id": "6165ea8f",
+      "fitness": 0.4831972789115646,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=14,canvas_w=14)",
+        "filter_color(color=0)"
+      ],
+      "time": 7.124774217605591
+    },
+    {
+      "task_id": "623ea044",
+      "fitness": 0.867713529856387,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 24.99498176574707
+    },
+    {
+      "task_id": "626c0bcc",
+      "fitness": 0.6752721088435374,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.6972010135650635
+    },
+    {
+      "task_id": "62ab2642",
+      "fitness": 0.7822222222222223,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.564063549041748
+    },
+    {
+      "task_id": "62b74c02",
+      "fitness": 0.6876190476190477,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.762756109237671
+    },
+    {
+      "task_id": "62c24649",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "expand_to_size(fill=tile,target_h=6,target_w=6)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 0.015300512313842773
+    },
+    {
+      "task_id": "6350f1f4",
+      "fitness": 0.6387190082644627,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 25.97060799598694
+    },
+    {
+      "task_id": "63613498",
+      "fitness": 0.955,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.643301486968994
+    },
+    {
+      "task_id": "639f5a19",
+      "fitness": 0.6169281663516067,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 6.103329658508301
+    },
+    {
+      "task_id": "642248e4",
+      "fitness": 0.9398107448107447,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.168187379837036
+    },
+    {
+      "task_id": "642d658d",
+      "fitness": 0.3233333333333333,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "compress_to_fit(method=downsample,target_h=1,target_w=1)"
+      ],
+      "time": 6.610096454620361
+    },
+    {
+      "task_id": "6430c8c4",
+      "fitness": 0.70875,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "compress_to_fit(method=downsample,target_h=4,target_w=4)"
+      ],
+      "time": 3.6735942363739014
+    },
+    {
+      "task_id": "6455b5f5",
+      "fitness": 0.6099033605283605,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 7.076599836349487
+    },
+    {
+      "task_id": "64a7c07e",
+      "fitness": 0.8955555555555555,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 7.430558443069458
+    },
+    {
+      "task_id": "652646ff",
+      "fitness": 0.5583333333333333,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "fit_to_canvas(align=topleft,canvas_h=18,canvas_w=6)",
+        "symmetrize(axis=vertical)",
+        "rotate(angle=180)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 7.9336934089660645
+    },
+    {
+      "task_id": "662c240a",
+      "fitness": 0.485,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=topleft,canvas_h=3,canvas_w=3)",
+        "flip(axis=vertical)"
+      ],
+      "time": 4.520087957382202
+    },
+    {
+      "task_id": "668eec9a",
+      "fitness": 0.37999999999999995,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)",
+        "compress_to_fit(method=select,target_h=5,target_w=3)",
+        "crop(mode=border)",
+        "expand_to_size(fill=tile,target_h=5,target_w=3)"
+      ],
+      "time": 5.981509685516357
+    },
+    {
+      "task_id": "66ac4c3b",
+      "fitness": 0.9226859504132231,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.218807697296143
+    },
+    {
+      "task_id": "66e6c45b",
+      "fitness": 0.745,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 1.8989174365997314
+    },
+    {
+      "task_id": "66f2d22f",
+      "fitness": 0.7310714285714286,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "compress_to_fit(method=downsample,target_h=4,target_w=7)"
+      ],
+      "time": 4.234540939331055
+    },
+    {
+      "task_id": "67385a82",
+      "fitness": 0.6866666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.966574192047119
+    },
+    {
+      "task_id": "673ef223",
+      "fitness": 0.8508771929824562,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 4.742813587188721
+    },
+    {
+      "task_id": "67636eac",
+      "fitness": 0.5725925925925925,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)",
+        "crop(mode=content)",
+        "tile(times_h=1,times_v=2)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=3)"
+      ],
+      "time": 4.639885425567627
+    },
+    {
+      "task_id": "6773b310",
+      "fitness": 0.7122222222222222,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "filter_color(color=1)"
+      ],
+      "time": 4.219592809677124
+    },
+    {
+      "task_id": "67a3c6ac",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 0.0010352134704589844
+    },
+    {
+      "task_id": "67a423a3",
+      "fitness": 0.7125925925925926,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.7968862056732178
+    },
+    {
+      "task_id": "67c52801",
+      "fitness": 0.804068287037037,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)",
+        "border(operation=extract,value=0)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 18.810155391693115
+    },
+    {
+      "task_id": "67e8384a",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "expand_to_size(fill=tile,target_h=6,target_w=6)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 0.01920318603515625
+    },
+    {
+      "task_id": "681b3aeb",
+      "fitness": 0.586111111111111,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "crop(mode=content)",
+        "map_color(from_color=0,to_color=1)",
+        "symmetrize(axis=vertical)",
+        "expand_to_size(fill=tile,target_h=3,target_w=3)"
+      ],
+      "time": 14.390351295471191
+    },
+    {
+      "task_id": "6855a6e4",
+      "fitness": 0.960925925925926,
+      "solved": true,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 5.2481629848480225
+    },
+    {
+      "task_id": "689c358e",
+      "fitness": 0.9288842975206612,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 11.0908522605896
+    },
+    {
+      "task_id": "68b16354",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 0.0011343955993652344
+    },
+    {
+      "task_id": "68b67ca3",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=3,target_w=3)"
+      ],
+      "time": 0.00644993782043457
+    },
+    {
+      "task_id": "68bc2e87",
+      "fitness": 0.355,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=1)",
+        "rotate(angle=90)"
+      ],
+      "time": 21.0464448928833
+    },
+    {
+      "task_id": "692cd3b6",
+      "fitness": 0.669074074074074,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 11.494163751602173
+    },
+    {
+      "task_id": "694f12f3",
+      "fitness": 0.88,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.558675765991211
+    },
+    {
+      "task_id": "695367ec",
+      "fitness": 0.6101851851851852,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "expand_to_size(fill=tile,target_h=15,target_w=15)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 4.125667095184326
+    },
+    {
+      "task_id": "696d4842",
+      "fitness": 0.9601851851851853,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.85329794883728
+    },
+    {
+      "task_id": "69889d6e",
+      "fitness": 0.84,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.384417295455933
+    },
+    {
+      "task_id": "6a11f6da",
+      "fitness": 0.732,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=5)",
+        "flip(axis=vertical)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.379856109619141
+    },
+    {
+      "task_id": "6a1e5592",
+      "fitness": 0.8683333333333333,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.1322638988494873
+    },
+    {
+      "task_id": "6a980be1",
+      "fitness": 0.6524213311055416,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 6.183000564575195
+    },
+    {
+      "task_id": "6aa20dc0",
+      "fitness": 0.9229980253664464,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.386270761489868
+    },
+    {
+      "task_id": "6ad5bdfd",
+      "fitness": 0.7889393939393939,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.0722270011901855
+    },
+    {
+      "task_id": "6b9890af",
+      "fitness": 0.6951997245179063,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(2,))",
+        "crop(mode=content)"
+      ],
+      "time": 6.843789100646973
+    },
+    {
+      "task_id": "6bcdb01e",
+      "fitness": 0.6921428571428572,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 1.9076189994812012
+    },
+    {
+      "task_id": "6c434453",
+      "fitness": 0.8150000000000001,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 2.6929757595062256
+    },
+    {
+      "task_id": "6ca952ad",
+      "fitness": 0.8415792705971277,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 4.623638391494751
+    },
+    {
+      "task_id": "6cbe9eb8",
+      "fitness": 0.5185530904280904,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "compress_to_fit(method=downsample,target_h=12,target_w=11)",
+        "remove_color(background=0,color=2)",
+        "remove_color(background=0,color=1)",
+        "crop(mode=content)"
+      ],
+      "time": 6.000755310058594
+    },
+    {
+      "task_id": "6cdd2623",
+      "fitness": 0.8591179379147293,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 5.592767715454102
+    },
+    {
+      "task_id": "6cf79266",
+      "fitness": 0.9650000000000001,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 8.005198240280151
+    },
+    {
+      "task_id": "6d0160f0",
+      "fitness": 0.8011157024793388,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "border(operation=fill,value=0)",
+        "flip(axis=vertical)"
+      ],
+      "time": 5.318808317184448
+    },
+    {
+      "task_id": "6d0aefbc",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "expand_to_size(fill=tile,target_h=3,target_w=6)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 0.018190383911132812
+    },
+    {
+      "task_id": "6d1d5c90",
+      "fitness": 0.4657407407407407,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)",
+        "compress_to_fit(method=downsample,target_h=6,target_w=6)",
+        "rotate(angle=270)",
+        "flip(axis=vertical)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 3.375818967819214
+    },
+    {
+      "task_id": "6d58a25d",
+      "fitness": 0.9366666666666668,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.518474578857422
+    },
+    {
+      "task_id": "6d75e8bb",
+      "fitness": 0.8631216931216932,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.351102113723755
+    },
+    {
+      "task_id": "6df30ad6",
+      "fitness": 0.9209999999999999,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 6.16903018951416
+    },
+    {
+      "task_id": "6e02f1e3",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.760798215866089
+    },
+    {
+      "task_id": "6e19193c",
+      "fitness": 0.9249999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.5817952156066895
+    },
+    {
+      "task_id": "6e82a1ae",
+      "fitness": 0.845,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.8848774433135986
+    },
+    {
+      "task_id": "6ea4a07e",
+      "fitness": 0.6887037037037037,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "filter_color(color=1)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 4.228441476821899
+    },
+    {
+      "task_id": "6ecd11f4",
+      "fitness": 0.3283333333333333,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=3,target_w=3)"
+      ],
+      "time": 5.9089295864105225
+    },
+    {
+      "task_id": "6f473927",
+      "fitness": 0.612986111111111,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=2)"
+      ],
+      "time": 3.395522356033325
+    },
+    {
+      "task_id": "6f8cd79b",
+      "fitness": 0.23944444444444446,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 3.156643867492676
+    },
+    {
+      "task_id": "6fa7a44f",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.01782822608947754,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "6ffe8f07",
+      "fitness": 0.680672514619883,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.731008052825928
+    },
+    {
+      "task_id": "7039b2d7",
+      "fitness": 0.6516666666666666,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "compress_to_fit(method=select,target_h=5,target_w=5)",
+        "rotate(angle=180)"
+      ],
+      "time": 5.042111873626709
+    },
+    {
+      "task_id": "705a3229",
+      "fitness": 0.9067604617604618,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.075541257858276
+    },
+    {
+      "task_id": "712bf12e",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 3.5138750076293945,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "72207abc",
+      "fitness": 0.9310758217382537,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "time": 2.7905054092407227
+    },
+    {
+      "task_id": "72322fa7",
+      "fitness": 0.9628990600043232,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.658172369003296
+    },
+    {
+      "task_id": "72a961c9",
+      "fitness": 0.9224996608329942,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.084087133407593
+    },
+    {
+      "task_id": "72ca375d",
+      "fitness": 0.5583333333333333,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "fit_to_canvas(align=center,canvas_h=2,canvas_w=4)",
+        "symmetrize(axis=vertical)",
+        "remove_color(background=0,color=2)",
+        "crop(mode=content)"
+      ],
+      "time": 3.8930203914642334
+    },
+    {
+      "task_id": "73182012",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=4)"
+      ],
+      "time": 0.055924415588378906
+    },
+    {
+      "task_id": "73c3b0d8",
+      "fitness": 0.8849801587301587,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.99271297454834
+    },
+    {
+      "task_id": "73ccf9c2",
+      "fitness": 0.58,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=5)",
+        "remove_color(background=0,color=2)",
+        "crop(mode=content)",
+        "rotate(angle=180)"
+      ],
+      "time": 15.623331785202026
+    },
+    {
+      "task_id": "7447852a",
+      "fitness": 0.7616666666666666,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 2.745954990386963
+    },
+    {
+      "task_id": "7468f01a",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "crop(mode=content)",
+        "flip(axis=horizontal)"
+      ],
+      "time": 0.018698692321777344
+    },
+    {
+      "task_id": "746b3537",
+      "fitness": 0.695,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=3,target_w=1)"
+      ],
+      "time": 3.5457522869110107
+    },
+    {
+      "task_id": "74dd1130",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "transpose"
+      ],
+      "time": 0.0066661834716796875
+    },
+    {
+      "task_id": "753ea09b",
+      "fitness": 0.7983333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 14.651609420776367
+    },
+    {
+      "task_id": "758abdf0",
+      "fitness": 0.92078125,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.9379024505615234
+    },
+    {
+      "task_id": "759f3fd3",
+      "fitness": 0.5599999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.624751329421997
+    },
+    {
+      "task_id": "75b8110e",
+      "fitness": 0.36,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=4)",
+        "flip(axis=vertical)"
+      ],
+      "time": 16.062496423721313
+    },
+    {
+      "task_id": "760b3cac",
+      "fitness": 0.8962345679012346,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.788487672805786
+    },
+    {
+      "task_id": "762cd429",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 3.9794013500213623,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "770cc55f",
+      "fitness": 0.8459615384615384,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.904874086380005
+    },
+    {
+      "task_id": "776ffc46",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 5.309675455093384,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "77fdfe62",
+      "fitness": 0.4125,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=3)",
+        "compress_to_fit(method=select,target_h=4,target_w=4)",
+        "border(operation=extract,value=0)",
+        "swap_colors(color_a=2,color_b=1)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 3.869020462036133
+    },
+    {
+      "task_id": "780d0b14",
+      "fitness": 0.5316666666666666,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=10,target_w=9)",
+        "compress_to_fit(method=select,target_h=2,target_w=3)"
+      ],
+      "time": 48.04140830039978
+    },
+    {
+      "task_id": "782b5218",
+      "fitness": 0.555,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4915530681610107
+    },
+    {
+      "task_id": "7837ac64",
+      "fitness": 0.495,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=3,target_w=3)"
+      ],
+      "time": 8.94681715965271
+    },
+    {
+      "task_id": "78e78cff",
+      "fitness": 0.6086363636363636,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 2.837984561920166
+    },
+    {
+      "task_id": "79369cc6",
+      "fitness": 0.972290279716978,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.267212152481079
+    },
+    {
+      "task_id": "794b24be",
+      "fitness": 0.7577777777777779,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "expand_to_size(fill=background,target_h=3,target_w=3)",
+        "swap_colors(color_a=2,color_b=1)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 6.314290285110474
+    },
+    {
+      "task_id": "7953d61e",
+      "fitness": 0.495,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.8601038455963135
+    },
+    {
+      "task_id": "79cce52d",
+      "fitness": 0.32759259259259255,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "expand_to_size(fill=background,target_h=6,target_w=6)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.874568462371826
+    },
+    {
+      "task_id": "7acdf6d3",
+      "fitness": 0.9674251109467455,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.670360803604126
+    },
+    {
+      "task_id": "7b6016b9",
+      "fitness": 0.31553309674292657,
+      "solved": false,
+      "program": [
+        "swap_colors(color_a=0,color_b=1)",
+        "swap_colors(color_a=2,color_b=1)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 8.776151657104492
+    },
+    {
+      "task_id": "7b7f7511",
+      "fitness": 0.8233333333333334,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "crop(mode=content)"
+      ],
+      "time": 2.6733238697052
+    },
+    {
+      "task_id": "7bb29440",
+      "fitness": 0.5366666666666666,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "compress_to_fit(method=downsample,target_h=4,target_w=6)"
+      ],
+      "time": 10.962132692337036
+    },
+    {
+      "task_id": "7c008303",
+      "fitness": 0.596111111111111,
+      "solved": false,
+      "program": [
+        "scale(factor=3)",
+        "fit_to_canvas(align=center,canvas_h=6,canvas_w=6)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 3.2750051021575928
+    },
+    {
+      "task_id": "7c8af763",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.822422742843628,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "7c9b52a0",
+      "fitness": 0.2627777777777778,
+      "solved": false,
+      "program": [
+        "swap_colors(color_a=2,color_b=1)",
+        "border(operation=fill,value=0)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=4)"
+      ],
+      "time": 4.02728533744812
+    },
+    {
+      "task_id": "7d18a6fb",
+      "fitness": 0.5750340136054422,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=7,target_w=7)",
+        "filter_color(color=2)"
+      ],
+      "time": 4.208807468414307
+    },
+    {
+      "task_id": "7d1f7ee8",
+      "fitness": 0.8725261239029355,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 8.421629190444946
+    },
+    {
+      "task_id": "7d419a02",
+      "fitness": 0.7576476228449913,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.876443147659302
+    },
+    {
+      "task_id": "7d7772cc",
+      "fitness": 0.9403125,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.166242837905884
+    },
+    {
+      "task_id": "7ddcd7ec",
+      "fitness": 0.9483333333333333,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4678292274475098
+    },
+    {
+      "task_id": "7df24a62",
+      "fitness": 0.9406521739130435,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 10.588674068450928
+    },
+    {
+      "task_id": "7e02026e",
+      "fitness": 0.9047222222222222,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.402437686920166
+    },
+    {
+      "task_id": "7e0986d6",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 3.132378101348877,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "7e2bad24",
+      "fitness": 0.9559375,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.5639612674713135
+    },
+    {
+      "task_id": "7e4d4f7c",
+      "fitness": 0.510625,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=8)"
+      ],
+      "time": 3.9796183109283447
+    },
+    {
+      "task_id": "7e576d6e",
+      "fitness": 0.9175925925925926,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 14.595418691635132
+    },
+    {
+      "task_id": "7ec998c9",
+      "fitness": 0.7337840136054423,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.6703481674194336
+    },
+    {
+      "task_id": "7ee1c6ea",
+      "fitness": 0.7749999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5662336349487305
+    },
+    {
+      "task_id": "7f4411dc",
+      "fitness": 0.9561204036087111,
+      "solved": true,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 4.652621507644653
+    },
+    {
+      "task_id": "7fe24cdd",
+      "fitness": 0.7677777777777777,
+      "solved": false,
+      "program": [
+        "expand_to_size(fill=tile,target_h=6,target_w=6)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 2.869138240814209
+    },
+    {
+      "task_id": "80214e03",
+      "fitness": 0.5818518518518518,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "compress_to_fit(method=select,target_h=3,target_w=3)",
+        "flip(axis=horizontal)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.271305322647095
+    },
+    {
+      "task_id": "80af3007",
+      "fitness": 0.7727777777777778,
+      "solved": false,
+      "program": [
+        "crop(mode=content)"
+      ],
+      "time": 5.63021445274353
+    },
+    {
+      "task_id": "810b9b61",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.2565970420837402,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "817e6c09",
+      "fitness": 0.8509103641456582,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 4.767984390258789
+    },
+    {
+      "task_id": "81c0276b",
+      "fitness": 0.2677777777777778,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=2,canvas_w=3)",
+        "flip(axis=horizontal)"
+      ],
+      "time": 3.550043821334839
+    },
+    {
+      "task_id": "825aa9e9",
+      "fitness": 0.8636507936507937,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.8766567707061768
+    },
+    {
+      "task_id": "82819916",
+      "fitness": 0.8762500000000001,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 4.181649684906006
+    },
+    {
+      "task_id": "83302e8f",
+      "fitness": 0.259588540505832,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 10.040508031845093
+    },
+    {
+      "task_id": "833966f4",
+      "fitness": 0.29,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=2,target_w=1)",
+        "fit_to_canvas(align=center,canvas_h=5,canvas_w=1)"
+      ],
+      "time": 2.010021686553955
+    },
+    {
+      "task_id": "833dafe3",
+      "fitness": 0.975,
+      "solved": true,
+      "program": [
+        "flip(axis=horizontal)",
+        "tile(times_h=2,times_v=2)",
+        "symmetrize(axis=horizontal)",
+        "rotate(angle=180)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 1.9269659519195557
+    },
+    {
+      "task_id": "834ec97d",
+      "fitness": 0.7126337448559671,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)",
+        "border(operation=fill,value=0)"
+      ],
+      "time": 2.548949956893921
+    },
+    {
+      "task_id": "83b6b474",
+      "fitness": 0.4775,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=max,target_h=5,target_w=5)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 6.710689306259155
+    },
+    {
+      "task_id": "83eb0a57",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 6.752428293228149,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "8403a5d5",
+      "fitness": 0.6133333333333333,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 3.525799036026001
+    },
+    {
+      "task_id": "84551f4c",
+      "fitness": 0.7489285714285715,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 2.663602113723755
+    },
+    {
+      "task_id": "845d6e51",
+      "fitness": 0.8616666666666667,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.83929181098938
+    },
+    {
+      "task_id": "846bdb03",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.381288766860962,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "84ba50d3",
+      "fitness": 0.8701127019525288,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "time": 3.3211851119995117
+    },
+    {
+      "task_id": "84db8fc4",
+      "fitness": 0.5825,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.63262939453125
+    },
+    {
+      "task_id": "84f2aca1",
+      "fitness": 0.9533949704142012,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.390265703201294
+    },
+    {
+      "task_id": "855e0971",
+      "fitness": 0.9303624445729709,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.904203414916992
+    },
+    {
+      "task_id": "8597cfd7",
+      "fitness": 0.735,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "swap_colors(color_a=2,color_b=1)",
+        "compress_to_fit(method=select,target_h=2,target_w=2)"
+      ],
+      "time": 11.555511951446533
+    },
+    {
+      "task_id": "85b81ff1",
+      "fitness": 0.9180769230769231,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.852470874786377
+    },
+    {
+      "task_id": "85c4e7cd",
+      "fitness": 0.30513888888888885,
+      "solved": false,
+      "program": [
+        "expand_to_size(fill=tile,target_h=8,target_w=8)",
+        "swap_colors(color_a=2,color_b=1)",
+        "rotate(angle=180)"
+      ],
+      "time": 4.679135322570801
+    },
+    {
+      "task_id": "85fa5666",
+      "fitness": 0.7799633487654322,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 4.673219203948975
+    },
+    {
+      "task_id": "8618d23e",
+      "fitness": 0.4244444444444444,
+      "solved": false,
+      "program": [
+        "transpose",
+        "compress_to_fit(method=downsample,target_h=5,target_w=3)",
+        "crop(mode=content)",
+        "crop(mode=border)"
+      ],
+      "time": 3.1413559913635254
+    },
+    {
+      "task_id": "868de0fa",
+      "fitness": 0.828415059687787,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 6.769927740097046
+    },
+    {
+      "task_id": "8719f442",
+      "fitness": 0.9188888888888889,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "scale(factor=3)"
+      ],
+      "time": 3.5824763774871826
+    },
+    {
+      "task_id": "8731374e",
+      "fitness": 0.34626322751322747,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "scale(factor=4)",
+        "crop(mode=center)",
+        "compress_to_fit(method=downsample,target_h=10,target_w=9)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 5.987869024276733
+    },
+    {
+      "task_id": "878187ab",
+      "fitness": 0.823984375,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=7,target_w=7)",
+        "expand_to_size(fill=tile,target_h=16,target_w=16)"
+      ],
+      "time": 21.73923397064209
+    },
+    {
+      "task_id": "87ab05b8",
+      "fitness": 0.8133333333333334,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=2,target_w=2)",
+        "scale(factor=2)",
+        "rotate(angle=270)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 5.562685966491699
+    },
+    {
+      "task_id": "880c1354",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.4079091548919678,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "88207623",
+      "fitness": 0.9098995535714286,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.565103530883789
+    },
+    {
+      "task_id": "8886d717",
+      "fitness": 0.9137710437710438,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.8046326637268066
+    },
+    {
+      "task_id": "88a10436",
+      "fitness": 0.9054276895943563,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.962430715560913
+    },
+    {
+      "task_id": "88a62173",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.5483081340789795,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "890034e9",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 7.242042064666748,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "891232d6",
+      "fitness": 0.8988702591428744,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 9.941593408584595
+    },
+    {
+      "task_id": "896d5239",
+      "fitness": 0.9087820512820513,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.510641813278198
+    },
+    {
+      "task_id": "8a004b2b",
+      "fitness": 0.5616326530612245,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=topleft,canvas_h=7,canvas_w=7)",
+        "remove_color(background=0,color=1)",
+        "crop(mode=content)"
+      ],
+      "time": 4.921799421310425
+    },
+    {
+      "task_id": "8a371977",
+      "fitness": 0.6129915246279065,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 8.762660264968872
+    },
+    {
+      "task_id": "8a6d367c",
+      "fitness": 0.27396799628942486,
+      "solved": false,
+      "program": [
+        "crop(mode=border)",
+        "crop(mode=center)",
+        "crop(mode=center)",
+        "scale(factor=2)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 10.58375859260559
+    },
+    {
+      "task_id": "8abad3cf",
+      "fitness": 0.48,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "scale(factor=3)",
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=10)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 2.555058479309082
+    },
+    {
+      "task_id": "8b28cd80",
+      "fitness": 0.6541358024691357,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "expand_to_size(fill=tile,target_h=9,target_w=9)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 5.263675928115845
+    },
+    {
+      "task_id": "8ba14f53",
+      "fitness": 0.6751851851851851,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=3,target_w=3)",
+        "transpose"
+      ],
+      "time": 7.377153158187866
+    },
+    {
+      "task_id": "8be77c9e",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "expand_to_size(fill=tile,target_h=6,target_w=3)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 0.01432657241821289
+    },
+    {
+      "task_id": "8cb8642d",
+      "fitness": 0.7501497522085757,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.499086141586304
+    },
+    {
+      "task_id": "8d5021e8",
+      "fitness": 0.9479629629629629,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "expand_to_size(fill=tile,target_h=9,target_w=4)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 2.7564027309417725
+    },
+    {
+      "task_id": "8d510a79",
+      "fitness": 0.875,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.5333571434020996
+    },
+    {
+      "task_id": "8dab14c2",
+      "fitness": 0.9794143065880198,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.23143196105957
+    },
+    {
+      "task_id": "8dae5dfc",
+      "fitness": 0.6077602490944778,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=horizontal)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 7.499938249588013
+    },
+    {
+      "task_id": "8e1813be",
+      "fitness": 0.44796296296296295,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)",
+        "compress_to_fit(method=max,target_h=7,target_w=6)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)"
+      ],
+      "time": 17.61761212348938
+    },
+    {
+      "task_id": "8e2edd66",
+      "fitness": 0.7915843621399177,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=1,target_w=1)",
+        "fit_to_canvas(align=topleft,canvas_h=9,canvas_w=9)",
+        "rotate(angle=90)"
+      ],
+      "time": 3.353198289871216
+    },
+    {
+      "task_id": "8e301a54",
+      "fitness": 0.9133333333333333,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "symmetrize(axis=both)"
+      ],
+      "time": 4.22139835357666
+    },
+    {
+      "task_id": "8e5a5113",
+      "fitness": 0.5809595959595959,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "expand_to_size(fill=tile,target_h=3,target_w=11)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.6089422702789307
+    },
+    {
+      "task_id": "8eb1be9a",
+      "fitness": 0.594561403508772,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.156324863433838
+    },
+    {
+      "task_id": "8ee62060",
+      "fitness": 0.8983333333333333,
+      "solved": false,
+      "program": [
+        "flip(axis=horizontal)",
+        "filter_color(color=2)"
+      ],
+      "time": 4.440608501434326
+    },
+    {
+      "task_id": "8efcae92",
+      "fitness": 0.5582510288065843,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=9)",
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 10.4510498046875
+    },
+    {
+      "task_id": "8f2ea7aa",
+      "fitness": 0.8139300411522634,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.052445411682129
+    },
+    {
+      "task_id": "8fbca751",
+      "fitness": 0.8225226757369616,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.0458881855010986
+    },
+    {
+      "task_id": "8fff9e47",
+      "fitness": 0.3083333333333333,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=1)",
+        "compress_to_fit(method=max,target_h=2,target_w=2)",
+        "symmetrize(axis=vertical)",
+        "transpose",
+        "replicate(direction=horizontal,times=3)"
+      ],
+      "time": 4.220900297164917
+    },
+    {
+      "task_id": "902510d5",
+      "fitness": 0.8716777078140715,
+      "solved": false,
+      "program": [
+        "border(operation=fill,value=0)"
+      ],
+      "time": 4.903312921524048
+    },
+    {
+      "task_id": "90347967",
+      "fitness": 0.9456172839506174,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)"
+      ],
+      "time": 2.8428313732147217
+    },
+    {
+      "task_id": "90c28cc7",
+      "fitness": 0.6566666666666666,
+      "solved": false,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=downsample,target_h=2,target_w=2)"
+      ],
+      "time": 10.067649126052856
+    },
+    {
+      "task_id": "90f3ed37",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 8.106231689453125e-05,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "9110e3c5",
+      "fitness": 0.5931746031746031,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "filter_color(color=0)"
+      ],
+      "time": 6.2109856605529785
+    },
+    {
+      "task_id": "913fb3ed",
+      "fitness": 0.8265972222222222,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.503656387329102
+    },
+    {
+      "task_id": "91413438",
+      "fitness": 0.5671604938271605,
+      "solved": false,
+      "program": [
+        "tile(times_h=3,times_v=2)",
+        "expand_to_size(fill=background,target_h=9,target_w=9)"
+      ],
+      "time": 3.7194082736968994
+    },
+    {
+      "task_id": "91714a58",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.028040647506713867,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "9172f3a0",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "scale(factor=3)"
+      ],
+      "time": 0.001758575439453125
+    },
+    {
+      "task_id": "917bccba",
+      "fitness": 0.8746296296296296,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))"
+      ],
+      "time": 4.511640310287476
+    },
+    {
+      "task_id": "928ad970",
+      "fitness": 0.8147802197802199,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.595547199249268
+    },
+    {
+      "task_id": "92e50de0",
+      "fitness": 0.9283549617390267,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 9.405833959579468
+    },
+    {
+      "task_id": "9344f635",
+      "fitness": 0.638792779457462,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.566282033920288
+    },
+    {
+      "task_id": "9356391f",
+      "fitness": 0.74890625,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.82021427154541
+    },
+    {
+      "task_id": "93b4f4b3",
+      "fitness": 0.7619230769230768,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "compress_to_fit(method=downsample,target_h=13,target_w=6)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.008960247039795
+    },
+    {
+      "task_id": "93b581b8",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.2793164253234863,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "93c31fbe",
+      "fitness": 0.9575490934186587,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.215585470199585
+    },
+    {
+      "task_id": "94133066",
+      "fitness": 0.6908641975308641,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "crop(mode=content)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.635027647018433
+    },
+    {
+      "task_id": "941d9a10",
+      "fitness": 0.855,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5071020126342773
+    },
+    {
+      "task_id": "94414823",
+      "fitness": 0.835,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.4388656616210938
+    },
+    {
+      "task_id": "9473c6fb",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 2.9884402751922607,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "94be5b80",
+      "fitness": 0.8681595202183437,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.554283618927002
+    },
+    {
+      "task_id": "94f9d214",
+      "fitness": 0.818125,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)",
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=4)"
+      ],
+      "time": 3.5082881450653076
+    },
+    {
+      "task_id": "952a094c",
+      "fitness": 0.925,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 3.4334053993225098
+    },
+    {
+      "task_id": "9565186b",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 2.605534553527832,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "95755ff2",
+      "fitness": 0.8242011019283746,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.5416600704193115
+    },
+    {
+      "task_id": "95990924",
+      "fitness": 0.9312962962962963,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.6475062370300293
+    },
+    {
+      "task_id": "95a58926",
+      "fitness": 0.8762681842867601,
+      "solved": false,
+      "program": [
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 6.963611602783203
+    },
+    {
+      "task_id": "963c33f8",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.021023988723754883,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "963e52fc",
+      "fitness": 0.9253571428571429,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=2)"
+      ],
+      "time": 2.4310712814331055
+    },
+    {
+      "task_id": "963f59bc",
+      "fitness": 0.9229533597715416,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.200756788253784
+    },
+    {
+      "task_id": "96a8c0cd",
+      "fitness": 0.867228100846522,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.384732246398926
+    },
+    {
+      "task_id": "9720b24f",
+      "fitness": 0.9460927456382003,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.199813365936279
+    },
+    {
+      "task_id": "97239e3d",
+      "fitness": 0.8231430219146482,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.339729070663452
+    },
+    {
+      "task_id": "973e499e",
+      "fitness": 0.5384979423868312,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1,))",
+        "fit_to_canvas(align=topleft,canvas_h=9,canvas_w=9)",
+        "crop(mode=content)"
+      ],
+      "time": 3.6069202423095703
+    },
+    {
+      "task_id": "9772c176",
+      "fitness": 0.9275932688001653,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.198066473007202
+    },
+    {
+      "task_id": "97999447",
+      "fitness": 0.8670238095238096,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.3250811100006104
+    },
+    {
+      "task_id": "97a05b5b",
+      "fitness": 0.5451041666666666,
+      "solved": false,
+      "program": [
+        "tile(times_h=3,times_v=2)",
+        "compress_to_fit(method=max,target_h=10,target_w=6)",
+        "expand_to_size(fill=tile,target_h=8,target_w=8)",
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 32.64057683944702
+    },
+    {
+      "task_id": "97c75046",
+      "fitness": 0.9630555555555556,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.0705196857452393
+    },
+    {
+      "task_id": "981add89",
+      "fitness": 0.8669444444444444,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.207113981246948
+    },
+    {
+      "task_id": "9841fdad",
+      "fitness": 0.9071723730814639,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.9334726333618164
+    },
+    {
+      "task_id": "984d8a3e",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.009725809097290039,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "985ae207",
+      "fitness": 0.8516666666666668,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 7.643143892288208
+    },
+    {
+      "task_id": "98c475bf",
+      "fitness": 0.9299999999999999,
+      "solved": false,
+      "program": [
+        "border(operation=extract,value=0)"
+      ],
+      "time": 9.797822713851929
+    },
+    {
+      "task_id": "98cf29f8",
+      "fitness": 0.8798206489073362,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 5.135568380355835
+    },
+    {
+      "task_id": "992798f6",
+      "fitness": 0.9441402911324787,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.281252861022949
+    },
+    {
+      "task_id": "99306f82",
+      "fitness": 0.7742592592592592,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.3121936321258545
+    },
+    {
+      "task_id": "995c5fa3",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.012494802474975586
+    },
+    {
+      "task_id": "9968a131",
+      "fitness": 0.6825,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 1.7615728378295898
+    },
+    {
+      "task_id": "996ec1f3",
+      "fitness": 0.6146296296296296,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=9,target_w=9)",
+        "compress_to_fit(method=select,target_h=3,target_w=3)",
+        "swap_colors(color_a=0,color_b=1)"
+      ],
+      "time": 53.412503480911255
+    },
+    {
+      "task_id": "99b1bc43",
+      "fitness": 0.536875,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)",
+        "compress_to_fit(method=downsample,target_h=4,target_w=4)"
+      ],
+      "time": 3.7700107097625732
+    },
+    {
+      "task_id": "99caaf76",
+      "fitness": 0.6158992165242164,
+      "solved": false,
+      "program": [
+        "flip(axis=vertical)",
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "time": 3.45546555519104
+    },
+    {
+      "task_id": "99fa7670",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.011380195617675781,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "9a4bb226",
+      "fitness": 0.4344444444444444,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)"
+      ],
+      "time": 4.163945198059082
+    },
+    {
+      "task_id": "9aec4887",
+      "fitness": 0.44907407407407407,
+      "solved": false,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=topleft,canvas_h=6,canvas_w=6)",
+        "crop(mode=content)",
+        "symmetrize(axis=horizontal)",
+        "fit_to_canvas(align=center,canvas_h=6,canvas_w=6)"
+      ],
+      "time": 3.912494421005249
+    },
+    {
+      "task_id": "9af7a82c",
+      "fitness": 0.495,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=1,target_w=1)"
+      ],
+      "time": 4.644349098205566
+    },
+    {
+      "task_id": "9b2a60aa",
+      "fitness": 0.9380292373866543,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.558328866958618
+    },
+    {
+      "task_id": "9b30e358",
+      "fitness": 0.805,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 2.156646728515625
+    },
+    {
+      "task_id": "9b365c51",
+      "fitness": 0.7576984126984126,
+      "solved": false,
+      "program": [
+        "filter_color(color=0)"
+      ],
+      "time": 3.66282057762146
+    },
+    {
+      "task_id": "9b4c17c4",
+      "fitness": 0.8214385614385614,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 5.966921329498291
+    },
+    {
+      "task_id": "9b5080bb",
+      "fitness": 0.9715437933207309,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 8.947508573532104
+    },
+    {
+      "task_id": "9ba4a9aa",
+      "fitness": 0.03203703703703704,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)"
+      ],
+      "time": 0.030910968780517578
+    },
+    {
+      "task_id": "9bebae7a",
+      "fitness": 0.7245571095571096,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 5.143052339553833
+    },
+    {
+      "task_id": "9c1e755f",
+      "fitness": 0.6799999999999999,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.337435960769653
+    },
+    {
+      "task_id": "9c56f360",
+      "fitness": 0.868015873015873,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.7091267108917236
+    },
+    {
+      "task_id": "9caba7c3",
+      "fitness": 0.9331348107109879,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.396063566207886
+    },
+    {
+      "task_id": "9caf5b84",
+      "fitness": 0.5904861111111112,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 3.144901752471924
+    },
+    {
+      "task_id": "9d9215db",
+      "fitness": 0.9109741458910434,
+      "solved": false,
+      "program": [
+        "rotate(angle=90)"
+      ],
+      "time": 6.494768857955933
+    },
+    {
+      "task_id": "9ddd00f0",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.5614614486694336,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "9def23fe",
+      "fitness": 0.7377917833800186,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "time": 6.414571523666382
+    },
+    {
+      "task_id": "9dfd6313",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "transpose"
+      ],
+      "time": 0.005471944808959961
+    },
+    {
+      "task_id": "9edfc990",
+      "fitness": 0.921249178172255,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.3707115650177
+    },
+    {
+      "task_id": "9f236235",
+      "fitness": 0.7025925925925925,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=select,target_h=4,target_w=4)",
+        "flip(axis=horizontal)",
+        "remove_color(background=0,color=2)"
+      ],
+      "time": 5.029979944229126
+    },
+    {
+      "task_id": "9f27f097",
+      "fitness": 0.883888888888889,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.277608394622803
+    },
+    {
+      "task_id": "9f41bd9c",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 4.247075080871582,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "9f5f939b",
+      "fitness": 0.9858854166666666,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 4.913697004318237
+    },
+    {
+      "task_id": "9f669b64",
+      "fitness": 0.835,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.5794308185577393
+    },
+    {
+      "task_id": "9f8de559",
+      "fitness": 0.9898979591836735,
+      "solved": true,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.449726581573486
+    },
+    {
+      "task_id": "a04b2602",
+      "fitness": 0.810686274509804,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.129187822341919
+    },
+    {
+      "task_id": "a096bf4d",
+      "fitness": 0.9857093980754694,
+      "solved": true,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 7.457459211349487
+    },
+    {
+      "task_id": "a09f6c25",
+      "fitness": 0.9233580468198359,
+      "solved": false,
+      "program": [
+        "map_color(from_color=2,to_color=1)"
+      ],
+      "time": 6.518200397491455
+    },
+    {
+      "task_id": "a1570a43",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 1.8855688571929932,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "a1aa0c1e",
+      "fitness": 0.4122222222222222,
+      "solved": false,
+      "program": [
+        "replicate(direction=horizontal,times=3)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=5)"
+      ],
+      "time": 4.560637950897217
+    },
+    {
+      "task_id": "a2d730bd",
+      "fitness": 0.909044289044289,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 6.361210346221924
+    },
+    {
+      "task_id": "a2fd1cf0",
+      "fitness": 0.90880291005291,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 4.480058908462524
+    },
+    {
+      "task_id": "a3325580",
+      "fitness": 0.485,
+      "solved": false,
+      "program": [
+        "symmetrize(axis=both)",
+        "crop(mode=content)",
+        "compress_to_fit(method=downsample,target_h=3,target_w=1)"
+      ],
+      "time": 12.77482008934021
+    },
+    {
+      "task_id": "a3f84088",
+      "fitness": 0.6240161139704342,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 5.3994221687316895
+    },
+    {
+      "task_id": "a406ac07",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 3.448634624481201,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "a416b8f3",
+      "fitness": 0.995,
+      "solved": true,
+      "program": [
+        "replicate(direction=horizontal,times=2)"
+      ],
+      "time": 0.0042591094970703125
+    },
+    {
+      "task_id": "a416fc5b",
+      "fitness": 0.707121212121212,
+      "solved": false,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 3.550459146499634
+    },
+    {
+      "task_id": "a48eeaf7",
+      "fitness": 0.96,
+      "solved": true,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 2.5220205783843994
+    },
+    {
+      "task_id": "a5313dff",
+      "fitness": 0.8607407407407408,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.216789722442627
+    },
+    {
+      "task_id": "a57f2f04",
+      "fitness": 0.815342034014803,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 6.321589469909668
+    },
+    {
+      "task_id": "a59b95c0",
+      "fitness": 0.695,
+      "solved": false,
+      "program": [
+        "tile(times_h=2,times_v=2)"
+      ],
+      "time": 3.841963768005371
+    },
+    {
+      "task_id": "a5f85a15",
+      "fitness": 0.9041435185185185,
+      "solved": false,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "time": 2.5295379161834717
+    },
+    {
+      "task_id": "a61ba2ce",
+      "fitness": 0.51625,
+      "solved": false,
+      "program": [
+        "compress_to_fit(method=max,target_h=6,target_w=6)",
+        "crop(mode=border)",
+        "border(operation=extract,value=0)"
+      ],
+      "time": 16.56101417541504
+    },
+    {
+      "task_id": "a61f2674",
+      "fitness": 0.8591975308641975,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 2.3903353214263916
+    },
+    {
+      "task_id": "a644e277",
+      "fitness": 0.5420987654320987,
+      "solved": false,
+      "program": [
+        "pad(size=1,value=0)",
+        "fit_to_canvas(align=center,canvas_h=9,canvas_w=9)",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "time": 5.979674577713013
+    },
+    {
+      "task_id": "a64e4611",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 4.460993528366089,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "a65b410d",
+      "fitness": 0.7332842025699169,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 2.759854316711426
+    },
+    {
+      "task_id": "a680ac02",
+      "fitness": 0.4125,
+      "solved": false,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "crop(mode=content)",
+        "compress_to_fit(method=downsample,target_h=8,target_w=4)",
+        "flip(axis=horizontal)",
+        "symmetrize(axis=horizontal)"
+      ],
+      "time": 5.163209676742554
+    },
+    {
+      "task_id": "a68b268e",
+      "fitness": 0.6095833333333334,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=4,canvas_w=4)"
+      ],
+      "time": 4.540594577789307
+    },
+    {
+      "task_id": "a6953f00",
+      "fitness": 0.6616666666666666,
+      "solved": false,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=2,canvas_w=2)"
+      ],
+      "time": 2.0470328330993652
+    },
+    {
+      "task_id": "a699fb00",
+      "fitness": 0.9283333333333332,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.148139238357544
+    },
+    {
+      "task_id": "a740d043",
+      "fitness": 0.99,
+      "solved": true,
+      "program": [
+        "swap_colors(color_a=0,color_b=1)",
+        "crop(mode=content)"
+      ],
+      "time": 0.052779436111450195
+    },
+    {
+      "task_id": "a78176bb",
+      "fitness": 0.8583333333333333,
+      "solved": false,
+      "program": [
+        "filter_color(color=2)"
+      ],
+      "time": 3.3268532752990723
+    },
+    {
+      "task_id": "a79310a0",
+      "fitness": 0.8646296296296295,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 2.602919816970825
+    },
+    {
+      "task_id": "a834deea",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 8.0108642578125e-05,
+      "error": "[Errno 32] Broken pipe"
+    },
+    {
+      "task_id": "a85d4709",
+      "fitness": 0.0,
+      "solved": false,
+      "program": [],
+      "time": 0.009138107299804688
+    },
+    {
+      "task_id": "a8610ef7",
+      "fitness": 0.4116666666666667,
+      "solved": false,
+      "program": [
+        "filter_color(color=1)"
+      ],
+      "time": 3.522251605987549
+    },
+    {
+      "task_id": "a87f7484",
+      "fitness": 0.485,
+      "solved": false,
+      "program": [
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=3)",
+        "remove_color(background=0,color=1)"
+      ],
+      "time": 3.1073081493377686
+    }
+  ]
+}

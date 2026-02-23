@@ -1,0 +1,111 @@
+{
+  "description": "Deep beam search on 9 high-fitness tasks",
+  "results": [
+    {
+      "task_id": "53fb4810",
+      "prev_fitness": 0.947,
+      "new_fitness": 0.9524733237776716,
+      "improvement": 0.005473323777671624,
+      "solved": true,
+      "time": 0.008579254150390625,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "3dc255db",
+      "prev_fitness": 0.932,
+      "new_fitness": 0.9403333333333332,
+      "improvement": 0.008333333333333193,
+      "solved": false,
+      "time": 5.210892200469971,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "31f7f899",
+      "prev_fitness": 0.923,
+      "new_fitness": 0.937283943163064,
+      "improvement": 0.014283943163063917,
+      "solved": false,
+      "time": 5.413222312927246,
+      "program": [
+        "flip(axis=vertical)"
+      ]
+    },
+    {
+      "task_id": "16b78196",
+      "prev_fitness": 0.908,
+      "new_fitness": 0.9240833333333333,
+      "improvement": 0.016083333333333227,
+      "solved": false,
+      "time": 10.875086784362793,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "62593bfd",
+      "prev_fitness": 0.908,
+      "new_fitness": 0.9401802422723474,
+      "improvement": 0.03218024227234739,
+      "solved": false,
+      "time": 11.032482147216797,
+      "program": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "28a6681f",
+      "prev_fitness": 0.907,
+      "new_fitness": 0.9343333333333332,
+      "improvement": 0.02733333333333321,
+      "solved": false,
+      "time": 4.812146902084351,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "1818057f",
+      "prev_fitness": 0.904,
+      "new_fitness": 0.8849782135076252,
+      "improvement": -0.019021786492374848,
+      "solved": false,
+      "time": 6.284958124160767,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "142ca369",
+      "prev_fitness": 0.903,
+      "new_fitness": 0.9197880658436213,
+      "improvement": 0.016788065843621247,
+      "solved": false,
+      "time": 8.63686466217041,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ]
+    },
+    {
+      "task_id": "2c181942",
+      "prev_fitness": 0.9,
+      "new_fitness": 0.9169565370753777,
+      "improvement": 0.016956537075377698,
+      "solved": false,
+      "time": 9.594362497329712,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ]
+    }
+  ],
+  "summary": {
+    "solved": 1,
+    "total": 9,
+    "solve_rate": 0.1111111111111111,
+    "avg_improvement": 0.013156702848856295,
+    "total_time": 61.869389057159424
+  }
+}

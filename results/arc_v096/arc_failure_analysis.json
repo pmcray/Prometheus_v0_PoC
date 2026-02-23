@@ -1,0 +1,644 @@
+{
+  "failed_count": 400,
+  "sampled_count": 50,
+  "patterns": [
+    {
+      "task_id": "95990924",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "ddf7fa4f",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "6e19193c",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "49d1d64f",
+      "type": "REPETITION_TILING",
+      "description": "Size changes: (2.0, 2.0); Color transformations present; Repetition: vertical_tiling",
+      "required_ops": [
+        "tile_pattern",
+        "grow_by_rule",
+        "replicate_object"
+      ],
+      "complexity": 4
+    },
+    {
+      "task_id": "8eb1be9a",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "b7249182",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "2dee498d",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (1.0, 0.3333333333333333)",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "f1cefba8",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "97999447",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "a3325580",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.5, 0.3); Color transformations present",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "b1948b0a",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "f8a8fe49",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "d06dbe63",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "29623171",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "ae3edfdc",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "810b9b61",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "6773b310",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.2727272727272727, 0.2727272727272727); Color transformations present",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "d90796e8",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "253bf280",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "50cb2852",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "e509e548",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "ce22a75a",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "00d62c1b",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "53b68214",
+      "type": "REPETITION_TILING",
+      "description": "Size changes: (1.6666666666666667, 1.0); Repetition: vertical_tiling",
+      "required_ops": [
+        "tile_pattern",
+        "grow_by_rule",
+        "replicate_object"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "eb5a1d5d",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.21739130434782608, 0.18518518518518517)",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "b230c067",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "7447852a",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "aba27056",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "97a05b5b",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.7083333333333334, 0.47368421052631576); Color transformations present",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "88a10436",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "2bee17df",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "cbded52d",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "e73095fd",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "c444b776",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "1caeab9d",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "f9012d9b",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.4, 0.4); Color transformations present",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "ff805c23",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.20833333333333334, 0.20833333333333334); Color transformations present",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 3
+    },
+    {
+      "task_id": "caa06a1f",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "11852cab",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "91714a58",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "508bd3b6",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "d406998b",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "2c608aff",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "3ac3eb23",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "539a4f51",
+      "type": "REPETITION_TILING",
+      "description": "Size changes: (2.0, 2.0); Color transformations present; Repetition: vertical_tiling",
+      "required_ops": [
+        "tile_pattern",
+        "grow_by_rule",
+        "replicate_object"
+      ],
+      "complexity": 4
+    },
+    {
+      "task_id": "1f642eb9",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "8a004b2b",
+      "type": "SIZE_TRANSFORMATION",
+      "description": "Size changes: (0.5294117647058824, 0.8235294117647058)",
+      "required_ops": [
+        "scale_by_factor",
+        "expand_grid",
+        "contract_grid"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "f76d97a5",
+      "type": "COLOR_MAPPING",
+      "description": "Color transformations present",
+      "required_ops": [
+        "color_arithmetic",
+        "color_by_rule",
+        "map_colors"
+      ],
+      "complexity": 2
+    },
+    {
+      "task_id": "39e1d7f9",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    },
+    {
+      "task_id": "d43fd935",
+      "type": "SPATIAL_TRANSFORMATION",
+      "description": "Complex spatial transformation",
+      "required_ops": [
+        "spatial_transform",
+        "pattern_extraction"
+      ],
+      "complexity": 1
+    }
+  ],
+  "new_primitives": [
+    {
+      "name": "tile_nx_ny",
+      "description": "Tile input grid N times horizontally and M times vertically",
+      "rationale": "Many ARC tasks involve exact repetition of patterns",
+      "implementation": "Create output grid of size (h*N, w*M), copy input to each tile"
+    },
+    {
+      "name": "grow_by_rule",
+      "description": "Grow pattern outward following a rule (diagonal, plus-sign, etc)",
+      "rationale": "Tasks where small patterns expand following geometric rules",
+      "implementation": "Detect pattern, apply growth rule iteratively"
+    },
+    {
+      "name": "color_add",
+      "description": "Add offset to all non-zero colors (mod 10)",
+      "rationale": "Tasks with color cycling or arithmetic",
+      "implementation": "grid[grid > 0] = ((grid[grid > 0] + offset - 1) % 9) + 1"
+    },
+    {
+      "name": "color_multiply",
+      "description": "Multiply non-zero colors by factor (mod 10)",
+      "rationale": "Color transformations with multiplicative patterns",
+      "implementation": "grid[grid > 0] = ((grid[grid > 0] * factor - 1) % 9) + 1"
+    },
+    {
+      "name": "color_by_position",
+      "description": "Set color based on grid position (row+col, row*col, etc)",
+      "rationale": "Tasks where output color depends on spatial position",
+      "implementation": "Use row/column indices to compute color values"
+    },
+    {
+      "name": "fold_quarters",
+      "description": "Fold grid into quarters (overlay 4 quadrants)",
+      "rationale": "Tasks requiring spatial compression via overlaying",
+      "implementation": "Split grid into 4 parts, overlay them with OR/MAX operation"
+    },
+    {
+      "name": "unfold_pattern",
+      "description": "Take small pattern and unfold it into larger grid",
+      "rationale": "Opposite of compression - expansion from seed pattern",
+      "implementation": "Detect central pattern, expand outward with symmetry rules"
+    },
+    {
+      "name": "extract_repeating_pattern",
+      "description": "Detect and extract the repeating unit from a tiled pattern",
+      "rationale": "Many tasks involve finding the minimal repeating unit",
+      "implementation": "Try different tile sizes, find minimal unit that tiles perfectly"
+    },
+    {
+      "name": "replicate_to_size",
+      "description": "Replicate pattern to fill target size",
+      "rationale": "Scale pattern by integer tiling to match output size",
+      "implementation": "Repeat pattern N times to fill specified dimensions"
+    },
+    {
+      "name": "diagonal_shift",
+      "description": "Shift each row by its row index (creates diagonal effect)",
+      "rationale": "Diagonal shearing transformations",
+      "implementation": "new_grid[r] = np.roll(grid[r], r)"
+    },
+    {
+      "name": "antidiagonal_mirror",
+      "description": "Mirror along anti-diagonal (bottom-left to top-right)",
+      "rationale": "Less common symmetry not covered by existing primitives",
+      "implementation": "Flip then transpose (or transpose then flip)"
+    },
+    {
+      "name": "connect_nearest",
+      "description": "Connect each object to its nearest neighbor",
+      "rationale": "Tasks involving path creation between objects",
+      "implementation": "Find centroids, draw lines between nearest pairs"
+    },
+    {
+      "name": "object_to_border",
+      "description": "Extend each object to the nearest border",
+      "rationale": "Tasks where objects project to edges",
+      "implementation": "Detect objects, draw lines from centroid to edges"
+    },
+    {
+      "name": "mask_by_color",
+      "description": "Keep only cells matching specific color(s)",
+      "rationale": "Selective filtering based on color",
+      "implementation": "Set all non-matching colors to 0"
+    },
+    {
+      "name": "invert_mask",
+      "description": "Swap foreground/background (0 \u2194 non-zero)",
+      "rationale": "Figure-ground reversal tasks",
+      "implementation": "temp = (grid == 0); grid[temp] = 1; grid[~temp] = 0"
+    },
+    {
+      "name": "overlay_with_max",
+      "description": "Overlay multiple grids, take maximum color at each position",
+      "rationale": "Combining multiple patterns",
+      "implementation": "np.maximum across grid stack"
+    },
+    {
+      "name": "xor_grids",
+      "description": "XOR operation on two grid patterns",
+      "rationale": "Set difference operations",
+      "implementation": "(grid1 > 0) ^ (grid2 > 0)"
+    }
+  ]
+}

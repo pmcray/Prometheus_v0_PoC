@@ -1,0 +1,360 @@
+{
+  "model": "Phi-3-mini-4k-instruct-q4",
+  "total_problems": 30,
+  "timestamp": "2025-10-15T22:16:44.497174",
+  "problems": [
+    {
+      "id": 1,
+      "name": "Count Even Numbers",
+      "difficulty": "Easy",
+      "success": true,
+      "time_seconds": 26.941232681274414,
+      "code_length": 807,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 2,
+      "name": "Find Maximum",
+      "difficulty": "Easy",
+      "success": true,
+      "time_seconds": 23.04837131500244,
+      "code_length": 496,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 3,
+      "name": "Sum of Array",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 18.463351011276245,
+      "code_length": 623,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Traceback (most recent call last):\n  File \"/tmp/tmpxcx771nm.py\", line 19, in <module>\n    sum_of_array()\n    ~~~~~~~~~~~~^^\n  File \"/tmp/tmpxcx771nm.py\", line 3, in sum_of_array\n    n = int(input().st"
+    },
+    {
+      "id": 4,
+      "name": "Count Occurrences",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 13.804212093353271,
+      "code_length": 321,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 5,
+      "name": "Reverse Array",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 13.465465068817139,
+      "code_length": 446,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 6,
+      "name": "Check Sorted",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 29.77703619003296,
+      "code_length": 1071,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 7,
+      "name": "Two Sum Exists",
+      "difficulty": "Medium-Hard",
+      "success": false,
+      "time_seconds": 17.268781900405884,
+      "code_length": 665,
+      "test_passed": 1,
+      "test_total": 3,
+      "error": "Output mismatch"
+    },
+    {
+      "id": 8,
+      "name": "Most Frequent Element",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 15.454434156417847,
+      "code_length": 569,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 9,
+      "name": "Binary Search",
+      "difficulty": "Hard",
+      "success": true,
+      "time_seconds": 12.444206476211548,
+      "code_length": 552,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 10,
+      "name": "Palindrome String",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 9.523165225982666,
+      "code_length": 417,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 11,
+      "name": "Sort Array",
+      "difficulty": "Easy",
+      "success": true,
+      "time_seconds": 20.237287759780884,
+      "code_length": 416,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 12,
+      "name": "Count Unique Elements",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 22.3005633354187,
+      "code_length": 552,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 13,
+      "name": "Range Sum",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 20.821412801742554,
+      "code_length": 704,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Traceback (most recent call last):\n  File \"/tmp/tmpuijrpj2j.py\", line 24, in <module>\n    L = int(input(\"Enter L: \"))\nValueError: invalid literal for int() with base 10: '1 5'\n"
+    },
+    {
+      "id": 14,
+      "name": "Prefix Sum Query",
+      "difficulty": "Medium-Hard",
+      "success": true,
+      "time_seconds": 26.848654985427856,
+      "code_length": 822,
+      "test_passed": 2,
+      "test_total": 2,
+      "error": null
+    },
+    {
+      "id": 15,
+      "name": "Min and Max",
+      "difficulty": "Easy",
+      "success": true,
+      "time_seconds": 14.96638536453247,
+      "code_length": 783,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 16,
+      "name": "Greatest Common Divisor",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 23.508885383605957,
+      "code_length": 788,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 17,
+      "name": "Prime Number Check",
+      "difficulty": "Medium",
+      "success": false,
+      "time_seconds": 17.185986042022705,
+      "code_length": 675,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Output mismatch"
+    },
+    {
+      "id": 18,
+      "name": "Nth Fibonacci Number",
+      "difficulty": "Medium",
+      "success": false,
+      "time_seconds": 15.170434951782227,
+      "code_length": 620,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "  File \"/tmp/tmphva7q_vq.py\", line 30\n    > EOF by user\n    ^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "id": 19,
+      "name": "Maximum Subarray Sum",
+      "difficulty": "Hard",
+      "success": true,
+      "time_seconds": 33.63748598098755,
+      "code_length": 1070,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 20,
+      "name": "Longest Increasing Subsequence",
+      "difficulty": "Hard",
+      "success": true,
+      "time_seconds": 29.72239851951599,
+      "code_length": 804,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 21,
+      "name": "Coin Change",
+      "difficulty": "Hard",
+      "success": false,
+      "time_seconds": 12.844164609909058,
+      "code_length": 466,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "  File \"/tmp/tmpyl5jgvf3.py\", line 24\n    > EOF by user\n    ^\nSyntaxError: invalid syntax\n"
+    },
+    {
+      "id": 22,
+      "name": "Reverse String",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 24.67842936515808,
+      "code_length": 607,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Output mismatch"
+    },
+    {
+      "id": 23,
+      "name": "Count Vowels",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 10.220383167266846,
+      "code_length": 366,
+      "test_passed": 2,
+      "test_total": 3,
+      "error": "Output mismatch"
+    },
+    {
+      "id": 24,
+      "name": "Cumulative Sum",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 28.521528244018555,
+      "code_length": 936,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Output mismatch"
+    },
+    {
+      "id": 25,
+      "name": "Filter Positive Numbers",
+      "difficulty": "Easy",
+      "success": false,
+      "time_seconds": 19.550023078918457,
+      "code_length": 629,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "Traceback (most recent call last):\n  File \"/tmp/tmpywsmug7v.py\", line 17, in <module>\n    output = filter_positive_numbers(input_lines)\n  File \"/tmp/tmpywsmug7v.py\", line 3, in filter_positive_numbers"
+    },
+    {
+      "id": 26,
+      "name": "Median Value",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 22.108598232269287,
+      "code_length": 906,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 27,
+      "name": "Mode Value",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 17.385005712509155,
+      "code_length": 749,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 28,
+      "name": "Second Maximum",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 22.084131479263306,
+      "code_length": 989,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 29,
+      "name": "Remove Duplicates",
+      "difficulty": "Medium",
+      "success": true,
+      "time_seconds": 14.29523777961731,
+      "code_length": 472,
+      "test_passed": 3,
+      "test_total": 3,
+      "error": null
+    },
+    {
+      "id": 30,
+      "name": "Partition Even and Odd",
+      "difficulty": "Medium",
+      "success": false,
+      "time_seconds": 23.649253845214844,
+      "code_length": 954,
+      "test_passed": 0,
+      "test_total": 3,
+      "error": "  File \"/tmp/tmpm1efg0s3.py\", line 33\n    Written in clean Python code, the solution reads input, partitions even and odd numbers, and handles edge cases gracefully. It does not use any imports and ad"
+    }
+  ],
+  "solved": 19,
+  "total_time_seconds": 599.9265067577362,
+  "avg_time_seconds": 19.997550225257875,
+  "success_rate": 0.6333333333333333,
+  "status": "success",
+  "by_difficulty": {
+    "Easy": {
+      "solved": 4,
+      "total": 10
+    },
+    "Medium": {
+      "solved": 11,
+      "total": 14
+    },
+    "Medium-Hard": {
+      "solved": 1,
+      "total": 2
+    },
+    "Hard": {
+      "solved": 3,
+      "total": 4
+    }
+  }
+}

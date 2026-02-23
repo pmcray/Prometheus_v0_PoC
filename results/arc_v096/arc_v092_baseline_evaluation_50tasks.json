@@ -1,0 +1,681 @@
+{
+  "version": "v0.92",
+  "improvements": [
+    "hybrid_fitness",
+    "separate_primitives",
+    "object_aware",
+    "adaptive_budget"
+  ],
+  "config": {
+    "split": "evaluation",
+    "num_tasks": 50,
+    "max_cycles": 1
+  },
+  "summary": {
+    "solved": 0,
+    "total": 50,
+    "accuracy": 0.0,
+    "time": 230.17425179481506
+  },
+  "statistics": {
+    "total_solves": 0,
+    "phase5_solves": 0,
+    "phase6_solves": 0,
+    "phase7_improves": 0,
+    "meta_stats": {
+      "strategy_weights": {
+        "llm_guided": 1.0,
+        "local_search": 1.0,
+        "evolution": 1.0,
+        "adaptive_ops": 1.0,
+        "hybrid": 1.0
+      },
+      "strategy_performance": {
+        "llm_guided": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "local_search": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "evolution": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "adaptive_ops": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        },
+        "hybrid": {
+          "success_rate": 0.0,
+          "avg_fitness_gain": 0.0,
+          "total_attempts": 0
+        }
+      }
+    },
+    "hybrid_fitness_improvements": 50,
+    "object_primitive_usage": {
+      "detect_objects": 9,
+      "extract_largest": 11,
+      "fill_interior": 11
+    },
+    "avg_generation_budget": 83.0
+  },
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.14792899408284024,
+      "pattern": [
+        "downsample",
+        "pad_1",
+        "downsample",
+        "pad_1",
+        "pad_1",
+        "rotate_90"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 1
+    },
+    {
+      "task_id": "135a2760",
+      "success": false,
+      "fitness": 0.4912837162837163,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 1
+    },
+    {
+      "task_id": "136b0064",
+      "success": false,
+      "fitness": 0.21121560740937903,
+      "pattern": [
+        "pad_1",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 3
+    },
+    {
+      "task_id": "13e47133",
+      "success": false,
+      "fitness": 0.13118589743589745,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 3
+    },
+    {
+      "task_id": "142ca369",
+      "success": false,
+      "fitness": 0.4514300411522634,
+      "pattern": [
+        "rotate_90",
+        "rotate_270"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 3
+    },
+    {
+      "task_id": "16b78196",
+      "success": false,
+      "fitness": 0.46638888888888885,
+      "pattern": [
+        "flip_h",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "16de56c4",
+      "success": false,
+      "fitness": 0.4395502645502645,
+      "pattern": [
+        "flip_h",
+        "flip_h"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "1818057f",
+      "success": false,
+      "fitness": 0.45206971677559915,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "195c6913",
+      "success": false,
+      "fitness": 0.43578333333333336,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "1ae2feb7",
+      "success": false,
+      "fitness": 0.44890734265734267,
+      "pattern": [
+        "flip_v",
+        "flip_v"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "20270e3b",
+      "success": false,
+      "fitness": 0.12038944851444852,
+      "pattern": [
+        "crop",
+        "remove_bg"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 4
+    },
+    {
+      "task_id": "20a9e565",
+      "success": false,
+      "fitness": 0.24814834387829499,
+      "pattern": [
+        "tile_3x3",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 6
+    },
+    {
+      "task_id": "21897d95",
+      "success": false,
+      "fitness": 0.12668526785714285,
+      "pattern": [
+        "rotate_270",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 7
+    },
+    {
+      "task_id": "221dfab4",
+      "success": false,
+      "fitness": 0.43025078369905956,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 7
+    },
+    {
+      "task_id": "247ef758",
+      "success": false,
+      "fitness": 0.43130952380952375,
+      "pattern": [
+        "crop",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 8
+    },
+    {
+      "task_id": "269e22fb",
+      "success": false,
+      "fitness": 0.1496033653846154,
+      "pattern": [
+        "tile_2x2",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 25,
+      "object_primitives_used": 10
+    },
+    {
+      "task_id": "271d71e2",
+      "success": false,
+      "fitness": 0.3248790529283609,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 10
+    },
+    {
+      "task_id": "28a6681f",
+      "success": false,
+      "fitness": 0.4533333333333333,
+      "pattern": [
+        "scale_2x",
+        "downsample"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 10
+    },
+    {
+      "task_id": "291dc1e1",
+      "success": false,
+      "fitness": 0.23402199074074076,
+      "pattern": [
+        "downsample",
+        "pad_1",
+        "pad_1",
+        "pad_1",
+        "tile_3x3",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 11
+    },
+    {
+      "task_id": "2b83f449",
+      "success": false,
+      "fitness": 0.41164427677585574,
+      "pattern": [
+        "crop",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 12
+    },
+    {
+      "task_id": "2ba387bc",
+      "success": false,
+      "fitness": 0.2451454895748374,
+      "pattern": [
+        "tile_3x3",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 14
+    },
+    {
+      "task_id": "2c181942",
+      "success": false,
+      "fitness": 0.46746813894639977,
+      "pattern": [
+        "crop",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 15
+    },
+    {
+      "task_id": "2d0172a1",
+      "success": false,
+      "fitness": 0.13680555555555554,
+      "pattern": [
+        "downsample",
+        "pad_1",
+        "remove_bg"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "31f7f899",
+      "success": false,
+      "fitness": 0.46172657623207075,
+      "pattern": [
+        "flip_v"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "332f06d7",
+      "success": false,
+      "fitness": 0.481058983489229,
+      "pattern": [
+        "crop",
+        "fill_zeros"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "35ab12c3",
+      "success": false,
+      "fitness": 0.39293209876543206,
+      "pattern": [
+        "flip_v",
+        "flip_v"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "36a08778",
+      "success": false,
+      "fitness": 0.35610700476771906,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "38007db0",
+      "success": false,
+      "fitness": 0.09691295546558704,
+      "pattern": [
+        "downsample",
+        "rotate_180"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 16
+    },
+    {
+      "task_id": "3a25b0d8",
+      "success": false,
+      "fitness": 0.145184361093452,
+      "pattern": [
+        "downsample",
+        "detect_objects"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 17
+    },
+    {
+      "task_id": "3dc255db",
+      "success": false,
+      "fitness": 0.4658333333333333,
+      "pattern": [
+        "scale_2x",
+        "downsample"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 17
+    },
+    {
+      "task_id": "3e6067c3",
+      "success": false,
+      "fitness": 0.4793911575393057,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 17
+    },
+    {
+      "task_id": "409aa875",
+      "success": false,
+      "fitness": 0.4869791666666667,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 50,
+      "object_primitives_used": 17
+    },
+    {
+      "task_id": "446ef5d2",
+      "success": false,
+      "fitness": 0.3277083333333333,
+      "pattern": [
+        "flip_h",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 18
+    },
+    {
+      "task_id": "45a5af55",
+      "success": false,
+      "fitness": 0.13177001569858712,
+      "pattern": [
+        "tile_2x2",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 19
+    },
+    {
+      "task_id": "4a21e3da",
+      "success": false,
+      "fitness": 0.44393004115226337,
+      "pattern": [
+        "crop",
+        "detect_objects"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 20
+    },
+    {
+      "task_id": "4c3d4a41",
+      "success": false,
+      "fitness": 0.44375,
+      "pattern": [
+        "flip_h",
+        "flip_h",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 21
+    },
+    {
+      "task_id": "4c416de3",
+      "success": false,
+      "fitness": 0.47505311723513177,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 21
+    },
+    {
+      "task_id": "4c7dc4dd",
+      "success": false,
+      "fitness": 0.2,
+      "pattern": [
+        "downsample",
+        "pad_1",
+        "downsample",
+        "downsample",
+        "flip_v"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 21
+    },
+    {
+      "task_id": "4e34c42c",
+      "success": false,
+      "fitness": 0.15085955710955712,
+      "pattern": [
+        "downsample",
+        "remove_bg"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 22
+    },
+    {
+      "task_id": "53fb4810",
+      "success": false,
+      "fitness": 0.47342082736104474,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 22
+    },
+    {
+      "task_id": "5545f144",
+      "success": false,
+      "fitness": 0.14846993284493284,
+      "pattern": [
+        "downsample",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 24
+    },
+    {
+      "task_id": "581f7754",
+      "success": false,
+      "fitness": 0.42847905461541824,
+      "pattern": [
+        "flip_h",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 25
+    },
+    {
+      "task_id": "58490d8a",
+      "success": false,
+      "fitness": 0.25336167800453513,
+      "pattern": [
+        "downsample",
+        "downsample",
+        "downsample",
+        "pad_1",
+        "detect_objects"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 26
+    },
+    {
+      "task_id": "58f5dbd5",
+      "success": false,
+      "fitness": 0.0895645178033842,
+      "pattern": [
+        "downsample",
+        "transpose"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 26
+    },
+    {
+      "task_id": "5961cc34",
+      "success": false,
+      "fitness": 0.43141963109354414,
+      "pattern": [
+        "crop",
+        "fill_interior"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 27
+    },
+    {
+      "task_id": "5dbc8537",
+      "success": false,
+      "fitness": 0.14354166666666668,
+      "pattern": [
+        "flip_v",
+        "remove_bg"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 27
+    },
+    {
+      "task_id": "62593bfd",
+      "success": false,
+      "fitness": 0.4633395989974937,
+      "pattern": [
+        "rotate_180",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 28
+    },
+    {
+      "task_id": "64efde09",
+      "success": false,
+      "fitness": 0.43241337206854447,
+      "pattern": [
+        "crop"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 28
+    },
+    {
+      "task_id": "65b59efc",
+      "success": false,
+      "fitness": 0.24621913580246912,
+      "pattern": [
+        "pad_1",
+        "downsample",
+        "pad_1",
+        "tile_3x3",
+        "tile_3x3",
+        "extract_largest"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 75,
+      "object_primitives_used": 30
+    },
+    {
+      "task_id": "67e490f4",
+      "success": false,
+      "fitness": 0.10657596371882086,
+      "pattern": [
+        "downsample",
+        "pad_1",
+        "pad_1",
+        "pad_1",
+        "detect_objects"
+      ],
+      "method": "v092_baseline",
+      "generation_budget": 100,
+      "object_primitives_used": 31
+    }
+  ]
+}

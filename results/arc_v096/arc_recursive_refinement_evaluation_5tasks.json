@@ -1,0 +1,124 @@
+{
+  "config": {
+    "split": "evaluation",
+    "num_tasks": 5,
+    "generations": 100,
+    "max_cycles": 3,
+    "population": 100
+  },
+  "summary": {
+    "solved": 0,
+    "total": 5,
+    "accuracy": 0.0,
+    "time": 28.129775762557983,
+    "avg_time_per_task": 5.6259551525115965
+  },
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.11405257936507936,
+      "pattern": [
+        "count_colors"
+      ],
+      "refinement_cycles": 0,
+      "improvements": []
+    },
+    {
+      "task_id": "135a2760",
+      "success": false,
+      "fitness": 0.9825674325674326,
+      "pattern": [
+        "identity",
+        "identity"
+      ],
+      "refinement_cycles": 3,
+      "improvements": [
+        {
+          "cycle": 1,
+          "fitness_gain": 0.020000000000000018,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 2,
+          "fitness_gain": 0.0,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 3,
+          "fitness_gain": 0.0,
+          "failures_fixed": 0
+        }
+      ]
+    },
+    {
+      "task_id": "136b0064",
+      "success": false,
+      "fitness": 0.6879200164914452,
+      "pattern": [
+        "rotate_90",
+        "isolate_2",
+        "isolate_1",
+        "overlay_max",
+        "diag_flip"
+      ],
+      "refinement_cycles": 3,
+      "improvements": [
+        {
+          "cycle": 1,
+          "fitness_gain": -0.29431045145330875,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 2,
+          "fitness_gain": -0.29431045145330875,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 3,
+          "fitness_gain": -0.29431045145330875,
+          "failures_fixed": 0
+        }
+      ]
+    },
+    {
+      "task_id": "13e47133",
+      "success": false,
+      "fitness": 0.2769871794871795,
+      "pattern": [
+        "invert",
+        "swap_max_min",
+        "invert"
+      ],
+      "refinement_cycles": 0,
+      "improvements": []
+    },
+    {
+      "task_id": "142ca369",
+      "success": false,
+      "fitness": 0.9028600823045267,
+      "pattern": [
+        "identity",
+        "identity"
+      ],
+      "refinement_cycles": 3,
+      "improvements": [
+        {
+          "cycle": 1,
+          "fitness_gain": 0.020000000000000018,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 2,
+          "fitness_gain": 0.0,
+          "failures_fixed": 0
+        },
+        {
+          "cycle": 3,
+          "fitness_gain": 0.0,
+          "failures_fixed": 0
+        }
+      ]
+    }
+  ]
+}

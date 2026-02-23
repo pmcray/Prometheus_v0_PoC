@@ -1,0 +1,3417 @@
+{
+  "split": "evaluation",
+  "total_tasks": 400,
+  "solved": 5,
+  "success_rate": 0.0125,
+  "elapsed_seconds": 1492.7959785461426,
+  "avg_time_per_task": 3.7319899463653563,
+  "results": [
+    {
+      "task_id": "00576224",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h",
+        "tile_2x1"
+      ]
+    },
+    {
+      "task_id": "009d5c81",
+      "success": false,
+      "fitness": 0.2,
+      "solution": [
+        "invert",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "00dbd492",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "03560426",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v"
+      ]
+    },
+    {
+      "task_id": "05a7bcf2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "0607ce86",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "0692e18c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "070dd51e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "08573cc6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "09c534e7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "0a1d4ef5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "0a2355a6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "0b17323b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "0bb8deee",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "0becf7df",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1",
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "0c786b71",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "0c9aba6e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "0d87d2a6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270",
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "0e671a1a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "0f63c0b9",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "103eff5b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "11e1fe23",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample",
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "12422b43",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "12997ef3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "12eac192",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "136b0064",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "13713586",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "137f0df0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "140c817e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "14754a24",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "15113be4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "15663ba9",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "15696249",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "16b78196",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "17b80ad2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1",
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "17cae0c1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "18419cfa",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg",
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "184a9768",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "195ba7dc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "1990f7a8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "19bb5feb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "1a2e2828",
+      "success": false,
+      "fitness": 0.1,
+      "solution": [
+        "center"
+      ]
+    },
+    {
+      "task_id": "1a6449f1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "1acc24af",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "1c02dbbe",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "1c0d0a4b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "1c56ad9f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "1d0a4b61",
+      "success": false,
+      "fitness": 0.1333333333333333,
+      "solution": [
+        "mirror_v",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "1d398264",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border"
+      ]
+    },
+    {
+      "task_id": "1da012fc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg",
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "1e81d6f9",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "1e97544e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "2037f2c7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "2072aba6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "20818e16",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "20981f0e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "212895b5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "21f83797",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_180"
+      ]
+    },
+    {
+      "task_id": "22a4bbc2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "25094a63",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "2546ccf6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "256b0a75",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1",
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "2685904e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "2697da3f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "2753e76c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert"
+      ]
+    },
+    {
+      "task_id": "27a77e38",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "27f8ce4f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x1",
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "281123b4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "292dd178",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "29700607",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "2a5f8217",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "2b01abd0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "2c0b0aff",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "2c737e39",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "2f0c5170",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "310f3251",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "3194b014",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "319f2597",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01",
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "31adaf00",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min",
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "31d5ba1a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "32e9702f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "332efdb3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "3391f8c0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "33b52de3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert"
+      ]
+    },
+    {
+      "task_id": "3490cc26",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "34b99a2b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "351d6448",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "358ba94e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "37d3e8b2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "3979b1a8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v"
+      ]
+    },
+    {
+      "task_id": "3a301edc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "3b4c2228",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "3d31c5b3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "3ed85e70",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "3ee1011a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "3f23242b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x1",
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "40f6cd08",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "414297c0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "423a55dc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "42918530",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "42a15761",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "4364c1c4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "456873bc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "45737921",
+      "success": false,
+      "fitness": 0.2333333333333333,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "45bbe264",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "477d2879",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "47996f11",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "48131b3c",
+      "success": false,
+      "fitness": 0.1333333333333333,
+      "solution": [
+        "tile_2x2",
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "4852f2fa",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "48f8583b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "4aab4007",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert"
+      ]
+    },
+    {
+      "task_id": "4acc7107",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down",
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "4b6b68e5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "4c177718",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "4cd1b7b2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges",
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "4e45f183",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "4e469f39",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_180"
+      ]
+    },
+    {
+      "task_id": "4f537728",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h",
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "4ff4c9da",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "505fff84",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "506d28a5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "50a16a69",
+      "success": true,
+      "fitness": 0.2333333333333333,
+      "solution": [
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "50aad11f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "50f325b5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "516b51b7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "5207a7b5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "5289ad53",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "52fd389e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg",
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "54db823b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "55059096",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "551d5bf1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "55783887",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "575b1a71",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "5783df64",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "center"
+      ]
+    },
+    {
+      "task_id": "5833af48",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "58743b76",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "58e15b12",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min",
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "59341089",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors",
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "5a5a2103",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "5af49b42",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "5b526a93",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "5b692c0f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x",
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "5b6cbef5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "5d2a5c43",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h",
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "5ffb2104",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "604001fa",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "60a26a3e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "60c09cac",
+      "success": true,
+      "fitness": 0.9,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "626c0bcc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "62ab2642",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "62b74c02",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "639f5a19",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "642248e4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "642d658d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "64a7c07e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "66e6c45b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1",
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "66f2d22f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "67636eac",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "67b4a34d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "67c52801",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h",
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "68b67ca3",
+      "success": true,
+      "fitness": 0.9,
+      "solution": [
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "692cd3b6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "695367ec",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "696d4842",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "69889d6e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "6a11f6da",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "6ad5bdfd",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "6df30ad6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "6ea4a07e",
+      "success": false,
+      "fitness": 0.3,
+      "solution": [
+        "color_inc",
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "6f473927",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "rotate_180"
+      ]
+    },
+    {
+      "task_id": "7039b2d7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "705a3229",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "712bf12e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "72207abc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "72a961c9",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_1x3",
+        "rotate_180"
+      ]
+    },
+    {
+      "task_id": "73182012",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "73c3b0d8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "73ccf9c2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "759f3fd3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1",
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "762cd429",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "770cc55f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc",
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "782b5218",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "79369cc6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "7953d61e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "79fb03f4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors",
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "7bb29440",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "7c8af763",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "7c9b52a0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "invert"
+      ]
+    },
+    {
+      "task_id": "7d18a6fb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "7d1f7ee8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "7d419a02",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "7e02026e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x1",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "7ee1c6ea",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "817e6c09",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "81c0276b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "833dafe3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "845d6e51",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose",
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "84db8fc4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "84f2aca1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "8597cfd7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample",
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "85b81ff1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "85fa5666",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "8719f442",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "center"
+      ]
+    },
+    {
+      "task_id": "88207623",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border"
+      ]
+    },
+    {
+      "task_id": "891232d6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "896d5239",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "center"
+      ]
+    },
+    {
+      "task_id": "8a371977",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "8b28cd80",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "identity"
+      ]
+    },
+    {
+      "task_id": "8ba14f53",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "8cb8642d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "8dae5dfc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x",
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "8e2edd66",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "8ee62060",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "8fbca751",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "90347967",
+      "success": false,
+      "fitness": 0.5666666666666667,
+      "solution": [
+        "rotate_180"
+      ]
+    },
+    {
+      "task_id": "903d1b4a",
+      "success": false,
+      "fitness": 0.3,
+      "solution": [
+        "sym_v",
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "9110e3c5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "fill_zeros",
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "917bccba",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "929ab4e9",
+      "success": false,
+      "fitness": 0.04999999999999999,
+      "solution": [
+        "rotate_180",
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "92e50de0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "9356391f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "93b4f4b3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "93c31fbe",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center"
+      ]
+    },
+    {
+      "task_id": "94133066",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "94414823",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "94be5b80",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "95a58926",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "963f59bc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "96a8c0cd",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "97239e3d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "9772c176",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "981571dc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "992798f6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample",
+        "border"
+      ]
+    },
+    {
+      "task_id": "99306f82",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "9a4bb226",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "9b2a60aa",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "9b365c51",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x1"
+      ]
+    },
+    {
+      "task_id": "9b4c17c4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors",
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "9bebae7a",
+      "success": false,
+      "fitness": 0.1,
+      "solution": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "9c1e755f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "9c56f360",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "9caba7c3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "9ddd00f0",
+      "success": false,
+      "fitness": 0.3,
+      "solution": [
+        "mirror_v",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "9def23fe",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "9f27f097",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard",
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "a04b2602",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v"
+      ]
+    },
+    {
+      "task_id": "a096bf4d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "a3f84088",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "a406ac07",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "a57f2f04",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "a59b95c0",
+      "success": false,
+      "fitness": 0.30000000000000004,
+      "solution": [
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "a680ac02",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_inc",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "a8610ef7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "a934301b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min",
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "aa18de87",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "aa300dc3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "aa4ec2a5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "aab50785",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "ac0c5833",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "ac2e8ecf",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "ac3e2b04",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "ac605cbb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "ad7e01d0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "ae58858e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "aee291af",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "af22c60d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "af24b4cc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "b0722778",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "b0f4d537",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "b15fca0b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "downsample",
+        "color_inc"
+      ]
+    },
+    {
+      "task_id": "b1fc8b8e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "b20f7c8b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "remove_bg",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "b457fec5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "b4a43f3b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_1x3",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "b7999b51",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "b7cb93ac",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "b7f8a4d8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "b7fb29bc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "b942fd60",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "b9630600",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "ba9d41b8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "baf41dbf",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border"
+      ]
+    },
+    {
+      "task_id": "bb52a14b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "bbb1b8b6",
+      "success": false,
+      "fitness": 0.22857142857142854,
+      "solution": [
+        "isolate_1",
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "bc4146bd",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "bcb3040b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "bd14c3bf",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v",
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "be03b35f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h",
+        "center"
+      ]
+    },
+    {
+      "task_id": "bf32578f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "bf699163",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "bf89d739",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x",
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "c074846d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "c1990cce",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "c3202e5a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "center"
+      ]
+    },
+    {
+      "task_id": "c35c1b4c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270",
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "c48954c1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "c62e2108",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "c64f1187",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "c658a4bd",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "c663677b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v",
+        "center"
+      ]
+    },
+    {
+      "task_id": "c6e1b8da",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90",
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "c7d4e6ad",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "c87289bb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "c8b7cc0f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "c92b942c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "c97c0139",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2",
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "ca8de6ea",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "ca8f78db",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v",
+        "border"
+      ]
+    },
+    {
+      "task_id": "cad67732",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_3x",
+        "flip_v"
+      ]
+    },
+    {
+      "task_id": "cb227835",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "ccd554ac",
+      "success": false,
+      "fitness": 0.2333333333333333,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "cd3c21df",
+      "success": false,
+      "fitness": 0.1333333333333333,
+      "solution": [
+        "isolate_2",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "ce039d91",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "hollow",
+        "flip_v"
+      ]
+    },
+    {
+      "task_id": "ce8d95cc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max",
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "cf133acc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "cfb2ce5a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "d017b73f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "d19f7514",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h",
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "d282b262",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max",
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "d2acf2cb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down",
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "d304284e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "d37a1ef5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "d47aa2ff",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert"
+      ]
+    },
+    {
+      "task_id": "d492a647",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "d4b1c2b1",
+      "success": false,
+      "fitness": 0.3285714285714285,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "d4c90558",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "d56f2372",
+      "success": false,
+      "fitness": 0.1333333333333333,
+      "solution": [
+        "isolate_1",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "d5c634a2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "center",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "d931c21c",
+      "success": false,
+      "fitness": 0.15,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "d94c3b52",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "da2b0fe3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "da515329",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_h",
+        "fill_zeros"
+      ]
+    },
+    {
+      "task_id": "dc2aa30b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "flip_v",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "dc2e9a9d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "dd2401ed",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_h"
+      ]
+    },
+    {
+      "task_id": "de493100",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "df8cc377",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "e0fb7511",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "e133d23d",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "e1baa8a4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "e1d2900e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "e2092e0c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "e21a174a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border"
+      ]
+    },
+    {
+      "task_id": "e345f17b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270",
+        "crop"
+      ]
+    },
+    {
+      "task_id": "e4075551",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "scale_3x"
+      ]
+    },
+    {
+      "task_id": "e41c6fd3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max",
+        "center"
+      ]
+    },
+    {
+      "task_id": "e57337a4",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_01"
+      ]
+    },
+    {
+      "task_id": "e5790162",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "e5c44e8f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "e619ca6e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "e633a9e5",
+      "success": true,
+      "fitness": 0.8,
+      "solution": [
+        "scale_3x",
+        "downsample"
+      ]
+    },
+    {
+      "task_id": "e66aafb8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "e681b708",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h",
+        "rotate_90"
+      ]
+    },
+    {
+      "task_id": "e69241bd",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "flip_h"
+      ]
+    },
+    {
+      "task_id": "e6de6e8f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "diag_flip"
+      ]
+    },
+    {
+      "task_id": "e74e1818",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down",
+        "center"
+      ]
+    },
+    {
+      "task_id": "e760a62e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "e7639916",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max",
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "e78887d1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "e7a25a18",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_v"
+      ]
+    },
+    {
+      "task_id": "e7b06bea",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x"
+      ]
+    },
+    {
+      "task_id": "e7dd8335",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "e872b94a",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_180",
+        "checkerboard"
+      ]
+    },
+    {
+      "task_id": "e88171ec",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1",
+        "isolate_1"
+      ]
+    },
+    {
+      "task_id": "e95e3d8e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_down"
+      ]
+    },
+    {
+      "task_id": "e99362f0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop"
+      ]
+    },
+    {
+      "task_id": "e9ac8c9e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "e9b4f6fc",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "e9bb6954",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up"
+      ]
+    },
+    {
+      "task_id": "e9c9d9a1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_180",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "ea959feb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "ea9794b1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "ecaa0ec1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "ed74f2f2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "checkerboard",
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "ed98d772",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "scale_2x",
+        "mirror_h"
+      ]
+    },
+    {
+      "task_id": "ef26cbf6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "f0afb749",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "remove_bg"
+      ]
+    },
+    {
+      "task_id": "f0df5ff0",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "f21745ec",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2",
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "f3b10344",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "f3cdc58f",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "invert"
+      ]
+    },
+    {
+      "task_id": "f3e62deb",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v"
+      ]
+    },
+    {
+      "task_id": "f4081712",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "transpose"
+      ]
+    },
+    {
+      "task_id": "f45f5ca7",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "f5aa3634",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "f5c89df1",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "f823c43c",
+      "success": false,
+      "fitness": 0.3,
+      "solution": [
+        "mirror_v",
+        "overlay_max"
+      ]
+    },
+    {
+      "task_id": "f83cb3f6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "border",
+        "tile_1x3"
+      ]
+    },
+    {
+      "task_id": "f8be4b64",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_2",
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "f9a67cb5",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3",
+        "swap_max_min"
+      ]
+    },
+    {
+      "task_id": "f9d67f8b",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "pad_1"
+      ]
+    },
+    {
+      "task_id": "fafd9572",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges"
+      ]
+    },
+    {
+      "task_id": "fb791726",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "count_colors"
+      ]
+    },
+    {
+      "task_id": "fc754716",
+      "success": true,
+      "fitness": 0.8,
+      "solution": [
+        "fill_zeros",
+        "hollow"
+      ]
+    },
+    {
+      "task_id": "fd096ab6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "fill_zeros",
+        "compress_h"
+      ]
+    },
+    {
+      "task_id": "fd4b2b02",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270"
+      ]
+    },
+    {
+      "task_id": "fe9372f3",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2"
+      ]
+    },
+    {
+      "task_id": "fea12743",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos"
+      ]
+    },
+    {
+      "task_id": "ff72ca3e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "crop",
+        "tile_2x1"
+      ]
+    }
+  ]
+}

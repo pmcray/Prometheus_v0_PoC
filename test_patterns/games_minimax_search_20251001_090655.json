@@ -1,0 +1,19 @@
+{
+  "pattern_id": "games_minimax_search_20251001_090655",
+  "name": "minimax_search",
+  "description": "A recursive algorithm that explores all possible moves in a game tree up to a certain depth and selects the move with the highest expected outcome.",
+  "code_template": "def minimax_search(board, depth):\n    best_move = None\n    for move in get_moves(board):\n        score = evaluate(board, move, depth)\n        if score > <PLACEHOLDER>:\n            best_move = move\n    return best_move",
+  "applicability": [
+    "games"
+  ],
+  "performance_history": {
+    "games": 0.85
+  },
+  "extracted_from": "test_agent",
+  "extraction_date": "2025-10-01T09:06:55.619743",
+  "usage_count": 0,
+  "metadata": {
+    "original_fitness": 0.85,
+    "original_domain": "games"
+  }
+}

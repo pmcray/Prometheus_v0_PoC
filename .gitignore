@@ -1,18 +1,52 @@
-# Environment variables
-.env
 
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# Python cache
+.lake/
 __pycache__/
 *.pyc
+*.log
+*.aux
+*.out
+*.pdf
+*.tex
+temp_*.py
+temp_*.lean
+leanpkg.toml
+lakefile.lean
 
-# Virtual environment
+# Nested/duplicate directories
+Prometheus_v0_PoC/
+
+# Virtual environments
 venv/
+venv_jetson/
+env/
+.env
 
-# BFG Repo-Cleaner files
-bfg*.jar
-replacements.txt
-*.bfg-report/
-Prometheus_v0_PoC.git/
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Temporary benchmark results
+benchmark_results/
+simulation_cache/
+
+# Model files (too large for git)
+# Note: /models/ would match top-level only, but we want to allow prometheus/models/
+*.gguf
+*.bin
+*.safetensors
+*.h5
+*.keras
+/models/
+/saved_models/
+/checkpoints/
+
+# Generated reports (can regenerate)
+*_verification_report.json
+prometheus_demo_report_*.json

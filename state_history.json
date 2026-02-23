@@ -1,0 +1,10 @@
+[
+  {
+    "goal": "Optimize Fibonacci",
+    "active_variables": [
+      "n"
+    ],
+    "causal_constraints": {},
+    "timestamp": "2026-02-18T17:46:35.248268"
+  }
+]

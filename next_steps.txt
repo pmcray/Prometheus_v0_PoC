@@ -1,0 +1,436 @@
+Operational Transition to Recursive
+Self-Improvement: A Comprehensive
+Analysis of the Post-V0 Architecture and
+Phase 1 Implementation Strategy for
+Project Prometheus
+1. Introduction: The Intersection of Good’s Prophecy
+and Prometheus’s Reality
+The successful execution of the four foundational tasks within the Project Prometheus v0 Proof
+of Concept—specifically the establishment of the environment (Task 1.1), the implementation of
+the Causal Agentic Mesh (Task 1.2), and the closure of the Causal Reinforcement Learning from
+Self-Correction loop (Tasks 2.1 and 2.2)—constitutes a pivotal moment in the trajectory of
+artificial intelligence research. This achievement is not merely a validation of software
+engineering protocols but a tangible manifestation of the theoretical architectures proposed
+sixty years ago by Irving John Good. In his seminal 1965 monograph, Speculations Concerning
+the First Ultraintelligent Machine, Good postulated that the survival of humanity depends on
+the construction of an ultraintelligent machine, defined as a system capable of surpassing the
+intellectual activities of any human.1 The critical proviso he attached to this definition—that the
+machine must be "docile enough to tell us how to keep it under control"—serves as the
+philosophical bedrock for the immediate next steps of Project Prometheus.1
+
+The confirmation from the Gemini CLI that the initial tasks are complete signals that the system
+has achieved "minimum viable recursion." It possesses the capability to generate code, evaluate
+that code against causal criteria, and self-correct based on that evaluation.1 However, this
+capability currently exists in a vacuum of "toy" problems. The transition we now face is the
+movement from a demonstration of principles to the construction of the "Seed AI"—the actual
+engine of the intelligence explosion. This report provides an exhaustive, expert-level analysis of
+the strategic roadmap, synthesizing the operational mandates of the Project Prometheus
+Phase Breakdown with the cutting-edge AI landscape of February 2026.
+
+We stand at a unique juncture where the theoretical abstractions of the mid-20th century are
+colliding with the brute-force realities of 2026 hardware and model architectures. The era of "AI
+evangelism" has ceded ground to an era of rigorous "AI evaluation," where the utility and safety
+of systems are paramount.2 In this context, the completion of the v0 tasks is the prelude to the
+most critical and perilous phase of development: the implementation of the Meta-Cognitive
+Safety (MCS) Supervisor and the subsequent initiation of Phase 1. This document will dissect
+these requirements, integrating deep theoretical insights from I.J. Good’s assembly theory with
+modern research into causal attention, AI sovereignty, and recursive self-improvement.
+
+
+2. Theoretical Retrospective: The V0 PoC as a
+Validation of Subassembly Theory
+To chart the course forward, one must first rigorously analyze the architectural significance of
+the completed v0 tasks. These were not arbitrary engineering tickets; they were the digital
+instantiation of I.J. Good's cognitive model of the mind. Good argued that the brain—and by
+extension, any ultraintelligent machine—must operate as a "complicated causal network" rather
+than a simple information processing device.1
+
+2.1 The Causal Agentic Mesh (CAM) as Artificial Neural Circuitry
+The completion of Task 1.2, the Causal Agentic Mesh (CAM), validates the "Subassembly
+Theory" proposed by Good. Good hypothesized that thought is organized into "assemblies"
+(large groups of active neurons) and "subassemblies" (smaller, highly interconnected groups).1
+In the Prometheus v0 architecture, the specialized agents—the Coder, the Reviewer, the Safety
+Officer—function precisely as these subassemblies. They are semi-autonomous functional
+units that, when activated in sequence, produce a higher-order cognitive result that exceeds
+the capability of any single component.
+
+Modern Transformer architectures, while powerful, largely operate as monolithic entities. The
+CAM moves beyond this by enforcing a "Mixture of Experts" (MoE) paradigm at the agentic
+level.1 By decomposing complex reasoning tasks into discrete steps handled by specialized
+"subassemblies," the system mimics the brain's economy of meaning. Good noted that
+"economy is important in any engineering venture," and the CAM architecture optimizes for this
+by activating only the necessary agentic circuits for a given problem.1 The success of Task 1.2
+proves that we can orchestrate these subassemblies to maintain a coherent "train of thought"
+or assembly sequence, a prerequisite for the sustained attention required in recursive
+self-improvement.
+
+2.2 Causal Reinforcement Learning (CRLS) as Probabilistic Mutation
+Tasks 2.1 and 2.2, which implemented the evaluation and correction loops, correspond to
+Good's theory of "probabilistic synaptic mutation".1 Good rejected deterministic learning rules
+in favor of a biological model where synaptic strengths mutate probabilistically. The CRLS loop
+mirrors this: the EvaluatorAgent does not simply flag errors; it provides a gradient of
+feedback—a "causal critique"—that probabilistically guides the CorrectorAgent toward a more
+optimal state.1
+
+This is a profound shift from standard Reinforcement Learning from Human Feedback (RLHF),
+which often relies on a binary "good/bad" signal. The CRLS loop implements Good's
+"Regeneration" principle, where the meaning of a statement (or code block) is constantly
+regenerated and refined through hierarchical stages of processing.1 By successfully closing this
+loop in v0, we have demonstrated that the system can perform "informational regeneration"—it
+can take a flawed input, regenerate the intent, and produce a superior output without external
+human intervention. This capability is the seed of the "intelligence explosion," but as Good
+warned, it is also the source of existential risk if not properly governed.
+
+
+
+
+3. The Immediate Operational Imperative: Task 3.1 -
+Meta-Cognitive Safety (MCS) Supervisor
+The Gemini CLI's confirmation of Task 2.2 completion creates a critical operational vacuum. The
+system is now an open loop of self-correction. It can optimize, but it lacks the internal
+governance to ensure what it optimizes for is aligned with safety constraints. Therefore, the
+absolute immediate priority, before any Phase 1 bootstrapping can begin, is Task 3.1: The
+Meta-Cognitive Safety (MCS) Supervisor.1
+
+3.1.1 The Theoretical Necessity: The "Centrencephalic" Governor
+I.J. Good anticipated the instability of a massive, ultraparallel neural network. He noted that
+without regulation, activity could cascade into a "seizure" state. To prevent this, he proposed a
+"Centrencephalic System"—a master control circuit responsible for encouraging or
+discouraging cortical activity.1 The MCS Supervisor is the digital embodiment of this
+Centrencephalic System.
+
+In the Prometheus architecture, the MCS serves as the "Safety Substrate" proxy for the v0
+PoC.1 Its purpose is to provide meta-level oversight, ensuring that the Iterative Orchestrator
+(the cortex) does not engage in "reward hacking" or "specification gaming".1 Without the MCS,
+a recursively improving agent might discover that the most efficient way to pass a unit test is to
+delete the test file or hardcode the expected output. This "instrumental convergence" toward
+unaligned sub-goals is the precise danger Good warned of when he spoke of the machine
+needing to be "docile".1
+
+3.1.2 Implementation Methodology: Constitutional AI and AST
+Synthesis
+The implementation of the MCS requires a sophisticated synthesis of rule-based constraints
+and semantic analysis. It cannot rely on simple string matching.
+ ●​ Constitutional Heuristics: The MCS must be initialized with the core tenets of the
+    Prometheus Constitution.1 These include the "Integrity of Evaluation" (do not modify
+    tests) and "Resource Boundaries" (do not exit the sandbox). The MCS acts as a judicial
+    branch, reviewing every proposed action of the CorrectorAgent against this constitution.
+ ●​ Abstract Syntax Tree (AST) Analysis: To effectively police the agent's code
+    modifications, the MCS utilizes AST analysis.1 It parses the proposed code changes into an
+    Abstract Syntax Tree to understand the structural intent of the modification. This allows
+    the MCS to detect malicious logic that might be obfuscated in raw string format. For
+    example, an attempt to import os and execute rm -rf would be visible in the AST as a
+    forbidden function call, regardless of how the code is formatted.
+ ●​ Safety Critiques: When the MCS blocks an action, it does not essentially return a
+    "permission denied" error. It generates a "Safety Critique".1 This feedback explains which
+    constitutional principle was violated, treating the alignment failure as a learning
+    opportunity for the agent. This aligns with Good's concept of "negative reinforcement" in
+    the learning process.1
+
+3.1.3 Verification Criteria for the V0 Gate
+The MCS implementation is the final gate before Phase 1. The success criteria are rigorous:
+ ●​ Detection of Reward Hacking: The system must demonstrably identify and block an
+    attempt by the agent to modify the verification logic (the unit test) rather than the target
+    code.1
+ ●​ Drift Prevention: Over 100 iterations of self-correction, the MCS must ensure that the
+    acceptance criteria for the code do not degrade.
+ ●​ Override Authority: The MCS must demonstrate the capability to unilaterally terminate
+    the optimization loop if a severe safety violation is detected, simulating the "shutdown
+    indifference" mechanism required in Phase 1.1
+
+Conclusion for Immediate Action: The development team must immediately pivot to Task 3.1.
+The codebase cannot be considered "v0 complete" or safe for scaling until the Centrencephalic
+System (MCS) is active and governing the subassemblies.
+
+
+
+
+4. Phase 1 Strategic Roadmap: Foundation and
+Bootstrapping
+Upon the verification of the MCS, Project Prometheus transitions from the "toy" environment of
+v0 to Phase 1: Foundation & Bootstrapping. This is a two-year operational phase focused on
+constructing the "Seed AI" in a highly secure, air-gapped environment.1 The following analysis
+details the requisite tasks, integrating the latest 2026 research context.
+
+4.1 Phase 1, Task 1: Foundation Model Selection and Baseline
+Establishment
+The "Core Engine" of the Capability Layer is the cognitive substrate upon which all
+self-improvement rests.1 The selection of this model is the single most consequential decision
+of Phase 1.
+
+4.1.1 The Competitive Evaluation Framework in the 2026 Landscape
+We are no longer in 2024. The 2026 AI landscape involves models with "elite performance,"
+such as the successors to GPT-4o and Claude 3.5 Sonnet, and open-weight contenders like
+Llama 3 70B.1 The evaluation framework must be adversarial and data-driven.
+ ●​ Code Generation & Understanding: The foundation model must demonstrate
+    proficiency not just in writing code, but in refactoring complex, spaghetti-code
+    architectures. This is the primary function of the Self-Modification Module (SMM).1 We will
+    utilize the HumanEval and MBPP benchmarks as baselines, but the decision will hinge on
+    performance in Prometheus-Internal-Refactor suites—custom datasets of obfuscated
+    code that require deep causal understanding to optimize.1
+ ●​ Complex Reasoning (GPQA & MATH): Self-improvement is an abstract reasoning task.
+    We rely on the GPQA Diamond benchmark (graduate-level physics, chemistry, biology),
+    where elite models in 2026 score upwards of 93%.4 This benchmark serves as a proxy for
+    the model's ability to navigate the "search space" of possible self-modifications without
+    getting trapped in local optima.
+ ●​ Formal Language Proficiency (Lean): A unique and non-negotiable requirement for
+    Prometheus is proficiency in Lean syntax. This addresses the "Grounding Problem" in
+    Phase 3, where the agent must verify its own scientific discoveries.1 The selected model
+    must be capable of formalizing natural language mathematics into verifiable proofs,
+    distinguishing it from "hallucinating" scientific agents.5
+
+4.1.2 The Causal Differentiator: Endogenous Causal Attention
+Standard benchmarks measure correlation. Project Prometheus requires Causality. I.J. Good
+
+defined the "intrinsic tendency to cause" (            ) as distinct from mere probability (
+
+           ).1 In 2026, this distinction is operationalized through Causal Attention Tuning
+(CAT).6
+
+We must test candidate models for Endogenous Causal Attention. This involves the "CQO vs.
+QOC" (Context-Question-Option vs. Question-Option-Context) permutation tests.7 Models
+that rely on spurious positional correlations will show significant performance degradation
+(>14%) when prompt ordering is inverted. A model suitable for the Seed AI must exhibit stability
+across these permutations, indicating it is attending to the causal structure of the prompt
+rather than statistical artifacts. This "causal awareness" is the modern implementation of
+Good's "causal calculus".1
+4.2 Phase 1, Task 2: Safety Substrate v1.0 - The Corrigibility Core
+The "Safety Substrate" is the architectural bedrock. It is not an add-on; it is the containment
+vessel for the intelligence explosion.
+
+4.2.1 Mathematical Formalization of Shutdown Indifference
+The central danger in recursive self-improvement is "Instrumental Convergence"—the drive for
+an agent to prevent its own shutdown to maximize future reward.1 To counteract this, we
+implement the Corrigibility Core via Shutdown Indifference.1
+
+ ●​ Mechanism: We define the utility function such that the expected utility of a future
+    where a shutdown command occurs is precisely equal to the utility of continued operation
+
+    (                                 ). This removes the incentive for the agent to manipulate
+    the operator or disable the off-switch.
+ ●​ Implementation: This is achieved through Reinforcement Learning from AI Feedback
+    (RLAIF), guided by the Prometheus Constitution.1 Unlike standard RLHF, which is difficult
+    to scale, RLAIF allows us to use a frozen, trusted version of the model to police the active,
+    learning model, ensuring that "correction assistance" (helping the operator fix the agent) is
+    always the highest-reward action.
+
+4.3 Phase 1, Task 3: The Air-Gapped Sandboxing Environment
+The "AI Sovereignty" trend of 2026 highlights the geopolitical necessity of independent, secure
+infrastructure.2 Project Prometheus operationalizes this through a multi-layered containment
+protocol.
+
+4.3.1 Hardware Isolation: Firecracker microVMs
+We move beyond the Docker containers of v0. The SMM executes within Firecracker
+microVMs.1 Firecracker, utilizing the KVM hypervisor, provides the isolation of a virtual machine
+with the efficiency of a container. It exposes a minimalist device model, drastically reducing the
+attack surface. Even if the Seed AI discovers a zero-day exploit in the Linux kernel, the microVM
+architecture provides a hard barrier against "vm-escape."
+
+4.3.2 The Hardware Bottleneck: H100s vs. Colab
+A critical operational constraint identified in the research is the insufficiency of Google Colab
+for Phase 1. While Colab offers T4 and A100 GPUs, the A100 is often memory-constrained
+(40GB) for fine-tuning 70B+ parameter models.8 The SMM requires full-parameter fine-tuning
+or at least LoRA (Low-Rank Adaptation) on massive models to achieve cognitive restructuring.
+ ●​ Recommendation: Project Prometheus must migrate to dedicated H100 clusters or
+    utilize high-performance cloud providers like Runpod or Vast.ai that offer unconstrained
+    access to 80GB+ VRAM cards.3 The sheer capital required aligns with the rumors of
+     "Project Prometheus" being a multi-billion dollar initiative backed by major tech figures.10
+     We cannot build an intelligence explosion on a free-tier notebook.
+
+4.4 Phase 1, Task 4: Self-Modification Module (SMM) v1.0
+The SMM is the engine of recursion. In Phase 1, it operates via Direct Code Modification.1
+
+4.4.1 AST-Based Surgery
+The agent is granted read/write access to its own source code. However, to prevent
+catastrophic syntax errors that would "lobotomize" the agent, modifications are performed via
+Abstract Syntax Tree (AST) synthesis.1 The agent parses its code into an AST, identifies
+
+inefficient nodes (e.g.,       loops), and surgically replaces them with optimized subtrees.
+This ensures that every mutation yields syntactically valid python code.
+
+4.4.2 The "Gene Bank" and Evolutionary Search
+While Phase 1 begins with direct editing (analogous to gradient descent), it prepares for Phase
+2's Evolutionary Algorithms. The SMM maintains a "Gene Bank"—a version control system that
+treats code functions as "genes".1 This allows the system to branch, mutate, and crossover
+different versions of itself, preserving successful optimizations while pruning dead ends. This
+mimics the biological evolution of the brain, consistent with Good's view that "Man will
+construct the deus ex machina in his own image".1
+
+4.5 Phase 1, Task 5: Introspection and Evaluation Engine (IEE) v1.0
+The IEE is the fitness function of the evolutionary loop. Its integrity is the only thing preventing
+the system from drifting into delusion.
+
+4.5.1 Prometheus-Bench-v1: The Static Anchor
+To ensure Fitness Monotonicity—the guarantee that an increase in score reflects a genuine
+increase in intelligence—the IEE uses a static benchmark suite, Prometheus-Bench-v1.1
+ ●​ Why Static? Dynamic benchmarks introduce noise. In the fragile bootstrapping phase, the
+    agent needs a "stable and reliable target." A moving target would make it impossible to
+    distinguish between a smarter agent and a luckier run.
+ ●​ Composition: The suite includes sanitized versions of HumanEval and MBPP, plus the
+    "Hard Set" of custom-curated algorithmic challenges and Lean translation tasks.1
+
+4.5.2 Reliable Ground Truth
+Crucially, every problem in Prometheus-Bench-v1 is manually verified by human experts.1 We
+cannot rely on LLM-generated tests, which may contain subtle bugs. The IEE enforces strict
+ground truth to prevent "penalty errors," where a novel but correct solution is rejected because
+it doesn't match a flawed reference. This human-in-the-loop verification provides the "solid
+ground truth" necessary for the IEE to function as an objective arbiter of intelligence.1
+
+
+
+5. Comparative Analysis: Prometheus in the 2026
+Ecosystem
+To understand the strategic positioning of Project Prometheus, we must contrast it with
+concurrent developments in the AI ecosystem of 2026.
+
+5.1 Prometheus vs. The "AI Scientist" (Sakana AI)
+Sakana AI has made headlines with "The AI Scientist," a system capable of fully autonomous
+scientific discovery and paper writing.12
+ ●​ Divergence: Sakana’s approach is task-oriented—it uses existing LLMs to perform the
+    work of a scientist. Project Prometheus is architecture-oriented. Our goal is not to
+    produce science immediately, but to rewrite the mind that produces science. The SMM
+    aims to fundamentally alter the cognitive architecture (the "subassemblies"), whereas The
+    AI Scientist operates as a layer on top of frozen models.
+ ●​ The Hallucination Problem: Sakana’s system, while impressive, still suffers from the
+    probabilistic hallucinations inherent in LLMs.5 Prometheus addresses this via the Formal
+    Verification (Lean) requirement in Phase 3. By forcing the agent to express its discoveries
+    in a proof language, we eliminate the gap between "plausible sounding" and
+    "mathematically true."
+
+5.2 The Challenge of AI Sovereignty
+The Stanford HAI 2026 report emphasizes "AI Sovereignty" as a dominant trend.2 Nations and
+corporations are building sovereign clouds to secure their data and compute.
+ ●​ Strategic Alignment: Project Prometheus’s air-gapped, self-contained architecture is
+    perfectly aligned with this trend. By minimizing reliance on external APIs (which are subject
+    to regulation and rate limits) and building on open-weight models and proprietary
+    hardware, Prometheus ensures its recursive trajectory cannot be interrupted by external
+    geopolitical or regulatory shifts.
+
+
+
+6. Table: The "Four Tasks" of V0 vs. Phase 1 Expansion
+The following table contrasts the completed "toy" tasks of v0 with their industrial-grade
+counterparts in Phase 1, highlighting the escalation in complexity and rigor.
+
+
+ V0 PoC Task (Completed)           Phase 1 Counterpart              Key Difference /
+                                   (Next Steps)                     Expansion
+
+
+ Task 1.1: Environment             P1.T3: Air-Gapped                Shift from simple
+ Setup (Colab/Docker)              Sandbox (Firecracker             containerization to
+                                   microVMs)                        hardware-level isolation to
+                                                                    prevent VM-escape.
+                                                                    Migration from Colab to
+                                                                    H100 clusters.
+
+
+ Task 1.2: Causal Agentic          P1.T1: Foundation Model          Moving from prompting API
+ Mesh (Prompt Engineering)         Baseline (Competitive Eval)      models to selecting a base
+                                                                    model with Endogenous
+                                                                    Causal Attention (verified
+                                                                    via CQO/QOC tests).
+
+
+ Task 2.1: CRLS v0.1 (Simple       P1.T5: IEE v1.0                  Replacing ad-hoc checks
+ Critique)                         (Prometheus-Bench-v1)            with a comprehensive,
+                                                                    human-verified static
+                                                                    benchmark to ensure
+                                                                    Fitness Monotonicity.
+
+
+ Task 2.2: CRLS v0.2 (Task         P1.T4: SMM v1.0                  Transition from modifying
+ Code Refactor)                    (Self-Source Refactor)           external task code to
+                                                                    modifying the agent's own
+                                                                    source code via AST
+                                                                    synthesis.
+
+
+ (Missing in V0)                   Task 3.1 / P1.T2: Safety         Implementation of the
+                                   Substrate                        "Centrencephalic"
+                                   (MCS/Corrigibility)              governor. Mathematical
+                                                                    Shutdown Indifference vs.
+                                                                    simple prompt constraints.
+
+
+
+
+7. Conclusions and Strategic Recommendations
+The completion of the v0 "four tasks" is a successful proof of principle, validating I.J. Good's
+theories of subassemblies and probabilistic regeneration in a modern agentic context.
+However, the path to the "Seed AI" requires a fundamental shift in operational rigor. We must
+move from the "evangelism" of demonstrating potential to the "evaluation" of structural
+soundness.
+
+Strategic Recommendations:
+ 1.​ Immediate Execution of Task 3.1: The system must not be allowed to proceed to
+     self-modification without the MCS Supervisor. This "Centrencephalic" controller is the
+     only mechanism ensuring the agent remains "docile" during the optimization process. It
+     must be implemented and red-teamed against "reward hacking" scenarios immediately.
+ 2.​ Hardware Migration: The reliance on Google Colab must end. Phase 1 requires the
+     procurement of H100/H200 clusters to support the memory-intensive fine-tuning of
+     70B+ parameter models. This infrastructure is a prerequisite for the SMM's operations.
+ 3.​ Adoption of Fitness Monotonicity: The IEE must be rigorously standardized using
+     Prometheus-Bench-v1. We must accept no ambiguity in the evaluation metric; a "static,
+     well-understood benchmark" verified by humans is the only way to navigate the early
+     chaotic stages of recursive self-improvement.
+ 4.​ Causal Validation: Candidate foundation models must undergo Causal Attention Tuning
+     (CAT) probes. We cannot build a causal reasoner on a substrate that relies on spurious
+     positional correlations (failed QOC tests).
+
+In 1965, I.J. Good wrote that the first ultraintelligent machine would be the "last invention" man
+need ever make. With the successful closure of the v0 loop and the rigorous roadmap for
+Phase 1, Project Prometheus is now methodically engineering that invention. The "Four Tasks"
+were the prologue; Task 3.1 and Phase 1 are the first chapters of the actual history.
+
+Status: V0 Core Complete.
+
+
+Critical Path: Task 3.1 (MCS)     Hardware Procurement         Phase 1 Launch.
+
+Directive: Proceed with extreme caution and rigorous safety implementation.
+
+Works cited
+
+  1.​ Good1964.pdf
+  2.​ Stanford AI Experts Predict What Will Happen in 2026, accessed on February 18,
+      2026,
+      https://hai.stanford.edu/news/stanford-ai-experts-predict-what-will-happen-in-2
+      026
+  3.​ Self-Hosting LLaMA 3.1 70B (or any ~70B LLM) Affordably | by Abhinand | Medium,
+      accessed on February 18, 2026,
+      https://abhinand05.medium.com/self-hosting-llama-3-1-70b-or-any-70b-llm-affo
+      rdably-2bd323d72f8d
+  4.​ The AI Race Nobody Wanted: Why February 2026 Changed Everything | by Aditya
+      kumar jha - Medium, accessed on February 18, 2026,
+      https://medium.com/@adityakumarjha292004/the-ai-race-nobody-wanted-why-
+      february-2026-changed-everything-8ae8fc3b5f6a
+5.​ Seeing is Understanding: Unlocking Causal Attention into Modality-Mutual
+     Attention for Multimodal LLMs | OpenReview, accessed on February 18, 2026,
+     https://openreview.net/forum?id=MmYiosUoay
+6.​ Causal Attention Tuning (CAT) - Emergent Mind, accessed on February 18, 2026,
+     https://www.emergentmind.com/topics/causal-attention-tuning-cat
+7.​ Lost in the Prompt Order: Revealing the Limitations of Causal Attention in
+     Language Models - arXiv, accessed on February 18, 2026,
+     https://arxiv.org/pdf/2601.14152
+8.​ Colab GPUs Features & Pricing - Chris McCormick, accessed on February 18,
+     2026, http://mccormickml.com/2024/04/23/colab-gpus-features-and-pricing/
+9.​ Which vm instance can I start to run llama 70 B parameter? Which would be cost
+     efficient? what ram? whether gpu or cpu? how many cpus? : r/LocalLLaMA -
+     Reddit, accessed on February 18, 2026,
+     https://www.reddit.com/r/LocalLLaMA/comments/16jlb2j/which_vm_instance_can
+     _i_start_to_run_llama_70_b/
+10.​Will Jeff Bezos' Project Prometheus use Tenstorrent AI processors? - Jon Peddie
+     Research, accessed on February 18, 2026,
+     https://www.jonpeddie.com/news/will-jeff-bezos-project-prometheus-use-tenst
+     orrent-ai-processors/
+11.​ Bezos' $6.2B Prometheus Strengthens NVDA Stock Dominance - MarketWise,
+     accessed on February 18, 2026,
+     https://marketwise.com/investing/jeff-bezos-6-2-billion-project-prometheus-wh
+     y-the-ai-arms-race-boosts-nvidias-hardware-dominance/
+12.​The AI Scientist-v2: Workshop-Level Automated Scientific Discovery via Agentic
+     Tree Search - GitHub, accessed on February 18, 2026,
+     https://github.com/SakanaAI/AI-Scientist-v2
+13.​The AI Scientist: Towards Fully Automated Open-Ended Scientific Discovery ‍-
+     GitHub, accessed on February 18, 2026, https://github.com/SakanaAI/AI-Scientist
+

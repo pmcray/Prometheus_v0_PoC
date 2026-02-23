@@ -1,0 +1,181 @@
+{
+  "high_fitness_tasks": [
+    "0b17323b",
+    "15113be4",
+    "18419cfa",
+    "11e1fe23",
+    "14754a24",
+    "0c786b71",
+    "1acc24af",
+    "1d0a4b61",
+    "09c534e7",
+    "070dd51e",
+    "16b78196",
+    "009d5c81",
+    "0607ce86",
+    "1c56ad9f",
+    "15663ba9",
+    "17b80ad2",
+    "0e671a1a"
+  ],
+  "count": 17,
+  "details": [
+    {
+      "task_id": "0b17323b",
+      "fitness": 0.9688888888888889,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 3.111111111111109
+    },
+    {
+      "task_id": "15113be4",
+      "fitness": 0.9610964083175803,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 3.8903591682419747
+    },
+    {
+      "task_id": "18419cfa",
+      "fitness": 0.9582181496335909,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 4.1781850366409135
+    },
+    {
+      "task_id": "11e1fe23",
+      "fitness": 0.9481818181818182,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 5.181818181818176
+    },
+    {
+      "task_id": "14754a24",
+      "fitness": 0.9408422096908939,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 5.915779030910606
+    },
+    {
+      "task_id": "0c786b71",
+      "fitness": 0.94,
+      "pattern_length": 3,
+      "pattern_ops": [
+        "rotate_180",
+        "mirror_v",
+        "mirror_h"
+      ],
+      "pixel_diff": 6.000000000000005
+    },
+    {
+      "task_id": "1acc24af",
+      "fitness": 0.9157638888888889,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 8.423611111111107
+    },
+    {
+      "task_id": "1d0a4b61",
+      "fitness": 0.9133333333333332,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "fill_zeros"
+      ],
+      "pixel_diff": 8.666666666666679
+    },
+    {
+      "task_id": "09c534e7",
+      "fitness": 0.9113477366255144,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 8.865226337448561
+    },
+    {
+      "task_id": "070dd51e",
+      "fitness": 0.9066666666666667,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 9.333333333333327
+    },
+    {
+      "task_id": "16b78196",
+      "fitness": 0.9044444444444444,
+      "pattern_length": 2,
+      "pattern_ops": [
+        "border",
+        "extend_edges"
+      ],
+      "pixel_diff": 9.55555555555556
+    },
+    {
+      "task_id": "009d5c81",
+      "fitness": 0.8977551020408164,
+      "pattern_length": 2,
+      "pattern_ops": [
+        "invert",
+        "isolate_2"
+      ],
+      "pixel_diff": 10.224489795918357
+    },
+    {
+      "task_id": "0607ce86",
+      "fitness": 0.8871759378083488,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 11.28240621916512
+    },
+    {
+      "task_id": "1c56ad9f",
+      "fitness": 0.876959706959707,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 12.304029304029296
+    },
+    {
+      "task_id": "15663ba9",
+      "fitness": 0.8680420149650918,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 13.195798503490819
+    },
+    {
+      "task_id": "17b80ad2",
+      "fitness": 0.8640034331402824,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 13.599656685971762
+    },
+    {
+      "task_id": "0e671a1a",
+      "fitness": 0.8513017751479289,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ],
+      "pixel_diff": 14.869822485207107
+    }
+  ]
+}

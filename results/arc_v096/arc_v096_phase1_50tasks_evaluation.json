@@ -1,0 +1,619 @@
+{
+  "version": "v0.96_phase1",
+  "num_operations": 21,
+  "phase1_operations": [
+    "expand_to_size",
+    "compress_to_fit",
+    "crop_to_content",
+    "resize_with_padding",
+    "fit_to_canvas",
+    "isolate_color",
+    "extract_color",
+    "filter_by_color",
+    "remove_color",
+    "keep_colors"
+  ],
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "fitness": 0.17701388888888886,
+      "solved": false,
+      "time": 23.387030363082886,
+      "program": [
+        "replicate(direction=horizontal,times=4)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=4)",
+        "crop(mode=center)",
+        "expand_to_size(fill=tile,target_h=9,target_w=4)"
+      ],
+      "baseline_fitness": 0.14792899408284024,
+      "improvement": 0.029084894806048617
+    },
+    {
+      "task_id": "135a2760",
+      "fitness": 0.9725674325674326,
+      "solved": true,
+      "time": 6.390601634979248,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.9625674325674326,
+      "improvement": 0.010000000000000009
+    },
+    {
+      "task_id": "136b0064",
+      "fitness": 0.7679200164914451,
+      "solved": false,
+      "time": 8.046293258666992,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=15,target_w=7)",
+        "filter_color(color=0)"
+      ],
+      "baseline_fitness": 0.21121560740937903,
+      "improvement": 0.5567044090820661
+    },
+    {
+      "task_id": "13e47133",
+      "fitness": 0.2523717948717949,
+      "solved": false,
+      "time": 12.32291841506958,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.13118589743589745,
+      "improvement": 0.12118589743589744
+    },
+    {
+      "task_id": "142ca369",
+      "fitness": 0.8928600823045267,
+      "solved": false,
+      "time": 12.313424825668335,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.9028600823045267,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "16b78196",
+      "fitness": 0.9044444444444444,
+      "solved": false,
+      "time": 16.6234130859375,
+      "program": [
+        "remove_color(background=0,color=1)"
+      ],
+      "baseline_fitness": 0.9083333333333333,
+      "improvement": -0.0038888888888889417
+    },
+    {
+      "task_id": "16de56c4",
+      "fitness": 0.869100529100529,
+      "solved": false,
+      "time": 6.439957141876221,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.879100529100529,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "1818057f",
+      "fitness": 0.8941394335511983,
+      "solved": false,
+      "time": 9.893439054489136,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.9041394335511983,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "195c6913",
+      "fitness": 0.8615666666666667,
+      "solved": false,
+      "time": 17.79938054084778,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.8715666666666667,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "1ae2feb7",
+      "fitness": 0.8878146853146853,
+      "solved": false,
+      "time": 6.757274150848389,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.8978146853146853,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "20270e3b",
+      "fitness": 0.49664682539682536,
+      "solved": false,
+      "time": 7.507950305938721,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=7,target_w=8)"
+      ],
+      "baseline_fitness": 0.12038944851444852,
+      "improvement": 0.3762573768823768
+    },
+    {
+      "task_id": "20a9e565",
+      "fitness": 0.412962962962963,
+      "solved": false,
+      "time": 21.085785627365112,
+      "program": [
+        "crop(mode=content)",
+        "fit_to_canvas(align=center,canvas_h=3,canvas_w=6)",
+        "crop(mode=content)",
+        "expand_to_size(fill=tile,target_h=3,target_w=6)",
+        "border(operation=extract,value=0)"
+      ],
+      "baseline_fitness": 0.24814834387829499,
+      "improvement": 0.164814619084668
+    },
+    {
+      "task_id": "21897d95",
+      "fitness": 0.25225446428571424,
+      "solved": false,
+      "time": 11.581313371658325,
+      "program": [
+        "rotate(angle=270)",
+        "symmetrize(axis=vertical)"
+      ],
+      "baseline_fitness": 0.12668526785714285,
+      "improvement": 0.1255691964285714
+    },
+    {
+      "task_id": "221dfab4",
+      "fitness": 0.8505015673981191,
+      "solved": false,
+      "time": 12.422664642333984,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.8605015673981191,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "247ef758",
+      "fitness": 0.8321428571428571,
+      "solved": false,
+      "time": 9.016528606414795,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.8421428571428571,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "269e22fb",
+      "fitness": 0.574,
+      "solved": false,
+      "time": 16.559099674224854,
+      "program": [
+        "expand_to_size(fill=tile,target_h=20,target_w=20)"
+      ],
+      "baseline_fitness": 0.1496033653846154,
+      "improvement": 0.42439663461538457
+    },
+    {
+      "task_id": "271d71e2",
+      "fitness": 0.6397581058567218,
+      "solved": false,
+      "time": 8.648624181747437,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.6497581058567218,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "28a6681f",
+      "fitness": 0.8966666666666666,
+      "solved": false,
+      "time": 6.9412829875946045,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.9066666666666666,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "291dc1e1",
+      "fitness": 0.24645833333333336,
+      "solved": false,
+      "time": 12.160307168960571,
+      "program": [
+        "compress_to_fit(method=downsample,target_h=12,target_w=6)",
+        "crop(mode=center)",
+        "tile(times_h=1,times_v=2)",
+        "symmetrize(axis=both)"
+      ],
+      "baseline_fitness": 0.23402199074074076,
+      "improvement": 0.012436342592592603
+    },
+    {
+      "task_id": "2b83f449",
+      "fitness": 0.7208842473316157,
+      "solved": false,
+      "time": 6.382429361343384,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.7308842473316157,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "2ba387bc",
+      "fitness": 0.2825,
+      "solved": false,
+      "time": 19.794094562530518,
+      "program": [
+        "filter_color(color=2)",
+        "crop(mode=content)",
+        "border(operation=extract,value=0)"
+      ],
+      "baseline_fitness": 0.2451454895748374,
+      "improvement": 0.03735451042516258
+    },
+    {
+      "task_id": "2c181942",
+      "fitness": 0.8957366766352274,
+      "solved": false,
+      "time": 13.55674433708191,
+      "program": [
+        "symmetrize(axis=vertical)"
+      ],
+      "baseline_fitness": 0.900445671344222,
+      "improvement": -0.004708994708994663
+    },
+    {
+      "task_id": "2d0172a1",
+      "fitness": 0.3247799422799422,
+      "solved": false,
+      "time": 17.776525020599365,
+      "program": [
+        "crop(mode=border)",
+        "compress_to_fit(method=downsample,target_h=11,target_w=12)",
+        "flip(axis=vertical)"
+      ],
+      "baseline_fitness": 0.13680555555555554,
+      "improvement": 0.18797438672438668
+    },
+    {
+      "task_id": "31f7f899",
+      "fitness": 0.9134531524641415,
+      "solved": false,
+      "time": 7.677270174026489,
+      "program": [
+        "flip(axis=vertical)"
+      ],
+      "baseline_fitness": 0.9234531524641415,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "332f06d7",
+      "fitness": 0.9666644522392289,
+      "solved": true,
+      "time": 13.0255286693573,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.953328904478458,
+      "improvement": 0.01333554776077095
+    },
+    {
+      "task_id": "35ab12c3",
+      "fitness": 0.7758641975308641,
+      "solved": false,
+      "time": 11.462401390075684,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.7858641975308641,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "36a08778",
+      "fitness": 0.7022140095354381,
+      "solved": false,
+      "time": 18.542355060577393,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.7122140095354381,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "38007db0",
+      "fitness": 0.971203007518797,
+      "solved": true,
+      "time": 8.789883136749268,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=19,canvas_w=7)"
+      ],
+      "baseline_fitness": 0.09691295546558704,
+      "improvement": 0.87429005205321
+    },
+    {
+      "task_id": "3a25b0d8",
+      "fitness": 0.35426210153482884,
+      "solved": false,
+      "time": 116.45944905281067,
+      "program": [
+        "symmetrize(axis=both)",
+        "compress_to_fit(method=max,target_h=11,target_w=11)"
+      ],
+      "baseline_fitness": 0.145184361093452,
+      "improvement": 0.20907774044137684
+    },
+    {
+      "task_id": "3dc255db",
+      "fitness": 0.9216666666666666,
+      "solved": false,
+      "time": 7.029704809188843,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.9316666666666666,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "3e6067c3",
+      "fitness": 0.9487823150786114,
+      "solved": false,
+      "time": 18.168619394302368,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.9587823150786114,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "409aa875",
+      "fitness": 0.9639583333333334,
+      "solved": true,
+      "time": 10.964720487594604,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.9539583333333334,
+      "improvement": 0.010000000000000009
+    },
+    {
+      "task_id": "446ef5d2",
+      "fitness": 0.7045833333333333,
+      "solved": false,
+      "time": 6.4767210483551025,
+      "program": [
+        "symmetrize(axis=both)"
+      ],
+      "baseline_fitness": 0.55375,
+      "improvement": 0.15083333333333337
+    },
+    {
+      "task_id": "45a5af55",
+      "fitness": 0.4685207100591716,
+      "solved": false,
+      "time": 8.376168966293335,
+      "program": [
+        "symmetrize(axis=vertical)",
+        "expand_to_size(fill=tile,target_h=26,target_w=26)",
+        "symmetrize(axis=vertical)"
+      ],
+      "baseline_fitness": 0.13177001569858712,
+      "improvement": 0.33675069436058447
+    },
+    {
+      "task_id": "4a21e3da",
+      "fitness": 0.8719753086419751,
+      "solved": false,
+      "time": 15.44202971458435,
+      "program": [
+        "filter_by_color(colors=(1, 2))",
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.8271604938271605,
+      "improvement": 0.04481481481481464
+    },
+    {
+      "task_id": "4c3d4a41",
+      "fitness": 0.82125,
+      "solved": false,
+      "time": 5.9838433265686035,
+      "program": [
+        "border(operation=extract,value=0)"
+      ],
+      "baseline_fitness": 0.79375,
+      "improvement": 0.02750000000000008
+    },
+    {
+      "task_id": "4c416de3",
+      "fitness": 0.9401062344702635,
+      "solved": false,
+      "time": 12.387946367263794,
+      "program": [
+        "map_color(from_color=1,to_color=1)"
+      ],
+      "baseline_fitness": 0.9501062344702635,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "4c7dc4dd",
+      "fitness": 0.4875000000000001,
+      "solved": false,
+      "time": 12.35484790802002,
+      "program": [
+        "filter_color(color=2)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=5)",
+        "gravity_down",
+        "crop(mode=content)"
+      ],
+      "baseline_fitness": 0.2,
+      "improvement": 0.2875000000000001
+    },
+    {
+      "task_id": "4e34c42c",
+      "fitness": 0.375,
+      "solved": false,
+      "time": 10.006880521774292,
+      "program": [
+        "crop(mode=center)",
+        "compress_to_fit(method=downsample,target_h=5,target_w=12)"
+      ],
+      "baseline_fitness": 0.15085955710955712,
+      "improvement": 0.22414044289044288
+    },
+    {
+      "task_id": "53fb4810",
+      "fitness": 0.9368416547220895,
+      "solved": false,
+      "time": 9.219825983047485,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.9468416547220895,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "5545f144",
+      "fitness": 0.6944444444444444,
+      "solved": false,
+      "time": 11.563578128814697,
+      "program": [
+        "rotate(angle=180)",
+        "fit_to_canvas(align=center,canvas_h=10,canvas_w=8)",
+        "symmetrize(axis=vertical)",
+        "crop(mode=content)",
+        "remove_color(background=0,color=2)"
+      ],
+      "baseline_fitness": 0.14846993284493284,
+      "improvement": 0.5459745115995116
+    },
+    {
+      "task_id": "581f7754",
+      "fitness": 0.8303832699287245,
+      "solved": false,
+      "time": 11.084441184997559,
+      "program": [
+        "flip(axis=horizontal)"
+      ],
+      "baseline_fitness": 0.7976010101010101,
+      "improvement": 0.03278225982771432
+    },
+    {
+      "task_id": "58490d8a",
+      "fitness": 0.6887074829931973,
+      "solved": false,
+      "time": 12.0205237865448,
+      "program": [
+        "filter_color(color=1)",
+        "compress_to_fit(method=select,target_h=7,target_w=7)",
+        "crop_to_content(margin=2,preserve_aspect=False)",
+        "filter_color(color=0)"
+      ],
+      "baseline_fitness": 0.25336167800453513,
+      "improvement": 0.43534580498866216
+    },
+    {
+      "task_id": "58f5dbd5",
+      "fitness": 0.46004874824423697,
+      "solved": false,
+      "time": 12.299832105636597,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=19,canvas_w=7)"
+      ],
+      "baseline_fitness": 0.0895645178033842,
+      "improvement": 0.37048423044085277
+    },
+    {
+      "task_id": "5961cc34",
+      "fitness": 0.8822869159825681,
+      "solved": false,
+      "time": 19.402259826660156,
+      "program": [
+        "swap_colors(color_a=2,color_b=1)"
+      ],
+      "baseline_fitness": 0.84034255599473,
+      "improvement": 0.04194435998783819
+    },
+    {
+      "task_id": "5dbc8537",
+      "fitness": 0.3165079365079365,
+      "solved": false,
+      "time": 7.390516519546509,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=center,canvas_h=15,canvas_w=7)"
+      ],
+      "baseline_fitness": 0.22951101013321995,
+      "improvement": 0.08699692637471657
+    },
+    {
+      "task_id": "62593bfd",
+      "fitness": 0.9181704260651629,
+      "solved": false,
+      "time": 18.584666967391968,
+      "program": [
+        "remove_color(background=0,color=2)",
+        "gravity_down",
+        "flip(axis=vertical)",
+        "symmetrize(axis=both)"
+      ],
+      "baseline_fitness": 0.9080534670008353,
+      "improvement": 0.010116959064327524
+    },
+    {
+      "task_id": "64efde09",
+      "fitness": 0.8548267441370889,
+      "solved": false,
+      "time": 11.763512134552002,
+      "program": [
+        "map_color(from_color=0,to_color=1)"
+      ],
+      "baseline_fitness": 0.8648267441370889,
+      "improvement": -0.010000000000000009
+    },
+    {
+      "task_id": "65b59efc",
+      "fitness": 0.32773662551440325,
+      "solved": false,
+      "time": 9.596110820770264,
+      "program": [
+        "filter_color(color=1)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=9)"
+      ],
+      "baseline_fitness": 0.24621913580246912,
+      "improvement": 0.08151748971193412
+    },
+    {
+      "task_id": "67e490f4",
+      "fitness": 0.358698224852071,
+      "solved": false,
+      "time": 20.692065715789795,
+      "program": [
+        "filter_color(color=1)",
+        "crop(mode=content)"
+      ],
+      "baseline_fitness": 0.21820477502295685,
+      "improvement": 0.14049344982911413
+    }
+  ],
+  "summary": {
+    "solved": 4,
+    "improved": 16,
+    "avg_fitness": 0.6872149583858035,
+    "total_time": 710.1756174564362,
+    "avg_time_per_task": 14.203512349128722
+  },
+  "comparison": {
+    "baseline_version": "v0.95_final",
+    "baseline_solved": 5,
+    "baseline_avg_fitness": 0.5715933783466339,
+    "improvement_solved": -1,
+    "improvement_fitness": 0.11562158003916956
+  }
+}

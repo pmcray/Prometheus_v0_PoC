@@ -1,0 +1,9 @@
+{
+  "game_num": 10,
+  "elo": 787.4521931142156,
+  "meta_learning_rate": 1.0,
+  "wins": 0,
+  "draws": 0,
+  "losses": 10,
+  "opening_book_size": 0
+}

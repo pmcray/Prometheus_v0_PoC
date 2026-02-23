@@ -1,0 +1,323 @@
+{
+  "split": "evaluation",
+  "total_tasks": 10,
+  "solved": 0,
+  "success_rate": 0.0,
+  "elapsed_seconds": 51.78858280181885,
+  "avg_time_per_task": 5.178858280181885,
+  "ensemble_stats": {
+    "total_votes": 10,
+    "baseline_wins": 0,
+    "meta_wins": 0,
+    "transfer_wins": 10,
+    "baseline_rate": 0.0,
+    "meta_rate": 0.0,
+    "transfer_rate": 1.0,
+    "agreements": 9,
+    "disagreements": 1,
+    "agreement_rate": 0.9
+  },
+  "results": [
+    {
+      "task_id": "00576224",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_2x2",
+        "checkerboard"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "tile_2x2",
+            "checkerboard"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "009d5c81",
+      "success": false,
+      "fitness": 0.2,
+      "solution": [
+        "invert",
+        "isolate_2"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.2,
+          "pattern": [
+            "invert",
+            "isolate_2"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.2,
+          "pattern": [
+            "invert",
+            "isolate_2"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "00dbd492",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "color_pos",
+        "rotate_180"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "color_pos",
+            "rotate_180"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "03560426",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "compress_v"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "compress_v"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "05a7bcf2",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "gravity_up",
+        "invert"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "gravity_up",
+            "invert"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "0607ce86",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "isolate_1"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "isolate_1"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "0692e18c",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "tile_3x3"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "tile_3x3"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "070dd51e",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "identity",
+        "downsample"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity",
+            "downsample"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "08573cc6",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "extend_edges"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "extend_edges"
+          ]
+        }
+      }
+    },
+    {
+      "task_id": "0934a4d8",
+      "success": false,
+      "fitness": 0.0,
+      "solution": [
+        "rotate_270"
+      ],
+      "winning_solver": "transfer",
+      "all_solutions": {
+        "baseline": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "meta": {
+          "fitness": 0.0,
+          "pattern": [
+            "identity"
+          ]
+        },
+        "transfer": {
+          "fitness": 0.0,
+          "pattern": [
+            "rotate_270"
+          ]
+        }
+      }
+    }
+  ]
+}

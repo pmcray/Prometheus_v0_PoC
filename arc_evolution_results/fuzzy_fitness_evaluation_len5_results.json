@@ -1,0 +1,68 @@
+{
+  "version": "v0.89",
+  "approach": "Phase 4: Parameterized Primitives (106+ ops)",
+  "total_tasks": 5,
+  "solved": 0,
+  "success_rate": 0.0,
+  "patterns_evolved": 40700,
+  "successful_patterns": 5,
+  "meta_learning_rate": 3164.2435761758716,
+  "duration": 9.232130527496338,
+  "max_pattern_length": 5,
+  "complexity_penalty": 0.02,
+  "use_fuzzy_fitness": true,
+  "config": {
+    "population_size": 100,
+    "generations": 100,
+    "primitives": 83
+  },
+  "new_primitives": "pad_2/3/4, scale_4x/5x, fix_boundary/center, color_mapping, tile_nxm",
+  "results": [
+    {
+      "task_id": "00576224",
+      "success": false,
+      "train_fitness": 0.6466666666666666,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "tile_3x3"
+      ]
+    },
+    {
+      "task_id": "009d5c81",
+      "success": false,
+      "train_fitness": 0.8977551020408164,
+      "pattern_length": 2,
+      "pattern_ops": [
+        "invert",
+        "isolate_2"
+      ]
+    },
+    {
+      "task_id": "00dbd492",
+      "success": false,
+      "train_fitness": 0.7555500990665825,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    },
+    {
+      "task_id": "03560426",
+      "success": false,
+      "train_fitness": 0.7966666666666667,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "sym_v"
+      ]
+    },
+    {
+      "task_id": "05a7bcf2",
+      "success": false,
+      "train_fitness": 0.705925925925926,
+      "pattern_length": 1,
+      "pattern_ops": [
+        "identity"
+      ]
+    }
+  ]
+}

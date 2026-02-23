@@ -1,0 +1,913 @@
+{
+  "by_complexity": {
+    "simple": {
+      "structure": [
+        {
+          "pattern": [
+            "crop"
+          ],
+          "pattern_str": "crop()",
+          "count": 31,
+          "avg_fitness": 0.5933526772092729,
+          "task_ids": [
+            "135a2760",
+            "1818057f",
+            "195c6913",
+            "221dfab4",
+            "271d71e2",
+            "36a08778",
+            "3e6067c3",
+            "409aa875",
+            "4c416de3",
+            "53fb4810",
+            "64efde09",
+            "135a2760",
+            "1818057f",
+            "195c6913",
+            "221dfab4",
+            "271d71e2",
+            "36a08778",
+            "3e6067c3",
+            "409aa875",
+            "4c416de3",
+            "53fb4810",
+            "64efde09",
+            "135a2760",
+            "135a2760",
+            "409aa875",
+            "135a2760",
+            "409aa875",
+            "135a2760",
+            "409aa875",
+            "135a2760",
+            "409aa875"
+          ],
+          "complexity": 1,
+          "category": "structure",
+          "success_tier": "medium",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop(mode=?)"
+          ],
+          "pattern_str": "crop(mode=?)",
+          "count": 3,
+          "avg_fitness": 0.9540724846757777,
+          "task_ids": [
+            "332f06d7",
+            "3e6067c3",
+            "4c416de3"
+          ],
+          "complexity": 1,
+          "category": "structure",
+          "success_tier": "high",
+          "size_behavior": "unknown"
+        }
+      ],
+      "geometric": [
+        {
+          "pattern": [
+            "flip_v"
+          ],
+          "pattern_str": "flip_v()",
+          "count": 2,
+          "avg_fitness": 0.46172657623207075,
+          "task_ids": [
+            "31f7f899",
+            "31f7f899"
+          ],
+          "complexity": 1,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ]
+    },
+    "medium": {
+      "geometric": [
+        {
+          "pattern": [
+            "rotate_90",
+            "rotate_270"
+          ],
+          "pattern_str": "rotate_90() -> rotate_270()",
+          "count": 2,
+          "avg_fitness": 0.4514300411522634,
+          "task_ids": [
+            "142ca369",
+            "142ca369"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "flip_h",
+            "extract_largest"
+          ],
+          "pattern_str": "flip_h() -> extract_largest()",
+          "count": 2,
+          "avg_fitness": 0.46638888888888885,
+          "task_ids": [
+            "16b78196",
+            "16b78196"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "flip_h",
+            "flip_h"
+          ],
+          "pattern_str": "flip_h() -> flip_h()",
+          "count": 2,
+          "avg_fitness": 0.4395502645502645,
+          "task_ids": [
+            "16de56c4",
+            "16de56c4"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "flip_v",
+            "flip_v"
+          ],
+          "pattern_str": "flip_v() -> flip_v()",
+          "count": 4,
+          "avg_fitness": 0.4209197207113874,
+          "task_ids": [
+            "1ae2feb7",
+            "35ab12c3",
+            "1ae2feb7",
+            "35ab12c3"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "flip_h",
+            "fill_interior"
+          ],
+          "pattern_str": "flip_h() -> fill_interior()",
+          "count": 4,
+          "avg_fitness": 0.37809369397437576,
+          "task_ids": [
+            "446ef5d2",
+            "581f7754",
+            "446ef5d2",
+            "581f7754"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "rotate_180",
+            "extract_largest"
+          ],
+          "pattern_str": "rotate_180() -> extract_largest()",
+          "count": 2,
+          "avg_fitness": 0.4633395989974937,
+          "task_ids": [
+            "62593bfd",
+            "62593bfd"
+          ],
+          "complexity": 2,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ],
+      "structure": [
+        {
+          "pattern": [
+            "crop",
+            "extract_largest"
+          ],
+          "pattern_str": "crop() -> extract_largest()",
+          "count": 2,
+          "avg_fitness": 0.43130952380952375,
+          "task_ids": [
+            "247ef758",
+            "247ef758"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "scale_2x",
+            "downsample"
+          ],
+          "pattern_str": "scale_2x() -> downsample()",
+          "count": 4,
+          "avg_fitness": 0.45958333333333334,
+          "task_ids": [
+            "28a6681f",
+            "3dc255db",
+            "28a6681f",
+            "3dc255db"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "fill_interior"
+          ],
+          "pattern_str": "crop() -> fill_interior()",
+          "count": 6,
+          "avg_fitness": 0.4368440156052666,
+          "task_ids": [
+            "2b83f449",
+            "2c181942",
+            "5961cc34",
+            "2b83f449",
+            "2c181942",
+            "5961cc34"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "fill_zeros"
+          ],
+          "pattern_str": "crop() -> fill_zeros()",
+          "count": 2,
+          "avg_fitness": 0.481058983489229,
+          "task_ids": [
+            "332f06d7",
+            "332f06d7"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        },
+        {
+          "pattern": [
+            "crop",
+            "detect_objects"
+          ],
+          "pattern_str": "crop() -> detect_objects()",
+          "count": 2,
+          "avg_fitness": 0.44393004115226337,
+          "task_ids": [
+            "4a21e3da",
+            "4a21e3da"
+          ],
+          "complexity": 2,
+          "category": "structure",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ]
+    },
+    "complex": {
+      "geometric": [
+        {
+          "pattern": [
+            "flip_h",
+            "flip_h",
+            "extract_largest"
+          ],
+          "pattern_str": "flip_h() -> flip_h() -> extract_largest()",
+          "count": 2,
+          "avg_fitness": 0.44375,
+          "task_ids": [
+            "4c3d4a41",
+            "4c3d4a41"
+          ],
+          "complexity": 3,
+          "category": "geometric",
+          "success_tier": "low",
+          "size_behavior": "unknown"
+        }
+      ]
+    }
+  },
+  "by_success_rate": {
+    "medium": [
+      {
+        "pattern": [
+          "crop"
+        ],
+        "pattern_str": "crop()",
+        "count": 31,
+        "avg_fitness": 0.5933526772092729,
+        "task_ids": [
+          "135a2760",
+          "1818057f",
+          "195c6913",
+          "221dfab4",
+          "271d71e2",
+          "36a08778",
+          "3e6067c3",
+          "409aa875",
+          "4c416de3",
+          "53fb4810",
+          "64efde09",
+          "135a2760",
+          "1818057f",
+          "195c6913",
+          "221dfab4",
+          "271d71e2",
+          "36a08778",
+          "3e6067c3",
+          "409aa875",
+          "4c416de3",
+          "53fb4810",
+          "64efde09",
+          "135a2760",
+          "135a2760",
+          "409aa875",
+          "135a2760",
+          "409aa875",
+          "135a2760",
+          "409aa875",
+          "135a2760",
+          "409aa875"
+        ],
+        "complexity": 1,
+        "category": "structure",
+        "success_tier": "medium",
+        "size_behavior": "unknown"
+      }
+    ],
+    "low": [
+      {
+        "pattern": [
+          "rotate_90",
+          "rotate_270"
+        ],
+        "pattern_str": "rotate_90() -> rotate_270()",
+        "count": 2,
+        "avg_fitness": 0.4514300411522634,
+        "task_ids": [
+          "142ca369",
+          "142ca369"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_h",
+          "extract_largest"
+        ],
+        "pattern_str": "flip_h() -> extract_largest()",
+        "count": 2,
+        "avg_fitness": 0.46638888888888885,
+        "task_ids": [
+          "16b78196",
+          "16b78196"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_h",
+          "flip_h"
+        ],
+        "pattern_str": "flip_h() -> flip_h()",
+        "count": 2,
+        "avg_fitness": 0.4395502645502645,
+        "task_ids": [
+          "16de56c4",
+          "16de56c4"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_v",
+          "flip_v"
+        ],
+        "pattern_str": "flip_v() -> flip_v()",
+        "count": 4,
+        "avg_fitness": 0.4209197207113874,
+        "task_ids": [
+          "1ae2feb7",
+          "35ab12c3",
+          "1ae2feb7",
+          "35ab12c3"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "extract_largest"
+        ],
+        "pattern_str": "crop() -> extract_largest()",
+        "count": 2,
+        "avg_fitness": 0.43130952380952375,
+        "task_ids": [
+          "247ef758",
+          "247ef758"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "scale_2x",
+          "downsample"
+        ],
+        "pattern_str": "scale_2x() -> downsample()",
+        "count": 4,
+        "avg_fitness": 0.45958333333333334,
+        "task_ids": [
+          "28a6681f",
+          "3dc255db",
+          "28a6681f",
+          "3dc255db"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "fill_interior"
+        ],
+        "pattern_str": "crop() -> fill_interior()",
+        "count": 6,
+        "avg_fitness": 0.4368440156052666,
+        "task_ids": [
+          "2b83f449",
+          "2c181942",
+          "5961cc34",
+          "2b83f449",
+          "2c181942",
+          "5961cc34"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_v"
+        ],
+        "pattern_str": "flip_v()",
+        "count": 2,
+        "avg_fitness": 0.46172657623207075,
+        "task_ids": [
+          "31f7f899",
+          "31f7f899"
+        ],
+        "complexity": 1,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "fill_zeros"
+        ],
+        "pattern_str": "crop() -> fill_zeros()",
+        "count": 2,
+        "avg_fitness": 0.481058983489229,
+        "task_ids": [
+          "332f06d7",
+          "332f06d7"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_h",
+          "fill_interior"
+        ],
+        "pattern_str": "flip_h() -> fill_interior()",
+        "count": 4,
+        "avg_fitness": 0.37809369397437576,
+        "task_ids": [
+          "446ef5d2",
+          "581f7754",
+          "446ef5d2",
+          "581f7754"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "crop",
+          "detect_objects"
+        ],
+        "pattern_str": "crop() -> detect_objects()",
+        "count": 2,
+        "avg_fitness": 0.44393004115226337,
+        "task_ids": [
+          "4a21e3da",
+          "4a21e3da"
+        ],
+        "complexity": 2,
+        "category": "structure",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "flip_h",
+          "flip_h",
+          "extract_largest"
+        ],
+        "pattern_str": "flip_h() -> flip_h() -> extract_largest()",
+        "count": 2,
+        "avg_fitness": 0.44375,
+        "task_ids": [
+          "4c3d4a41",
+          "4c3d4a41"
+        ],
+        "complexity": 3,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      },
+      {
+        "pattern": [
+          "rotate_180",
+          "extract_largest"
+        ],
+        "pattern_str": "rotate_180() -> extract_largest()",
+        "count": 2,
+        "avg_fitness": 0.4633395989974937,
+        "task_ids": [
+          "62593bfd",
+          "62593bfd"
+        ],
+        "complexity": 2,
+        "category": "geometric",
+        "success_tier": "low",
+        "size_behavior": "unknown"
+      }
+    ],
+    "high": [
+      {
+        "pattern": [
+          "crop(mode=?)"
+        ],
+        "pattern_str": "crop(mode=?)",
+        "count": 3,
+        "avg_fitness": 0.9540724846757777,
+        "task_ids": [
+          "332f06d7",
+          "3e6067c3",
+          "4c416de3"
+        ],
+        "complexity": 1,
+        "category": "structure",
+        "success_tier": "high",
+        "size_behavior": "unknown"
+      }
+    ]
+  },
+  "by_pattern": {
+    "crop()": {
+      "pattern": [
+        "crop"
+      ],
+      "pattern_str": "crop()",
+      "count": 31,
+      "avg_fitness": 0.5933526772092729,
+      "task_ids": [
+        "135a2760",
+        "1818057f",
+        "195c6913",
+        "221dfab4",
+        "271d71e2",
+        "36a08778",
+        "3e6067c3",
+        "409aa875",
+        "4c416de3",
+        "53fb4810",
+        "64efde09",
+        "135a2760",
+        "1818057f",
+        "195c6913",
+        "221dfab4",
+        "271d71e2",
+        "36a08778",
+        "3e6067c3",
+        "409aa875",
+        "4c416de3",
+        "53fb4810",
+        "64efde09",
+        "135a2760",
+        "135a2760",
+        "409aa875",
+        "135a2760",
+        "409aa875",
+        "135a2760",
+        "409aa875",
+        "135a2760",
+        "409aa875"
+      ],
+      "complexity": 1,
+      "category": "structure",
+      "success_tier": "medium",
+      "size_behavior": "unknown"
+    },
+    "rotate_90() -> rotate_270()": {
+      "pattern": [
+        "rotate_90",
+        "rotate_270"
+      ],
+      "pattern_str": "rotate_90() -> rotate_270()",
+      "count": 2,
+      "avg_fitness": 0.4514300411522634,
+      "task_ids": [
+        "142ca369",
+        "142ca369"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_h() -> extract_largest()": {
+      "pattern": [
+        "flip_h",
+        "extract_largest"
+      ],
+      "pattern_str": "flip_h() -> extract_largest()",
+      "count": 2,
+      "avg_fitness": 0.46638888888888885,
+      "task_ids": [
+        "16b78196",
+        "16b78196"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_h() -> flip_h()": {
+      "pattern": [
+        "flip_h",
+        "flip_h"
+      ],
+      "pattern_str": "flip_h() -> flip_h()",
+      "count": 2,
+      "avg_fitness": 0.4395502645502645,
+      "task_ids": [
+        "16de56c4",
+        "16de56c4"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_v() -> flip_v()": {
+      "pattern": [
+        "flip_v",
+        "flip_v"
+      ],
+      "pattern_str": "flip_v() -> flip_v()",
+      "count": 4,
+      "avg_fitness": 0.4209197207113874,
+      "task_ids": [
+        "1ae2feb7",
+        "35ab12c3",
+        "1ae2feb7",
+        "35ab12c3"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> extract_largest()": {
+      "pattern": [
+        "crop",
+        "extract_largest"
+      ],
+      "pattern_str": "crop() -> extract_largest()",
+      "count": 2,
+      "avg_fitness": 0.43130952380952375,
+      "task_ids": [
+        "247ef758",
+        "247ef758"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "scale_2x() -> downsample()": {
+      "pattern": [
+        "scale_2x",
+        "downsample"
+      ],
+      "pattern_str": "scale_2x() -> downsample()",
+      "count": 4,
+      "avg_fitness": 0.45958333333333334,
+      "task_ids": [
+        "28a6681f",
+        "3dc255db",
+        "28a6681f",
+        "3dc255db"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> fill_interior()": {
+      "pattern": [
+        "crop",
+        "fill_interior"
+      ],
+      "pattern_str": "crop() -> fill_interior()",
+      "count": 6,
+      "avg_fitness": 0.4368440156052666,
+      "task_ids": [
+        "2b83f449",
+        "2c181942",
+        "5961cc34",
+        "2b83f449",
+        "2c181942",
+        "5961cc34"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_v()": {
+      "pattern": [
+        "flip_v"
+      ],
+      "pattern_str": "flip_v()",
+      "count": 2,
+      "avg_fitness": 0.46172657623207075,
+      "task_ids": [
+        "31f7f899",
+        "31f7f899"
+      ],
+      "complexity": 1,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> fill_zeros()": {
+      "pattern": [
+        "crop",
+        "fill_zeros"
+      ],
+      "pattern_str": "crop() -> fill_zeros()",
+      "count": 2,
+      "avg_fitness": 0.481058983489229,
+      "task_ids": [
+        "332f06d7",
+        "332f06d7"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_h() -> fill_interior()": {
+      "pattern": [
+        "flip_h",
+        "fill_interior"
+      ],
+      "pattern_str": "flip_h() -> fill_interior()",
+      "count": 4,
+      "avg_fitness": 0.37809369397437576,
+      "task_ids": [
+        "446ef5d2",
+        "581f7754",
+        "446ef5d2",
+        "581f7754"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop() -> detect_objects()": {
+      "pattern": [
+        "crop",
+        "detect_objects"
+      ],
+      "pattern_str": "crop() -> detect_objects()",
+      "count": 2,
+      "avg_fitness": 0.44393004115226337,
+      "task_ids": [
+        "4a21e3da",
+        "4a21e3da"
+      ],
+      "complexity": 2,
+      "category": "structure",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "flip_h() -> flip_h() -> extract_largest()": {
+      "pattern": [
+        "flip_h",
+        "flip_h",
+        "extract_largest"
+      ],
+      "pattern_str": "flip_h() -> flip_h() -> extract_largest()",
+      "count": 2,
+      "avg_fitness": 0.44375,
+      "task_ids": [
+        "4c3d4a41",
+        "4c3d4a41"
+      ],
+      "complexity": 3,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "rotate_180() -> extract_largest()": {
+      "pattern": [
+        "rotate_180",
+        "extract_largest"
+      ],
+      "pattern_str": "rotate_180() -> extract_largest()",
+      "count": 2,
+      "avg_fitness": 0.4633395989974937,
+      "task_ids": [
+        "62593bfd",
+        "62593bfd"
+      ],
+      "complexity": 2,
+      "category": "geometric",
+      "success_tier": "low",
+      "size_behavior": "unknown"
+    },
+    "crop(mode=?)": {
+      "pattern": [
+        "crop(mode=?)"
+      ],
+      "pattern_str": "crop(mode=?)",
+      "count": 3,
+      "avg_fitness": 0.9540724846757777,
+      "task_ids": [
+        "332f06d7",
+        "3e6067c3",
+        "4c416de3"
+      ],
+      "complexity": 1,
+      "category": "structure",
+      "success_tier": "high",
+      "size_behavior": "unknown"
+    }
+  },
+  "statistics": {
+    "total_templates": 15,
+    "total_programs": 0
+  }
+}

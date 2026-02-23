@@ -1,0 +1,129 @@
+{
+  "description": "v0.96 Phase 1 test on 10 tasks",
+  "num_operations": 25,
+  "results": [
+    {
+      "task_id": "0934a4d8",
+      "task_type": "size",
+      "fitness": 0.17701388888888886,
+      "solved": false,
+      "time": 18.035059213638306,
+      "program": [
+        "replicate(direction=horizontal,times=4)",
+        "compress_to_fit(method=downsample,target_h=9,target_w=4)",
+        "crop(mode=center)",
+        "expand_to_size(fill=tile,target_h=9,target_w=4)"
+      ]
+    },
+    {
+      "task_id": "269e22fb",
+      "task_type": "size",
+      "fitness": 0.574,
+      "solved": false,
+      "time": 10.366481304168701,
+      "program": [
+        "expand_to_size(fill=tile,target_h=20,target_w=20)"
+      ]
+    },
+    {
+      "task_id": "2d0172a1",
+      "task_type": "size",
+      "fitness": 0.3247799422799422,
+      "solved": false,
+      "time": 11.93580150604248,
+      "program": [
+        "crop(mode=border)",
+        "compress_to_fit(method=downsample,target_h=11,target_w=12)",
+        "flip(axis=vertical)"
+      ]
+    },
+    {
+      "task_id": "38007db0",
+      "task_type": "size",
+      "fitness": 0.971203007518797,
+      "solved": true,
+      "time": 5.7611494064331055,
+      "program": [
+        "fit_to_canvas(align=center,canvas_h=19,canvas_w=7)"
+      ]
+    },
+    {
+      "task_id": "3a25b0d8",
+      "task_type": "size",
+      "fitness": 0.35426210153482884,
+      "solved": false,
+      "time": 78.84654688835144,
+      "program": [
+        "symmetrize(axis=both)",
+        "compress_to_fit(method=max,target_h=11,target_w=11)"
+      ]
+    },
+    {
+      "task_id": "446ef5d2",
+      "task_type": "color",
+      "fitness": 0.7045833333333333,
+      "solved": false,
+      "time": 4.20462703704834,
+      "program": [
+        "symmetrize(axis=both)"
+      ]
+    },
+    {
+      "task_id": "5545f144",
+      "task_type": "color",
+      "fitness": 0.6805555555555556,
+      "solved": false,
+      "time": 7.041212797164917,
+      "program": [
+        "fit_to_canvas(align=topleft,canvas_h=10,canvas_w=8)",
+        "symmetrize(axis=both)",
+        "crop(mode=content)",
+        "gravity_down",
+        "symmetrize(axis=vertical)"
+      ]
+    },
+    {
+      "task_id": "58490d8a",
+      "task_type": "color",
+      "fitness": 0.5673318216175358,
+      "solved": false,
+      "time": 7.762488842010498,
+      "program": [
+        "filter_color(color=2)",
+        "compress_to_fit(method=select,target_h=7,target_w=7)",
+        "border(operation=fill,value=0)",
+        "crop_to_content(margin=1,preserve_aspect=False)"
+      ]
+    },
+    {
+      "task_id": "5961cc34",
+      "task_type": "color",
+      "fitness": 0.8822869159825681,
+      "solved": false,
+      "time": 13.148930311203003,
+      "program": [
+        "swap_colors(color_a=2,color_b=1)"
+      ]
+    },
+    {
+      "task_id": "5dbc8537",
+      "task_type": "color",
+      "fitness": 0.3165079365079365,
+      "solved": false,
+      "time": 4.745096921920776,
+      "program": [
+        "flip(axis=vertical)",
+        "fit_to_canvas(align=center,canvas_h=15,canvas_w=7)"
+      ]
+    }
+  ],
+  "summary": {
+    "solved": 1,
+    "total": 10,
+    "solve_rate": 0.1,
+    "avg_fitness": 0.5552524503219387,
+    "total_time": 161.84818363189697,
+    "size_solved": 1,
+    "color_solved": 0
+  }
+}

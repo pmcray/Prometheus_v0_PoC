@@ -1,0 +1,215 @@
+{
+  "success_db": {
+    "d90a228cf142f703": {
+      "crop": {
+        "successes": 11,
+        "total": 11,
+        "best_fitness": 0.9725674325674326
+      },
+      "crop(mode=content)": {
+        "successes": 9,
+        "total": 9,
+        "best_fitness": 0.9587823150786114
+      },
+      "transpose": {
+        "successes": 4,
+        "total": 4,
+        "best_fitness": 0.9625674325674326
+      }
+    }
+  },
+  "pattern_db": {
+    "d90a228cf142f703": [
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9725674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop"
+        ],
+        "fitness": 0.9639583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "transpose",
+          "transpose"
+        ],
+        "fitness": 0.9625674325674326,
+        "task_id": "135a2760"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.9587823150786114,
+        "task_id": "3e6067c3"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.9587823150786114,
+        "task_id": "3e6067c3"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.9587823150786114,
+        "task_id": "3e6067c3"
+      },
+      {
+        "pattern": [
+          "transpose",
+          "transpose"
+        ],
+        "fitness": 0.9539583333333334,
+        "task_id": "409aa875"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.953328904478458,
+        "task_id": "332f06d7"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.953328904478458,
+        "task_id": "332f06d7"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.953328904478458,
+        "task_id": "332f06d7"
+      },
+      {
+        "pattern": [
+          "crop(mode=content)"
+        ],
+        "fitness": 0.9501062344702635,
+        "task_id": "4c416de3"
+      }
+    ]
+  },
+  "constraint_cache": {
+    "d90a228cf142f703": {
+      "size": "variable",
+      "color": "variable",
+      "symmetry": "no_symmetry",
+      "object": "unknown"
+    }
+  },
+  "param_success_db": {
+    "d90a228cf142f703": {
+      "crop@()": {
+        "successes": 11,
+        "total": 11,
+        "best_fitness": 0.9725674325674326
+      },
+      "crop@(('mode', 'content'),)": {
+        "successes": 9,
+        "total": 9,
+        "best_fitness": 0.9587823150786114
+      },
+      "transpose@()": {
+        "successes": 4,
+        "total": 4,
+        "best_fitness": 0.9625674325674326
+      }
+    }
+  },
+  "param_distributions": {
+    "d90a228cf142f703": {
+      "crop": {
+        "mode": {
+          "content": 9
+        }
+      },
+      "transpose": {}
+    }
+  },
+  "stats": {
+    "total_attempts": 44,
+    "total_successes": 44,
+    "tasks_seen": [
+      "3e6067c3",
+      "4c416de3",
+      "332f06d7",
+      "409aa875",
+      "135a2760"
+    ]
+  }
+}
