@@ -62,23 +62,21 @@ def test_planner_bid_generation(mock_planner):
 
 # --- Integration Tests ---
 
-def test_causal_attention_prompt_building():
-    with patch('google.generativeai.GenerativeModel') as mock_model_class:
-        mock_model = mock_model_class.return_value
-        mock_response = MagicMock()
-        mock_response.text = "```python\n# Optimized code\n```"
-        mock_model.generate_content.return_value = mock_response
-        
-        wrapper = CausalAttentionWrapper(api_key="fake_key")
-        code = "def slow(n): return sum([i for i in range(n)])"
-        wrapper.generate_with_causal_focus(code, "Optimize this.")
-        
-        # Verify that generate_content was called
-        assert mock_model.generate_content.called
-        args, kwargs = mock_model.generate_content.call_args
-        prompt = args[0]
-        assert "CRITICAL ANALYSIS" in prompt
-        assert "O(n^2)" in prompt
+def test_causal_attention_prompt_building(mock_llm_backend):
+    """Verify that the causal-focus meta-prompt contains the expected sections.
+
+    Uses the ``mock_llm_backend`` fixture from conftest; inspects the prompt
+    that was passed to ``backend.generate()`` rather than the Gemini API layer.
+    """
+    wrapper = CausalAttentionWrapper(api_key="fake_key")
+    code = "def slow(n): return sum([i for i in range(n)])"
+    wrapper.generate_with_causal_focus(code, "Optimize this.")
+
+    # The mock's generate() should have been called exactly once.
+    assert mock_llm_backend.generate.called
+    prompt = mock_llm_backend.generate.call_args[0][0]
+    assert "CRITICAL ANALYSIS" in prompt
+    assert "O(n^2)" in prompt
 
 # --- Safety Sandboxing Tests ---
 
