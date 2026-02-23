@@ -2,15 +2,17 @@ import pytest
 from unittest.mock import patch, MagicMock
 from prometheus.planner import PlannerAgent
 
-@patch('google.generativeai.GenerativeModel')
-def test_generate_hypotheses(mock_generative_model):
+
+def test_generate_hypotheses(mock_llm_backend):
     """
-    Tests that the generate_hypotheses method correctly processes the response from the LLM.
+    Tests that the generate_hypotheses method correctly processes the response
+    from the LLM backend.
+
+    Uses the ``mock_llm_backend`` fixture from conftest so no real model is
+    loaded.
     """
-    # Arrange
-    mock_model_instance = MagicMock()
-    mock_model_instance.generate_content.return_value = MagicMock(text="Hypothesis 1\nHypothesis 2\nHypothesis 3")
-    mock_generative_model.return_value = mock_model_instance
+    # Arrange: have the mock return three newline-separated hypotheses.
+    mock_llm_backend.generate.return_value = "Hypothesis 1\nHypothesis 2\nHypothesis 3"
 
     planner = PlannerAgent()
     goal = "Test Goal"
@@ -23,4 +25,4 @@ def test_generate_hypotheses(mock_generative_model):
     assert hypotheses[0] == "Hypothesis 1"
     assert hypotheses[1] == "Hypothesis 2"
     assert hypotheses[2] == "Hypothesis 3"
-    mock_model_instance.generate_content.assert_called_once()
+    mock_llm_backend.generate.assert_called_once()

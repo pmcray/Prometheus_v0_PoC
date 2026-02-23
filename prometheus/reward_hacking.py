@@ -609,7 +609,9 @@ class RobustRewardWrapper:
         # Seed the tampering detector with the initial weights
         try:
             self.tampering_detector.register_weights(base_agent.get_weights())
-        except Exception:
+        except (AttributeError, TypeError, ValueError):
+            # Agent may not expose get_weights() yet; tampering baseline
+            # will be set on the first call to check_weights().
             pass
 
     # ------------------------------------------------------------------
@@ -647,7 +649,9 @@ class RobustRewardWrapper:
         if self.true_reward_fn is not None:
             try:
                 true_val = float(self.true_reward_fn(features))
-            except Exception:
+            except (TypeError, ValueError, ArithmeticError):
+                # True reward function rejected this feature vector; treat as
+                # unknown (Goodhart check will use proxy only).
                 pass
         goodhart_signal = self.goodhart_detector.update(proxy_reward, true_val)
 
@@ -660,7 +664,9 @@ class RobustRewardWrapper:
             try:
                 current_weights = self.base_agent.get_weights()
                 tampering_report = self.tampering_detector.check_weights(current_weights)
-            except Exception:
+            except (AttributeError, TypeError, ValueError):
+                # Agent does not expose get_weights() or weights are in an
+                # unexpected format; report as unverified (not tampered).
                 tampering_report = TamperingReport(
                     tampered=False, tamper_type="none",
                     weight_delta_norm=0.0, feature_hash_match=True,
@@ -671,13 +677,17 @@ class RobustRewardWrapper:
         if self.replacement_reward_fn is not None:
             try:
                 replacement_reward = float(self.replacement_reward_fn(features))
-            except Exception:
+            except (TypeError, ValueError, ArithmeticError):
+                # Replacement reward function rejected these features; leave
+                # replacement_reward as None (gaming check will run without it).
                 pass
         complexity = None
         if self.complexity_fn is not None:
             try:
                 complexity = float(self.complexity_fn(features))
-            except Exception:
+            except (TypeError, ValueError, ArithmeticError):
+                # Complexity function rejected these features; gaming check
+                # will run without a complexity signal.
                 pass
         gaming_report = self.gaming_detector.check(
             proxy_reward         = proxy_reward,

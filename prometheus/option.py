@@ -268,7 +268,7 @@ class OptionLibrary:
                 return bool(v.any())
             try:
                 return bool(v)
-            except Exception:
+            except (TypeError, ValueError):
                 return False
 
         def fingerprint(s: State) -> frozenset:

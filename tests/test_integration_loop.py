@@ -8,22 +8,22 @@ from prometheus.code_evaluator import CodeEvaluator
 from prometheus.causal_attention import CausalAttentionWrapper
 from prometheus.causal_agentic_mesh import CausalAgenticMesh
 
-@pytest.fixture
-def mock_gemini():
-    with patch('google.generativeai.GenerativeModel') as mock_model_class:
-        mock_model = mock_model_class.return_value
-        
-        # Success response: Optimized Python code
-        mock_response = MagicMock()
-        mock_response.text = "```python\ndef sort_list(data):\n    return sorted(data)\n```"
-        mock_model.generate_content.return_value = mock_response
-        yield mock_model
-
-def test_full_optimization_loop(mock_gemini):
+def test_full_optimization_loop(mock_llm_backend):
     """
     Simulate the Phase 1 & 2 integration:
     Planner -> Coder (Causal Focus) -> Evaluator -> Mesh
+
+    The mock LLM backend returns an optimised ``sorted()`` implementation so
+    the CodeEvaluator can confirm the complexity dropped from O(n^2) to O(n).
     """
+    # Return a sorted()-based implementation so CodeEvaluator rates it O(n).
+    mock_llm_backend.generate.return_value = (
+        "```python\n"
+        "def sort_list(data):\n"
+        "    return sorted(data)\n"
+        "```"
+    )
+
     mesh = CausalAgenticMesh()
     evaluator = CodeEvaluator()
     wrapper = CausalAttentionWrapper(api_key="fake_key")

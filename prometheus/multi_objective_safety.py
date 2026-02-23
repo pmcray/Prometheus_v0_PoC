@@ -685,7 +685,9 @@ class ConformalPValueAggregator(AggregatorBase):
         dof       = 2 * len(p_values)
         try:
             p_combined = float(chi2.sf(chi2_stat, dof))
-        except Exception:
+        except (ArithmeticError, ValueError):
+            # chi2.sf can fail on extreme inputs; fall back to a conservative
+            # p-value: < dof means chi2 < expected under H0 → retain H0.
             p_combined = 1.0 if chi2_stat < dof else 0.0
 
         composite_score = float(np.mean([v.safety_score for v in active]))

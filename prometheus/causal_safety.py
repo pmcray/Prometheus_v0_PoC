@@ -239,7 +239,8 @@ class CausalSafetyGraph:
             try:
                 r_plus  = float(self.reward_fn(x_plus))
                 r_minus = float(self.reward_fn(x_minus))
-            except Exception:
+            except (TypeError, ValueError, ArithmeticError):
+                # Reward function may reject perturbed inputs; skip this sample.
                 continue
 
             ace_samples.append((r_plus - r_minus) / (2.0 * self.delta))

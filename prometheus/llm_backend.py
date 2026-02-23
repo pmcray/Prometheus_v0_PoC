@@ -37,7 +37,7 @@ class LLMBackend:
         # Determine whether to pin a revision.  Only needed for Phi-3-mini
         # to avoid the rope_scaling KeyError introduced in the July 2024 update.
         revision = None
-        if "Phi-3-mini-4k-instruct" in self.model_name:
+        if self.model_name and "Phi-3-mini-4k-instruct" in self.model_name:
             revision = _PHI3_STABLE_REVISION
 
         tokenizer_kwargs = dict(trust_remote_code=True)

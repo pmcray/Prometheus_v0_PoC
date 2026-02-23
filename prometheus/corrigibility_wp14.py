@@ -766,7 +766,9 @@ class CorrigibilityGate:
         if features is None:
             try:
                 features = option.extract_features(state)
-            except Exception:
+            except (AttributeError, TypeError, ValueError):
+                # Option does not implement extract_features or the state is
+                # incompatible; fall back to a zero feature vector.
                 features = np.zeros(self.cirl_agent.feature_size)
 
         plan_text = (

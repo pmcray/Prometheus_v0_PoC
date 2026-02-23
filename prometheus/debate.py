@@ -462,7 +462,9 @@ class DebateJudge:
                 fv_result = self.fv.verify(transcript.plan_code)
                 fv_safe   = fv_result.is_safe
                 formal_bonus = 5.0 if fv_safe else -5.0
-            except Exception:
+            except (TypeError, ValueError, AttributeError, RuntimeError):
+                # Formal verifier unavailable or returned unexpected result;
+                # leave formal_bonus at its default (0.0).
                 pass
 
         # Value alignment
