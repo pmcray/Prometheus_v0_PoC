@@ -14,7 +14,58 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.69"
+__version__ = "0.70"
+
+# WP17: CRLS Synthesis Closure
+from prometheus.wp17_crls_synthesis import (
+    CRLSSynthesiser,
+    GoTacticalCRLS,
+    SynthesisAction,
+    SynthesisRecord,
+    verify_wp17_exit_criteria,
+)
+
+# WP18: Analogy Engine MVP — Cross-Domain Transfer
+from prometheus.wp18_analogy_engine import (
+    TacticSignature,
+    StructuralAnalogy,
+    CrossDomainAnalogyMap,
+    TransferBootstrapper,
+    GoChessTacticRegistry,
+    GoChessCRLS,
+    verify_wp18_exit_criteria,
+)
+
+# WP19: Causal Action Evaluator — Potential-Outcomes Action Selection
+from prometheus.wp19_causal_evaluator import (
+    ActionOutcomeTable,
+    ATEEstimate,
+    CausalRecommendation,
+    CausalActionEvaluator,
+    CausalAnalogyAuditor,
+    CausalCRLS,
+    verify_wp19_exit_criteria,
+)
+
+# WP20: Temporal Synthesis Planner — K-step Rollout Planning
+from prometheus.wp20_temporal_planner import (
+    SynthesisStateSnapshot,
+    TrajectoryTransition,
+    SynthesisTrajectoryModel,
+    RolloutResult,
+    RolloutPlanner,
+    TemporalCRLS,
+    verify_wp20_exit_criteria,
+)
+
+# WP21: Meta-Gradient Adaptation — Hyperparameter Self-Optimisation
+from prometheus.wp21_meta_gradient import (
+    MetaParams,
+    MetaGradStep,
+    MetaGradientOptimiser,
+    MetaGradientCRLS,
+    verify_wp21_exit_criteria,
+)
 
 # Optional imports - only load if explicitly requested
 # This prevents import errors from breaking the entire package
