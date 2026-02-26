@@ -40,6 +40,9 @@ from typing import List, Optional, Tuple, Dict, Any
 
 import numpy as np
 
+from prometheus.adversarial_robustness import DataValidator
+from prometheus.lineage import ModelRegistry
+
 logger = logging.getLogger(__name__)
 
 
@@ -51,16 +54,30 @@ class PreferenceBuffer:
     The buffer supports random sampling for mini-batch training.
     """
 
-    def __init__(self, max_size: int = 1000):
+    def __init__(self, max_size: int = 1000, feature_size: Optional[int] = None):
         self.max_size = max_size
+        self.feature_size = feature_size
         self._preferred: List[np.ndarray] = []
         self._unpreferred: List[np.ndarray] = []
+        self.validator = DataValidator(feature_size) if feature_size is not None else None
 
     def add(self, preferred_features: np.ndarray,
             unpreferred_features: np.ndarray) -> None:
         """Add a preference pair to the buffer."""
-        self._preferred.append(np.array(preferred_features, dtype=float))
-        self._unpreferred.append(np.array(unpreferred_features, dtype=float))
+        pref = np.array(preferred_features, dtype=float)
+        unpref = np.array(unpreferred_features, dtype=float)
+
+        # Validate features if validator is available
+        if self.validator:
+            self.validator.validate_pair(pref, unpref)
+        elif self.feature_size is None:
+            # Lazy initialization of feature_size and validator
+            self.feature_size = pref.shape[0]
+            self.validator = DataValidator(self.feature_size)
+            self.validator.validate_pair(pref, unpref)
+
+        self._preferred.append(pref)
+        self._unpreferred.append(unpref)
         # Trim if over capacity (FIFO)
         if len(self._preferred) > self.max_size:
             self._preferred.pop(0)
@@ -116,7 +133,8 @@ class ValueLearningAgent:
         self.history_window = history_window
 
         self.weights = np.zeros(feature_size, dtype=float)
-        self.buffer = PreferenceBuffer()
+        self.buffer = PreferenceBuffer(feature_size=feature_size)
+        self.registry = ModelRegistry()
 
         # Convergence tracking
         self._update_count: int = 0
@@ -201,6 +219,24 @@ class ValueLearningAgent:
 
         # Store in buffer for replay
         self.buffer.add(pref, unpref)
+
+        # Automated Checkpointing & Lineage Tracking (WP-04)
+        if self._update_count % 100 == 0:
+            weight_file = "value_weights_checkpoint.json"
+            self.save(weight_file)
+            
+            version_id = self.registry.checkpoint_system(
+                code_files=[], # Weights only for this tracker
+                weight_files=[weight_file]
+            )
+            
+            # Use probability as a proxy for "improvement" 
+            # (higher prob means the model already correctly predicted the preference)
+            LineageTracker(self.registry).track_modification(
+                "ValueLearningAgent", "weights",
+                f"Batch update {self._update_count}",
+                0.0, float(prob)
+            )
 
         logger.debug(
             f"Update {self._update_count}: P(pref)={prob:.3f}, "

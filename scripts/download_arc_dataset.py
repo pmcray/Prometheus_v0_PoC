@@ -32,7 +32,7 @@ ARC_TRAINING_PATH = "ARC-AGI-master/data/training"
 ARC_EVALUATION_PATH = "ARC-AGI-master/data/evaluation"
 
 # Default output location (matches what tests expect)
-DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "data" / "arc"
+DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / "arc_data" / "ARC-AGI" / "data"
 
 
 def download_file(url: str, dest_path: Path, show_progress: bool = True) -> bool:

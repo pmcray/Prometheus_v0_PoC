@@ -8,8 +8,13 @@ echo ""
 
 # Install FreeCiv server (headless - no GUI needed)
 echo "Installing freeciv-server package..."
-sudo apt-get update
-sudo apt-get install -y freeciv-server freeciv-data
+SUDO=""
+if command -v sudo >/dev/null 2>&1; then
+    SUDO="sudo"
+fi
+
+$SUDO apt-get update
+$SUDO apt-get install -y freeciv-server freeciv-data
 
 # Verify installation
 if command -v freeciv-server &> /dev/null; then

@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.70"
+__version__ = "0.71"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -65,6 +65,15 @@ from prometheus.wp21_meta_gradient import (
     MetaGradientOptimiser,
     MetaGradientCRLS,
     verify_wp21_exit_criteria,
+)
+
+# WP22: Multi-Armed Bandit Exploration Policy
+from prometheus.wp22_bandit_exploration import (
+    BanditMode,
+    ExplorationRecord,
+    BanditPolicy,
+    BanditCRLS,
+    verify_wp22_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested

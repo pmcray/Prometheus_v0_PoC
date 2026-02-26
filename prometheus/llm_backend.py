@@ -20,16 +20,27 @@ class LLMBackend:
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.local_model = None
         self.tokenizer = None
+        
+        # Mode selection
         self.use_gemini = self.api_key is not None and not force_local
+        self.use_placeholder = False
 
         if self.use_gemini:
             import google.generativeai as genai
             genai.configure(api_key=self.api_key)
             self.gemini_model = genai.GenerativeModel('gemini-1.5-flash')
             print(f"LLMBackend: Using Gemini API (flash).")
-        else:
+        elif self.device == "cuda":
             print(f"LLMBackend: Initializing local model {model_name} on {self.device}...")
             self._init_local_model()
+        else:
+            # Check if we should really load a heavy model on CPU or use a placeholder
+            if os.environ.get("PROMETHEUS_FORCE_CPU_MODEL") == "1":
+                print(f"LLMBackend: Initializing local model {model_name} on CPU (SLOW)...")
+                self._init_local_model()
+            else:
+                print("LLMBackend: No Gemini API key and no CUDA. Using PLACEHOLDER mode for CI/CD.")
+                self.use_placeholder = True
 
     def _init_local_model(self):
         from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline, BitsAndBytesConfig
@@ -89,6 +100,15 @@ class LLMBackend:
         if self.use_gemini:
             response = self.gemini_model.generate_content(prompt)
             return response.text.strip()
+        elif self.use_placeholder:
+            # Return a generic but valid response for testing
+            return (
+                "```python\n"
+                "def optimized_function(*args, **kwargs):\n"
+                "    # Placeholder response from LLMBackend\n"
+                "    pass\n"
+                "```"
+            )
         else:
             # Local Inference — Phi-3 chat template
             full_prompt = f"<|user|>\n{prompt}<|end|>\n<|assistant|>"

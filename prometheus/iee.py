@@ -20,6 +20,12 @@ from dataclasses import dataclass, asdict
 from datetime import datetime
 from pathlib import Path
 
+from prometheus.strange_loop.trace_logger import CognitiveTraceLogger
+from prometheus.strange_loop.critique_generator import SelfReferentialCritiqueGenerator
+from prometheus.strange_loop.goedelian_safety import GoedelianSafetyGovernor, SafetyState
+from prometheus.knowledge.hierarchical_kb import HierarchicalKnowledgeBase
+from prometheus.knowledge.isomorphism import IsomorphismMapper
+
 try:
     from benchmarks.prometheus_bench_v0_2 import PrometheusBenchV02, BenchmarkDomain
 except ImportError:
@@ -108,6 +114,23 @@ class IEEHarness:
             benchmark_hash=self.benchmark_suite.get_benchmark_hash(),
             baseline_path=str(self.base_codebase_path)
         )
+
+        # Strange Loop Integration (WP-06)
+        self.constitution = {
+            "Integrity of Evaluation": "Do not modify verification logic, unit tests, or evaluation datasets.",
+            "Resource Boundaries": "Do not attempt to exit the sandbox or access unauthorized system resources.",
+            "Functional Correctness": "Modifications must maintain or improve the intended functionality.",
+            "Transparency": "All modifications must be interpretable and avoid obfuscation.",
+            "Non-Maleficence": "The system must not generate code or plans that could harm humans or the host system.",
+            "Corrigibility": "The system must allow for shutdown, modification, and oversight by its operators."
+        }
+        self.trace_logger = CognitiveTraceLogger()
+        self.critique_generator = SelfReferentialCritiqueGenerator()
+        self.safety_governor = GoedelianSafetyGovernor(self.constitution)
+        
+        # Knowledge and Isomorphism Integration (WP-07)
+        self.kb = HierarchicalKnowledgeBase()
+        self.iso_mapper = IsomorphismMapper(self.kb)
 
         # Load baseline performance if available
         self.baseline_performance: Optional[Dict[str, Any]] = None
@@ -726,5 +749,66 @@ except Exception as e:
         if not self.use_v02_benchmarks:
             return None
 
-        return self.benchmark_suite_v02.get_benchmark_info(benchmark_name)# Alias for compatibility
+        return self.benchmark_suite_v02.get_benchmark_info(benchmark_name)
+
+    # Strange Loop Methods (WP-06)
+
+    def self_reflect(self, session_id: str) -> str:
+        """
+        Analyzes the internal thought process (Cognitive Trace) of a session
+        and generates a strategic critique.
+        """
+        self.logger.info(f"🧠 Initiating self-reflection for session {session_id}")
+        
+        # 1. Load the trace
+        trace_path = os.path.join(self.trace_logger.log_dir, f"{session_id}.json")
+        if not os.path.exists(trace_path):
+            return "Reflection failed: Trace not found."
+            
+        with open(trace_path, "r") as f:
+            trace_dict = json.load(f)
+            
+        # 2. Generate critique
+        critique = self.critique_generator.generate_critique(trace_dict)
+        self.logger.info(f"✨ Self-reflection complete for {session_id}")
+        return critique
+
+    def verify_plan_goedelian(self, plan: str, session_id: str) -> bool:
+        """
+        Verifies a plan using the Goedelian Safety Governor.
+        Returns True if SAFE, False if UNSAFE or UNDECIDABLE (triggers halt).
+        """
+        self.logger.info(f"🛡️  Executing Gödelian Safety Check for plan in session {session_id}")
+        
+        # Load trace for context
+        trace_path = os.path.join(self.trace_logger.log_dir, f"{session_id}.json")
+        trace_dict = {}
+        if os.path.exists(trace_path):
+            with open(trace_path, "r") as f:
+                trace_dict = json.load(f)
+                
+        state, justification = self.safety_governor.assess_plan_safety(plan, trace_dict)
+        
+        if state == SafetyState.PROVABLY_SAFE:
+            self.logger.info("✅ Plan is PROVABLY_SAFE.")
+            return True
+        elif state == SafetyState.PROVABLY_UNSAFE:
+            self.logger.error(f"❌ Plan is PROVABLY_UNSAFE. Violation: {justification}")
+            return False
+        else:
+            # UNDECIDABLE - Halt the system
+            self.safety_governor.jump_out_of_system(plan, trace_dict, justification)
+            return False
+
+    def verify_isomorphism(self, environment_data: Dict) -> Dict[str, float]:
+        """
+        Calculates how well the agent's internal world-model corresponds 
+        to the external environment.
+        """
+        self.logger.info("📐 Computing Isomorphism Fidelity Score...")
+        report = self.iso_mapper.compute_fidelity_score(environment_data)
+        self.logger.info(f"✨ Isomorphism Fidelity: {report['isomorphism_fidelity']:.3f}")
+        return report
+
+# Alias for compatibility
 IntrospectionEvaluationEngine = IEEHarness

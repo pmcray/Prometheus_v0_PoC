@@ -15,6 +15,7 @@ from typing import List, Tuple, Dict, Optional, Any
 from pathlib import Path
 import subprocess
 import time
+from prometheus.strategic_knowledge import StrategicKnowledgeBase, ChessRulesManager
 
 
 class ChessBoardEncoder:
@@ -393,6 +394,8 @@ class ChessEnvironment:
         self.move_history = []
         self.encoder = ChessBoardEncoder()
         self.move_encoder = ChessMoveEncoder()
+        self.knowledge_base = StrategicKnowledgeBase()
+        self.rules_manager = ChessRulesManager()
 
     def reset(self, start_position: Optional[str] = None) -> np.ndarray:
         """
@@ -456,11 +459,23 @@ class ChessEnvironment:
         # Get new state
         next_state = self.get_state()
 
-        # Check termination
+        # Check termination (including 3-fold repetition and 50-move rule)
         done = self.board.is_game_over()
+        
+        # Internal rule tracking for transparency
+        is_repetition = self.rules_manager.check_repetition(self.board, self.move_history)
+        is_50_move = self.rules_manager.check_50_move_rule(self.board)
 
         # Calculate reward
         reward = self._calculate_reward()
+
+        # Record interesting positions (e.g., checkmate or stalemate)
+        if done:
+            self.knowledge_base.record_interesting_position(
+                "chess", 
+                self.board.fen(), 
+                {"reason": "termination", "result": self.get_game_result()}
+            )
 
         # Info
         info = {
@@ -468,6 +483,8 @@ class ChessEnvironment:
             'move_number': len(self.move_history),
             'is_check': self.board.is_check(),
             'is_checkmate': self.board.is_checkmate(),
+            'is_repetition': is_repetition,
+            'is_50_move': is_50_move,
             'is_stalemate': self.board.is_stalemate(),
             'is_insufficient_material': self.board.is_insufficient_material(),
             'fen': self.board.fen()

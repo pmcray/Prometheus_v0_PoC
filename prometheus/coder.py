@@ -4,6 +4,7 @@ import re
 import random
 
 from prometheus.safety.mcs_supervisor import MCSSupervisor
+from prometheus.adversarial_robustness import PromptSanitizer, sanitize_tool_name
 
 class CoderAgent:
     def __init__(self, api_key, compiler, analyzer, lean_tool, knowledge_agent, mcs_supervisor=None, model_name=None):
@@ -13,6 +14,7 @@ class CoderAgent:
         self.lean_tool = lean_tool
         self.knowledge_agent = knowledge_agent
         self.mcs_supervisor = mcs_supervisor or MCSSupervisor()
+        self.sanitizer = PromptSanitizer()
 
     def synthesize_tool(self, specification: str):
         """
@@ -20,19 +22,23 @@ class CoderAgent:
         """
         print("CoderAgent: Synthesizing new tool.")
         
+        # Sanitize specification to prevent prompt injection
+        clean_spec = self.sanitizer.sanitize(specification)
+        
         prompt = f"""
         You are an expert Python programmer.
         Based on the following specification, generate the complete, syntactically correct Python code for the new tool class.
         The new tool should be a class with a no-argument constructor, a `run_experiment` method that takes a list of operations as input, and a `mix` method.
         
         Specification:
-        {specification}
+        {clean_spec}
         """
         response_text = self.backend.generate(prompt)
         code = response_text.strip().replace("```python", "").replace("```", "")
         
         # Safety Check
-        tool_name = self._extract_tool_name(specification)
+        raw_tool_name = self._extract_tool_name(specification)
+        tool_name = sanitize_tool_name(raw_tool_name)
         file_path = f"prometheus/tools/{tool_name.lower()}.py"
         
         critique = self.mcs_supervisor.verify_modification("", code, file_path)
@@ -105,16 +111,22 @@ class CoderAgent:
     def code(self, file_path, instruction, max_retries=3):
         """Generates code for a file based on instructions."""
         print(f"CoderAgent: Received instruction for {file_path}")
+        # Sanitize instruction
+        clean_instruction = self.sanitizer.sanitize(instruction)
+        
         with open(file_path, 'r') as f:
             original_code = f.read()
-        return self.refactor(original_code, instruction, max_retries)
+        return self.refactor(original_code, clean_instruction, max_retries)
 
     def refactor(self, code, instruction, max_retries=3):
         """Refactors code based on instructions with verification and safety oversight."""
         current_code = code
+        # Sanitize instruction
+        clean_instruction = self.sanitizer.sanitize(instruction)
+        
         for i in range(max_retries):
             print(f"CoderAgent: Refactoring attempt {i+1}")
-            prompt = f"Instruction: {instruction}\n\n```python\n{current_code}\n```"
+            prompt = f"Instruction: {clean_instruction}\n\n```python\n{current_code}\n```"
             response_text = self.backend.generate(prompt)
             new_code = self._clean_code(response_text)
             

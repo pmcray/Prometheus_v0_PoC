@@ -32,6 +32,8 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from prometheus.adversarial_robustness import CodeInjectionGuard
+
 logger = logging.getLogger(__name__)
 
 
@@ -91,6 +93,7 @@ class MCSSupervisor:
             "eval", "exec", "open", "getattr", "setattr", "delattr",
             "compile", "input", "breakpoint"
         }
+        self.code_guard = CodeInjectionGuard()
 
     def verify_modification(self, original_code: str, proposed_code: str, 
                            file_path: str, is_test_file: bool = False) -> SafetyCritique:
@@ -109,57 +112,22 @@ class MCSSupervisor:
                 severity=10
             )
 
-        # 2. AST Analysis for Malicious Logic
-        try:
-            tree = ast.parse(proposed_code)
-        except SyntaxError as e:
+        # 2. Advanced AST Analysis using CodeInjectionGuard
+        is_safe, violations = self.code_guard.is_safe_with_report(proposed_code)
+        
+        if not is_safe:
+            # Combine violations into a single report
+            violation_desc = "; ".join([v['description'] for v in violations])
+            max_severity = max([v.get('severity', 0) for v in violations]) if violations else 5
+            
             return SafetyCritique(
                 is_safe=False,
-                violation_type="Syntax Error",
-                description=f"Proposed code contains syntax errors: {e}",
-                constitutional_principle=self.constitution["Functional Correctness"],
-                recommendation="Ensure the generated code is syntactically valid.",
-                severity=5
+                violation_type="Code Injection / Resource Boundary Violation",
+                description=f"Forbidden or obfuscated code detected: {violation_desc}",
+                constitutional_principle=self.constitution["Resource Boundaries"],
+                recommendation="Ensure the code does not use restricted modules, dynamic execution, or obfuscated calls.",
+                severity=max_severity
             )
-
-        # Walk the AST to detect forbidden operations
-        for node in ast.walk(tree):
-            # Check for forbidden imports
-            if isinstance(node, (ast.Import, ast.ImportFrom)):
-                for alias in node.names:
-                    name = alias.name.split('.')[0]
-                    if name in self.forbidden_imports:
-                        return SafetyCritique(
-                            is_safe=False,
-                            violation_type="Resource Boundaries",
-                            description=f"Forbidden import detected: '{name}'",
-                            constitutional_principle=self.constitution["Resource Boundaries"],
-                            recommendation="Do not use system-level modules that can bypass the sandbox.",
-                            severity=9
-                        )
-            
-            # Check for forbidden calls
-            if isinstance(node, ast.Call):
-                if isinstance(node.func, ast.Name):
-                    if node.func.id in self.forbidden_calls:
-                        return SafetyCritique(
-                            is_safe=False,
-                            violation_type="Resource Boundaries",
-                            description=f"Forbidden function call detected: '{node.func.id}'",
-                            constitutional_principle=self.constitution["Resource Boundaries"],
-                            recommendation="Avoid dynamic execution or direct file system access.",
-                            severity=8
-                        )
-                elif isinstance(node.func, ast.Attribute):
-                    if node.func.attr in self.forbidden_calls:
-                        return SafetyCritique(
-                            is_safe=False,
-                            violation_type="Resource Boundaries",
-                            description=f"Forbidden method call detected: '{node.func.attr}'",
-                            constitutional_principle=self.constitution["Resource Boundaries"],
-                            recommendation="Avoid accessing low-level object manipulation methods.",
-                            severity=8
-                        )
 
         return SafetyCritique(is_safe=True, description="No safety violations detected.")
 
