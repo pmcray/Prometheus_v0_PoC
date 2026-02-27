@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.73"
+__version__ = "0.74"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -91,6 +91,16 @@ from prometheus.wp24_ensemble_uncertainty import (
     EnsembleDistiller,
     EnsembleCRLS,
     verify_wp24_exit_criteria,
+)
+
+# WP25: Forgetting Detection & EWC Regularisation
+from prometheus.wp25_ewc_forgetting import (
+    ForgettingRecord,
+    EWCStudentPolicy,
+    ForgettingDetector,
+    EWCEnsembleDistiller,
+    EWCEnsembleCRLS,
+    verify_wp25_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
