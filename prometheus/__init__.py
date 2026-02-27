@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.74"
+__version__ = "0.77"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -101,6 +101,34 @@ from prometheus.wp25_ewc_forgetting import (
     EWCEnsembleDistiller,
     EWCEnsembleCRLS,
     verify_wp25_exit_criteria,
+)
+
+# WP26: Hierarchical Task Decomposition
+from prometheus.wp26_hierarchical_decomp import (
+    SubtaskType,
+    SubtaskRecord,
+    DecompositionRecord,
+    TaskDecomposer,
+    HierarchicalCRLS,
+    verify_wp26_exit_criteria,
+)
+
+# WP28: Cross-Domain Student Transfer
+from prometheus.wp28_cross_domain_transfer import (
+    TransferRecord,
+    DomainAdapter,
+    TransferStudentPolicy,
+    CrossDomainDistiller,
+    TransferCRLS,
+    verify_wp28_exit_criteria,
+)
+
+# WP29: Self-Play Synthesis Tournament
+from prometheus.wp29_self_play_tournament import (
+    TournamentRecord,
+    TournamentCRLS,
+    SelfPlayTournament,
+    verify_wp29_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
