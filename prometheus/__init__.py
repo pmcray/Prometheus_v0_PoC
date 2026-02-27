@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.72"
+__version__ = "0.73"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -83,6 +83,14 @@ from prometheus.wp23_policy_distillation import (
     PolicyDistiller,
     DistilledCRLS,
     verify_wp23_exit_criteria,
+)
+
+# WP24: Ensemble Disagreement & Uncertainty-Aware Action Selection
+from prometheus.wp24_ensemble_uncertainty import (
+    EnsembleRecord,
+    EnsembleDistiller,
+    EnsembleCRLS,
+    verify_wp24_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
