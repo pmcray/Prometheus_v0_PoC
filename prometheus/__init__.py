@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.77"
+__version__ = "0.78"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -111,6 +111,23 @@ from prometheus.wp26_hierarchical_decomp import (
     TaskDecomposer,
     HierarchicalCRLS,
     verify_wp26_exit_criteria,
+)
+
+# WP27: Formal Invariant Verification
+from prometheus.wp27_formal_invariants import (
+    EnforcementMode,
+    InvariantSpec,
+    InvariantCheckResult,
+    InvariantRecord,
+    InvariantRegistry,
+    InvariantGuard,
+    InvariantCRLS,
+    make_prob_floor_invariant,
+    make_entropy_floor_invariant,
+    make_upward_rate_bounds_invariant,
+    make_acc_drop_guard_invariant,
+    make_default_registry,
+    verify_wp27_exit_criteria,
 )
 
 # WP28: Cross-Domain Student Transfer
