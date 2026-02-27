@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.71"
+__version__ = "0.72"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -74,6 +74,15 @@ from prometheus.wp22_bandit_exploration import (
     BanditPolicy,
     BanditCRLS,
     verify_wp22_exit_criteria,
+)
+
+# WP23: Policy Distillation — Student Policy Compression
+from prometheus.wp23_policy_distillation import (
+    DistillationRecord,
+    StudentPolicy,
+    PolicyDistiller,
+    DistilledCRLS,
+    verify_wp23_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
