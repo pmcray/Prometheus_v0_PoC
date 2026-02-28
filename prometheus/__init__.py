@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.78"
+__version__ = "0.80"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -146,6 +146,26 @@ from prometheus.wp29_self_play_tournament import (
     TournamentCRLS,
     SelfPlayTournament,
     verify_wp29_exit_criteria,
+)
+
+# WP30: Causal World Model — Latent Transition Learning
+from prometheus.wp30_causal_world_model import (
+    ReplayBuffer,
+    LatentTransitionModel,
+    RolloutSource,
+    WorldModelRollout,
+    WorldModelRecord,
+    WorldModelCRLS,
+    verify_wp30_exit_criteria,
+)
+
+# WP31: Curriculum Generator — Adaptive Difficulty Scheduling
+from prometheus.wp31_curriculum_generator import (
+    PuzzleCategory,
+    CurriculumScheduler,
+    CurriculumRecord,
+    CurriculumCRLS,
+    verify_wp31_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
