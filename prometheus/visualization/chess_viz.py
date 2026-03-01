@@ -52,8 +52,8 @@ class ChessBoardVisualizer:
             board,
             size=size,
             orientation=orientation,
-            arrows=arrows,
-            squares=squares
+            arrows=arrows or [],
+            squares=squares or [],
         )
         return SVG(svg_str)
 
