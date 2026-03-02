@@ -13,6 +13,7 @@ Makes AI decisions interpretable and builds client trust.
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import matplotlib.patheffects as patheffects
 import tensorflow as tf
 from tensorflow import keras
 import chess
@@ -309,7 +310,7 @@ class ChessAttentionVisualizer:
                            fontsize=32, ha='center', va='center',
                            color='white', weight='bold',
                            path_effects=[
-                               plt.matplotlib.patheffects.withStroke(
+                               patheffects.withStroke(
                                    linewidth=3, foreground='black'
                                )
                            ])
