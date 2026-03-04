@@ -168,6 +168,85 @@ from prometheus.wp31_curriculum_generator import (
     verify_wp31_exit_criteria,
 )
 
+# WP34: Multi-Step Proof Tree Search
+from prometheus.wp34_proof_tree_search import (
+    TacticPrior,
+    ProofNode,
+    ProofTree,
+    ProofSearchRecord,
+    ProofTreeSearcher,
+    verify_wp34_exit_criteria,
+)
+
+# WP35: Meta-Learning from Failure
+from prometheus.wp35_failure_memory import (
+    ErrorClassifier,
+    FailureRecord,
+    FailureMemory,
+    ConditionedSearcher,
+    verify_wp35_exit_criteria,
+)
+
+# WP36: Transformer-Based Policy Head
+from prometheus.wp36_transformer_policy import (
+    TransformerTokeniser,
+    MultiHeadSelfAttention,
+    TransformerBlock,
+    TransformerPolicyHead,
+    SequenceBuffer,
+    TransformerRecord,
+    TransformerCRLS,
+    verify_wp36_exit_criteria,
+)
+
+# WP37: Online ELO & Performance Registry
+from prometheus.wp37_elo_registry import (
+    GlickoRating,
+    ELOEntry,
+    ELORegistry,
+    DomainRegistry,
+    ZPDRatingBridge,
+    glicko2_update,
+    verify_wp37_exit_criteria,
+)
+
+# WP38: Analogical Reasoning Engine
+from prometheus.wp38_analogy_engine import (
+    RelationalGraph,
+    Relation,
+    StructureMapper,
+    AnalogyScore,
+    AnalogyMap,
+    TransferPolicy,
+    AnalogyRecord,
+    AnalogyEngine,
+    make_chess_graph,
+    make_go_graph,
+    make_synthesis_graph,
+    verify_wp38_exit_criteria,
+)
+
+# WP39: Web API & Real-Time Monitoring Dashboard
+from prometheus.wp39_web_api import (
+    APIMetrics,
+    LiveEventStream,
+    PrometheusAPI,
+    DashboardRenderer,
+    PrometheusAPIServer,
+    verify_wp39_exit_criteria,
+)
+
+# WP40: Learned Safety Model — Neural Gödelian Governor
+from prometheus.wp40_learned_safety import (
+    ModificationRecord,
+    SafetyDataset,
+    SafetyClassifier,
+    LearnedSafetyGuard,
+    SafetyDecisionRecord,
+    LearnedSafetyCRLS,
+    verify_wp40_exit_criteria,
+)
+
 # Optional imports - only load if explicitly requested
 # This prevents import errors from breaking the entire package
 
