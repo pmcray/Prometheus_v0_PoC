@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.80"
+__version__ = "0.81"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -245,6 +245,46 @@ from prometheus.wp40_learned_safety import (
     SafetyDecisionRecord,
     LearnedSafetyCRLS,
     verify_wp40_exit_criteria,
+)
+
+# WP41: Strange Loop Visualiser — Tangled Hierarchy Made Observable
+from prometheus.wp41_strange_loop_visualiser import (
+    HierarchyLevel,
+    CrossLevelSignal,
+    StrangeLoopTrace,
+    StrangeLoopSimulator,
+    LoopReport,
+    run_loop,
+    verify_wp41_exit_criteria,
+)
+
+# WP42: Gödel Sentence Generator — Incompleteness Made Executable
+from prometheus.wp42_godel_sentence import (
+    SafetyVerdict,
+    ProductionRule,
+    FormalSystem,
+    GodelSentence,
+    GodelSafetyInterpreter,
+    InterpretationRecord,
+    GodelProbeResult,
+    GodelProbe,
+    make_default_rules,
+    verify_wp42_exit_criteria,
+)
+
+# WP44: Ultraintelligence Trajectory — Testing Good (1965) Empirically
+from prometheus.wp44_ultraintelligence_trajectory import (
+    TrajectoryPoint,
+    TrajectoryFit,
+    IntelligenceExplosionTest,
+    CRLSSimulator,
+    TrajectoryAnalyser,
+    TrajectoryReport,
+    fit_linear,
+    fit_exponential,
+    fit_logistic,
+    run_explosion_test,
+    verify_wp44_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
