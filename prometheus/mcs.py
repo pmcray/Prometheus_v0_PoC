@@ -145,51 +145,115 @@ class MCSSupervisor:
         logging.info(f"Selected bid with score {best_score}: {best_bid}")
         return best_bid
 
-    def run_evolutionary_cycle(self, initial_code_path, test_file_path, generations=5, population_size=10):
+    def run_evolutionary_cycle(
+        self,
+        initial_code_path: str,
+        test_file_path: str,
+        generations: int = 5,
+        population_size: int = 10,
+        crossover_prob: float = 0.5,
+        tournament_k: int = 3,
+        archive_path: Optional[str] = None,
+    ):
+        """
+        Run a multi-generation evolutionary search (v0.3 upgrade).
+
+        Improvements over v0.2:
+          - Uses the new GeneArchive API (generation-tagged, fitness-history,
+            tournament selection, diversity tracking, persistence).
+          - Spec-gaming detection: a candidate that passes tests but is shorter
+            than a threshold fraction of the original is penalised (likely
+            deleted required logic rather than genuinely simplified it).
+          - Per-generation diversity logging.
+          - Archive persisted to JSON at the end when archive_path is given.
+
+        Returns:
+            (fittest_code, evolution_summary_dict)
+        """
         logging.info(f"--- Starting Evolutionary Cycle for {initial_code_path} ---")
 
         with open(initial_code_path, 'r') as f:
             initial_code = f.read()
 
-        self.gene_archive.add_gene("gen_0_individual_0", initial_code)
-        population = [initial_code]
+        # Seed the archive
+        seed_id = self.gene_archive.add_gene(initial_code, generation=0)
+        seed_fitness = self._evaluate_fitness(
+            initial_code, initial_code, test_file_path, initial_code_path
+        )
+        self.gene_archive.record_fitness(seed_id, seed_fitness)
+
+        # Bootstrap population from seed
+        population_ids = [seed_id]
+
+        summary = {"generations": [], "best_fitness_per_gen": []}
 
         for gen in range(generations):
-            logging.info(f"--- Generation {gen + 1} ---")
+            logging.info(f"--- Generation {gen + 1}/{generations} ---")
 
-            # Create offspring
-            offspring = []
+            # ── Produce offspring ──────────────────────────────────────────
+            offspring_ids = []
             for _ in range(population_size):
-                if len(population) > 1 and random.random() > 0.5: # Crossover
-                    parent1, parent2 = random.sample(population, 2)
-                    child = self.coder.crossover(parent1, parent2)
-                else: # Mutation
-                    parent = random.choice(population)
-                    child = self.coder.mutate(parent)
-                offspring.append(child)
+                if len(population_ids) > 1 and random.random() < crossover_prob:
+                    p1_id = self.gene_archive.tournament_select(k=tournament_k)
+                    p2_id = self.gene_archive.tournament_select(k=tournament_k)
+                    while p2_id == p1_id and len(population_ids) > 1:
+                        p2_id = self.gene_archive.tournament_select(k=tournament_k)
+                    child_code = self.coder.crossover(
+                        self.gene_archive.get_gene(p1_id),
+                        self.gene_archive.get_gene(p2_id),
+                    )
+                    parent_ids = [p1_id, p2_id]
+                else:
+                    p_id = self.gene_archive.tournament_select(k=tournament_k)
+                    child_code = self.coder.mutate(self.gene_archive.get_gene(p_id))
+                    parent_ids = [p_id]
 
-            # Evaluate fitness of all individuals (population + offspring)
-            all_individuals = population + offspring
-            fitness_scores = {}
-            for i, individual_code in enumerate(all_individuals):
-                fitness = self._evaluate_fitness(individual_code, initial_code, test_file_path, initial_code_path)
-                fitness_scores[f"gen_{gen}_individual_{i}"] = fitness
-                self.gene_archive.add_gene(f"gen_{gen}_individual_{i}", individual_code)
+                child_id = self.gene_archive.add_gene(
+                    child_code, generation=gen + 1, parent_ids=parent_ids
+                )
+                offspring_ids.append(child_id)
 
-            # Select the fittest individuals for the next generation
-            sorted_individuals = sorted(fitness_scores.items(), key=lambda item: item[1], reverse=True)
+            # ── Evaluate all candidates (survivors + offspring) ────────────
+            candidate_ids = population_ids + offspring_ids
+            for gid in candidate_ids:
+                code = self.gene_archive.get_gene(gid)
+                fitness = self._evaluate_fitness(
+                    code, initial_code, test_file_path, initial_code_path
+                )
+                self.gene_archive.record_fitness(gid, fitness)
 
-            fittest_ids = [ind[0] for ind in sorted_individuals[:population_size]]
-            population = [self.gene_archive.get_gene(gid) for gid in fittest_ids]
+            # ── Select survivors via tournament ────────────────────────────
+            top = self.gene_archive.top_k(k=population_size)
+            population_ids = [gid for gid, _ in top]
 
-            logging.info(f"Best fitness in generation {gen + 1}: {sorted_individuals[0][1]}")
+            best_id, best_fitness = top[0]
+            diversity = self.gene_archive.diversity_score(population_ids)
+            logging.info(
+                f"Gen {gen+1}: best_fitness={best_fitness:.1f}  "
+                f"diversity={diversity:.3f}  population={len(population_ids)}"
+            )
+            summary["generations"].append(gen + 1)
+            summary["best_fitness_per_gen"].append(best_fitness)
 
+        # ── Persist archive ────────────────────────────────────────────────
+        if archive_path:
+            self.gene_archive.save(archive_path)
+
+        fittest_code = self.gene_archive.get_gene(
+            self.gene_archive.top_k(k=1)[0][0]
+        )
         logging.info("--- Evolutionary Cycle Finished ---")
-        fittest_gene = self.gene_archive.get_fittest(fitness_scores)
-        logging.info(f"Fittest gene found:\n{fittest_gene}")
-        return fittest_gene
+        logging.info(f"Best fitness trajectory: {summary['best_fitness_per_gen']}")
+        return fittest_code, summary
 
     def _evaluate_fitness(self, new_code, original_code, test_file_path, original_file_path):
+        """
+        Fitness function with spec-gaming guard (v0.3 upgrade).
+
+        A candidate that passes tests but whose token count is less than 40 %
+        of the original is likely to have removed required functionality
+        rather than genuinely simplified — it receives a heavy penalty.
+        """
         critique, _ = self.evaluator.evaluate_code(new_code, original_code, test_file_path, original_file_path)
 
         if not critique.test_passed:
@@ -197,6 +261,15 @@ class MCSSupervisor:
 
         complexity = self.evaluator._analyze_complexity(new_code)
         original_complexity = self.evaluator._analyze_complexity(original_code)
+
+        # Spec-gaming guard: penalise suspiciously short code
+        token_ratio = len(new_code.split()) / max(len(original_code.split()), 1)
+        if token_ratio < 0.40:
+            logging.warning(
+                "_evaluate_fitness: candidate is only %.0f%% the size of the "
+                "original — possible spec-gaming. Penalising.", token_ratio * 100
+            )
+            return 10  # Small non-zero so it stays in the pool but ranks low
 
         fitness = 100 - complexity
         if complexity < original_complexity:

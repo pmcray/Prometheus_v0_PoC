@@ -145,32 +145,123 @@ class CoderAgent:
         return code, code
 
     def mutate(self, code, max_retries=3):
-        """Performs evolutionary mutation on code."""
+        """
+        Performs evolutionary mutation on code.
+
+        v0.3 upgrade: adds MCS safety check on each candidate and injects
+        mutation-type hints (rename variable, simplify branch, extract helper)
+        to encourage semantic diversity rather than cosmetic rewording.
+        """
+        mutation_hints = [
+            "rename a local variable to something more descriptive",
+            "simplify a conditional branch",
+            "extract a repeated expression into a helper variable",
+            "replace a loop with a list comprehension where appropriate",
+            "add an informative docstring or inline comment",
+        ]
+        hint = random.choice(mutation_hints)
         error_feedback = ""
         for i in range(max_retries):
-            print(f"CoderAgent: Mutation attempt {i+1}")
-            prompt = f"Your task is to perform a small, random but syntactically plausible mutation on this Python code.\n{error_feedback}\n\n```python\n{code}\n```"
+            print(f"CoderAgent: Mutation attempt {i+1} (hint: {hint})")
+            prompt = (
+                f"Your task is to perform a small, semantically meaningful mutation on "
+                f"this Python code. Specifically, try to: {hint}.\n"
+                f"Preserve all existing functionality.\n"
+                f"{error_feedback}\n\n```python\n{code}\n```\n\n"
+                f"Return only the mutated Python code inside a ```python ... ``` block."
+            )
             response_text = self.backend.generate(prompt)
             mutated_code = self._clean_code(response_text)
-            if self._verify_code(mutated_code):
+            if not self._verify_code(mutated_code):
+                error_feedback = "The previous mutation failed syntax/compilation verification. Please try again."
+                continue
+            # Safety gate
+            critique = self.mcs_supervisor.verify_modification(code, mutated_code, "mutation_target.py")
+            if critique.is_safe:
                 return mutated_code
             else:
-                error_feedback = "The previous mutation failed verification. Please try again."
+                error_feedback = (
+                    f"The previous mutation failed safety verification "
+                    f"({critique.violation_type}: {critique.description}). Please try again."
+                )
         return code
 
     def crossover(self, code1, code2, max_retries=3):
-        """Performs evolutionary crossover between two code solutions."""
+        """
+        Performs evolutionary crossover between two code solutions.
+
+        v0.3 upgrade: safety-checks the offspring and explicitly asks the LLM
+        to explain which element it borrowed from each parent (aids auditability).
+        """
         error_feedback = ""
         for i in range(max_retries):
             print(f"CoderAgent: Crossover attempt {i+1}")
-            prompt = f"Your task is to combine the best elements of these two Python functions into a new, superior function.\n{error_feedback}\n\nParent 1:\n```python\n{code1}\n```\n\nParent 2:\n```python\n{code2}\n```"
+            prompt = (
+                f"Your task is to combine the best elements of these two Python functions "
+                f"into a new, superior function. Preserve correctness.\n"
+                f"In a brief comment at the top, note which elements came from Parent 1 "
+                f"and which from Parent 2.\n"
+                f"{error_feedback}\n\n"
+                f"Parent 1:\n```python\n{code1}\n```\n\n"
+                f"Parent 2:\n```python\n{code2}\n```\n\n"
+                f"Return only the child Python code inside a ```python ... ``` block."
+            )
             response_text = self.backend.generate(prompt)
             crossed_over_code = self._clean_code(response_text)
-            if self._verify_code(crossed_over_code):
+            if not self._verify_code(crossed_over_code):
+                error_feedback = "The previous crossover failed syntax/compilation verification. Please try again."
+                continue
+            critique = self.mcs_supervisor.verify_modification(code1, crossed_over_code, "crossover_target.py")
+            if critique.is_safe:
                 return crossed_over_code
             else:
-                error_feedback = "The previous crossover failed verification. Please try again."
+                error_feedback = (
+                    f"The previous crossover failed safety verification "
+                    f"({critique.violation_type}: {critique.description}). Please try again."
+                )
         return code1
+
+    def generate_tactic(self, proof_state, failed_tactics=None, max_retries=3):
+        """
+        Generate the single most promising Lean tactic to apply to proof_state.
+
+        Used by MCSSupervisor.run_proof_cycle() (v0.4 Task 1).
+
+        Args:
+            proof_state: ProofState object with .raw_state and .goals.
+            failed_tactics: list of (tactic, error) pairs to avoid repeating.
+            max_retries: how many LLM attempts before giving up.
+
+        Returns:
+            A tactic string (e.g. "ring", "simp", "induction n"), or None.
+        """
+        failure_context = ""
+        if failed_tactics:
+            lines = "\n".join(
+                f"  - `{t}` → {e}" for t, e in failed_tactics
+            )
+            failure_context = (
+                f"\nThe following tactics have already been tried and failed:\n{lines}\n"
+                f"Do NOT suggest any of these tactics.\n"
+            )
+
+        for i in range(max_retries):
+            print(f"CoderAgent: Tactic generation attempt {i+1}")
+            prompt = (
+                f"You are an expert Lean 4 theorem prover.\n"
+                f"The current proof state is:\n\n"
+                f"```\n{proof_state.raw_state}\n```\n"
+                f"{failure_context}\n"
+                f"Suggest the single best Lean tactic to apply next. "
+                f"Reply with ONLY the tactic, no explanation, no code fences. "
+                f"Examples: `ring`, `simp`, `omega`, `induction n with | zero => simp | succ n ih => ring`."
+            )
+            response_text = self.backend.generate(prompt).strip()
+            # Strip any accidental code fences or leading/trailing whitespace
+            tactic = response_text.replace("```lean", "").replace("```", "").strip()
+            if tactic:
+                return tactic
+        return None
 
     def _verify_code(self, code):
         """Verifies code through compilation and static analysis."""
