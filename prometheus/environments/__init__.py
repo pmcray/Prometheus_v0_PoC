@@ -9,29 +9,37 @@ This module provides game environments for Prometheus agents:
 - Integration with external engines
 """
 
-from prometheus.environments.chess import (
-    ChessEnvironment,
-    ChessBoardEncoder,
-    ChessMoveEncoder,
-    UCIEngineInterface
-)
+try:
+    from prometheus.environments.chess import (
+        ChessEnvironment,
+        ChessBoardEncoder,
+        ChessMoveEncoder,
+        UCIEngineInterface,
+    )
+    _CHESS_AVAILABLE = True
+except ModuleNotFoundError:
+    # python-chess not installed; chess symbols unavailable but Go still works
+    _CHESS_AVAILABLE = False
 
 from prometheus.environments.go import (
     GoEnvironment,
     GoBoard,
     GoBoardEncoder,
-    GoMoveEncoder
+    GoMoveEncoder,
 )
 
 __all__ = [
-    # Chess
-    'ChessEnvironment',
-    'ChessBoardEncoder',
-    'ChessMoveEncoder',
-    'UCIEngineInterface',
-    # Go
+    # Go (always available)
     'GoEnvironment',
     'GoBoard',
     'GoBoardEncoder',
-    'GoMoveEncoder'
+    'GoMoveEncoder',
 ]
+
+if _CHESS_AVAILABLE:
+    __all__ += [
+        'ChessEnvironment',
+        'ChessBoardEncoder',
+        'ChessMoveEncoder',
+        'UCIEngineInterface',
+    ]
