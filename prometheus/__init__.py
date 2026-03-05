@@ -343,6 +343,126 @@ from prometheus.wp50_halt_problem import (
     verify_wp50_exit_criteria,
 )
 
+# WP51: Distributed CRLS Stack (I.J. Good — Ultraparallel Architecture)
+from prometheus.wp51_distributed_crls import (
+    AgentState,
+    FederatedGenePool,
+    ConsensusPolicy,
+    DistributedAgent,
+    DistributedCRLSCoordinator,
+    DistributedRoundRecord,
+    DistributedReport,
+    run_distributed_demo,
+    verify_wp51_exit_criteria,
+)
+
+# WP52: CRLS Convergence Proof (Lyapunov / Schmidhuber Gödel Machines)
+from prometheus.wp52_crls_convergence import (
+    ConvergenceWarning,
+    LyapunovWindow,
+    LyapunovMonitor,
+    ProofStep,
+    ProofSketch,
+    LyapunovBound,
+    CheckpointRecord,
+    RevertEvent,
+    ConvergenceCertifier,
+    ConvergenceReport,
+    build_proof_sketch,
+    run_convergence_demo,
+    verify_wp52_exit_criteria,
+)
+
+# WP53: Meta-Analogy Transfer (Hofstadter — analogy about analogies)
+from prometheus.wp53_meta_analogy import (
+    AnalogyRecord,
+    AnalogyRegistry,
+    MetaAnalogyPredictor,
+    SelectiveTransferGate,
+    MetaAnalogySimulator,
+    MetaAnalogyReport,
+    run_meta_analogy_demo,
+    verify_wp53_exit_criteria,
+)
+
+# WP54: Curriculum Meta-Learning (Bengio et al. 2009)
+from prometheus.wp54_curriculum_meta import (
+    PacingFunction,
+    CurriculumDesign,
+    CurriculumEvaluator,
+    CurriculumLeaderboard,
+    CurriculumMetaLearner,
+    CurriculumMetaReport,
+    run_curriculum_meta_demo,
+    verify_wp54_exit_criteria,
+)
+
+# WP55: Pareto Safety Optimisation Under Uncertainty (NSGA-II / Conformal)
+from prometheus.wp55_pareto_safety import (
+    SafetyPerformancePoint,
+    ParetoFront,
+    UncertaintyAwareParetoSearcher,
+    AdaptiveWeightScheduler,
+    WeightRecord,
+    ParetoSafetyReport,
+    run_pareto_safety_demo,
+    verify_wp55_exit_criteria,
+)
+
+# WP56: Strange-Loop Complexity Theorem (Hofstadter empirical test)
+from prometheus.wp56_strange_loop_theorem import (
+    LoopDepthConfig,
+    LoopPerformanceRecord,
+    HofstadterCorrelationTest,
+    LoopComplexityReport,
+    LoopComplexityExperiment,
+    run_loop_complexity_demo,
+    verify_wp56_exit_criteria,
+)
+
+# WP58: Intelligence Explosion Rate Bound (Good 1965 — soft takeoff)
+from prometheus.wp58_explosion_rate_bound import (
+    ImprovementRateTimeSeries,
+    RateModelType,
+    RateModelFit,
+    DiminishingReturnsDetector,
+    DiminishingReturnsEvent,
+    SaturationForecast,
+    ExplosionRateBound,
+    ExplosionRateReport,
+    ExplosionRateExperiment,
+    run_explosion_rate_demo,
+    verify_wp58_exit_criteria,
+)
+
+# WP59: Emergent Goal Formation (Schmidhuber curiosity / Klyubin empowerment)
+from prometheus.wp59_emergent_goals import (
+    GoalFeatureVector,
+    IntrinsicRewardSignal,
+    EmergentGoal,
+    EmergentGoalRegistry,
+    EmergentGoalFormer,
+    EmergentGoalReport,
+    run_emergent_goals_demo,
+    verify_wp59_exit_criteria,
+)
+
+# WP60: Value Alignment Under Self-Modification (Yudkowsky CoEV / Gödel)
+from prometheus.wp60_alignment_preservation import (
+    ValueWeightVector,
+    ValueDriftEvent,
+    ValueDriftDetector,
+    AlignmentCertificate,
+    ProofOutcome,
+    AlignmentInvariantChecker,
+    AlignmentProofAttempt,
+    GenerationalAlignmentRecord,
+    AlignmentPreservationReport,
+    AlignmentPreservationExperiment,
+    run_alignment_preservation_demo,
+    verify_wp60_exit_criteria,
+)
+
 # Optional imports - only load if explicitly requested
 # This prevents import errors from breaking the entire package
 
