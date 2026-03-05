@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.81"
+__version__ = "0.82"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -285,6 +285,62 @@ from prometheus.wp44_ultraintelligence_trajectory import (
     fit_logistic,
     run_explosion_test,
     verify_wp44_exit_criteria,
+)
+
+# WP43: Tangled Hierarchy Detector — TanglingScore (Hofstadter)
+from prometheus.wp43_tangled_hierarchy import (
+    HierarchyClassification,
+    TanglingWindow,
+    TanglingTimeSeries,
+    TanglingReport,
+    TanglingAnalyser,
+    run_tangling_demo,
+    verify_wp43_exit_criteria,
+)
+
+# WP46: Corrigibility Under Self-Improvement (Good 1965)
+from prometheus.wp46_corrigibility import (
+    OverrideSignal,
+    OverrideQueue,
+    Checkpoint,
+    InterruptRecord,
+    CorrigibleSimulator,
+    CorrigibilityReport,
+    run_corrigibility_demo,
+    verify_wp46_exit_criteria,
+)
+
+# WP47: Recursive Self-Description (Hofstadter — I Am a Strange Loop)
+from prometheus.wp47_self_description import (
+    ModuleNode,
+    DependencyGraph,
+    SelfDescription,
+    VerificationResult,
+    SelfVerifier,
+    SelfDescriptionReport,
+    build_self_description,
+    verify_wp47_exit_criteria,
+)
+
+# WP49: Multi-Agent Strange Loop — Theory of Mind Tournament
+from prometheus.wp49_theory_of_mind import (
+    PolicyModel,
+    MindReadingAgent,
+    ToMRecord,
+    TheoryOfMindTournament,
+    ToMReport,
+    run_tom_tournament,
+    verify_wp49_exit_criteria,
+)
+
+# WP50: Halt Problem as Safety Criterion (Turing 1936 / Good 1965)
+from prometheus.wp50_halt_problem import (
+    DivergenceEvent,
+    DepthResult,
+    HaltReport,
+    RecursionDepthSimulator,
+    run_halt_experiment,
+    verify_wp50_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
