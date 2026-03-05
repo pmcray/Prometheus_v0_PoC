@@ -420,6 +420,24 @@ from prometheus.wp56_strange_loop_theorem import (
     verify_wp56_exit_criteria,
 )
 
+# WP57: Gödel Machine (Schmidhuber 2007 — Provably Safe Self-Modification)
+from prometheus.wp57_godel_machine import (
+    ProofStatus,
+    PatchCategory,
+    ProposedPatch,
+    ProofStep as GodelProofStep,
+    ProofAttemptResult,
+    AuditEntry,
+    GenerationRecord as GodelGenerationRecord,
+    ModificationProver,
+    ProofBudgetManager,
+    SelfModificationAuditLog,
+    GodelMachine,
+    GodelMachineReport,
+    run_godel_machine_demo,
+    verify_wp57_exit_criteria,
+)
+
 # WP58: Intelligence Explosion Rate Bound (Good 1965 — soft takeoff)
 from prometheus.wp58_explosion_rate_bound import (
     ImprovementRateTimeSeries,
