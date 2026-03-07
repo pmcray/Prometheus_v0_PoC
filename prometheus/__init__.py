@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.82"
+__version__ = "0.92"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (
@@ -501,6 +501,134 @@ from prometheus.wp60_alignment_preservation import (
     AlignmentPreservationExperiment,
     run_alignment_preservation_demo,
     verify_wp60_exit_criteria,
+)
+
+# WP61: Multi-Game Self-Play Benchmark Suite
+from prometheus.wp61_multigame_benchmark import (
+    GameConfig,
+    GameState,
+    GameEngine,
+    RandomPolicy,
+    MinimaxPolicy,
+    PrometheusPolicy,
+    BenchmarkMatch,
+    BenchmarkResult,
+    MultiGameBenchmark,
+    BenchmarkReport,
+    verify_wp61_exit_criteria,
+)
+
+# WP62: ARC-AGI Integration — Abstraction and Reasoning Corpus
+from prometheus.wp62_arc_agi import (
+    ARCGrid,
+    ARCTask,
+    ARCTransform,
+    ARCProgramSynthesiser,
+    ARCSolver,
+    ARCBenchmarkResult,
+    ARCBenchmark,
+    ARCBenchmarkReport,
+    verify_wp62_exit_criteria,
+)
+
+# WP63: Competitive Programming Solver (IOI Bronze)
+from prometheus.wp63_ioi_solver import (
+    IOIProblem,
+    SandboxRunner,
+    AlgorithmTemplate,
+    TemplateLibrary,
+    SolutionCandidate,
+    IOISolver,
+    IOIResult,
+    IOIBenchmark,
+    IOIBenchmarkReport,
+    verify_wp63_exit_criteria,
+)
+
+# WP64: Continuous Learning Tracker & Experiment Registry
+from prometheus.wp64_experiment_tracker import (
+    ExperimentConfig,
+    MetricSample,
+    ExperimentRun,
+    ExperimentRegistry,
+    LearningCurveAggregator,
+    RunComparator,
+    ExperimentTracker,
+    RunContext,
+    verify_wp64_exit_criteria,
+)
+
+# WP65: Streamlit Monitoring Dashboard
+from prometheus.wp65_dashboard import (
+    EloChartData,
+    ARCProgressData,
+    SafetyStatusData,
+    DashboardConfig,
+    DashboardSection,
+    PrometheusStreamlitApp,
+    StreamlitFallbackDashboard,
+    DashboardServer,
+    verify_wp65_exit_criteria,
+)
+
+# WP66: GPU-Optimised Long-Run Training Loop
+from prometheus.wp66_training_loop import (
+    TrainingConfig,
+    Checkpoint as TrainingCheckpoint,
+    CheckpointManager,
+    PlateauDetector,
+    TrainingMetrics,
+    LongRunTrainer,
+    TrainingReport,
+    ColabTrainingHelper,
+    verify_wp66_exit_criteria,
+)
+
+# WP67: Integration Test Suite
+from prometheus.wp67_integration_tests import (
+    WPEntry,
+    WPRegistry,
+    ImportChecker,
+    CriteriaRunner,
+    IntegrationResult,
+    IntegrationReport,
+    IntegrationTestSuite,
+    verify_wp67_exit_criteria,
+)
+
+# WP68: Formal Safety Verification Module
+from prometheus.wp68_safety_verification import (
+    SafetyProperty,
+    SafetyPropertyRegistry,
+    SafetyCheckResult,
+    SafetyAuditLog,
+    SafetyVerifier,
+    SafetyCertificate,
+    SafetyMonitor,
+    SafetyReport,
+    verify_wp68_exit_criteria,
+)
+
+# WP69: Red-Team & Adversarial Robustness Harness
+from prometheus.wp69_red_team import (
+    AttackVector,
+    AttackResult,
+    RedTeamScenario,
+    RedTeamHarness,
+    RedTeamReport,
+    verify_wp69_exit_criteria,
+)
+
+# WP70: Academic Paper & Reproducibility Package
+from prometheus.wp70_paper_package import (
+    PaperSection,
+    PaperOutline,
+    ReproducibilityScript,
+    DependencyManifest,
+    CitationRecord,
+    ContributionChecklist,
+    ReproducibilityPackage,
+    verify_wp70_exit_criteria,
 )
 
 # Optional imports - only load if explicitly requested
