@@ -168,6 +168,28 @@ from prometheus.wp31_curriculum_generator import (
     verify_wp31_exit_criteria,
 )
 
+# WP32: Evolutionary Code Search
+from prometheus.wp32_evolutionary_search import (
+    MutationOperator,
+    CrossoverOperator,
+    FitnessEvaluator,
+    EvolutionRecord,
+    EvolutionReport,
+    EvolutionarySearcher,
+    verify_wp32_exit_criteria,
+)
+
+# WP33: Formal Domain Adaptation — Lean Theorem Proving
+from prometheus.wp33_lean_theorem_proving import (
+    TheoremDifficulty,
+    TheoremCurriculum,
+    ProofAttemptRecord,
+    ProofSession,
+    TheoremProvingReport,
+    TheoremProver,
+    verify_wp33_exit_criteria,
+)
+
 # WP34: Multi-Step Proof Tree Search
 from prometheus.wp34_proof_tree_search import (
     TacticPrior,
