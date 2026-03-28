@@ -281,7 +281,21 @@ class ARC3WorldModel:
         self._correct_predictions = 0
 
     def _hash_grid(self, obs: ARC3Observation) -> int:
-        return hash(obs.grid)
+        """
+        Stable perceptual hash of the full observation grid.
+
+        Python's built-in hash() is randomised per process (PYTHONHASHSEED)
+        and collapses visually distinct 64×64 states when only an 8×8
+        downsample was stored.  We instead use a deterministic FNV-1a hash
+        over all pixel values so that:
+          - Two observations with *any* pixel difference get distinct hashes.
+          - The hash is stable across episodes and process restarts.
+        """
+        h = 2166136261  # FNV offset basis (32-bit)
+        for row in obs.grid:
+            for val in row:
+                h = ((h ^ val) * 16777619) & 0xFFFFFFFF
+        return h
 
     def update(
         self,
