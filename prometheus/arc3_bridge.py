@@ -20,6 +20,7 @@ from prometheus.wp71_arc_agi3 import (
     ARC3Action, ARC3Observation, ARC3Episode,
     ARC3WorldModel, ARC3GoalInferrer,
     ARC3ExplorationPolicy, ARC3StrangeLoopAgent,
+    _SyntheticARCGame,
 )
 
 class ARC3VisionCNN(nn.Module):
@@ -158,6 +159,23 @@ class PrometheusARC3LiveEnv:
         return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), float(self.total_levels - prev_lvl)
 
 
+class PrometheusARC3SyntheticEnv:
+    """Fallback environment for when arc_agi toolkit is missing."""
+    def __init__(self, synth_game):
+        self._env = synth_game
+        self.game_type = synth_game.game_type
+        self.total_levels, self.total_actions = 0, 0
+    def begin_window(self):
+        return self._env.observation()
+    def solver_action(self, reward) -> Optional[ARC3Action]:
+        return None
+    def step(self, action):
+        self.total_actions += 1
+        obs, reward = self._env.step(action)
+        self.total_levels = int(obs.score)
+        return obs, reward
+
+
 class PatchedExplorationPolicy(ARC3ExplorationPolicy):
     def select_action(self, obs, world_model, goal_inferrer, solved_episodes=None, strategy=None):
         if strategy:
@@ -192,11 +210,21 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         return episode
 
 def run_live_game(game_id="ls20", n_windows=30, window_steps=100, mutation_rate=0.10, fitness_threshold=0.5, verbose=True):
-    if not TOOLKIT_AVAILABLE: return None
-    print(f"Connecting to ARC-AGI-3 API [{game_id}]...")
-    arc = arc_agi.Arcade(); env_w = arc.make(game_id, render_mode=None)
-    if not env_w: return None
-    env = PrometheusARC3LiveEnv(env_w, game_id); agent = PatchedStrangeLoopAgent(window_steps=window_steps)
+    if not TOOLKIT_AVAILABLE:
+        print(f"Toolkit missing: Falling back to Synthetic ARC-AGI-3 [{game_id}]")
+        synth_type = "navigate" if "ls" in game_id else "sort" if "ft" in game_id else "count"
+        env = PrometheusARC3SyntheticEnv(_SyntheticARCGame(game_type=synth_type))
+    else:
+        print(f"Connecting to ARC-AGI-3 API [{game_id}]...")
+        try:
+            arc = arc_agi.Arcade(); env_w = arc.make(game_id, render_mode=None)
+            if not env_w: return None
+            env = PrometheusARC3LiveEnv(env_w, game_id)
+        except:
+            print(f"Failed to connect to ARC-AGI-3 API for {game_id}")
+            return None
+
+    agent = PatchedStrangeLoopAgent(window_steps=window_steps)
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
