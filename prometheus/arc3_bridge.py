@@ -23,29 +23,59 @@ from prometheus.wp71_arc_agi3 import (
     _SyntheticARCGame,
 )
 
-class ARC3VisionCNN(nn.Module):
-    """Temporal CNN for pattern recognition and object permanence."""
-    def __init__(self, n_colors=16, latent_dim=64, frame_stack=4):
+class ARC3VisionTransformer(nn.Module):
+    """Temporal Transformer for pattern recognition and object permanence."""
+    def __init__(self, n_colors=16, latent_dim=64, frame_stack=4, nhead=4, num_layers=2):
         super().__init__()
         self.frame_stack = frame_stack
-        self.conv1 = nn.Conv2d(n_colors * frame_stack, 32, kernel_size=3, padding=1)
+        self.latent_dim = latent_dim
+        
+        # CNN backbone for spatial feature extraction
+        self.conv1 = nn.Conv2d(n_colors, 32, kernel_size=3, padding=1)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=3, padding=1)
         self.pool  = nn.MaxPool2d(2, 2)
-        self.fc    = nn.Linear(64 * 16 * 16, latent_dim)
+        
+        # Transformer for temporal reasoning across frames
+        # Each frame is encoded into a 64x16x16 -> 16x16 patches? No, let's simplify.
+        # Encode each frame into a vector, then sequence them.
+        self.feature_extractor = nn.Sequential(
+            nn.Flatten(),
+            nn.Linear(64 * 16 * 16, 128),
+            nn.ReLU()
+        )
+        
+        encoder_layer = nn.TransformerEncoderLayer(d_model=128, nhead=nhead, batch_first=True)
+        self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
+        
+        self.fc = nn.Linear(128, latent_dim)
         self.optimizer = None
 
     def forward(self, stack_list):
         try:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             self.to(device)
+            # stack_list is (4, 64, 64)
             stack = torch.tensor(np.array(stack_list), dtype=torch.long, device=device)
+            # stack is (4, 64, 64)
+            
+            # One-hot encode each frame separately
             one_hot = F.one_hot(stack % 16, num_classes=16).permute(0, 3, 1, 2).float()
-            x = one_hot.reshape(1, -1, 64, 64)
-            x = self.pool(F.relu(self.conv1(x)))
-            x = self.pool(F.relu(self.conv2(x)))
-            x = x.view(-1, 64 * 16 * 16)
-            return self.fc(x)
-        except: return torch.zeros((1, 64))
+            # one_hot is (4, 16, 64, 64)
+            
+            # Spatial encoding
+            x = self.pool(F.relu(self.conv1(one_hot))) # (4, 32, 32, 32)
+            x = self.pool(F.relu(self.conv2(x)))       # (4, 64, 16, 16)
+            
+            # Temporal encoding
+            features = self.feature_extractor(x)       # (4, 128)
+            features = features.unsqueeze(0)           # (1, 4, 128)
+            
+            transformed = self.transformer(features)   # (1, 4, 128)
+            
+            # Use the latest frame's representation
+            out = self.fc(transformed[:, -1, :])       # (1, 64)
+            return out
+        except: return torch.zeros((1, self.latent_dim))
 
     def train_step(self, obs_stack, next_obs_stack):
         if self.optimizer is None: self.optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
@@ -61,7 +91,7 @@ class ARC3VisionCNN(nn.Module):
             return loss.item()
         except: return 0.0
 
-_vision_model = ARC3VisionCNN()
+_vision_model = ARC3VisionTransformer()
 
 _TO_GA = {"move_up":"ACTION1","move_down":"ACTION2","move_left":"ACTION3","move_right":"ACTION4","rotate":"ACTION5","place":"ACTION6","undo":"ACTION7"}
 
@@ -194,6 +224,10 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
     def run_episode(self, env):
         self._episode_count += 1; obs = env.begin_window(); episode = ARC3Episode(game_id=env.game_type, level=self._episode_count)
         strat, reward = self.policy.active_strategy, 0.0
+        
+        # Step 3: Hypothesis-driven exploration
+        active_hyp = self.goal_inferrer.get_hypothesis_for_test()
+        
         for _ in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
             if s_act: action = s_act
@@ -201,7 +235,9 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             
             obs, reward = env.step(action)
             self.world_model.update(episode.history[-1][0] if episode.history else obs, action, obs, reward)
-            self.goal_inferrer.observe(obs, None, reward)
+            
+            # Inform GoalInferrer of current hypothesis test
+            self.goal_inferrer.observe(obs, episode.history[-1][0] if episode.history else None, reward)
             episode.record(obs, action, reward)
             
         self.policy.record_episode(strat, sum(h[2] for h in episode.history))
@@ -229,4 +265,9 @@ def run_live_game(game_id="ls20", n_windows=30, window_steps=100, mutation_rate=
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
         if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_score:.0f} score={ep.total_score:.1f} ({time.time()-t0:.1f}s)")
-    return {"game_id":game_id, "solve_rate":sum(1 for e in episodes if e.total_score>0)/len(episodes), "mean_score":sum(e.total_score for e in episodes)/len(episodes)}
+    return {
+        "game_id":game_id, 
+        "solve_rate":sum(1 for e in episodes if e.total_score>0)/len(episodes), 
+        "mean_score":sum(e.total_score for e in episodes)/len(episodes),
+        "last_episode": episodes[-1] if episodes else None
+    }

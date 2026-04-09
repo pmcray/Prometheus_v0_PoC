@@ -410,6 +410,8 @@ class ARC3GoalInferrer:
         n = len(self._HYPOTHESES)
         self._confidence: Dict[str, float] = {h: 1.0 / n for h in self._HYPOTHESES}
         self._observation_count = 0
+        self._active_hypothesis: Optional[str] = None
+        self._hypothesis_steps = 0
 
     def _update_likelihoods(
         self,
@@ -419,6 +421,11 @@ class ARC3GoalInferrer:
     ) -> None:
         """Bayesian likelihood update given one observation."""
         self._observation_count += 1
+
+        # Evidence 0: Hypothesis consistency
+        if self._active_hypothesis and reward > 0:
+            # If we were testing a hypothesis and got reward, boost it
+            self._confidence[self._active_hypothesis] *= 1.5
 
         # Evidence 1: positive reward → maximise_score more likely
         if reward > 0:
@@ -456,6 +463,21 @@ class ARC3GoalInferrer:
         total = sum(self._confidence.values())
         for h in self._HYPOTHESES:
             self._confidence[h] /= total
+
+    def get_hypothesis_for_test(self) -> str:
+        """Active hypothesis generation: select a goal to test."""
+        if self._active_hypothesis and self._hypothesis_steps < 5:
+            self._hypothesis_steps += 1
+            return self._active_hypothesis
+        
+        # Select next hypothesis: either most likely or explore low confidence
+        if random.random() < 0.7:
+            self._active_hypothesis = self.most_likely_goal
+        else:
+            self._active_hypothesis = random.choice(self._HYPOTHESES)
+        
+        self._hypothesis_steps = 0
+        return self._active_hypothesis
 
     def observe(
         self,
