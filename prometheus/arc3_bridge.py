@@ -5,7 +5,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-import random, time, math, json, collections, heapq
+import random, time, math, json, collections, heapq, os
 from typing import Optional, Dict, Any, List, Tuple, Set
 from collections import deque
 
@@ -93,6 +93,18 @@ class ARC3VisionTransformer(nn.Module):
 
 _vision_model = ARC3VisionTransformer()
 
+def save_vision_weights(path="arc3_vision_transformer.pth"):
+    """Persist the world-model weights."""
+    torch.save(_vision_model.state_dict(), path)
+    return os.path.abspath(path)
+
+def load_vision_weights(path="arc3_vision_transformer.pth"):
+    """Restore the world-model weights."""
+    if os.path.exists(path):
+        _vision_model.load_state_dict(torch.load(path))
+        return True
+    return False
+
 _TO_GA = {"move_up":"ACTION1","move_down":"ACTION2","move_left":"ACTION3","move_right":"ACTION4","rotate":"ACTION5","place":"ACTION6","undo":"ACTION7"}
 
 def _frame_to_grid(frame):
@@ -178,7 +190,9 @@ class PrometheusARC3LiveEnv:
         except: f = None
         
         grid = _frame_to_grid(f); self.frame_stack.append(grid); next_stack = list(self.frame_stack)
-        _vision_model.train_step(prev_stack, next_stack)
+        
+        # [M] Step 4: Curiosity (Intrinsic Reward from prediction surprise)
+        surprise = _vision_model.train_step(prev_stack, next_stack)
         
         self.total_levels = int(getattr(f, "levels_completed", prev_lvl) or prev_lvl)
         if prev_stack[-1] == next_stack[-1]: self._scanner.stalled_count += 1
@@ -186,7 +200,13 @@ class PrometheusARC3LiveEnv:
         
         if self._scanner.stalled_count > 100: self._scanner.refine()
         self.total_actions += 1
-        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), float(self.total_levels - prev_lvl)
+        
+        # Combine rewards: Extrinsic (Levels) + Intrinsic (Surprise)
+        extrinsic = float(self.total_levels - prev_lvl)
+        intrinsic = min(0.2, surprise * 1.0) # Cap surprise to prevent reward hacking
+        combined  = extrinsic + intrinsic
+        
+        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), combined
 
 
 class PrometheusARC3SyntheticEnv:
@@ -201,9 +221,9 @@ class PrometheusARC3SyntheticEnv:
         return None
     def step(self, action):
         self.total_actions += 1
-        obs, reward = self._env.step(action)
+        obs, extrinsic = self._env.step(action)
         self.total_levels = int(obs.score)
-        return obs, reward
+        return obs, extrinsic
 
 
 class PatchedExplorationPolicy(ARC3ExplorationPolicy):
