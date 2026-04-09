@@ -157,10 +157,22 @@ class PrometheusARC3LiveEnv:
         self.total_actions += 1
         return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), float(self.total_levels - prev_lvl)
 
+
+class PatchedExplorationPolicy(ARC3ExplorationPolicy):
+    def select_action(self, obs, world_model, goal_inferrer, solved_episodes=None, strategy=None):
+        if strategy:
+            # Temporarily force the strategy if provided
+            old_strat = self.active_strategy
+            self._active_strategy = strategy
+            res = super().select_action(obs, world_model, goal_inferrer, solved_episodes)
+            self._active_strategy = old_strat
+            return res
+        return super().select_action(obs, world_model, goal_inferrer, solved_episodes)
+
 class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
     def __init__(self, window_steps=100, mutation_rate=0.05, fitness_threshold=0.5):
         super().__init__(max_steps_per_episode=window_steps, mutation_rate=mutation_rate, fitness_threshold=fitness_threshold)
-        self.policy, self.episode_logs = ARC3ExplorationPolicy(mutation_rate=mutation_rate), []
+        self.policy, self.episode_logs = PatchedExplorationPolicy(mutation_rate=mutation_rate), []
     def run_episode(self, env):
         self._episode_count += 1; obs = env.begin_window(); episode = ARC3Episode(game_id=env.game_type, level=self._episode_count)
         strat, reward = self.policy.active_strategy, 0.0
