@@ -204,9 +204,8 @@ class PrometheusARC3LiveEnv:
         # Combine rewards: Extrinsic (Levels) + Intrinsic (Surprise)
         extrinsic = float(self.total_levels - prev_lvl)
         intrinsic = min(0.2, surprise * 1.0) # Cap surprise to prevent reward hacking
-        combined  = extrinsic + intrinsic
         
-        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), combined
+        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), extrinsic, intrinsic
 
 
 class PrometheusARC3SyntheticEnv:
@@ -223,7 +222,8 @@ class PrometheusARC3SyntheticEnv:
         self.total_actions += 1
         obs, extrinsic = self._env.step(action)
         self.total_levels = int(obs.score)
-        return obs, extrinsic
+        intrinsic = 0.0 # No curiosity proxy for synthetic yet
+        return obs, extrinsic, intrinsic
 
 
 class PatchedExplorationPolicy(ARC3ExplorationPolicy):
@@ -246,21 +246,23 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         strat, reward = self.policy.active_strategy, 0.0
         
         # Step 3: Hypothesis-driven exploration
-        active_hyp = self.goal_inferrer.get_hypothesis_for_test()
+        _ = self.goal_inferrer.get_hypothesis_for_test()
         
         for _ in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
             if s_act: action = s_act
             else: action = self.policy.select_action(obs, self.world_model, self.goal_inferrer, strategy=strat)
             
-            obs, reward = env.step(action)
+            obs, extrinsic, intrinsic = env.step(action)
+            reward = extrinsic + intrinsic
+            
             self.world_model.update(episode.history[-1][0] if episode.history else obs, action, obs, reward)
             
             # Inform GoalInferrer of current hypothesis test
             self.goal_inferrer.observe(obs, episode.history[-1][0] if episode.history else None, reward)
-            episode.record(obs, action, reward)
+            episode.record(obs, action, reward, extrinsic=extrinsic, intrinsic=intrinsic)
             
-        self.policy.record_episode(strat, sum(h[2] for h in episode.history))
+        self.policy.record_episode(strat, episode.total_score)
         self.policy.mutate()
         self.episode_logs.append({"episode":self._episode_count, "strategy":strat, "total_reward":sum(h[2] for h in episode.history)})
         return episode
@@ -284,10 +286,10 @@ def run_live_game(game_id="ls20", n_windows=30, window_steps=100, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
-        if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_score:.0f} score={ep.total_score:.1f} ({time.time()-t0:.1f}s)")
+        if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_extrinsic:.0f} curiosity={ep.total_intrinsic:.1f} ({time.time()-t0:.1f}s)")
     return {
         "game_id":game_id, 
-        "solve_rate":sum(1 for e in episodes if e.total_score>0)/len(episodes), 
+        "solve_rate":sum(1 for e in episodes if e.total_extrinsic > 0)/len(episodes), 
         "mean_score":sum(e.total_score for e in episodes)/len(episodes),
         "last_episode": episodes[-1] if episodes else None
     }

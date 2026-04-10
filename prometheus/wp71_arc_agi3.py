@@ -223,6 +223,8 @@ class ARC3Episode:
         default_factory=list
     )
     total_score: float = 0.0
+    total_extrinsic: float = 0.0
+    total_intrinsic: float = 0.0
     solved: bool = False
     steps: int = 0
 
@@ -231,10 +233,16 @@ class ARC3Episode:
         obs: ARC3Observation,
         action: Optional[ARC3Action],
         reward: float,
+        extrinsic: float = 0.0,
+        intrinsic: float = 0.0,
     ) -> None:
         self.history.append((obs, action, reward))
         self.total_score += reward
+        self.total_extrinsic += extrinsic
+        self.total_intrinsic += intrinsic
         self.steps += 1
+        if extrinsic > 0:
+            self.solved = True
 
     def observations(self) -> List[ARC3Observation]:
         return [h[0] for h in self.history]
