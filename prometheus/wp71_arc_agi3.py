@@ -500,6 +500,30 @@ class ARC3GoalInferrer:
             self._active_hypothesis = None
             self._hypothesis_steps = 0
 
+    def counterfactual_analysis(self, history: List[Tuple[ARC3Observation, Optional[ARC3Action], float]]) -> None:
+        """Disqualify goals that are mathematically inconsistent with recent history."""
+        if not history: return
+        
+        # Simple heuristic: if we've taken 50 actions and score is 0, 'maximize_score' is likely not simple.
+        # If we clicked 10 objects and nothing moved, 'reach_target' is less likely.
+        
+        last_obs, _, _ = history[-1]
+        first_obs, _, _ = history[max(0, len(history)-50)]
+        
+        # Calculate overall change in grid
+        changes = sum(1 for r in range(last_obs.height) for c in range(last_obs.width) 
+                     if last_obs.cell(r, c) != first_obs.cell(r, c))
+        
+        if len(history) >= 50 and changes == 0:
+            # Disqualify goals that require change
+            for h in ["reach_target", "fill_pattern", "clear_colour"]:
+                self._confidence[h] *= 0.5
+        
+        # Renormalise
+        total = sum(self._confidence.values())
+        for h in self._HYPOTHESES:
+            self._confidence[h] /= total
+
     def observe(
         self,
         obs: ARC3Observation,

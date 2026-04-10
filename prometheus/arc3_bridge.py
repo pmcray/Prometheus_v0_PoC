@@ -64,7 +64,26 @@ class ARC3VisionTransformer(nn.Module):
             nn.Linear(32, 1)
         )
         
+        # [M] Step 2: Latent Sequence Completer
+        self.sequence_completer = nn.Sequential(
+            nn.Linear(latent_dim * 2, 128),
+            nn.ReLU(),
+            nn.Linear(128, latent_dim)
+        )
+        
         self.optimizer = None
+
+    def predict_next_in_sequence(self, latent_history):
+        """Pattern completion: predict next latent based on recent trajectory."""
+        try:
+            if len(latent_history) < 2: return latent_history[-1]
+            # Simple linear extrapolation in latent space for pattern completion
+            # In a full impl, this would be another Transformer
+            last = latent_history[-1]
+            prev = latent_history[-2]
+            combined = torch.cat([last, prev], dim=1)
+            return self.sequence_completer(combined)
+        except: return latent_history[-1]
 
     def forward(self, stack_list):
         try:
@@ -321,27 +340,35 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         _ = self.goal_inferrer.get_hypothesis_for_test()
         
         curiosity_history = deque(maxlen=10)
+        latent_history = deque(maxlen=5)
+        failure_buffer = set() # (x, y) coordinates that failed to react
         strat_reward = 0.0
         
-        for _ in range(self.max_steps_per_episode):
+        for step_idx in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
             if s_act: action = s_act
             else: 
+                # [M] Step 2: Latent Sequence Completion
+                curr_lat = _vision_model(list(env.frame_stack))
+                latent_history.append(curr_lat)
+                
                 # Step 3: Exhaustive Simulation
                 from prometheus.wp71_arc_agi3 import _ACTION_TYPES
                 best_sim_act = None
                 max_score = -1.0
                 
-                # Get current latent
-                curr_lat = _vision_model(list(env.frame_stack))
-                
-                # Simulate all 7 canonical action types
                 for sim_idx, sim_atype in enumerate(_ACTION_TYPES):
                     imag_lat, pred_extrinsic = _vision_model.imagine(curr_lat, sim_idx)
-                    # Interest = Predicted Extrinsic Reward + Curiosity (latent change)
                     curiosity = F.mse_loss(curr_lat, imag_lat).item()
-                    # Step 1: Success Simulation (prioritize extrinsic)
-                    score = (pred_extrinsic * 10.0) + curiosity
+                    
+                    # Pattern matching: how close is imagined state to predicted pattern?
+                    if len(latent_history) >= 2:
+                        pattern_lat = _vision_model.predict_next_in_sequence(list(latent_history))
+                        pattern_score = 1.0 / (F.mse_loss(imag_lat, pattern_lat).item() + 1e-6)
+                    else:
+                        pattern_score = 0.0
+                        
+                    score = (pred_extrinsic * 10.0) + curiosity + (pattern_score * 0.5)
                     
                     if score > max_score:
                         max_score = score
@@ -349,13 +376,17 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 
                 if best_sim_act and random.random() < 0.5: # 50% imagination influence
                     if best_sim_act == "place":
-                        # Use salient click if possible
+                        # [M] Step 3: Salient Interaction Buffering
                         grid = np.array(obs.grid)
                         objects = np.argwhere(grid > 0)
-                        if len(objects) > 0:
-                            target = objects[random.randint(0, len(objects)-1)]
+                        valid_objects = [obj for obj in objects if (int(obj[1]), int(obj[0])) not in failure_buffer]
+                        
+                        if valid_objects:
+                            target = valid_objects[random.randint(0, len(valid_objects)-1)]
                             action = ARC3Action(action_type="place", x=int(target[1]), y=int(target[0]))
                         else:
+                            # Clear buffer if everything failed
+                            failure_buffer.clear()
                             action = ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
                     else:
                         action = ARC3Action(action_type=best_sim_act)
@@ -367,20 +398,23 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             strat_reward += reward
             curiosity_history.append(intrinsic)
             
-            # Step 1: Strategic Reset on Boredom
+            # Step 3: Failure buffering logic
+            if action.action_type == "place" and intrinsic < 0.01:
+                failure_buffer.add((action.x, action.y))
+            
+            # [M] Step 1: Counterfactual Goal Analysis (every 50 steps)
+            if step_idx % 50 == 0:
+                self.goal_inferrer.counterfactual_analysis(episode.history)
+            
+            # Strategic Reset on Boredom
             if len(curiosity_history) == 10 and sum(curiosity_history) < 0.05:
-                # Step 2: Hypothesis Rejection
                 if sum(h[2] for h in episode.history[-10:]) == 0:
                     self.goal_inferrer.reject_current_hypothesis()
-                
-                # Agent is bored, force a strategy mutation
                 self.policy.mutate()
                 strat = self.policy.active_strategy
                 curiosity_history.clear()
             
             self.world_model.update(episode.history[-1][0] if episode.history else obs, action, obs, reward)
-            
-            # Inform GoalInferrer of current hypothesis test
             self.goal_inferrer.observe(obs, episode.history[-1][0] if episode.history else None, reward)
             episode.record(obs, action, reward, extrinsic=extrinsic, intrinsic=intrinsic)
             
