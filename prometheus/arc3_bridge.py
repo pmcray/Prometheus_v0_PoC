@@ -48,6 +48,15 @@ class ARC3VisionTransformer(nn.Module):
         self.transformer = nn.TransformerEncoder(encoder_layer, num_layers=num_layers)
         
         self.fc = nn.Linear(128, latent_dim)
+        
+        # Imagination: transition model (latent, action) -> next_latent
+        self.action_embedding = nn.Embedding(8, 32) # 7 types + 1 padding
+        self.transition = nn.Sequential(
+            nn.Linear(latent_dim + 32, 128),
+            nn.ReLU(),
+            nn.Linear(128, latent_dim)
+        )
+        
         self.optimizer = None
 
     def forward(self, stack_list):
@@ -77,14 +86,31 @@ class ARC3VisionTransformer(nn.Module):
             return out
         except: return torch.zeros((1, self.latent_dim))
 
-    def train_step(self, obs_stack, next_obs_stack):
+    def imagine(self, latent, action_type_idx):
+        """Predict the next latent state given a current latent and action."""
+        try:
+            device = next(self.parameters()).device
+            a_emb = self.action_embedding(torch.tensor([action_type_idx], device=device))
+            combined = torch.cat([latent, a_emb], dim=1)
+            return self.transition(combined)
+        except: return latent
+
+    def train_step(self, obs_stack, next_obs_stack, action_type_idx=None):
         if self.optimizer is None: self.optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
         try:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
             self.to(device)
             curr_lat = self.forward(obs_stack)
             next_lat = self.forward(next_obs_stack).detach()
-            loss = F.mse_loss(curr_lat, next_lat)
+            
+            loss_cons = F.mse_loss(curr_lat, next_lat)
+            if action_type_idx is not None:
+                pred_next_lat = self.imagine(curr_lat, action_type_idx)
+                loss_trans = F.mse_loss(pred_next_lat, next_lat)
+                loss = loss_cons + loss_trans
+            else:
+                loss = loss_cons
+
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
@@ -104,6 +130,39 @@ def load_vision_weights(path="arc3_vision_transformer.pth"):
         _vision_model.load_state_dict(torch.load(path))
         return True
     return False
+
+def visualize_latent_space(episodes):
+    """[M] Step 3: Latent Space Visualization using PCA."""
+    import matplotlib.pyplot as plt
+    from sklearn.decomposition import PCA
+    
+    latents = []
+    colors = []
+    
+    for ep in episodes:
+        for obs, action, reward in ep.history:
+            # Reconstruct frame stack from history if possible, or just use grid
+            # For simplicity, we'll just run forward on the single grid repeated
+            g = [obs.grid] * 4
+            with torch.no_grad():
+                lat = _vision_model(g).cpu().numpy().flatten()
+            latents.append(lat)
+            # Use max color in grid as a proxy for 'object type'
+            colors.append(np.max(obs.grid))
+            
+    if not latents: return
+    
+    pca = PCA(n_components=2)
+    reduced = pca.fit_transform(latents)
+    
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(reduced[:, 0], reduced[:, 1], c=colors, cmap='tab10', alpha=0.6)
+    plt.colorbar(scatter, label='Max Grid Color')
+    plt.title('ARC-AGI-3 Latent Space (Transformer Embeddings)')
+    plt.xlabel('PCA 1')
+    plt.ylabel('PCA 2')
+    plt.grid(True, alpha=0.3)
+    plt.show()
 
 _TO_GA = {"move_up":"ACTION1","move_down":"ACTION2","move_left":"ACTION3","move_right":"ACTION4","rotate":"ACTION5","place":"ACTION6","undo":"ACTION7"}
 
@@ -192,7 +251,10 @@ class PrometheusARC3LiveEnv:
         grid = _frame_to_grid(f); self.frame_stack.append(grid); next_stack = list(self.frame_stack)
         
         # [M] Step 4: Curiosity (Intrinsic Reward from prediction surprise)
-        surprise = _vision_model.train_step(prev_stack, next_stack)
+        from prometheus.wp71_arc_agi3 import _ACTION_TYPES
+        try: atype_idx = _ACTION_TYPES.index(action.action_type)
+        except: atype_idx = 7
+        surprise = _vision_model.train_step(prev_stack, next_stack, action_type_idx=atype_idx)
         
         self.total_levels = int(getattr(f, "levels_completed", prev_lvl) or prev_lvl)
         if prev_stack[-1] == next_stack[-1]: self._scanner.stalled_count += 1
@@ -248,13 +310,49 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         # Step 3: Hypothesis-driven exploration
         _ = self.goal_inferrer.get_hypothesis_for_test()
         
+        curiosity_history = deque(maxlen=10)
+        
         for _ in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
             if s_act: action = s_act
-            else: action = self.policy.select_action(obs, self.world_model, self.goal_inferrer, strategy=strat)
+            else: 
+                # Step 2: Imagination-based planning
+                # Sample a few actions and pick the one leading to the most "interesting" latent
+                from prometheus.wp71_arc_agi3 import _ACTION_TYPES
+                best_sim_act = None
+                max_interest = -1.0
+                
+                # Get current latent
+                curr_lat = _vision_model(list(env.frame_stack))
+                
+                for _sim in range(5):
+                    sim_atype = random.choice(_ACTION_TYPES)
+                    sim_idx = _ACTION_TYPES.index(sim_atype)
+                    pred_lat = _vision_model.imagine(curr_lat, sim_idx)
+                    # Interest = distance from current latent (seeking change)
+                    interest = F.mse_loss(curr_lat, pred_lat).item()
+                    if interest > max_interest:
+                        max_interest = interest
+                        best_sim_act = sim_atype
+                
+                if best_sim_act and random.random() < 0.3: # 30% imagination influence
+                    if best_sim_act == "place":
+                        action = ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
+                    else:
+                        action = ARC3Action(action_type=best_sim_act)
+                else:
+                    action = self.policy.select_action(obs, self.world_model, self.goal_inferrer, strategy=strat)
             
             obs, extrinsic, intrinsic = env.step(action)
             reward = extrinsic + intrinsic
+            curiosity_history.append(intrinsic)
+            
+            # Step 1: Strategic Reset on Boredom
+            if len(curiosity_history) == 10 and sum(curiosity_history) < 0.05:
+                # Agent is bored, force a strategy mutation
+                self.policy.mutate()
+                strat = self.policy.active_strategy
+                curiosity_history.clear()
             
             self.world_model.update(episode.history[-1][0] if episode.history else obs, action, obs, reward)
             
