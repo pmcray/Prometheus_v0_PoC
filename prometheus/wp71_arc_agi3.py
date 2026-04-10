@@ -83,6 +83,7 @@ import logging
 import math
 import random
 import time
+import numpy as np
 from collections import defaultdict
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
