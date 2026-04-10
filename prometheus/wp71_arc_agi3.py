@@ -488,6 +488,18 @@ class ARC3GoalInferrer:
         self._hypothesis_steps = 0
         return self._active_hypothesis
 
+    def reject_current_hypothesis(self) -> None:
+        """Explicitly reject the current hypothesis due to lack of progress."""
+        if self._active_hypothesis:
+            # Drop confidence significantly
+            self._confidence[self._active_hypothesis] *= 0.3
+            # Renormalise
+            total = sum(self._confidence.values())
+            for h in self._HYPOTHESES:
+                self._confidence[h] /= total
+            self._active_hypothesis = None
+            self._hypothesis_steps = 0
+
     def observe(
         self,
         obs: ARC3Observation,

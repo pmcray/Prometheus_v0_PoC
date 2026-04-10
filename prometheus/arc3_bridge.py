@@ -57,6 +57,13 @@ class ARC3VisionTransformer(nn.Module):
             nn.Linear(128, latent_dim)
         )
         
+        # Step 1: Success Simulation (Reward Predictor)
+        self.reward_predictor = nn.Sequential(
+            nn.Linear(latent_dim, 32),
+            nn.ReLU(),
+            nn.Linear(32, 1)
+        )
+        
         self.optimizer = None
 
     def forward(self, stack_list):
@@ -87,15 +94,17 @@ class ARC3VisionTransformer(nn.Module):
         except: return torch.zeros((1, self.latent_dim))
 
     def imagine(self, latent, action_type_idx):
-        """Predict the next latent state given a current latent and action."""
+        """Predict the next latent state and extrinsic reward."""
         try:
             device = next(self.parameters()).device
             a_emb = self.action_embedding(torch.tensor([action_type_idx], device=device))
             combined = torch.cat([latent, a_emb], dim=1)
-            return self.transition(combined)
-        except: return latent
+            next_lat = self.transition(combined)
+            pred_rew = self.reward_predictor(next_lat)
+            return next_lat, pred_rew.item()
+        except: return latent, 0.0
 
-    def train_step(self, obs_stack, next_obs_stack, action_type_idx=None):
+    def train_step(self, obs_stack, next_obs_stack, action_type_idx=None, extrinsic_reward=0.0):
         if self.optimizer is None: self.optimizer = torch.optim.Adam(self.parameters(), lr=1e-3)
         try:
             device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -103,18 +112,25 @@ class ARC3VisionTransformer(nn.Module):
             curr_lat = self.forward(obs_stack)
             next_lat = self.forward(next_obs_stack).detach()
             
+            # Loss 1: Temporal Consistency (Physics learning)
             loss_cons = F.mse_loss(curr_lat, next_lat)
+            
+            # Step 3: Spatial Consistency Loss (Consistency with reward signal)
+            pred_rew = self.reward_predictor(curr_lat)
+            loss_rew = F.mse_loss(pred_rew, torch.tensor([[float(extrinsic_reward)]], device=device))
+            
+            # Loss 2: Transition (Imagination training)
             if action_type_idx is not None:
-                pred_next_lat = self.imagine(curr_lat, action_type_idx)
-                loss_trans = F.mse_loss(pred_next_lat, next_lat)
-                loss = loss_cons + loss_trans
+                imag_next_lat, _ = self.imagine(curr_lat, action_type_idx)
+                loss_trans = F.mse_loss(imag_next_lat, next_lat)
+                loss = loss_cons + loss_trans + loss_rew
             else:
-                loss = loss_cons
+                loss = loss_cons + loss_rew
 
             self.optimizer.zero_grad()
             loss.backward()
             self.optimizer.step()
-            return loss.item()
+            return loss_cons.item() # Return surprise for curiosity
         except: return 0.0
 
 _vision_model = ARC3VisionTransformer()
@@ -254,17 +270,11 @@ class PrometheusARC3LiveEnv:
         from prometheus.wp71_arc_agi3 import _ACTION_TYPES
         try: atype_idx = _ACTION_TYPES.index(action.action_type)
         except: atype_idx = 7
-        surprise = _vision_model.train_step(prev_stack, next_stack, action_type_idx=atype_idx)
-        
-        self.total_levels = int(getattr(f, "levels_completed", prev_lvl) or prev_lvl)
-        if prev_stack[-1] == next_stack[-1]: self._scanner.stalled_count += 1
-        else: self._scanner.stalled_count = 0
-        
-        if self._scanner.stalled_count > 100: self._scanner.refine()
-        self.total_actions += 1
         
         # Combine rewards: Extrinsic (Levels) + Intrinsic (Surprise)
         extrinsic = float(self.total_levels - prev_lvl)
+        surprise = _vision_model.train_step(prev_stack, next_stack, action_type_idx=atype_idx, extrinsic_reward=extrinsic)
+        
         intrinsic = min(0.2, surprise * 1.0) # Cap surprise to prevent reward hacking
         
         return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), extrinsic, intrinsic
@@ -311,6 +321,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         _ = self.goal_inferrer.get_hypothesis_for_test()
         
         curiosity_history = deque(maxlen=10)
+        strat_reward = 0.0
         
         for _ in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
@@ -319,18 +330,21 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 # Step 3: Exhaustive Simulation
                 from prometheus.wp71_arc_agi3 import _ACTION_TYPES
                 best_sim_act = None
-                max_interest = -1.0
+                max_score = -1.0
                 
                 # Get current latent
                 curr_lat = _vision_model(list(env.frame_stack))
                 
                 # Simulate all 7 canonical action types
                 for sim_idx, sim_atype in enumerate(_ACTION_TYPES):
-                    pred_lat = _vision_model.imagine(curr_lat, sim_idx)
-                    # Interest = distance from current latent (seeking change)
-                    interest = F.mse_loss(curr_lat, pred_lat).item()
-                    if interest > max_interest:
-                        max_interest = interest
+                    imag_lat, pred_extrinsic = _vision_model.imagine(curr_lat, sim_idx)
+                    # Interest = Predicted Extrinsic Reward + Curiosity (latent change)
+                    curiosity = F.mse_loss(curr_lat, imag_lat).item()
+                    # Step 1: Success Simulation (prioritize extrinsic)
+                    score = (pred_extrinsic * 10.0) + curiosity
+                    
+                    if score > max_score:
+                        max_score = score
                         best_sim_act = sim_atype
                 
                 if best_sim_act and random.random() < 0.5: # 50% imagination influence
@@ -350,10 +364,15 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             
             obs, extrinsic, intrinsic = env.step(action)
             reward = extrinsic + intrinsic
+            strat_reward += reward
             curiosity_history.append(intrinsic)
             
             # Step 1: Strategic Reset on Boredom
             if len(curiosity_history) == 10 and sum(curiosity_history) < 0.05:
+                # Step 2: Hypothesis Rejection
+                if sum(h[2] for h in episode.history[-10:]) == 0:
+                    self.goal_inferrer.reject_current_hypothesis()
+                
                 # Agent is bored, force a strategy mutation
                 self.policy.mutate()
                 strat = self.policy.active_strategy
@@ -365,7 +384,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             self.goal_inferrer.observe(obs, episode.history[-1][0] if episode.history else None, reward)
             episode.record(obs, action, reward, extrinsic=extrinsic, intrinsic=intrinsic)
             
-        self.policy.record_episode(strat, episode.total_score)
+        self.policy.record_episode(strat, strat_reward)
         self.policy.mutate()
         self.episode_logs.append({"episode":self._episode_count, "strategy":strat, "total_reward":sum(h[2] for h in episode.history)})
         return episode
