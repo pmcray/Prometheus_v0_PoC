@@ -644,7 +644,7 @@ class ARC3ExplorationPolicy:
         strategy = self.active_strategy
 
         if strategy == "random_walk":
-            return self._random_action()
+            return self._random_action(obs)
 
         if strategy == "model_guided":
             return self._model_guided_action(obs, world_model)
@@ -657,15 +657,25 @@ class ARC3ExplorationPolicy:
 
         # epsilon_greedy
         if random.random() < 0.15:
-            return self._random_action()
+            return self._random_action(obs)
         return self._model_guided_action(obs, world_model)
 
     # -- Private helpers ---------------------------------------------------
 
-    def _random_action(self) -> ARC3Action:
+    def _random_action(self, obs: Optional[ARC3Observation] = None) -> ARC3Action:
         action_type = random.choice(_ACTION_TYPES)
         if action_type == "place":
-            return ARC3Action(action_type="place", x=random.randint(0, 9), y=random.randint(0, 9))
+            # [FIX] ARC-AGI-3 uses 64x64 grids
+            # [M] Step 2: Object-Centric Salience (bias clicks toward objects)
+            if obs is not None:
+                grid = np.array(obs.grid)
+                objects = np.argwhere(grid > 0)
+                if len(objects) > 0 and random.random() < 0.7:
+                    # Select a random object pixel
+                    target = objects[random.randint(0, len(objects)-1)]
+                    return ARC3Action(action_type="place", x=int(target[1]), y=int(target[0]))
+            
+            return ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
         return ARC3Action(action_type=action_type)
 
     def _model_guided_action(

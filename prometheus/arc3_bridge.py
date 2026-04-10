@@ -316,8 +316,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             s_act = env.solver_action(reward)
             if s_act: action = s_act
             else: 
-                # Step 2: Imagination-based planning
-                # Sample a few actions and pick the one leading to the most "interesting" latent
+                # Step 3: Exhaustive Simulation
                 from prometheus.wp71_arc_agi3 import _ACTION_TYPES
                 best_sim_act = None
                 max_interest = -1.0
@@ -325,9 +324,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 # Get current latent
                 curr_lat = _vision_model(list(env.frame_stack))
                 
-                for _sim in range(5):
-                    sim_atype = random.choice(_ACTION_TYPES)
-                    sim_idx = _ACTION_TYPES.index(sim_atype)
+                # Simulate all 7 canonical action types
+                for sim_idx, sim_atype in enumerate(_ACTION_TYPES):
                     pred_lat = _vision_model.imagine(curr_lat, sim_idx)
                     # Interest = distance from current latent (seeking change)
                     interest = F.mse_loss(curr_lat, pred_lat).item()
@@ -335,9 +333,16 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                         max_interest = interest
                         best_sim_act = sim_atype
                 
-                if best_sim_act and random.random() < 0.3: # 30% imagination influence
+                if best_sim_act and random.random() < 0.5: # 50% imagination influence
                     if best_sim_act == "place":
-                        action = ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
+                        # Use salient click if possible
+                        grid = np.array(obs.grid)
+                        objects = np.argwhere(grid > 0)
+                        if len(objects) > 0:
+                            target = objects[random.randint(0, len(objects)-1)]
+                            action = ARC3Action(action_type="place", x=int(target[1]), y=int(target[0]))
+                        else:
+                            action = ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
                     else:
                         action = ARC3Action(action_type=best_sim_act)
                 else:
