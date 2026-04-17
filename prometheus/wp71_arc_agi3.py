@@ -433,14 +433,14 @@ class ARC3GoalInferrer:
 
         # Evidence 0: Hypothesis consistency
         if self._active_hypothesis and reward > 0:
-            # If we were testing a hypothesis and got reward, boost it
-            self._confidence[self._active_hypothesis] *= 1.5
+            # If we were testing a hypothesis and got reward, boost it significantly
+            self._confidence[self._active_hypothesis] *= 2.0
 
         # Evidence 1: positive reward → maximise_score more likely
         if reward > 0:
-            self._confidence["maximise_score"] *= 1.3
+            self._confidence["maximise_score"] *= 2.0
         elif reward < 0:
-            self._confidence["maximise_score"] *= 0.8
+            self._confidence["maximise_score"] *= 0.5
 
         # Evidence 2: grid became uniform → fill_pattern / clear_colour
         colours = obs.colours
