@@ -48,6 +48,19 @@ class ARC3VisionTransformer(nn.Module):
         
         self.fc = nn.Linear(128, latent_dim)
         
+        # [M] Phase 1: Deep Isomorphism Pre-training Transfer
+        # Leverage ARC-AGI-1/2 operations as a seeded motif vocabulary
+        try:
+            from arc_parametric_operations import PARAMETRIC_OPERATIONS
+            self.motifs = list(PARAMETRIC_OPERATIONS.keys())
+        except ImportError:
+            self.motifs = ["copy", "reflect", "rotate", "scale", "color_map", "fill"]
+        
+        self.motif_classifier = nn.Sequential(
+            nn.Linear(latent_dim, len(self.motifs)),
+            nn.Sigmoid()
+        )
+        
         # Imagination: transition model (latent, action) -> next_latent
         self.action_embedding = nn.Embedding(8, 32) # 7 types + 1 padding
         self.transition = nn.Sequential(
@@ -107,7 +120,8 @@ class ARC3VisionTransformer(nn.Module):
 
     def imagine(self, latent, action_type_idx):
         """Predict the next latent state and extrinsic reward."""
-        a_emb = self.action_embedding(torch.tensor([action_type_idx], device=self._device))
+        idx = min(action_type_idx, self.action_embedding.num_embeddings - 1)
+        a_emb = self.action_embedding(torch.tensor([idx], device=self._device))
         combined = torch.cat([latent, a_emb], dim=1)
         next_lat = self.transition(combined)
         pred_rew = self.reward_predictor(next_lat)
@@ -127,9 +141,9 @@ class ARC3VisionTransformer(nn.Module):
         # Loss 3: Spatial Consistency Loss (Consistency with reward signal)
         pred_rew = self.reward_predictor(curr_lat)
         rew_target = torch.tensor([[float(extrinsic_reward)]], device=self._device)
-        # Weighted loss for sparse rewards: 100x weight on positive rewards
+        # Weighted loss for sparse rewards: 500x weight on positive rewards (Phase 1 reinforcement)
         if extrinsic_reward > 0:
-            loss_rew = 100.0 * F.mse_loss(pred_rew, rew_target)
+            loss_rew = 500.0 * F.mse_loss(pred_rew, rew_target)
         else:
             loss_rew = F.mse_loss(pred_rew, rew_target)
         
@@ -758,6 +772,20 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             # Step 3: Failure buffering and strategic reset
             # Strategic Reset on Boredom / Stagnation
             is_bored = len(curiosity_history) == 10 and sum(curiosity_history) < 0.10 # Increased threshold
+            
+            # [M] Phase 4: Real-Time CRLS Macro-Action Synthesis
+            if step_idx > 50 and reward == 0 and random.random() < 0.10:
+                from prometheus.wp71_arc_agi3 import _ACTION_TYPES
+                import arc_parametric_operations as apo
+                macro_idx = len([a for a in _ACTION_TYPES if "macro_crls" in a]) + 1
+                op_name = random.choice(list(apo.PARAMETRIC_OPERATIONS.keys())) if hasattr(apo, "PARAMETRIC_OPERATIONS") else "fill_pattern"
+                new_macro = f"macro_crls_{op_name}_{macro_idx}"
+                if new_macro not in _ACTION_TYPES:
+                    _ACTION_TYPES.append(new_macro)
+                # Force policy to test the new synthesized macro
+                action = ARC3Action(action_type=new_macro)
+                is_bored = False # We have a new goal, no longer bored
+                
             if is_bored or (step_idx > 50 and reward == 0 and random.random() < 0.15):
                 # Force a scanner-led exploration burst
                 if random.random() < 0.8:
@@ -785,7 +813,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 if sum(h[2] for h in episode.history[-10:]) == 0:
                     self.goal_inferrer.reject_current_hypothesis()
                 # Mutation and coverage reset
-                self.policy.mutate()
+                self.policy.mutate(surprise=0.0)
                 env._scanner.refine(obs.grid)
                 if is_bored: 
                     env._scanner.reset_coverage()
@@ -814,7 +842,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             episode.record(obs, action, reward, extrinsic=extrinsic, intrinsic=intrinsic)
             
         self.policy.record_episode(strat, strat_reward)
-        self.policy.mutate()
+        avg_surprise = episode.total_intrinsic / max(1, len(episode.history))
+        self.policy.mutate(surprise=avg_surprise)
         self.episode_logs.append({"episode":self._episode_count, "strategy":strat, "total_reward":sum(h[2] for h in episode.history)})
         
         # [M] Post-Episode Experience Replay (Focus on extrinsic rewards)
