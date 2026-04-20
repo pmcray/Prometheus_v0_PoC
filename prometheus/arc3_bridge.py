@@ -1,5 +1,6 @@
-# -- Prometheus ARC-AGI-3 Bridge v15 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v16 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
+# Build: 2026-04-20 18:01:00 (v0.93)
 # ---------------------------------------------------------------------------
 import torch
 import torch.nn as nn
@@ -813,7 +814,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 if sum(h[2] for h in episode.history[-10:]) == 0:
                     self.goal_inferrer.reject_current_hypothesis()
                 # Mutation and coverage reset
-                self.policy.mutate(surprise=0.0)
+                self.policy.mutate(0.0)
                 env._scanner.refine(obs.grid)
                 if is_bored: 
                     env._scanner.reset_coverage()
@@ -843,7 +844,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             
         self.policy.record_episode(strat, strat_reward)
         avg_surprise = episode.total_intrinsic / max(1, len(episode.history))
-        self.policy.mutate(surprise=avg_surprise)
+        self.policy.mutate(avg_surprise)
         self.episode_logs.append({"episode":self._episode_count, "strategy":strat, "total_reward":sum(h[2] for h in episode.history)})
         
         # [M] Post-Episode Experience Replay (Focus on extrinsic rewards)

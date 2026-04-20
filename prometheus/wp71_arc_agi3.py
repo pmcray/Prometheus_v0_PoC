@@ -416,8 +416,9 @@ class ARC3GoalInferrer:
 
     def __init__(self) -> None:
         # Uniform prior
-        n = len(self._HYPOTHESES)
-        self._confidence: Dict[str, float] = {h: 1.0 / n for h in self._HYPOTHESES}
+        self.active_hypotheses = list(self._HYPOTHESES)
+        n = len(self.active_hypotheses)
+        self._confidence: Dict[str, float] = {h: 1.0 / n for h in self.active_hypotheses}
         self._observation_count = 0
         self._active_hypothesis: Optional[str] = None
         self._hypothesis_steps = 0
@@ -470,20 +471,42 @@ class ARC3GoalInferrer:
 
         # Renormalise
         total = sum(self._confidence.values())
-        for h in self._HYPOTHESES:
+        for h in self.active_hypotheses:
             self._confidence[h] /= total
 
     def get_hypothesis_for_test(self) -> str:
         """Active hypothesis generation: select a goal to test."""
+        # [M] Phase 3: Tangled Hierarchy - Jump out of the system if stuck
+        if self._active_hypothesis and self._hypothesis_steps >= 5:
+            uniform = 1.0 / len(self.active_hypotheses)
+            if max(self._confidence.values()) < uniform * 1.5:
+                import random
+                # Generate a composite hypothesis from existing ones
+                parts = random.sample([h for h in self.active_hypotheses if "composite" not in h], 2)
+                new_hyp = f"composite_{parts[0]}_and_{parts[1]}"
+                if new_hyp not in self.active_hypotheses:
+                    self.active_hypotheses.append(new_hyp)
+                    self._confidence[new_hyp] = 1.0 # Strong prior to test it
+                    
+                    # Renormalise
+                    total = sum(self._confidence.values())
+                    for h in self.active_hypotheses:
+                        self._confidence[h] /= total
+                    
+                    self._active_hypothesis = new_hyp
+                    self._hypothesis_steps = 0
+                    return new_hyp
+
         if self._active_hypothesis and self._hypothesis_steps < 5:
             self._hypothesis_steps += 1
             return self._active_hypothesis
         
         # Select next hypothesis: either most likely or explore low confidence
+        import random
         if random.random() < 0.7:
             self._active_hypothesis = self.most_likely_goal
         else:
-            self._active_hypothesis = random.choice(self._HYPOTHESES)
+            self._active_hypothesis = random.choice(self.active_hypotheses)
         
         self._hypothesis_steps = 0
         return self._active_hypothesis
@@ -495,7 +518,7 @@ class ARC3GoalInferrer:
             self._confidence[self._active_hypothesis] *= 0.3
             # Renormalise
             total = sum(self._confidence.values())
-            for h in self._HYPOTHESES:
+            for h in self.active_hypotheses:
                 self._confidence[h] /= total
             self._active_hypothesis = None
             self._hypothesis_steps = 0
@@ -517,11 +540,12 @@ class ARC3GoalInferrer:
         if len(history) >= 50 and changes == 0:
             # Disqualify goals that require change
             for h in ["reach_target", "fill_pattern", "clear_colour"]:
-                self._confidence[h] *= 0.5
+                if h in self.active_hypotheses:
+                    self._confidence[h] *= 0.5
         
         # Renormalise
         total = sum(self._confidence.values())
-        for h in self._HYPOTHESES:
+        for h in self.active_hypotheses:
             self._confidence[h] /= total
 
     def observe(
@@ -628,14 +652,10 @@ class ARC3ExplorationPolicy:
         """Record the outcome of an episode for a given strategy."""
         self._episode_rewards[strategy].append(reward)
 
-    def mutate(self) -> None:
+    def mutate(self, surprise: float = 0.0, mutation_rate: Optional[float] = None, **kwargs) -> None:
         """
         Apply Good's upward/downward mutation.
-
-        For each strategy:
-          mean_reward > global_mean  →  upward mutation  (+mutation_rate)
-          mean_reward < global_mean  →  downward mutation (-mutation_rate)
-          no data                    →  no change
+        Dynamic scaling: higher surprise -> higher mutation rate.
         """
         all_rewards = [
             r for rs in self._episode_rewards.values() for r in rs
@@ -643,6 +663,10 @@ class ARC3ExplorationPolicy:
         if not all_rewards:
             return
         global_mean = sum(all_rewards) / len(all_rewards)
+        
+        # Use provided mutation_rate or class default
+        m_rate = mutation_rate if mutation_rate is not None else self.mutation_rate
+        dynamic_rate = m_rate * (1.0 + surprise * 5.0)
 
         for strategy in self._STRATEGIES:
             rs = self._episode_rewards.get(strategy, [])
@@ -651,11 +675,11 @@ class ARC3ExplorationPolicy:
             strategy_mean = sum(rs) / len(rs)
             if strategy_mean > global_mean:
                 self._probs[strategy] = min(
-                    1.0, self._probs[strategy] + self.mutation_rate
+                    1.0, self._probs[strategy] + dynamic_rate
                 )
             elif strategy_mean < global_mean:
                 self._probs[strategy] = max(
-                    0.01, self._probs[strategy] - self.mutation_rate
+                    0.01, self._probs[strategy] - dynamic_rate
                 )
 
         # Renormalise
@@ -1115,7 +1139,7 @@ class ARC3StrangeLoopAgent:
 
         # Good's synaptic mutation after episode
         self.policy.record_episode(strategy, total_reward)
-        self.policy.mutate()
+        self.policy.mutate(0.0)
 
         return episode
 
