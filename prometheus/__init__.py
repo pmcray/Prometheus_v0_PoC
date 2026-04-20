@@ -14,7 +14,7 @@ Key modules:
 - environments: Game environments (Chess, etc.)
 """
 
-__version__ = "0.93"
+__version__ = "0.94"
 
 # WP17: CRLS Synthesis Closure
 from prometheus.wp17_crls_synthesis import (

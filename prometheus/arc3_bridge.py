@@ -1,6 +1,6 @@
-# -- Prometheus ARC-AGI-3 Bridge v16 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v17 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
-# Build: 2026-04-20 18:01:00 (v0.93)
+# Build: 2026-04-20 21:50:00 (v0.94)
 # ---------------------------------------------------------------------------
 import torch
 import torch.nn as nn
@@ -349,6 +349,10 @@ class NavigationSolver:
         if self._steps_no_progress > 15:
             return None
 
+        # [M] Inject small chance of rotation to break movement loops
+        if random.random() < 0.05:
+            return "rotate"
+
         if abs(dy) > abs(dx):
             return "move_up" if dy < 0 else "move_down"
         else:
@@ -492,10 +496,12 @@ class PrometheusARC3LiveEnv:
              # Only use navigation actions if we've seen movement work before
              # or if it's the specific ls20 game
              if self.game_type == "ls20" or self._navigation_solver._steps_no_progress < 3:
+                 if act_name == "rotate":
+                     return ARC3Action(action_type="rotate", param=random.randint(0, 15))
                  return ARC3Action(action_type=act_name)
 
         # Grid scanner only runs if we haven't seen any changes or stalled
-        if self._scanner.stalled_count > 10:
+        if self._scanner.stalled_count > 3:
             return self._scanner.next_click()
 
         return None
@@ -560,7 +566,7 @@ class PrometheusARC3LiveEnv:
         
         # Grid change reward
         changed_pixels = not np.array_equal(prev_stack[-1], grid)
-        change_reward = 0.20 if changed_pixels else 0.0 # Boost change reward
+        change_reward = 0.40 if changed_pixels else 0.0 # Doubled change reward
         
         # State novelty reward
         with torch.no_grad():
@@ -571,10 +577,10 @@ class PrometheusARC3LiveEnv:
         
         if lhash not in self.state_novelty_buffer:
             self.state_novelty_buffer.add(lhash)
-            novelty_reward = 0.15 # Boost novelty reward
+            novelty_reward = 0.30 # Doubled novelty reward
             if len(self.state_novelty_buffer) > 2000: self.state_novelty_buffer.clear()
             
-        intrinsic = min(0.5, (surprise * 0.5) + change_reward + novelty_reward)
+        intrinsic = min(1.0, (surprise * 1.0) + change_reward + novelty_reward)
         
         return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), extrinsic, intrinsic
 
@@ -745,30 +751,18 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 
                 best_sim_act = beam[0][1] if beam else None
                 
-                if best_sim_act and random.random() < 0.8: # 80% imagination influence
+                if best_sim_act and random.random() < 0.9: # Increased imagination influence (was 0.8)
                     if best_sim_act == "place":
-                        # [M] Step 3: Salient & Symmetric Interaction
-                        grid = np.array(obs.grid)
-                        objects = np.argwhere(grid > 0)
-                        # Filter objects to within actual grid dimensions
-                        valid_objects = [obj for obj in objects if (int(obj[1]), int(obj[0])) not in failure_buffer and int(obj[1]) < env.actual_w and int(obj[0]) < env.actual_h]
-                        
-                        if valid_objects:
-                            target = valid_objects[random.randint(0, len(valid_objects)-1)]
-                            action = ARC3Action(action_type="place", x=int(target[1]), y=int(target[0]))
-                        else:
-                            # Clear buffer and use scanner's systematic search
-                            failure_buffer.clear()
-                            action = env._scanner.next_click()
+                        # Delegate coordinate selection to scanner for systematic search
+                        failure_buffer.clear()
+                        action = env._scanner.next_click()
                     else:
                         action = ARC3Action(action_type=best_sim_act)
                 else:
                     action = self.policy.select_action(obs, self.world_model, self.goal_inferrer, strategy=strat)
-                    # Ensure place action from policy is also bounded
+                    # If policy suggests 'place', use scanner for systematic coordinate selection
                     if action.action_type == "place":
-                        action = ARC3Action(action_type="place", 
-                                          x=max(0, min(action.x, env.actual_w - 1)),
-                                          y=max(0, min(action.y, env.actual_h - 1)))
+                        action = env._scanner.next_click()
             
             # Step 3: Failure buffering and strategic reset
             # Strategic Reset on Boredom / Stagnation
@@ -849,7 +843,9 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         
         # [M] Post-Episode Experience Replay (Focus on extrinsic rewards)
         if len(episode.history) > 1:
-            for _ in range(3): # 3 passes
+            # Increase passes if we found a reward
+            n_passes = 10 if episode.total_extrinsic > 0 else 3
+            for _ in range(n_passes): 
                 # Sample 16 transitions or all if less
                 batch_size = min(16, len(episode.history) - 1)
                 indices = list(range(len(episode.history) - 1))
