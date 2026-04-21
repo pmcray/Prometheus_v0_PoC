@@ -1,6 +1,6 @@
-# -- Prometheus ARC-AGI-3 Bridge v17 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v18 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
-# Build: 2026-04-20 21:50:00 (v0.94)
+# Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
 import torch
 import torch.nn as nn
@@ -275,7 +275,7 @@ class NavigationSolver:
             self._known_goal_color = found_goal
 
         # Identify agent candidate
-        field = grid[0:50, 0:50]
+        field = grid # Full 64x64 field
         agent_candidates = []
         
         # If we have motion history, prefer the most recently moved color
@@ -372,6 +372,7 @@ class _GridScanner:
         self.grid_h, self.grid_w = 64, 64
         self._last_grid_hash = None
         self._click_history = collections.Counter()
+        self._param_history = collections.defaultdict(set) # (x, y) -> {params tried}
         self._recent_changes = set()
         self._reactive_pixels = collections.Counter() # Pixels that caused changes
         self._visit_count = np.zeros((64, 64))
@@ -465,8 +466,30 @@ class _GridScanner:
             
         x, y = self._centres[self._idx]; self._idx += 1
         self._click_history[(x, y)] += 1
-        # Use random param for place to explore color/value space
-        param = random.randint(0, 15) if random.random() < 0.2 else None
+        
+        # Systematic param exploration: 0-15
+        tried = self._param_history[(x, y)]
+        if len(tried) >= 16:
+            tried.clear() # Reset if all tried
+            
+        if self._reactive_pixels[(x, y)] > 0:
+            # High priority: try all colors systematically on reactive pixels
+            for p in range(16):
+                if p not in tried:
+                    param = p
+                    break
+            else: param = random.randint(0, 15)
+        else:
+            # Low priority: 70% chance no param, 30% random new param
+            if random.random() < 0.7:
+                param = None
+            else:
+                available = [p for p in range(16) if p not in tried]
+                param = random.choice(available) if available else random.randint(0, 15)
+
+        if param is not None:
+            tried.add(param)
+            
         return ARC3Action(action_type="place", x=x, y=y, param=param)
 
 class PrometheusARC3LiveEnv:
@@ -582,7 +605,10 @@ class PrometheusARC3LiveEnv:
             
         intrinsic = min(1.0, (surprise * 1.0) + change_reward + novelty_reward)
         
-        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), extrinsic, intrinsic
+        # [M] Return extra metadata for boredom detection (avoiding noisy surprise)
+        meta = {"change": change_reward, "novelty": novelty_reward}
+        
+        return ARC3Observation.from_grid_list(grid, score=float(self.total_levels), step=self.total_actions), extrinsic, intrinsic, meta
 
 
 class PrometheusARC3SyntheticEnv:
@@ -621,7 +647,8 @@ class PrometheusARC3SyntheticEnv:
         self.frame_stack.append(g)
         
         intrinsic = 0.0 # Curiosity still 0 for synthetic without vision model training
-        return obs, extrinsic, intrinsic
+        meta = {"change": 0.0, "novelty": 0.0}
+        return obs, extrinsic, intrinsic, meta
 
 
 class PatchedExplorationPolicy(ARC3ExplorationPolicy):
@@ -695,7 +722,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         # Step 3: Hypothesis-driven exploration
         _ = self.goal_inferrer.get_hypothesis_for_test()
         
-        curiosity_history = deque(maxlen=10)
+        actionable_curiosity_history = deque(maxlen=10)
         latent_history = deque(maxlen=5)
         action_history = collections.Counter()
         failure_buffer = set() # (x, y) coordinates that failed to react
@@ -766,7 +793,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             
             # Step 3: Failure buffering and strategic reset
             # Strategic Reset on Boredom / Stagnation
-            is_bored = len(curiosity_history) == 10 and sum(curiosity_history) < 0.10 # Increased threshold
+            # Bored if no grid changes or novelty for 10 steps
+            is_bored = len(actionable_curiosity_history) == 10 and sum(actionable_curiosity_history) < 0.01 
             
             # [M] Phase 4: Real-Time CRLS Macro-Action Synthesis
             if step_idx > 50 and reward == 0 and random.random() < 0.10:
@@ -798,7 +826,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                             reset_action = ARC3Action(action_type="rotate", param=random.randint(0, 15))
                             
                         prev_obs_for_update = obs
-                        obs, extrinsic, intrinsic = env.step(reset_action)
+                        obs, extrinsic, intrinsic, meta = env.step(reset_action)
                         reward = extrinsic + intrinsic
                         self.world_model.update(prev_obs_for_update, reset_action, obs, reward)
                         self.goal_inferrer.observe(obs, prev_obs_for_update, reward)
@@ -815,14 +843,16 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                     failure_buffer.clear()
                 
                 strat = self.policy.active_strategy
-                curiosity_history.clear()
+                actionable_curiosity_history.clear()
             
             prev_obs_in_loop = obs
-            obs, extrinsic, intrinsic = env.step(action)
+            obs, extrinsic, intrinsic, meta = env.step(action)
             action_history[action.action_type] += 1
             reward = extrinsic + intrinsic
             strat_reward += reward
-            curiosity_history.append(intrinsic)
+            
+            # [M] Refined Boredom: only track grid changes and state novelty
+            actionable_curiosity_history.append(meta["change"] + meta["novelty"])
             
             # Step 3: Failure buffering logic
             if action.action_type == "place" and intrinsic < 0.01:
