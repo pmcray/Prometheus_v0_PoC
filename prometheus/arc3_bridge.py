@@ -224,6 +224,146 @@ def _frame_to_grid(frame):
     while len(grid) < 64: grid.append([0]*64)
     return grid, actual_h, actual_w
 
+
+class ObjectExtractor:
+    """Extract discrete objects (background, agent, targets) from pixel grids.
+
+    ARC-AGI-3 tasks are fundamentally about objects: an agent coloured X moves
+    to reach a target coloured Y. Reasoning at raw-pixel level misses this
+    structure. This extractor turns consecutive frames into a compact
+    object-level dictionary that downstream policy code can act on directly.
+
+    Returned dict from extract():
+        background        : int            most-common colour (playfield)
+        agent_colour      : Optional[int]  colour of the agent (motion-inferred)
+        agent_pos         : Optional[(y,x)] centroid of the agent object
+        objects_by_colour : {colour: [(y,x), ...]} non-background pixels grouped
+        target_positions  : [(y,x), ...]   non-agent non-background pixels
+    """
+
+    def __init__(self):
+        self._motion_history: dict = collections.defaultdict(list)
+        self._background_colour: int = 0
+
+    def extract(self, current_grid, prev_grid=None, actual_h: int = 64, actual_w: int = 64):
+        # Restrict attention to the true game viewport, not the 64x64 padded frame.
+        h = max(1, min(int(actual_h), 64))
+        w = max(1, min(int(actual_w), 64))
+        grid = np.array(current_grid)[:h, :w]
+
+        counts = collections.Counter(grid.flatten().tolist())
+        self._background_colour = int(counts.most_common(1)[0][0]) if counts else 0
+
+        if prev_grid is not None:
+            prev = np.array(prev_grid)[:h, :w]
+            if prev.shape == grid.shape:
+                changed = np.argwhere(grid != prev)
+                # Cap by size: huge diffs are usually level transitions, not agent motion
+                if 0 < len(changed) < 100:
+                    for r, c in changed:
+                        col = int(grid[r, c])
+                        if col != self._background_colour and col != 0:
+                            self._motion_history[col].append((int(r), int(c)))
+                            if len(self._motion_history[col]) > 20:
+                                self._motion_history[col].pop(0)
+
+        objects_by_colour: dict = {}
+        for col in range(1, 16):
+            if col == self._background_colour:
+                continue
+            pos = np.argwhere(grid == col)
+            if len(pos) > 0:
+                objects_by_colour[col] = [(int(r), int(c)) for r, c in pos]
+
+        # Agent = colour with the most recent motion and a small footprint
+        agent_colour = None
+        agent_pos = None
+        active = [c for c in self._motion_history if self._motion_history[c]]
+        active.sort(key=lambda c: len(self._motion_history[c]), reverse=True)
+        for col in active:
+            if col in objects_by_colour and len(objects_by_colour[col]) < 50:
+                agent_colour = col
+                positions = objects_by_colour[col]
+                ay = sum(p[0] for p in positions) / len(positions)
+                ax = sum(p[1] for p in positions) / len(positions)
+                agent_pos = (ay, ax)
+                break
+
+        target_positions: list = []
+        for col, positions in objects_by_colour.items():
+            if col == agent_colour:
+                continue
+            target_positions.extend(positions)
+
+        return {
+            "background": self._background_colour,
+            "agent_colour": agent_colour,
+            "agent_pos": agent_pos,
+            "objects_by_colour": objects_by_colour,
+            "target_positions": target_positions,
+            "viewport": (h, w),
+        }
+
+
+class GameTypeClassifier:
+    """Classify a game family from the first few frames.
+
+    Replaces the brittle ``"ls20" in game_id`` string match with frame-based
+    heuristics that work on the full ARC-AGI-3 catalogue.
+
+    Returns one of: ``"navigation"``, ``"sorting"``, ``"pattern"``, ``"unknown"``.
+    """
+
+    def __init__(self, window: int = 10):
+        self.window = window
+        self._frames: list = []
+        self._family: str = "unknown"
+        self._locked: bool = False
+
+    @property
+    def family(self) -> str:
+        return self._family
+
+    def observe(self, grid, actual_h: int = 64, actual_w: int = 64) -> str:
+        if self._locked:
+            return self._family
+        h = max(1, min(int(actual_h), 64))
+        w = max(1, min(int(actual_w), 64))
+        snapshot = np.array(grid)[:h, :w].copy()
+        self._frames.append(snapshot)
+        if len(self._frames) < self.window:
+            return self._family
+        self._family = self._classify()
+        self._locked = True
+        return self._family
+
+    def _classify(self) -> str:
+        grids = self._frames
+        colour_counts = [len(np.unique(g)) for g in grids]
+        avg_colours = sum(colour_counts) / max(1, len(colour_counts))
+
+        motion_ratios = []
+        for i in range(1, len(grids)):
+            if grids[i].shape != grids[i-1].shape:
+                continue
+            diff = int(np.sum(grids[i] != grids[i-1]))
+            total = max(1, grids[i].size)
+            motion_ratios.append(diff / total)
+        motion = sum(motion_ratios) / max(1, len(motion_ratios))
+
+        # Small localised motion → one object moving → navigation
+        if motion_ratios and 0 < motion < 0.01 and avg_colours <= 6:
+            return "navigation"
+        # Many distinct regions & colours → sorting / placement
+        if avg_colours > 6:
+            return "sorting"
+        # Static grid with few colours → pattern / counting
+        if motion < 0.001 and avg_colours <= 5:
+            return "pattern"
+        return "unknown"
+
+
+
 class NavigationSolver:
     """[M] Navigation solver - Goal-Aware (Appearance Matching)."""
     def __init__(self, game_id="generic"):
@@ -501,6 +641,10 @@ class PrometheusARC3LiveEnv:
         self._scanner = _GridScanner(); self.total_actions, self.total_levels = 0, 0
         self.state_novelty_buffer = set()
         self.actual_h, self.actual_w = 64, 64
+        # Tier 2: object-level abstraction + game-family classification
+        self._extractor = ObjectExtractor()
+        self._classifier = GameTypeClassifier(window=10)
+        self._extracted: dict = {}
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -508,17 +652,27 @@ class PrometheusARC3LiveEnv:
         for _ in range(4): self.frame_stack.append(g)
         self.total_levels = int(getattr(f, "levels_completed", 0) or 0)
         self._scanner._build(g, h, w) # Pass grid and dims to scanner
+        self._extracted = self._extractor.extract(g, prev_grid=None, actual_h=h, actual_w=w)
+        self._classifier.observe(g, actual_h=h, actual_w=w)
 
     def begin_window(self): return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
 
+    @property
+    def game_family(self) -> str:
+        return self._classifier.family
+
+    def extract_objects(self) -> dict:
+        """Return the most recent object-level extraction dict."""
+        return self._extracted
+
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Restored logic: only returns an action if solver is confident."""
-        # [M] Try NavigationSolver first
+        family = self._classifier.family
+        # [M] Try NavigationSolver first — but only trust it for navigation-family games
         act_name = self._navigation_solver.next_action(self, reward)
         if act_name:
-             # Only use navigation actions if we've seen movement work before
-             # or if it's the specific ls20 game
-             if self.game_type == "ls20" or self._navigation_solver._steps_no_progress < 3:
+             nav_trust = family == "navigation" or self._navigation_solver._steps_no_progress < 3
+             if nav_trust:
                  if act_name == "rotate":
                      return ARC3Action(action_type="rotate", param=random.randint(0, 15))
                  return ARC3Action(action_type=act_name)
@@ -554,6 +708,10 @@ class PrometheusARC3LiveEnv:
         grid, h, w = _frame_to_grid(f); self.frame_stack.append(grid); next_stack = list(self.frame_stack)
         self.actual_h, self.actual_w = h, w
         self.total_actions += 1
+
+        # Tier 2: refresh object extraction & game-family classification
+        self._extracted = self._extractor.extract(grid, prev_grid=prev_stack[-1], actual_h=h, actual_w=w)
+        self._classifier.observe(grid, actual_h=h, actual_w=w)
 
         # Check if grid changed for the scanner
         if h != prev_h or w != prev_w:
@@ -620,12 +778,17 @@ class PrometheusARC3SyntheticEnv:
         self.frame_stack = deque([[[0]*64 for _ in range(64)]]*4, maxlen=4)
         self.actual_h, self.actual_w = 64, 64
         self._scanner = _GridScanner()
+        # Tier 2: object-level abstraction (synthetic games have known family
+        # from the underlying game_type so we skip GameTypeClassifier here).
+        self._extractor = ObjectExtractor()
+        self._extracted: dict = {}
         # Initialize frame stack
         obs = self._env.observation()
         g, h, w = self._grid_to_64x64(obs.grid)
         for _ in range(4): self.frame_stack.append(g)
         self.actual_h, self.actual_w = h, w
         self._scanner._build(g, h, w)
+        self._extracted = self._extractor.extract(g, prev_grid=None, actual_h=h, actual_w=w)
 
     def _grid_to_64x64(self, grid_tuple):
         grid = [list(row) for row in grid_tuple]
@@ -633,28 +796,41 @@ class PrometheusARC3SyntheticEnv:
         padded = [[grid[r][c] if r < h and c < w else 0 for c in range(64)] for r in range(64)]
         return padded, h, w
 
+    @property
+    def game_family(self) -> str:
+        # Map synthetic game types to the classifier's family labels.
+        return {"navigate": "navigation", "sort": "sorting",
+                "count": "pattern", "mirror": "pattern"}.get(self.game_type, "unknown")
+
+    def extract_objects(self) -> dict:
+        return self._extracted
+
     def begin_window(self):
         return self._env.observation()
     def solver_action(self, reward) -> Optional[ARC3Action]:
         return None
     def step(self, action):
+        prev_grid = list(self.frame_stack[-1])
         self.total_actions += 1
         obs, extrinsic = self._env.step(action)
         self.total_levels = int(obs.score)
-        
+
         # Update frame stack
         g, h, w = self._grid_to_64x64(obs.grid)
         self.frame_stack.append(g)
-        
+        self._extracted = self._extractor.extract(g, prev_grid=prev_grid, actual_h=h, actual_w=w)
+
         intrinsic = 0.0 # Curiosity still 0 for synthetic without vision model training
         meta = {"change": 0.0, "novelty": 0.0}
         return obs, extrinsic, intrinsic, meta
 
 
 class PatchedExplorationPolicy(ARC3ExplorationPolicy):
-    def select_action(self, obs, world_model, goal_inferrer, solved_episodes=None, strategy=None):
+    def select_action(self, obs, world_model, goal_inferrer, solved_episodes=None, strategy=None, extracted=None):
+        # Stash the object-extraction dict so private helpers can see it without
+        # changing their signatures (ARC3ExplorationPolicy dispatches internally).
+        self._extracted = extracted or {}
         if strategy:
-            # Temporarily force the strategy if provided
             old_strat = self.active_strategy
             self._active_strategy = strategy
             res = super().select_action(obs, world_model, goal_inferrer, solved_episodes)
@@ -662,59 +838,106 @@ class PatchedExplorationPolicy(ARC3ExplorationPolicy):
             return res
         return super().select_action(obs, world_model, goal_inferrer, solved_episodes)
 
+    def _place_at(self, y: int, x: int, w: int, h: int) -> ARC3Action:
+        return ARC3Action(action_type="place",
+                          x=int(max(0, min(x, w - 1))),
+                          y=int(max(0, min(y, h - 1))))
+
     def _goal_directed_action(self, obs: ARC3Observation, goal_inferrer: ARC3GoalInferrer) -> ARC3Action:
-        """Improved goal-directed action using vision model imagination."""
+        """Goal-directed action: use extracted objects to pick concrete place coords.
+
+        Previous version picked an action *type* via imagination and then
+        sampled random coordinates. That made ``place`` effectively random even
+        when the goal was "reach_target". This version first dispatches on the
+        inferred goal, then uses ObjectExtractor output to pick a meaningful
+        coordinate.
+        """
         goal = goal_inferrer.most_likely_goal
         if goal == "exploration":
             return self._random_action(obs)
-            
-        # For other goals, try to find an action that the model thinks is good
-        # We'll use a 1-step lookahead here for speed, since select_action is called often
+
+        extracted = getattr(self, "_extracted", {}) or {}
+        objects_by_colour: dict = extracted.get("objects_by_colour", {})
+        agent_pos = extracted.get("agent_pos")
+        target_positions: list = extracted.get("target_positions", [])
+        vh, vw = extracted.get("viewport", (obs.height, obs.width))
+
+        # --- Goal: reach a target ---------------------------------------------
+        # If we know where the agent is and where the targets are, step the agent
+        # one grid cell toward the nearest target. No agent info → click the
+        # nearest target (many games accept a click to move/select).
+        if goal == "reach_target":
+            if target_positions:
+                if agent_pos is not None:
+                    ay, ax = agent_pos
+                    ty, tx = min(target_positions, key=lambda p: abs(p[0]-ay) + abs(p[1]-ax))
+                    dy, dx = ty - ay, tx - ax
+                    if abs(dy) > abs(dx):
+                        return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
+                    if abs(dx) > 0:
+                        return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
+                ty, tx = target_positions[random.randint(0, len(target_positions) - 1)]
+                return self._place_at(ty, tx, vw, vh)
+
+        # --- Goal: clear one colour -------------------------------------------
+        # Click every instance of the most-common non-background colour.
+        if goal == "clear_colour" and objects_by_colour:
+            dominant = max(objects_by_colour.items(), key=lambda kv: len(kv[1]))[0]
+            positions = objects_by_colour[dominant]
+            ty, tx = positions[random.randint(0, len(positions) - 1)]
+            return self._place_at(ty, tx, vw, vh)
+
+        # --- Goal: fill pattern -----------------------------------------------
+        # Click on empty cells adjacent to existing objects (grows the pattern).
+        if goal == "fill_pattern" and target_positions:
+            ty, tx = target_positions[random.randint(0, len(target_positions) - 1)]
+            dy, dx = random.choice([(-1, 0), (1, 0), (0, -1), (0, 1)])
+            return self._place_at(ty + dy, tx + dx, vw, vh)
+
+        # --- Goal: maximise score (no spatial prior) --------------------------
+        # Fall back to 1-step imagination lookahead to pick the best action
+        # type, using object-centric coords for ``place``.
         best_action = self._random_action(obs)
         max_val = -1.0
-        
         try:
-            # We need the current latent
-            # Note: we don't have the frame stack here, so we'll use the single grid
             g = [list(obs.grid)] * 4
             with torch.no_grad():
                 curr_lat = _vision_model(g)
-            
             from prometheus.wp71_arc_agi3 import _ACTION_TYPES
             for sim_idx, sim_atype in enumerate(_ACTION_TYPES):
                 imag_lat, pred_extrinsic = _vision_model.imagine(curr_lat, sim_idx)
-                
-                # Valuation based on goal
                 if goal == "maximise_score":
                     val = pred_extrinsic
-                elif goal == "reach_target" or goal == "fill_pattern":
-                    # Heuristic: grid changes are good for these goals
-                    val = F.mse_loss(curr_lat, imag_lat).item()
                 else:
-                    val = 0.0
-                
+                    val = F.mse_loss(curr_lat, imag_lat).item()
                 if val > max_val:
                     max_val = val
                     if sim_atype == "place":
-                        # Use object-centric bias for place
-                        grid = np.array(obs.grid)
-                        objects = np.argwhere(grid > 0)
-                        if len(objects) > 0:
-                            target = objects[random.randint(0, len(objects)-1)]
-                            best_action = ARC3Action(action_type="place", x=int(target[1]), y=int(target[0]))
+                        if target_positions:
+                            ty, tx = target_positions[random.randint(0, len(target_positions) - 1)]
+                            best_action = self._place_at(ty, tx, vw, vh)
                         else:
-                            best_action = ARC3Action(action_type="place", x=random.randint(0, 63), y=random.randint(0, 63))
+                            grid = np.array(obs.grid)
+                            objects = np.argwhere(grid > 0)
+                            if len(objects) > 0:
+                                t = objects[random.randint(0, len(objects) - 1)]
+                                best_action = self._place_at(int(t[0]), int(t[1]), vw, vh)
+                            else:
+                                best_action = self._place_at(random.randint(0, vh-1), random.randint(0, vw-1), vw, vh)
                     else:
                         best_action = ARC3Action(action_type=sim_atype)
-        except:
+        except Exception:
             pass
-            
         return best_action
 
 class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
     def __init__(self, window_steps=100, mutation_rate=0.05, fitness_threshold=0.5):
         super().__init__(max_steps_per_episode=window_steps, mutation_rate=mutation_rate, fitness_threshold=fitness_threshold)
         self.policy, self.episode_logs = PatchedExplorationPolicy(mutation_rate=mutation_rate), []
+        # Tier 2.3b: track how many reward-bearing transitions the vision model
+        # has seen so we can discount its predicted-extrinsic signal when it is
+        # still untrained. Ramps from 0 → 1 over the first ~5 rewards.
+        self._reward_transitions_seen: int = 0
     def run_episode(self, env):
         self._episode_count += 1; obs = env.begin_window(); episode = ARC3Episode(game_id=env.game_type, level=self._episode_count)
         strat, reward = self.policy.active_strategy, 0.0
@@ -738,58 +961,90 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                     action = ARC3Action(action_type="place", 
                                       x=max(0, min(action.x, env.actual_w - 1)),
                                       y=max(0, min(action.y, env.actual_h - 1)))
-            else: 
+            else:
                 # [M] Step 2: Latent Sequence Completion
                 curr_lat = _vision_model(list(env.frame_stack))
                 latent_history.append(curr_lat)
-                
-                # Step 3: Beam Search Simulation
+
+                # Step 3: Beam Search Simulation (wider + deeper than before)
                 from prometheus.wp71_arc_agi3 import _ACTION_TYPES
-                
-                # (total_score, action_type, sequence, current_latent)
-                beam = [(0.0, None, [], curr_lat)]
-                beam_depth = 4 # Increased depth
-                beam_width = 4
-                
+
+                # Tier 2.3b: discount pred_extrinsic when the model is untrained.
+                # Ramps 0→1 over the first 5 reward-bearing transitions.
+                w_extrinsic = min(1.0, self._reward_transitions_seen / 5.0)
+
+                extracted = env.extract_objects() if hasattr(env, "extract_objects") else {}
+                target_positions = extracted.get("target_positions", []) if extracted else []
+                vh, vw = (extracted.get("viewport") if extracted else (env.actual_h, env.actual_w)) \
+                         or (env.actual_h, env.actual_w)
+
+                # (total_score, action_type, place_coord_or_None, sequence, current_latent)
+                beam = [(0.0, None, None, [], curr_lat)]
+                beam_depth = 6   # was 4
+                beam_width = 8   # was 4
+
                 for _ in range(beam_depth):
                     new_candidates = []
-                    for b_score, b_act, b_seq, b_lat in beam:
+                    for b_score, b_act, b_coord, b_seq, b_lat in beam:
                         for sim_idx, sim_atype in enumerate(_ACTION_TYPES):
                             imag_lat, pred_extrinsic = _vision_model.imagine(b_lat, sim_idx)
                             curiosity = F.mse_loss(b_lat, imag_lat).item()
-                            
+
                             if len(latent_history) >= 2:
                                 pattern_lat = _vision_model.predict_next_in_sequence(list(latent_history))
                                 pattern_score = 1.0 / (F.mse_loss(imag_lat, pattern_lat).item() + 1e-6)
                             else:
                                 pattern_score = 0.0
-                                
-                            # Action Novelty: penalize actions we've taken a lot recently
+
                             novelty_score = 1.0 / (action_history[sim_atype] + 1.0)
-                            
-                            step_score = (pred_extrinsic * 100.0) + (curiosity * 5.0) + (pattern_score * 0.5) + (novelty_score * 2.0)
+
+                            step_score = (w_extrinsic * pred_extrinsic * 100.0
+                                          + curiosity * 5.0
+                                          + pattern_score * 0.5
+                                          + novelty_score * 2.0)
                             new_score = b_score + step_score
-                            
                             new_seq = b_seq + [sim_atype]
-                            new_candidates.append((new_score, new_seq[0], new_seq, imag_lat))
-                    
-                    # Sort and prune beam
+                            head_act = new_seq[0]
+                            # For ``place`` heads, sample an object-centric coordinate
+                            # so the beam reasons about *where* to click, not just
+                            # whether to click.
+                            if head_act == "place" and b_coord is None:
+                                if target_positions:
+                                    ty, tx = target_positions[random.randint(0, len(target_positions) - 1)]
+                                    coord = (int(ty), int(tx))
+                                else:
+                                    coord = None
+                            else:
+                                coord = b_coord
+                            new_candidates.append((new_score, head_act, coord, new_seq, imag_lat))
+
                     new_candidates.sort(key=lambda x: x[0], reverse=True)
                     beam = new_candidates[:beam_width]
-                
+
                 best_sim_act = beam[0][1] if beam else None
-                
-                if best_sim_act and random.random() < 0.9: # Increased imagination influence (was 0.8)
+                best_sim_coord = beam[0][2] if beam else None
+
+                if best_sim_act and random.random() < 0.9:
                     if best_sim_act == "place":
-                        # Delegate coordinate selection to scanner for systematic search
                         failure_buffer.clear()
-                        action = env._scanner.next_click()
+                        if best_sim_coord is not None:
+                            ty, tx = best_sim_coord
+                            action = ARC3Action(action_type="place",
+                                                x=int(max(0, min(tx, vw - 1))),
+                                                y=int(max(0, min(ty, vh - 1))))
+                        else:
+                            action = env._scanner.next_click()
                     else:
                         action = ARC3Action(action_type=best_sim_act)
                 else:
-                    action = self.policy.select_action(obs, self.world_model, self.goal_inferrer, strategy=strat)
-                    # If policy suggests 'place', use scanner for systematic coordinate selection
-                    if action.action_type == "place":
+                    action = self.policy.select_action(
+                        obs, self.world_model, self.goal_inferrer,
+                        strategy=strat, extracted=extracted,
+                    )
+                    # The goal-directed path already picks object-centric coords
+                    # for place; only fall through to the scanner when we have
+                    # no object info at all (empty extraction).
+                    if action.action_type == "place" and not target_positions:
                         action = env._scanner.next_click()
             
             # Step 3: Failure buffering and strategic reset
@@ -816,6 +1071,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                         prev_obs_for_update = obs
                         obs, extrinsic, intrinsic, meta = env.step(reset_action)
                         frame_stack_history.append(list(env.frame_stack))
+                        if extrinsic > 0:
+                            self._reward_transitions_seen += 1
                         reward = extrinsic + 0.05 * intrinsic
                         self.world_model.update(prev_obs_for_update, reset_action, obs, reward)
                         self.goal_inferrer.observe(obs, prev_obs_for_update, reward)
@@ -837,6 +1094,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             prev_obs_in_loop = obs
             obs, extrinsic, intrinsic, meta = env.step(action)
             frame_stack_history.append(list(env.frame_stack))
+            if extrinsic > 0:
+                self._reward_transitions_seen += 1
             action_history[action.action_type] += 1
             reward = extrinsic + 0.05 * intrinsic
             strat_reward += reward
