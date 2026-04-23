@@ -727,6 +727,7 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
         action_history = collections.Counter()
         failure_buffer = set() # (x, y) coordinates that failed to react
         strat_reward = 0.0
+        frame_stack_history: list = []  # parallel to episode.history; stores real 4-frame stacks
         
         for step_idx in range(self.max_steps_per_episode):
             s_act = env.solver_action(reward)
@@ -796,19 +797,6 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             # Bored if no grid changes or novelty for 10 steps
             is_bored = len(actionable_curiosity_history) == 10 and sum(actionable_curiosity_history) < 0.01 
             
-            # [M] Phase 4: Real-Time CRLS Macro-Action Synthesis
-            if step_idx > 50 and reward == 0 and random.random() < 0.10:
-                from prometheus.wp71_arc_agi3 import _ACTION_TYPES
-                import arc_parametric_operations as apo
-                macro_idx = len([a for a in _ACTION_TYPES if "macro_crls" in a]) + 1
-                op_name = random.choice(list(apo.PARAMETRIC_OPERATIONS.keys())) if hasattr(apo, "PARAMETRIC_OPERATIONS") else "fill_pattern"
-                new_macro = f"macro_crls_{op_name}_{macro_idx}"
-                if new_macro not in _ACTION_TYPES:
-                    _ACTION_TYPES.append(new_macro)
-                # Force policy to test the new synthesized macro
-                action = ARC3Action(action_type=new_macro)
-                is_bored = False # We have a new goal, no longer bored
-                
             if is_bored or (step_idx > 50 and reward == 0 and random.random() < 0.15):
                 # Force a scanner-led exploration burst
                 if random.random() < 0.8:
@@ -827,7 +815,8 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                             
                         prev_obs_for_update = obs
                         obs, extrinsic, intrinsic, meta = env.step(reset_action)
-                        reward = extrinsic + intrinsic
+                        frame_stack_history.append(list(env.frame_stack))
+                        reward = extrinsic + 0.05 * intrinsic
                         self.world_model.update(prev_obs_for_update, reset_action, obs, reward)
                         self.goal_inferrer.observe(obs, prev_obs_for_update, reward)
                         episode.record(obs, reset_action, reward, extrinsic=extrinsic, intrinsic=intrinsic)
@@ -847,8 +836,9 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             
             prev_obs_in_loop = obs
             obs, extrinsic, intrinsic, meta = env.step(action)
+            frame_stack_history.append(list(env.frame_stack))
             action_history[action.action_type] += 1
-            reward = extrinsic + intrinsic
+            reward = extrinsic + 0.05 * intrinsic
             strat_reward += reward
             
             # [M] Refined Boredom: only track grid changes and state novelty
@@ -886,23 +876,23 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 
                 batch = random.sample(indices, batch_size)
                 for i in batch:
-                    obs, act, rew = episode.history[i]
-                    next_obs, _, _ = episode.history[i+1]
-                    
+                    obs_h, act_h, rew_h = episode.history[i]
+                    next_obs_h, _, _ = episode.history[i+1]
+
                     from prometheus.wp71_arc_agi3 import _ACTION_TYPES
-                    try: atype_idx = _ACTION_TYPES.index(act.action_type)
+                    try: atype_idx = _ACTION_TYPES.index(act_h.action_type)
                     except: atype_idx = 7
-                    
-                    # We need a frame stack for the transformer. 
-                    # For simplicity, we'll repeat the grid or use history if available.
-                    # Since we don't store stacks in history, we'll repeat the grid.
-                    g1 = [list(obs.grid)] * 4
-                    g2 = [list(next_obs.grid)] * 4
-                    _vision_model.train_step(g1, g2, action_type_idx=atype_idx, extrinsic_reward=rew)
+
+                    # Use real temporal frame stacks recorded during the episode so the
+                    # transformer learns genuine motion rather than zero-velocity repeats.
+                    g1 = frame_stack_history[i] if i < len(frame_stack_history) else [list(obs_h.grid)] * 4
+                    g2 = frame_stack_history[i+1] if i+1 < len(frame_stack_history) else [list(next_obs_h.grid)] * 4
+                    _vision_model.train_step(g1, g2, action_type_idx=atype_idx, extrinsic_reward=rew_h)
 
         return episode
 
 def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=0.10, fitness_threshold=0.5, verbose=True):
+    load_vision_weights()
     if not TOOLKIT_AVAILABLE:
         print(f"Toolkit missing: Falling back to Synthetic ARC-AGI-3 [{game_id}]")
         synth_type = "navigate" if "ls" in game_id else "sort" if "ft" in game_id else "count"
@@ -922,9 +912,10 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
         if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_extrinsic:.0f} curiosity={ep.total_intrinsic:.1f} ({time.time()-t0:.1f}s)")
+    save_vision_weights()
     return {
-        "game_id":game_id, 
-        "solve_rate":sum(1 for e in episodes if e.total_extrinsic > 0)/len(episodes), 
+        "game_id":game_id,
+        "solve_rate":sum(1 for e in episodes if e.total_extrinsic > 0)/len(episodes),
         "mean_score":sum(e.total_score for e in episodes)/len(episodes),
         "last_episode": episodes[-1] if episodes else None
     }
