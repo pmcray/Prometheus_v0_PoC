@@ -333,8 +333,14 @@ class GameTypeClassifier:
         self._frames.append(snapshot)
         if len(self._frames) < self.window:
             return self._family
-        self._family = self._classify()
-        self._locked = True
+        family = self._classify()
+        if family != "unknown":
+            # Lock only once we have a meaningful signal
+            self._family = family
+            self._locked = True
+        else:
+            # Slide the window — keep accumulating frames until we get motion
+            self._frames = self._frames[-(self.window // 2):]
         return self._family
 
     def _classify(self) -> str:
@@ -349,16 +355,19 @@ class GameTypeClassifier:
             diff = int(np.sum(grids[i] != grids[i-1]))
             total = max(1, grids[i].size)
             motion_ratios.append(diff / total)
-        motion = sum(motion_ratios) / max(1, len(motion_ratios))
+        motion = sum(motion_ratios) / max(1, len(motion_ratios)) if motion_ratios else 0.0
 
-        # Small localised motion → one object moving → navigation
-        if motion_ratios and 0 < motion < 0.01 and avg_colours <= 6:
+        # No motion yet → defer classification until we actually see the game respond
+        if motion < 1e-6:
+            return "unknown"
+        # Any detectable localised motion → navigation (one object moved)
+        if motion < 0.10:
             return "navigation"
-        # Many distinct regions & colours → sorting / placement
-        if avg_colours > 6:
+        # Large-scale grid changes with many colours → sorting / placement
+        if avg_colours > 8:
             return "sorting"
-        # Static grid with few colours → pattern / counting
-        if motion < 0.001 and avg_colours <= 5:
+        # Moderate change, few colours → pattern
+        if avg_colours <= 5:
             return "pattern"
         return "unknown"
 
@@ -668,10 +677,15 @@ class PrometheusARC3LiveEnv:
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Restored logic: only returns an action if solver is confident."""
         family = self._classifier.family
-        # [M] Try NavigationSolver first — but only trust it for navigation-family games
+        # Trust the navigation solver for navigation/unknown families, or for any
+        # family while it hasn't repeatedly failed (steps_no_progress < 10).
+        # The old threshold of 3 was too aggressive: the solver was abandoned after
+        # just 3 unproductive steps even though the game might legitimately need
+        # several moves before progress is visible.
         act_name = self._navigation_solver.next_action(self, reward)
         if act_name:
-             nav_trust = family == "navigation" or self._navigation_solver._steps_no_progress < 3
+             nav_trust = (family in ("navigation", "unknown")
+                          or self._navigation_solver._steps_no_progress < 10)
              if nav_trust:
                  if act_name == "rotate":
                      return ARC3Action(action_type="rotate", param=random.randint(0, 15))
@@ -749,16 +763,17 @@ class PrometheusARC3LiveEnv:
         changed_pixels = not np.array_equal(prev_stack[-1], grid)
         change_reward = 0.40 if changed_pixels else 0.0 # Doubled change reward
         
-        # State novelty reward
-        with torch.no_grad():
-            next_lat = _vision_model(next_stack)
-        lhash = hash(tuple(next_lat.cpu().numpy().flatten().round(2)))
+        # State novelty reward — hash the RAW grid, not the latent.
+        # The latent is non-stationary (model trains every step), so hashing it
+        # makes every state appear novel regardless of whether the grid changed.
+        # Using the grid values directly gives a stable, meaningful novelty signal.
+        lhash = hash(tuple(int(v) for row in grid for v in row))
         novelty_reward = 0.0
         if extrinsic > 0: self.state_novelty_buffer.clear() # Reset on reward
-        
+
         if lhash not in self.state_novelty_buffer:
             self.state_novelty_buffer.add(lhash)
-            novelty_reward = 0.30 # Doubled novelty reward
+            novelty_reward = 0.30
             if len(self.state_novelty_buffer) > 2000: self.state_novelty_buffer.clear()
             
         intrinsic = min(1.0, (surprise * 1.0) + change_reward + novelty_reward)
@@ -980,8 +995,10 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
 
                 # (total_score, action_type, place_coord_or_None, sequence, current_latent)
                 beam = [(0.0, None, None, [], curr_lat)]
-                beam_depth = 6   # was 4
-                beam_width = 8   # was 4
+                # Deep beam is only worthwhile once the reward model has real signal.
+                # When completely untrained (w_extrinsic=0) it adds latency with noise.
+                beam_depth = 2 if w_extrinsic < 0.2 else 5
+                beam_width = 4 if w_extrinsic < 0.2 else 6
 
                 for _ in range(beam_depth):
                     new_candidates = []
@@ -1170,7 +1187,22 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
-        if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_extrinsic:.0f} curiosity={ep.total_intrinsic:.1f} ({time.time()-t0:.1f}s)")
+        if verbose:
+            # Count steps where the grid changed (change_reward > 0)
+            chg = sum(1 for _, _, r in ep.history
+                      if r > ep.total_extrinsic / max(1, len(ep.history)))
+            # Action-type breakdown (top 2)
+            act_counts: dict = {}
+            for _, act, _ in ep.history:
+                act_counts[act.action_type] = act_counts.get(act.action_type, 0) + 1
+            top2 = sorted(act_counts.items(), key=lambda kv: kv[1], reverse=True)[:2]
+            top2_str = " ".join(f"{k}={v}" for k, v in top2)
+            fam = env.game_family
+            print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_extrinsic:.0f}"
+                  f" curiosity={ep.total_intrinsic:.1f}"
+                  f" family={fam}"
+                  f" acts=[{top2_str}]"
+                  f" ({time.time()-t0:.1f}s)")
     save_vision_weights()
     try:
         family = env.game_family
