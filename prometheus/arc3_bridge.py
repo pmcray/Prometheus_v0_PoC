@@ -1172,9 +1172,14 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
         if verbose: print(f"  Win {win+1:>2}/{n_windows}: levels=+{ep.total_extrinsic:.0f} curiosity={ep.total_intrinsic:.1f} ({time.time()-t0:.1f}s)")
     save_vision_weights()
+    try:
+        family = env.game_family
+    except AttributeError:
+        family = "unknown"
     return {
         "game_id":game_id,
         "solve_rate":sum(1 for e in episodes if e.total_extrinsic > 0)/len(episodes),
         "mean_score":sum(e.total_score for e in episodes)/len(episodes),
-        "last_episode": episodes[-1] if episodes else None
+        "last_episode": episodes[-1] if episodes else None,
+        "game_family": family,
     }
