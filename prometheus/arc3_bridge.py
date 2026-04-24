@@ -664,7 +664,20 @@ class PrometheusARC3LiveEnv:
         self._extracted = self._extractor.extract(g, prev_grid=None, actual_h=h, actual_w=w)
         self._classifier.observe(g, actual_h=h, actual_w=w)
 
-    def begin_window(self): return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
+    def begin_window(self):
+        # Reset the game to initial state for every window.
+        # Previously only _start_session() (called from __init__) called env.reset().
+        # From window 2 onwards the game was never reset, so the agent kept
+        # exploring a stuck position with all states already in the novelty buffer.
+        self._start_session()
+        # Also reset per-window state: novelty buffer, NavigationSolver trajectory,
+        # and scanner coverage so each window is genuinely fresh.
+        self.state_novelty_buffer.clear()
+        self._navigation_solver._steps_no_progress = 0
+        self._navigation_solver._last_pos = None
+        self._navigation_solver._motion_history.clear()
+        self._scanner.stalled_count = 0
+        return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
 
     @property
     def game_family(self) -> str:
@@ -821,7 +834,14 @@ class PrometheusARC3SyntheticEnv:
         return self._extracted
 
     def begin_window(self):
-        return self._env.observation()
+        obs = self._env.reset() if hasattr(self._env, "reset") else self._env.observation()
+        g, h, w = self._grid_to_64x64(obs.grid)
+        for _ in range(4): self.frame_stack.append(g)
+        self._scanner._build(g, h, w)
+        self._extracted = self._extractor.extract(g, prev_grid=None, actual_h=h, actual_w=w)
+        self.total_levels = int(obs.score) if hasattr(obs, "score") else 0
+        return obs
+
     def solver_action(self, reward) -> Optional[ARC3Action]:
         return None
     def step(self, action):
@@ -1041,6 +1061,16 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                 best_sim_act = beam[0][1] if beam else None
                 best_sim_coord = beam[0][2] if beam else None
 
+                # For navigation games with an untrained reward model, the beam
+                # systematically over-selects "place" due to random pattern-score
+                # bias. Override ~70 % of those cases with a cardinal move so the
+                # agent actually explores the map.
+                _nav_game = hasattr(env, "game_family") and env.game_family == "navigation"
+                if (best_sim_act == "place" and _nav_game and w_extrinsic < 0.2
+                        and random.random() < 0.70):
+                    best_sim_act = random.choice(["move_up","move_down","move_left","move_right"])
+                    best_sim_coord = None
+
                 if best_sim_act and random.random() < 0.9:
                     if best_sim_act == "place":
                         failure_buffer.clear()
@@ -1070,20 +1100,26 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             is_bored = len(actionable_curiosity_history) == 10 and sum(actionable_curiosity_history) < 0.01 
             
             if is_bored or (step_idx > 50 and reward == 0 and random.random() < 0.15):
-                # Force a scanner-led exploration burst
+                _fam = env.game_family if hasattr(env, "game_family") else "unknown"
                 if random.random() < 0.8:
-                    # [M] More diverse exploration burst
                     for _ in range(15):
                         p = random.random()
-                        if p < 0.6: # 60% place
-                            if random.random() < 0.3:
-                                reset_action = ARC3Action(action_type="place", x=random.randint(0, env.actual_w-1), y=random.randint(0, env.actual_h-1))
-                            else:
+                        if _fam == "navigation":
+                            # Navigation: 70% move, 20% place/interact, 10% rotate
+                            if p < 0.70:
+                                reset_action = ARC3Action(action_type=random.choice(["move_up","move_down","move_left","move_right"]))
+                            elif p < 0.90:
                                 reset_action = env._scanner.next_click()
-                        elif p < 0.9: # 30% move
-                            reset_action = ARC3Action(action_type=random.choice(["move_up", "move_down", "move_left", "move_right"]))
-                        else: # 10% rotate/select
-                            reset_action = ARC3Action(action_type="rotate", param=random.randint(0, 15))
+                            else:
+                                reset_action = ARC3Action(action_type="rotate", param=random.randint(0, 15))
+                        else:
+                            if p < 0.6:
+                                reset_action = (ARC3Action(action_type="place", x=random.randint(0, env.actual_w-1), y=random.randint(0, env.actual_h-1))
+                                                if random.random() < 0.3 else env._scanner.next_click())
+                            elif p < 0.9:
+                                reset_action = ARC3Action(action_type=random.choice(["move_up","move_down","move_left","move_right"]))
+                            else:
+                                reset_action = ARC3Action(action_type="rotate", param=random.randint(0, 15))
                             
                         prev_obs_for_update = obs
                         obs, extrinsic, intrinsic, meta = env.step(reset_action)
