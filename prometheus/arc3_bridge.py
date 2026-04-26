@@ -507,11 +507,21 @@ class NavigationSolver:
         else:
             return "move_left" if dx < 0 else "move_right"
 
+    _DIRS = ["move_up", "move_right", "move_down", "move_left"]  # clockwise cycle
+
     def _random_fallback(self):
         self._dir_steps += 1
-        if self._dir_steps > 8 or random.random() < 0.15:
-            self._current_direction = random.choice(["move_up", "move_down", "move_left", "move_right"])
+        # Rotate through all four directions in 25-step blocks so the agent
+        # systematically covers every axis within a 100-step span, regardless of
+        # which initial direction was chosen at construction.  A small random
+        # perturbation prevents pure grid-aligned marching.
+        if self._dir_steps % 25 == 0:
+            curr_idx = (self._DIRS.index(self._current_direction)
+                        if self._current_direction in self._DIRS else 0)
+            self._current_direction = self._DIRS[(curr_idx + 1) % 4]
             self._dir_steps = 0
+        elif random.random() < 0.08:
+            self._current_direction = random.choice(self._DIRS)
         return self._current_direction
 
 class _GridScanner:
@@ -670,12 +680,14 @@ class PrometheusARC3LiveEnv:
         # From window 2 onwards the game was never reset, so the agent kept
         # exploring a stuck position with all states already in the novelty buffer.
         self._start_session()
-        # Also reset per-window state: novelty buffer, NavigationSolver trajectory,
-        # and scanner coverage so each window is genuinely fresh.
+        # Reset per-window state: novelty buffer and scanner coverage.
+        # NOTE: we intentionally keep _motion_history and _agent_color on the
+        # NavigationSolver so that agent-colour knowledge learned in window N
+        # carries over to window N+1. Only the position-tracking state is reset
+        # so the solver re-establishes target proximity from the new start pos.
         self.state_novelty_buffer.clear()
         self._navigation_solver._steps_no_progress = 0
         self._navigation_solver._last_pos = None
-        self._navigation_solver._motion_history.clear()
         self._scanner.stalled_count = 0
         return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
 
@@ -1097,9 +1109,12 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
             # Step 3: Failure buffering and strategic reset
             # Strategic Reset on Boredom / Stagnation
             # Bored if no grid changes or novelty for 10 steps
-            is_bored = len(actionable_curiosity_history) == 10 and sum(actionable_curiosity_history) < 0.01 
-            
-            if is_bored or (step_idx > 50 and reward == 0 and random.random() < 0.15):
+            is_bored = len(actionable_curiosity_history) == 10 and sum(actionable_curiosity_history) < 0.01
+
+            # Only burst when genuinely stalled (no grid changes for 10 steps).
+            # The old condition also fired on "reward == 0" which is always true,
+            # causing ~22 unneeded bursts per window (each adding 15 extra steps).
+            if is_bored:
                 _fam = env.game_family if hasattr(env, "game_family") else "unknown"
                 if random.random() < 0.8:
                     for _ in range(15):
