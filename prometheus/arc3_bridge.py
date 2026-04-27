@@ -374,7 +374,7 @@ class GameTypeClassifier:
 
 
 class NavigationSolver:
-    """[M] Navigation solver - Goal-Aware (Appearance Matching)."""
+    """Navigation solver using ObjectExtractor for agent/target detection."""
     def __init__(self, game_id="generic"):
         self._game_id = game_id
         self._agent_color = None
@@ -382,10 +382,12 @@ class NavigationSolver:
         self._steps_no_progress = 0
         self._current_direction = random.choice(["move_up", "move_down", "move_left", "move_right"])
         self._dir_steps = 0
-        self._known_goal_color = None
-        self._motion_history = collections.defaultdict(list) # Color -> positions
+        self._motion_history = collections.defaultdict(list)
         self._background_color = 0
-        self._confidence = 0.0
+        # Target cycling: give up on a target after 50 steps without reward
+        self._target_key: Optional[tuple] = None
+        self._target_steps: int = 0
+        self._failed_targets: set = set()
 
     def next_action(self, env, reward, extracted=None) -> Optional[ARC3Action]:
         grid = np.array(env.frame_stack[-1])
@@ -409,21 +411,48 @@ class NavigationSolver:
             objects_by_colour = extracted.get("objects_by_colour", {})
             bg = extracted.get("background", self._background_color)
 
-            # Small non-agent objects (< 20 px) are likely interactive targets
+            # All non-agent non-background objects are potential targets (no size filter —
+            # the actual goal region may be large)
             target_candidates = []
             for col, positions in objects_by_colour.items():
-                if col == agent_colour or col == bg:
+                if col == agent_colour or col == bg or not positions:
                     continue
-                if 0 < len(positions) < 20:
-                    cy = sum(p[0] for p in positions) / len(positions)
-                    cx = sum(p[1] for p in positions) / len(positions)
-                    dist = abs(cy - ay) + abs(cx - ax)
-                    target_candidates.append((dist, cy, cx))
+                cy = sum(p[0] for p in positions) / len(positions)
+                cx = sum(p[1] for p in positions) / len(positions)
+                dist = abs(cy - ay) + abs(cx - ax)
+                target_candidates.append((dist, cy, cx))
 
             if target_candidates:
                 target_candidates.sort()
-                _, ty, tx = target_candidates[0]
 
+                # Skip targets that have already been tried without reward
+                chosen = None
+                for cand in target_candidates:
+                    tkey = (round(cand[1]), round(cand[2]))
+                    if tkey not in self._failed_targets:
+                        chosen = cand
+                        break
+                if chosen is None:
+                    self._failed_targets.clear()  # all failed: reset and retry
+                    chosen = target_candidates[0]
+
+                _, ty, tx = chosen
+                tkey = (round(ty), round(tx))
+
+                # Advance target-step counter; give up after 50 unrewarded steps
+                if self._target_key == tkey:
+                    self._target_steps += 1
+                else:
+                    self._target_key = tkey
+                    self._target_steps = 0
+
+                if self._target_steps > 50:
+                    self._failed_targets.add(tkey)
+                    self._target_key = None
+                    self._target_steps = 0
+                    return ARC3Action(action_type=self._random_fallback())
+
+                # Wall-stall detection: if position unchanged, escape sideways
                 curr = (ay, ax)
                 if (self._last_pos is not None
                         and abs(curr[0] - self._last_pos[0]) < 0.5
@@ -433,21 +462,22 @@ class NavigationSolver:
                     self._steps_no_progress = 0
                     self._last_pos = curr
 
-                if self._steps_no_progress > 15:
-                    return None
+                if self._steps_no_progress > 8:
+                    self._steps_no_progress = 0
+                    return ARC3Action(action_type=self._random_fallback())
 
-                # Place interaction when adjacent to target
-                if abs(ty - ay) + abs(tx - ax) <= 2 and random.random() < 0.35:
-                    return ARC3Action(action_type="place", x=int(tx), y=int(ty))
-
-                if random.random() < 0.05:
+                if random.random() < 0.04:
                     return ARC3Action(action_type="rotate", param=random.randint(0, 15))
 
                 dy, dx = ty - ay, tx - ax
+                # When exactly at target (dy=dx=0), escape with random fallback to avoid
+                # infinite oscillation caused by the move_right default
+                if dy == 0 and dx == 0:
+                    return ARC3Action(action_type=self._random_fallback())
                 if abs(dy) > abs(dx):
                     return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
                 return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
-            # No small targets found — fall through to raw-grid fallback
+            # No targets found — fall through to raw-grid fallback
 
         # --- Raw-grid fallback (when ObjectExtractor has no confirmed agent) ---
         field = grid
@@ -493,12 +523,15 @@ class NavigationSolver:
             self._steps_no_progress = 0
             self._last_pos = (ay, ax)
 
-        if self._steps_no_progress > 15:
-            return None
+        if self._steps_no_progress > 8:
+            self._steps_no_progress = 0
+            return ARC3Action(action_type=self._random_fallback())
 
-        if random.random() < 0.05:
+        if random.random() < 0.04:
             return ARC3Action(action_type="rotate", param=random.randint(0, 15))
 
+        if dy == 0 and dx == 0:
+            return ARC3Action(action_type=self._random_fallback())
         if abs(dy) > abs(dx):
             return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
         return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
@@ -684,6 +717,9 @@ class PrometheusARC3LiveEnv:
         self.state_novelty_buffer.clear()
         self._navigation_solver._steps_no_progress = 0
         self._navigation_solver._last_pos = None
+        self._navigation_solver._target_key = None
+        self._navigation_solver._target_steps = 0
+        self._navigation_solver._failed_targets.clear()
         self._scanner.stalled_count = 0
         return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
 
