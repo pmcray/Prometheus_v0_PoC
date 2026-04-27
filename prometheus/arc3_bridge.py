@@ -387,125 +387,121 @@ class NavigationSolver:
         self._background_color = 0
         self._confidence = 0.0
 
-    def next_action(self, env, reward) -> Optional[str]:
+    def next_action(self, env, reward, extracted=None) -> Optional[ARC3Action]:
         grid = np.array(env.frame_stack[-1])
         prev_grid = np.array(env.frame_stack[-2])
-        
-        # Detect background color if not already known
         self._background_color = env._scanner._background_color
-        
-        # [M] Motion tracking to identify agent
+
+        # Motion tracking (fallback when ObjectExtractor hasn't seen enough frames)
         changed_pixels = np.argwhere(grid != prev_grid)
-        if len(changed_pixels) > 0 and len(changed_pixels) < 100: # Reasonable change size
-             for r, c in changed_pixels:
-                 color = grid[r, c]
-                 if color != self._background_color and color != 0: # Not background
-                     self._motion_history[color].append((r, c))
-                     # Keep recent history
-                     if len(self._motion_history[color]) > 20:
-                         self._motion_history[color].pop(0)
+        if 0 < len(changed_pixels) < 100:
+            for r, c in changed_pixels:
+                color = int(grid[r, c])
+                if color != self._background_color and color != 0:
+                    self._motion_history[color].append((r, c))
+                    if len(self._motion_history[color]) > 20:
+                        self._motion_history[color].pop(0)
 
-        # Detect Goal Preview in common ARC-AGI-3 UI locations
-        goal_areas = [
-            grid[52:64, 0:32],   # Bottom left
-            grid[0:16, 52:64],   # Top right
-            grid[52:64, 52:64],  # Bottom right
-        ]
-        
-        found_goal = None
-        for goal_area in goal_areas:
-            goal_pixels = goal_area[(goal_area != 0) & (goal_area != 1) & (goal_area != 3) & (goal_area != 4)]
-            if len(goal_pixels) > 0:
-                 counts = collections.Counter(goal_pixels.flatten())
-                 found_goal = counts.most_common(1)[0][0]
-                 break
-        
-        if found_goal is not None:
-            self._known_goal_color = found_goal
+        # --- ObjectExtractor-guided path (primary) ---
+        if extracted and extracted.get("agent_pos") is not None:
+            ay, ax = extracted["agent_pos"]
+            agent_colour = extracted.get("agent_colour")
+            objects_by_colour = extracted.get("objects_by_colour", {})
+            bg = extracted.get("background", self._background_color)
 
-        # Identify agent candidate
-        field = grid # Full 64x64 field
+            # Small non-agent objects (< 20 px) are likely interactive targets
+            target_candidates = []
+            for col, positions in objects_by_colour.items():
+                if col == agent_colour or col == bg:
+                    continue
+                if 0 < len(positions) < 20:
+                    cy = sum(p[0] for p in positions) / len(positions)
+                    cx = sum(p[1] for p in positions) / len(positions)
+                    dist = abs(cy - ay) + abs(cx - ax)
+                    target_candidates.append((dist, cy, cx))
+
+            if target_candidates:
+                target_candidates.sort()
+                _, ty, tx = target_candidates[0]
+
+                curr = (ay, ax)
+                if (self._last_pos is not None
+                        and abs(curr[0] - self._last_pos[0]) < 0.5
+                        and abs(curr[1] - self._last_pos[1]) < 0.5):
+                    self._steps_no_progress += 1
+                else:
+                    self._steps_no_progress = 0
+                    self._last_pos = curr
+
+                if self._steps_no_progress > 15:
+                    return None
+
+                # Place interaction when adjacent to target
+                if abs(ty - ay) + abs(tx - ax) <= 2 and random.random() < 0.35:
+                    return ARC3Action(action_type="place", x=int(tx), y=int(ty))
+
+                if random.random() < 0.05:
+                    return ARC3Action(action_type="rotate", param=random.randint(0, 15))
+
+                dy, dx = ty - ay, tx - ax
+                if abs(dy) > abs(dx):
+                    return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
+                return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
+            # No small targets found — fall through to raw-grid fallback
+
+        # --- Raw-grid fallback (when ObjectExtractor has no confirmed agent) ---
+        field = grid
         agent_candidates = []
-        
-        # If we have motion history, prefer the most recently moved color
-        active_colors = [c for c in self._motion_history if len(self._motion_history[c]) > 0]
-        if active_colors:
-            # Sort by frequency of motion
-            active_colors.sort(key=lambda c: len(self._motion_history[c]), reverse=True)
-            for c in active_colors:
-                pos = np.argwhere(field == c)
-                if len(pos) > 0:
-                    agent_candidates.append((len(pos), c, pos))
-                    break
-        
-        # Fallback to any non-static color if no motion history
+        active_colors = [c for c in self._motion_history if self._motion_history[c]]
+        active_colors.sort(key=lambda c: len(self._motion_history[c]), reverse=True)
+        for c in active_colors:
+            pos = np.argwhere(field == c)
+            if len(pos) > 0:
+                agent_candidates.append((len(pos), c, pos))
+                break
+
         if not agent_candidates:
             for c in range(1, 16):
-                if c == self._background_color: continue
+                if c == self._background_color:
+                    continue
                 pos = np.argwhere(field == c)
-                if 0 < len(pos) < 50: # Agents are usually small
+                if 0 < len(pos) < 50:
                     agent_candidates.append((len(pos), c, pos))
-        
+
         if not agent_candidates:
-            return self._random_fallback()
-            
-        agent_candidates.sort(key=lambda x: x[0]) # Smallest object is likely agent
-        _, self._agent_color, agent_pos = agent_candidates[0]
-        ay, ax = np.mean(agent_pos, axis=0)
-        
-        # Appearance Matching: does agent color match goal color?
-        needs_change = False
-        if self._known_goal_color is not None and self._agent_color != self._known_goal_color:
-            needs_change = True
-            
-        # Navigation logic
-        target = None
-        if needs_change:
-            # Seek "Switchers": objects that match the goal color
-            switchers = np.argwhere(field == self._known_goal_color)
-            if len(switchers) > 0:
-                target = switchers[np.argmin(np.sum(np.abs(switchers - [ay, ax]), axis=1))]
-        
-        if target is None:
-            # Seek "Targets": Often color 5 or 2 or 8
-            for t_color in [self._known_goal_color, 5, 2, 8]:
-                if t_color is None or t_color == self._agent_color: continue
-                targets = np.argwhere(field == t_color)
-                if len(targets) > 0:
-                    target = targets[np.argmin(np.sum(np.abs(targets - [ay, ax]), axis=1))]
-                    break
-            
-        if target is None:
-            # Fallback to any interactive object
-            others = np.argwhere((field != self._background_color) & (field != 0) & (field != self._agent_color))
-            if len(others) > 0:
-                target = others[np.argmin(np.sum(np.abs(others - [ay, ax]), axis=1))]
+            return ARC3Action(action_type=self._random_fallback())
 
-        if target is None:
-            return self._random_fallback()
+        agent_candidates.sort(key=lambda x: x[0])
+        _, self._agent_color, agent_pos_arr = agent_candidates[0]
+        ay, ax = np.mean(agent_pos_arr, axis=0)
 
-        # Pathfinding to target
+        others = np.argwhere(
+            (field != self._background_color) & (field != 0) & (field != self._agent_color)
+        )
+        if len(others) == 0:
+            return ARC3Action(action_type=self._random_fallback())
+
+        target = others[np.argmin(np.sum(np.abs(others - [ay, ax]), axis=1))]
         ty, tx = target
-        dy, dx = ty - ay, tx - ax
-        
-        if self._last_pos is not None and np.allclose([ay, ax], self._last_pos, atol=0.1):
+        dy, dx = float(ty) - ay, float(tx) - ax
+
+        if (self._last_pos is not None
+                and abs(ay - self._last_pos[0]) < 0.1
+                and abs(ax - self._last_pos[1]) < 0.1):
             self._steps_no_progress += 1
         else:
             self._steps_no_progress = 0
             self._last_pos = (ay, ax)
 
-        # If navigation is consistently failing (stalled), return None to let scanner take over
         if self._steps_no_progress > 15:
             return None
 
-        # [M] Inject small chance of rotation to break movement loops
         if random.random() < 0.05:
-            return "rotate"
+            return ARC3Action(action_type="rotate", param=random.randint(0, 15))
 
         if abs(dy) > abs(dx):
-            return "move_up" if dy < 0 else "move_down"
-        else:
-            return "move_left" if dx < 0 else "move_right"
+            return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
+        return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
 
     _DIRS = ["move_up", "move_right", "move_down", "move_left"]  # clockwise cycle
 
@@ -700,23 +696,15 @@ class PrometheusARC3LiveEnv:
         return self._extracted
 
     def solver_action(self, reward) -> Optional[ARC3Action]:
-        """Restored logic: only returns an action if solver is confident."""
+        """Returns a solver-guided action, or None to let the beam search decide."""
         family = self._classifier.family
-        # Trust the navigation solver for navigation/unknown families, or for any
-        # family while it hasn't repeatedly failed (steps_no_progress < 10).
-        # The old threshold of 3 was too aggressive: the solver was abandoned after
-        # just 3 unproductive steps even though the game might legitimately need
-        # several moves before progress is visible.
-        act_name = self._navigation_solver.next_action(self, reward)
-        if act_name:
-             nav_trust = (family in ("navigation", "unknown")
-                          or self._navigation_solver._steps_no_progress < 10)
-             if nav_trust:
-                 if act_name == "rotate":
-                     return ARC3Action(action_type="rotate", param=random.randint(0, 15))
-                 return ARC3Action(action_type=act_name)
+        act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
+        if act is not None:
+            nav_trust = (family in ("navigation", "unknown")
+                         or self._navigation_solver._steps_no_progress < 10)
+            if nav_trust:
+                return act
 
-        # Grid scanner only runs if we haven't seen any changes or stalled
         if self._scanner.stalled_count > 3:
             return self._scanner.next_click()
 
@@ -981,12 +969,14 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
     def __init__(self, window_steps=100, mutation_rate=0.05, fitness_threshold=0.5):
         super().__init__(max_steps_per_episode=window_steps, mutation_rate=mutation_rate, fitness_threshold=fitness_threshold)
         self.policy, self.episode_logs = PatchedExplorationPolicy(mutation_rate=mutation_rate), []
-        # Tier 2.3b: track how many reward-bearing transitions the vision model
-        # has seen so we can discount its predicted-extrinsic signal when it is
-        # still untrained. Ramps from 0 → 1 over the first ~5 rewards.
         self._reward_transitions_seen: int = 0
+        self._success_direction: Optional[str] = None  # dominant move direction from last winning window
     def run_episode(self, env):
-        self._episode_count += 1; obs = env.begin_window(); episode = ARC3Episode(game_id=env.game_type, level=self._episode_count)
+        self._episode_count += 1
+        # Seed the navigator with the direction that worked in the last winning window
+        if self._success_direction and hasattr(env, "_navigation_solver"):
+            env._navigation_solver._current_direction = self._success_direction
+        obs = env.begin_window(); episode = ARC3Episode(game_id=env.game_type, level=self._episode_count)
         strat, reward = self.policy.active_strategy, 0.0
         
         # Step 3: Hypothesis-driven exploration
@@ -1215,6 +1205,14 @@ class PatchedStrangeLoopAgent(ARC3StrangeLoopAgent):
                     g1 = frame_stack_history[i] if i < len(frame_stack_history) else [list(obs_h.grid)] * 4
                     g2 = frame_stack_history[i+1] if i+1 < len(frame_stack_history) else [list(next_obs_h.grid)] * 4
                     _vision_model.train_step(g1, g2, action_type_idx=atype_idx, extrinsic_reward=rew_h)
+
+        # Remember the dominant move direction from winning windows so the next
+        # window starts exploring in a direction that has already yielded reward.
+        if episode.total_extrinsic > 0:
+            move_keys = ("move_up", "move_down", "move_left", "move_right")
+            move_counts = {k: action_history[k] for k in move_keys if action_history[k] > 0}
+            if move_counts:
+                self._success_direction = max(move_counts, key=move_counts.get)
 
         return episode
 
