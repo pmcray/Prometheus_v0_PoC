@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v18 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v20 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -693,6 +693,7 @@ class PrometheusARC3LiveEnv:
         self._extractor = ObjectExtractor()
         self._classifier = GameTypeClassifier(window=10)
         self._extracted: dict = {}
+        self._windows_without_reward: int = 0
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -734,6 +735,17 @@ class PrometheusARC3LiveEnv:
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Returns a solver-guided action, or None to let the beam search decide."""
         family = self._classifier.family
+
+        # After 8 consecutive zero-reward windows, NavSolver has proven ineffective —
+        # switch entirely to systematic scanner exploration (place + param sweep).
+        if self._windows_without_reward >= 8:
+            return self._scanner.next_click()
+
+        # For non-navigation games, inject scanner clicks 30% of the time so
+        # the agent tries place+param combos even while NavSolver is primary.
+        if family not in ("navigation", "unknown") and random.random() < 0.30:
+            return self._scanner.next_click()
+
         act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
         if act is not None:
             nav_trust = (family in ("navigation", "unknown")
@@ -741,10 +753,7 @@ class PrometheusARC3LiveEnv:
             if nav_trust:
                 return act
 
-        if self._scanner.stalled_count > 3:
-            return self._scanner.next_click()
-
-        return None
+        return self._scanner.next_click()
 
     def step(self, action):
         prev_stack = list(self.frame_stack); prev_lvl = self.total_levels
@@ -1272,6 +1281,11 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
+        # Update consecutive-zero-reward counter so solver_action() can switch strategy
+        if ep.total_extrinsic > 0:
+            env._windows_without_reward = 0
+        else:
+            env._windows_without_reward = getattr(env, '_windows_without_reward', 0) + 1
         if verbose:
             # Count steps where the grid changed (change_reward > 0)
             chg = sum(1 for _, _, r in ep.history
