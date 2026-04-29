@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v20 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v21 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -735,16 +735,22 @@ class PrometheusARC3LiveEnv:
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Returns a solver-guided action, or None to let the beam search decide."""
         family = self._classifier.family
+        wwr = self._windows_without_reward
 
-        # After 8 consecutive zero-reward windows, NavSolver has proven ineffective —
-        # switch entirely to systematic scanner exploration (place + param sweep).
-        if self._windows_without_reward >= 8:
-            return self._scanner.next_click()
+        # Adaptive scanner probability based on empirical responsiveness:
+        # n_reactive counts place clicks that have actually changed the grid.
+        # Games where place never changes the grid (e.g. pure-navigation, dc22-type)
+        # should stay nav-dominant; circuit/interactive games (sk48-type) benefit
+        # from heavy scanner use.
+        n_reactive = sum(self._scanner._reactive_pixels.values())
 
-        # For non-navigation games, inject scanner clicks 30% of the time so
-        # the agent tries place+param combos even while NavSolver is primary.
-        if family not in ("navigation", "unknown") and random.random() < 0.30:
-            return self._scanner.next_click()
+        if wwr >= 4:
+            # Threshold reduced from v20's 8 → 4: enter scanner mode sooner.
+            # Mix ratio adapts to game response: high scanner for reactive games,
+            # low (probe) for games that don't respond to place clicks.
+            scanner_prob = 0.60 if n_reactive >= 5 else 0.15
+            if random.random() < scanner_prob:
+                return self._scanner.next_click()
 
         act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
         if act is not None:
