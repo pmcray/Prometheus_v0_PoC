@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v21 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v22 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -694,6 +694,13 @@ class PrometheusARC3LiveEnv:
         self._classifier = GameTypeClassifier(window=10)
         self._extracted: dict = {}
         self._windows_without_reward: int = 0
+        # Per-action-type pixel-change accumulators for nav_dominant detection.
+        # Physics/gravity games (vc33): moves change 50-100 px per step;
+        # circuit/click games (sk48): moves change ~10 px while places change 20+.
+        self._move_change_count: int = 0
+        self._move_changes_sum: int = 0
+        self._place_change_count: int = 0
+        self._place_changes_sum: int = 0
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -737,18 +744,21 @@ class PrometheusARC3LiveEnv:
         family = self._classifier.family
         wwr = self._windows_without_reward
 
-        # Adaptive scanner probability based on empirical responsiveness:
-        # n_reactive counts place clicks that have actually changed the grid.
-        # Games where place never changes the grid (e.g. pure-navigation, dc22-type)
-        # should stay nav-dominant; circuit/interactive games (sk48-type) benefit
-        # from heavy scanner use.
-        n_reactive = sum(self._scanner._reactive_pixels.values())
+        # Detect nav-dominant games by comparing avg pixels changed per move vs. place.
+        # Physics/gravity games (vc33): each move changes 50-100 px (sprites falling);
+        # circuit/click games (sk48): each move changes ~10 px, reactive places ~20-30 px.
+        # The avg_move > 30 absolute threshold isolates high-energy physics games.
+        # Requires 50 move samples before the classification locks in.
+        avg_move = self._move_changes_sum / max(1, self._move_change_count)
+        avg_place = self._place_changes_sum / max(1, self._place_change_count)
+        nav_dominant = (self._move_change_count >= 50
+                        and avg_move > 30.0
+                        and avg_move > avg_place * 2.0)
 
         if wwr >= 4:
-            # Threshold reduced from v20's 8 → 4: enter scanner mode sooner.
-            # Mix ratio adapts to game response: high scanner for reactive games,
-            # low (probe) for games that don't respond to place clicks.
-            scanner_prob = 0.60 if n_reactive >= 5 else 0.15
+            # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
+            # so nav continues to do the heavy lifting.  All other games: 60% scanner.
+            scanner_prob = 0.15 if nav_dominant else 0.60
             if random.random() < scanner_prob:
                 return self._scanner.next_click()
 
@@ -791,25 +801,33 @@ class PrometheusARC3LiveEnv:
         self._extracted = self._extractor.extract(grid, prev_grid=prev_stack[-1], actual_h=h, actual_w=w)
         self._classifier.observe(grid, actual_h=h, actual_w=w)
 
-        # Check if grid changed for the scanner
+        # Check if grid changed for the scanner; compute diff once for reuse.
         if h != prev_h or w != prev_w:
             self._scanner._build(grid, h, w)
             self._scanner.stalled_count = 0
-        elif np.array_equal(prev_stack[-1], grid):
-            self._scanner.stalled_count += 1
-            if self._scanner.stalled_count % 30 == 0: # More frequent refinement
-                self._scanner.refine(grid)
+            _n_changed = 0  # Can't compare grids of different sizes
         else:
-            self._scanner.stalled_count = 0
-            # Identify changed pixels for the scanner
-            changed = np.argwhere(np.array(prev_stack[-1]) != np.array(grid))
-            self._scanner._recent_changes = set((int(p[1]), int(p[0])) for p in changed)
-            # [M] Track reactive pixels (ones that were actually clicked when a change happened)
-            if action.action_type == "place" and len(changed) > 0:
-                self._scanner._reactive_pixels[(action.x, action.y)] += 1
-            
-            # If place resulted in change, refine to prioritize near the change
-            if action.action_type == "place": self._scanner.refine(grid)
+            _diff = np.array(prev_stack[-1]) != np.array(grid)
+            _n_changed = int(np.sum(_diff))
+            if _n_changed == 0:
+                self._scanner.stalled_count += 1
+                if self._scanner.stalled_count % 30 == 0:
+                    self._scanner.refine(grid)
+            else:
+                self._scanner.stalled_count = 0
+                changed = np.argwhere(_diff)
+                self._scanner._recent_changes = set((int(p[1]), int(p[0])) for p in changed)
+                if action.action_type == "place":
+                    self._scanner._reactive_pixels[(action.x, action.y)] += 1
+                    self._scanner.refine(grid)
+
+        # Track per-action-type pixel-change magnitude for nav_dominant detection.
+        if action.action_type in ("move_up", "move_down", "move_left", "move_right"):
+            self._move_change_count += 1
+            self._move_changes_sum += _n_changed
+        elif action.action_type == "place":
+            self._place_change_count += 1
+            self._place_changes_sum += _n_changed
         
         # [M] Step 4: Curiosity (Intrinsic Reward from prediction surprise)
         from prometheus.wp71_arc_agi3 import _ACTION_TYPES
