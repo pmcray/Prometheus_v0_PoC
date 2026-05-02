@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v22 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v23 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -655,28 +655,27 @@ class _GridScanner:
         x, y = self._centres[self._idx]; self._idx += 1
         self._click_history[(x, y)] += 1
         
-        # Systematic param exploration: 0-15
-        tried = self._param_history[(x, y)]
-        if len(tried) >= 16:
-            tried.clear() # Reset if all tried
-            
+        # Systematic param exploration covering all (x, y, param) combinations.
+        clicks = self._click_history[(x, y)]
         if self._reactive_pixels[(x, y)] > 0:
-            # High priority: try all colors systematically on reactive pixels
+            # Reactive pixel: sweep params 0-15 in strict order to find which works.
+            tried = self._param_history[(x, y)]
+            if len(tried) >= 16:
+                tried.clear()
             for p in range(16):
                 if p not in tried:
                     param = p
                     break
-            else: param = random.randint(0, 15)
-        else:
-            # Low priority: 70% chance no param, 30% random new param
-            if random.random() < 0.7:
-                param = None
             else:
-                available = [p for p in range(16) if p not in tried]
-                param = random.choice(available) if available else random.randint(0, 15)
+                param = random.randint(0, 15)
+        else:
+            # Non-reactive: deterministic 17-step cycle [None, 0, 1, ..., 15].
+            # Old approach used 70% None which left most param values untried.
+            cycle = clicks % 17
+            param = None if cycle == 0 else (cycle - 1)
 
         if param is not None:
-            tried.add(param)
+            self._param_history[(x, y)].add(param)
             
         return ARC3Action(action_type="place", x=x, y=y, param=param)
 
@@ -701,6 +700,10 @@ class PrometheusARC3LiveEnv:
         self._move_changes_sum: int = 0
         self._place_change_count: int = 0
         self._place_changes_sum: int = 0
+        # Win-action replay: place actions that triggered extrinsic reward,
+        # accumulated across windows so each new window re-plays them first.
+        self._winning_actions: List[ARC3Action] = []
+        self._replay_idx: int = 0
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -729,6 +732,7 @@ class PrometheusARC3LiveEnv:
         self._navigation_solver._target_steps = 0
         self._navigation_solver._failed_targets.clear()
         self._scanner.stalled_count = 0
+        self._replay_idx = 0  # restart replay from beginning each window
         return ARC3Observation.from_grid_list(self.frame_stack[-1], score=float(self.total_levels), step=0)
 
     @property
@@ -741,6 +745,14 @@ class PrometheusARC3LiveEnv:
 
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Returns a solver-guided action, or None to let the beam search decide."""
+        # Priority 0: replay place actions that triggered wins in previous windows.
+        # These are replayed from the start of every window to immediately re-solve
+        # known levels before spending steps on new discovery.
+        if self._replay_idx < len(self._winning_actions):
+            act = self._winning_actions[self._replay_idx]
+            self._replay_idx += 1
+            return act
+
         family = self._classifier.family
         wwr = self._windows_without_reward
 
@@ -1305,9 +1317,19 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
-        # Update consecutive-zero-reward counter so solver_action() can switch strategy
+        # Update consecutive-zero-reward counter so solver_action() can switch strategy.
+        # On a win, also extract the place actions that triggered the reward so we can
+        # replay them at the start of every subsequent window (win-action replay).
         if ep.total_extrinsic > 0:
             env._windows_without_reward = 0
+            existing_keys = {(a.x, a.y) for a in env._winning_actions}
+            for _obs, _act, _rew in ep.history:
+                # combined reward = extrinsic + 0.05*intrinsic; extrinsic>=1 → rew>=1
+                if _rew >= 0.9 and _act.action_type == "place":
+                    k = (_act.x, _act.y)
+                    if k not in existing_keys:
+                        env._winning_actions.append(_act)
+                        existing_keys.add(k)
         else:
             env._windows_without_reward = getattr(env, '_windows_without_reward', 0) + 1
         if verbose:
