@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v23 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v24 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -767,7 +767,12 @@ class PrometheusARC3LiveEnv:
                         and avg_move > 30.0
                         and avg_move > avg_place * 2.0)
 
-        if wwr >= 4:
+        # Confirmed click games (we've stored winning place actions) get scanner
+        # immediately on every window — no wwr dead zone after a win.  Nav-dominant
+        # games and undiscovered games still require wwr≥4 before scanner fires.
+        force_scanner = bool(self._winning_actions) and not nav_dominant
+
+        if wwr >= 4 or force_scanner:
             # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
             # so nav continues to do the heavy lifting.  All other games: 60% scanner.
             scanner_prob = 0.15 if nav_dominant else 0.60
@@ -1318,18 +1323,25 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
-        # On a win, also extract the place actions that triggered the reward so we can
-        # replay them at the start of every subsequent window (win-action replay).
+        # On a win, find the place action that triggered it.  Many games delay the
+        # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
+        # before incrementing levels_completed), so we can't rely on the reward being
+        # recorded at the same step as the click.  Instead we look back up to 30 steps
+        # from each reward step to find the most recent place action.
         if ep.total_extrinsic > 0:
             env._windows_without_reward = 0
             existing_keys = {(a.x, a.y) for a in env._winning_actions}
-            for _obs, _act, _rew in ep.history:
-                # combined reward = extrinsic + 0.05*intrinsic; extrinsic>=1 → rew>=1
-                if _rew >= 0.9 and _act.action_type == "place":
-                    k = (_act.x, _act.y)
-                    if k not in existing_keys:
-                        env._winning_actions.append(_act)
-                        existing_keys.add(k)
+            win_indices = [i for i, (_, _, rew) in enumerate(ep.history) if rew >= 0.9]
+            for win_i in win_indices:
+                lookback = max(0, win_i - 30)
+                for j in range(win_i, lookback - 1, -1):
+                    _, back_act, _ = ep.history[j]
+                    if back_act.action_type == "place":
+                        k = (back_act.x, back_act.y)
+                        if k not in existing_keys:
+                            env._winning_actions.append(back_act)
+                            existing_keys.add(k)
+                        break  # take the most recent place before this reward
         else:
             env._windows_without_reward = getattr(env, '_windows_without_reward', 0) + 1
         if verbose:
