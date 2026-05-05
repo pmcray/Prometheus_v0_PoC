@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v24 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v25 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -704,6 +704,9 @@ class PrometheusARC3LiveEnv:
         # accumulated across windows so each new window re-plays them first.
         self._winning_actions: List[ARC3Action] = []
         self._replay_idx: int = 0
+        # Set True when first scanner window reveals place API calls take >0.6s avg.
+        # Drops scanner_prob from 60% → 10% to stop burning budget on slow games.
+        self._slow_game: bool = False
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -775,7 +778,9 @@ class PrometheusARC3LiveEnv:
         if wwr >= 4 or force_scanner:
             # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
             # so nav continues to do the heavy lifting.  All other games: 60% scanner.
-            scanner_prob = 0.15 if nav_dominant else 0.60
+            # Slow games (place API calls >0.6s): cap at 10% to save runtime.
+            base_prob = 0.10 if self._slow_game else 0.60
+            scanner_prob = 0.15 if nav_dominant else base_prob
             if random.random() < scanner_prob:
                 return self._scanner.next_click()
 
@@ -1322,6 +1327,15 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
+        # Slow-game detection: check avg step time on the first scanner window (wwr==4).
+        # If place API calls average >0.6s (e.g. bp35 ~2s, dc22 ~1s), flag the game
+        # so scanner_prob drops to 10% for all subsequent windows.
+        if env._windows_without_reward >= 4 and not env._slow_game:
+            avg_step_time = (time.time() - t0) / max(1, len(ep.history))
+            if avg_step_time > 0.6:
+                env._slow_game = True
+                if verbose:
+                    print(f"  [Slow-game: {avg_step_time:.2f}s/step → scanner capped at 10%]")
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
         # On a win, find the place action that triggered it.  Many games delay the
         # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
