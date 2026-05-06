@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v25 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v26 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -704,9 +704,13 @@ class PrometheusARC3LiveEnv:
         # accumulated across windows so each new window re-plays them first.
         self._winning_actions: List[ARC3Action] = []
         self._replay_idx: int = 0
-        # Set True when first scanner window reveals place API calls take >0.6s avg.
-        # Drops scanner_prob from 60% → 10% to stop burning budget on slow games.
+        # Set True when first scanner window reveals place API calls take >1.2s avg.
+        # Drops scanner_prob from 60% → 10% to stop burning budget on truly slow games.
         self._slow_game: bool = False
+        # Set True when move actions don't change the grid (ACTION1-4 are no-ops).
+        # These games (e.g. sb26 color-sort) only respond to rotate/place/undo.
+        # Triggers scanner from window 1, skips nav solver, mixes in rotate+undo.
+        self._null_move_game: bool = False
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -770,26 +774,44 @@ class PrometheusARC3LiveEnv:
                         and avg_move > 30.0
                         and avg_move > avg_place * 2.0)
 
+        # Null-move detection: if moves don't affect the grid after 50 samples
+        # (avg pixels changed per move < 1.0), the game ignores ACTION1-4.
+        # Examples: sb26 (color-sort) only responds to rotate/place/undo.
+        # Once flagged: scanner fires from window 1, nav solver is bypassed,
+        # and the scanner mixes in rotate + undo alongside place.
+        if not self._null_move_game and self._move_change_count >= 50 and avg_move < 1.0:
+            self._null_move_game = True
+
         # Confirmed click games (we've stored winning place actions) get scanner
         # immediately on every window — no wwr dead zone after a win.  Nav-dominant
         # games and undiscovered games still require wwr≥4 before scanner fires.
         force_scanner = bool(self._winning_actions) and not nav_dominant
 
-        if wwr >= 4 or force_scanner:
+        if self._null_move_game or wwr >= 4 or force_scanner:
             # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
             # so nav continues to do the heavy lifting.  All other games: 60% scanner.
-            # Slow games (place API calls >0.6s): cap at 10% to save runtime.
+            # Slow games (place API calls >1.2s): cap at 10% to save runtime.
             base_prob = 0.10 if self._slow_game else 0.60
             scanner_prob = 0.15 if nav_dominant else base_prob
             if random.random() < scanner_prob:
+                # Null-move games need rotate and undo in addition to place.
+                # 25% rotate (ACTION5), 5% undo (ACTION7), 70% place scan.
+                if self._null_move_game:
+                    r = random.random()
+                    if r < 0.25:
+                        return ARC3Action(action_type="rotate", param=random.randint(0, 15))
+                    elif r < 0.30:
+                        return ARC3Action(action_type="undo")
                 return self._scanner.next_click()
 
-        act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
-        if act is not None:
-            nav_trust = (family in ("navigation", "unknown")
-                         or self._navigation_solver._steps_no_progress < 10)
-            if nav_trust:
-                return act
+        # Skip nav solver for null-move games (moves don't affect the game state).
+        if not self._null_move_game:
+            act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
+            if act is not None:
+                nav_trust = (family in ("navigation", "unknown")
+                             or self._navigation_solver._steps_no_progress < 10)
+                if nav_trust:
+                    return act
 
         return self._scanner.next_click()
 
@@ -1327,15 +1349,21 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
     episodes = []
     for win in range(n_windows):
         t0, ep = time.time(), agent.run_episode(env); episodes.append(ep)
-        # Slow-game detection: check avg step time on the first scanner window (wwr==4).
-        # If place API calls average >0.6s (e.g. bp35 ~2s, dc22 ~1s), flag the game
-        # so scanner_prob drops to 10% for all subsequent windows.
+        # Slow-game detection: check avg step time on the first scanner window (wwr>=4).
+        # Threshold 1.2s (was 0.6s in v25): only flag truly slow games like bp35 (~2s).
+        # sk48 (0.62s) and similar games are NOT throttled — they still need place scans.
         if env._windows_without_reward >= 4 and not env._slow_game:
             avg_step_time = (time.time() - t0) / max(1, len(ep.history))
-            if avg_step_time > 0.6:
+            if avg_step_time > 1.2:
                 env._slow_game = True
                 if verbose:
                     print(f"  [Slow-game: {avg_step_time:.2f}s/step → scanner capped at 10%]")
+        # Null-move detection log (fires once, when first flagged inside solver_action).
+        if env._null_move_game and not getattr(env, '_null_move_logged', False):
+            env._null_move_logged = True
+            if verbose:
+                avg_m = env._move_changes_sum / max(1, env._move_change_count)
+                print(f"  [Null-move game (avg_move={avg_m:.1f}px) → scanner+rotate+undo only]")
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
         # On a win, find the place action that triggered it.  Many games delay the
         # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
