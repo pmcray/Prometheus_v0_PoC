@@ -719,6 +719,14 @@ class PrometheusARC3LiveEnv:
         # in a wall-locked position and 50 consecutive moves all returned 0 px
         # change, falsely flagging the game as null-move.
         self._any_move_change: bool = False
+        # v28: 2-step selection tracking for null-move games (sb26 color-sort).
+        # sb26 requires click-A (select token) then click-B (drop in slot) as TWO
+        # separate actions.  The scanner's reactive_pixels boost causes it to return
+        # to the SAME token after step-1 (selection), never reaching the slot.
+        # _null_step2_pending fires an unconditional fresh place immediately after
+        # any small reactive change in null-move mode, implementing select→place.
+        self._null_step2_pending: bool = False
+        self._null_step2_avoid: set = set()   # pixels that changed in step-1 (the token)
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -806,6 +814,23 @@ class PrometheusARC3LiveEnv:
             # Slow games (place API calls >1.2s): cap at 10% to save runtime.
             base_prob = 0.10 if self._slow_game else 0.60
             scanner_prob = 0.15 if nav_dominant else base_prob
+
+            # v28: 2-step completion for null-move games (sb26 color-sort, etc.).
+            # When step() detected a small reactive place (token selected), fire the
+            # "drop" action unconditionally — bypasses scanner_prob so the second
+            # click always follows immediately, not separated by rotate/undo/nav.
+            if self._null_move_game and self._null_step2_pending:
+                self._null_step2_pending = False
+                avoid = self._null_step2_avoid
+                h, w = self.actual_h, self.actual_w
+                for _ in range(30):
+                    x, y = random.randint(0, w - 1), random.randint(0, h - 1)
+                    if (x, y) not in avoid:
+                        return ARC3Action(action_type="place", x=x, y=y)
+                return ARC3Action(action_type="place",
+                                  x=random.randint(0, w - 1),
+                                  y=random.randint(0, h - 1))
+
             if random.random() < scanner_prob:
                 # Null-move games need rotate and undo in addition to place.
                 # 25% rotate (ACTION5), 5% undo (ACTION7), 70% place scan.
@@ -870,6 +895,9 @@ class PrometheusARC3LiveEnv:
                 self._scanner.stalled_count += 1
                 if self._scanner.stalled_count % 30 == 0:
                     self._scanner.refine(grid)
+                # No change → any pending step-2 is stale
+                if self._null_move_game:
+                    self._null_step2_pending = False
             else:
                 self._scanner.stalled_count = 0
                 changed = np.argwhere(_diff)
@@ -877,6 +905,19 @@ class PrometheusARC3LiveEnv:
                 if action.action_type == "place":
                     self._scanner._reactive_pixels[(action.x, action.y)] += 1
                     self._scanner.refine(grid)
+                    # v28: in null-move games, a small reactive place (< 100 px)
+                    # with no reward signals a selection-state change (token highlight).
+                    # Queue step-2: next action fires a fresh place avoiding these pixels
+                    # so the scanner completes the select→drop 2-click sequence (sb26).
+                    if self._null_move_game:
+                        new_lvl = int(getattr(f, "levels_completed", prev_lvl) or prev_lvl)
+                        reward_this_step = new_lvl > prev_lvl
+                        if not reward_this_step and _n_changed < 100:
+                            self._null_step2_pending = True
+                            self._null_step2_avoid = set((int(p[1]), int(p[0])) for p in changed)
+                        else:
+                            self._null_step2_pending = False
+                            self._null_step2_avoid = set()
 
         # Track per-action-type pixel-change magnitude for nav_dominant detection.
         if action.action_type in ("move_up", "move_down", "move_left", "move_right"):
