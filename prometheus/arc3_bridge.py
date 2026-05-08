@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v26 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v27 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -708,9 +708,17 @@ class PrometheusARC3LiveEnv:
         # Drops scanner_prob from 60% → 10% to stop burning budget on truly slow games.
         self._slow_game: bool = False
         # Set True when move actions don't change the grid (ACTION1-4 are no-ops).
-        # These games (e.g. sb26 color-sort) only respond to rotate/place/undo.
-        # Triggers scanner from window 1, skips nav solver, mixes in rotate+undo.
+        # These games (e.g. sb26 color-sort, tn36 robot-programming) only respond
+        # to rotate/place/undo.  Triggers scanner from window 1, skips nav solver,
+        # mixes in rotate+undo.
         self._null_move_game: bool = False
+        # Set True the moment ANY move action changes the grid by ≥1 pixel.
+        # Used as a hard disqualifier for null-move detection: a single working
+        # move proves the game accepts ACTION1-4, even if many other moves were
+        # blocked by walls.  Prevents the s5i5 regression where the agent started
+        # in a wall-locked position and 50 consecutive moves all returned 0 px
+        # change, falsely flagging the game as null-move.
+        self._any_move_change: bool = False
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -774,12 +782,17 @@ class PrometheusARC3LiveEnv:
                         and avg_move > 30.0
                         and avg_move > avg_place * 2.0)
 
-        # Null-move detection: if moves don't affect the grid after 50 samples
-        # (avg pixels changed per move < 1.0), the game ignores ACTION1-4.
-        # Examples: sb26 (color-sort) only responds to rotate/place/undo.
-        # Once flagged: scanner fires from window 1, nav solver is bypassed,
-        # and the scanner mixes in rotate + undo alongside place.
-        if not self._null_move_game and self._move_change_count >= 50 and avg_move < 1.0:
+        # Null-move detection: if NO move action has ever changed the grid after
+        # 200 samples, the game ignores ACTION1-4 entirely (sb26 color-sort, tn36
+        # robot-programming).  Once flagged: scanner fires from window 1, nav
+        # solver is bypassed, scanner mixes rotate + undo alongside place.
+        # Threshold raised 50 → 200 and gated on `_any_move_change` to fix the
+        # s5i5 regression in v26 (agent started wall-locked, all 50 first moves
+        # returned 0 px change, null-move incorrectly fired despite working moves
+        # later in the game).
+        if (not self._null_move_game
+                and self._move_change_count >= 200
+                and not self._any_move_change):
             self._null_move_game = True
 
         # Confirmed click games (we've stored winning place actions) get scanner
@@ -869,6 +882,8 @@ class PrometheusARC3LiveEnv:
         if action.action_type in ("move_up", "move_down", "move_left", "move_right"):
             self._move_change_count += 1
             self._move_changes_sum += _n_changed
+            if _n_changed > 0:
+                self._any_move_change = True
         elif action.action_type == "place":
             self._place_change_count += 1
             self._place_changes_sum += _n_changed
@@ -1362,8 +1377,7 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
         if env._null_move_game and not getattr(env, '_null_move_logged', False):
             env._null_move_logged = True
             if verbose:
-                avg_m = env._move_changes_sum / max(1, env._move_change_count)
-                print(f"  [Null-move game (avg_move={avg_m:.1f}px) → scanner+rotate+undo only]")
+                print(f"  [Null-move game ({env._move_change_count} moves, 0 grid changes) → scanner+rotate+undo only]")
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
         # On a win, find the place action that triggered it.  Many games delay the
         # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
