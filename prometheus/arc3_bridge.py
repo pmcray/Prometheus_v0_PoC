@@ -727,6 +727,15 @@ class PrometheusARC3LiveEnv:
         # any small reactive change in null-move mode, implementing select→place.
         self._null_step2_pending: bool = False
         self._null_step2_avoid: set = set()   # pixels that changed in step-1 (the token)
+        # v29: null-place detection for games that ignore ACTION6 entirely (cd82).
+        # cd82 uses ACTION1/2/3 to cycle deflectors along a ball path — place does
+        # nothing game-wise (only flips 0-1 progress-bar pixels per step while
+        # moves change deflector sprites by 10-30 px).  When flagged, scanner_prob
+        # drops from 60% → 5% so the nav solver dominates.
+        # Guard: _any_place_change_large prevents false positives for games where
+        # places occasionally trigger large reactions (cn04 sprite clicks, ~50 px).
+        self._null_place_game: bool = False
+        self._any_place_change_large: bool = False  # any place ever changed > 5 px
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -803,6 +812,22 @@ class PrometheusARC3LiveEnv:
                 and not self._any_move_change):
             self._null_move_game = True
 
+        # v29: null-place detection — if place actions consistently change almost
+        # nothing (avg < 2 px, never > 5 px) while moves change much more, the
+        # game ignores ACTION6 (cd82 ball-deflector: moves cycle deflector sprites
+        # by 10-30 px; places only flip 0-1 progress-bar pixels as a side-effect).
+        # When flagged, scanner_prob drops 60% → 5% so nav solver dominates.
+        # Guards: _null_move_game (lp85 needs full scanner), _any_place_change_large
+        # (cn04/wa30 occasionally trigger large place reactions).
+        if (not self._null_place_game
+                and not self._null_move_game
+                and self._place_change_count >= 200
+                and self._move_change_count >= 50
+                and avg_place < 2.0
+                and avg_move > avg_place * 10.0
+                and not self._any_place_change_large):
+            self._null_place_game = True
+
         # Confirmed click games (we've stored winning place actions) get scanner
         # immediately on every window — no wwr dead zone after a win.  Nav-dominant
         # games and undiscovered games still require wwr≥4 before scanner fires.
@@ -814,6 +839,11 @@ class PrometheusARC3LiveEnv:
             # Slow games (place API calls >1.2s): cap at 10% to save runtime.
             base_prob = 0.10 if self._slow_game else 0.60
             scanner_prob = 0.15 if nav_dominant else base_prob
+            # v29: null-place game — place actions aren't affecting game state.
+            # Throttle scanner to 5% (just enough to detect if places ever become
+            # reactive) and let nav solver dominate with move actions.
+            if self._null_place_game:
+                scanner_prob = 0.05
 
             # v28: 2-step completion for null-move games (sb26 color-sort, etc.).
             # When step() detected a small reactive place (token selected), fire the
@@ -928,6 +958,8 @@ class PrometheusARC3LiveEnv:
         elif action.action_type == "place":
             self._place_change_count += 1
             self._place_changes_sum += _n_changed
+            if _n_changed > 5:
+                self._any_place_change_large = True  # v29: significant place reaction
         
         # [M] Step 4: Curiosity (Intrinsic Reward from prediction surprise)
         from prometheus.wp71_arc_agi3 import _ACTION_TYPES
@@ -1419,6 +1451,12 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
             env._null_move_logged = True
             if verbose:
                 print(f"  [Null-move game ({env._move_change_count} moves, 0 grid changes) → scanner+rotate+undo only]")
+        # Null-place detection log (fires once on first flag).
+        if env._null_place_game and not getattr(env, '_null_place_logged', False):
+            env._null_place_logged = True
+            if verbose:
+                avg_p = env._place_changes_sum / max(1, env._place_change_count)
+                print(f"  [Null-place game ({env._place_change_count} places, avg {avg_p:.2f}px/place) → scanner throttled to 5%]")
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
         # On a win, find the place action that triggered it.  Many games delay the
         # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
