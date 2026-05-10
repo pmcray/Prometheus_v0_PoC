@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v27 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v30 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -736,6 +736,14 @@ class PrometheusARC3LiveEnv:
         # places occasionally trigger large reactions (cn04 sprite clicks, ~50 px).
         self._null_place_game: bool = False
         self._any_place_change_large: bool = False  # any place ever changed > 5 px
+        # v30: micro-move detection for games where moves only flip UI pixels (ft09
+        # tile puzzle: every move changes a progress-bar by ~2 px, never more).
+        # Signature: avg_move < 3 px AND no single move ever > 10 px after 100 samples.
+        # Effect: scanner fires from window 1 at 85%, nav solver is skipped entirely.
+        # Guard: _any_move_large prevents false positives for navigation games where
+        # the agent sprite (10-20 px) moves on the first successful step.
+        self._micro_move_game: bool = False
+        self._any_move_large: bool = False  # any move ever changed > 10 px
         self._start_session()
     def _start_session(self):
         f = self._env.reset(); g, h, w = _frame_to_grid(f)
@@ -828,21 +836,39 @@ class PrometheusARC3LiveEnv:
                 and not self._any_place_change_large):
             self._null_place_game = True
 
+        # v30: micro-move detection — moves consistently cause only tiny pixel changes
+        # (avg < 3 px, no single move ever > 10 px).  ft09 tile puzzle: every ACTION1-4
+        # call updates a progress-bar region by exactly 2 px; the game only responds
+        # meaningfully to ACTION6 (place on Hkx tiles, 30+ px change).  Without this,
+        # the nav solver wastes ~50% of the step budget sending near-zero moves.
+        # When flagged: scanner fires from window 1 at 85%, nav solver is skipped.
+        # Guard: _any_move_large — any navigation game produces 10+ px sprite moves
+        # on the first successful step, preventing false positives for wa30/ka59/bp35.
+        if (not self._micro_move_game
+                and not self._null_move_game
+                and self._move_change_count >= 100
+                and not self._any_move_large
+                and avg_move < 3.0):
+            self._micro_move_game = True
+
         # Confirmed click games (we've stored winning place actions) get scanner
         # immediately on every window — no wwr dead zone after a win.  Nav-dominant
         # games and undiscovered games still require wwr≥4 before scanner fires.
         force_scanner = bool(self._winning_actions) and not nav_dominant
 
-        if self._null_move_game or wwr >= 4 or force_scanner:
+        if self._null_move_game or self._micro_move_game or wwr >= 4 or force_scanner:
             # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
             # so nav continues to do the heavy lifting.  All other games: 60% scanner.
             # Slow games (place API calls >1.2s): cap at 10% to save runtime.
             base_prob = 0.10 if self._slow_game else 0.60
             scanner_prob = 0.15 if nav_dominant else base_prob
+            # v30: micro-move game — moves only flip UI pixels; scanner dominates.
+            if self._micro_move_game:
+                scanner_prob = 0.85
             # v29: null-place game — place actions aren't affecting game state.
             # Throttle scanner to 5% (just enough to detect if places ever become
             # reactive) and let nav solver dominate with move actions.
-            if self._null_place_game:
+            elif self._null_place_game:
                 scanner_prob = 0.05
 
             # v28: 2-step completion for null-move games (sb26 color-sort, etc.).
@@ -872,8 +898,8 @@ class PrometheusARC3LiveEnv:
                         return ARC3Action(action_type="undo")
                 return self._scanner.next_click()
 
-        # Skip nav solver for null-move games (moves don't affect the game state).
-        if not self._null_move_game:
+        # Skip nav solver for null/micro-move games (moves don't meaningfully affect state).
+        if not self._null_move_game and not self._micro_move_game:
             act = self._navigation_solver.next_action(self, reward, extracted=self._extracted)
             if act is not None:
                 nav_trust = (family in ("navigation", "unknown")
@@ -955,6 +981,8 @@ class PrometheusARC3LiveEnv:
             self._move_changes_sum += _n_changed
             if _n_changed > 0:
                 self._any_move_change = True
+            if _n_changed > 10:
+                self._any_move_large = True  # v30: guard for micro-move detection
         elif action.action_type == "place":
             self._place_change_count += 1
             self._place_changes_sum += _n_changed
@@ -1457,6 +1485,12 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
             if verbose:
                 avg_p = env._place_changes_sum / max(1, env._place_change_count)
                 print(f"  [Null-place game ({env._place_change_count} places, avg {avg_p:.2f}px/place) → scanner throttled to 5%]")
+        # v30: micro-move detection log (fires once on first flag).
+        if env._micro_move_game and not getattr(env, '_micro_move_logged', False):
+            env._micro_move_logged = True
+            if verbose:
+                avg_m = env._move_changes_sum / max(1, env._move_change_count)
+                print(f"  [Micro-move game ({env._move_change_count} moves, avg {avg_m:.2f}px/move) → scanner 85%, nav skipped]")
         # Update consecutive-zero-reward counter so solver_action() can switch strategy.
         # On a win, find the place action that triggered it.  Many games delay the
         # reward by an animation sequence (e.g. lp85 StepCounter=13 plays 13 frames
