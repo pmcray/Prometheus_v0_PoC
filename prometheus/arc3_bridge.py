@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v30 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v31 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -733,9 +733,14 @@ class PrometheusARC3LiveEnv:
         # moves change deflector sprites by 10-30 px).  When flagged, scanner_prob
         # drops from 60% → 5% so the nav solver dominates.
         # Guard: _any_place_change_large prevents false positives for games where
-        # places occasionally trigger large reactions (cn04 sprite clicks, ~50 px).
+        # places trigger meaningful game reactions (cn04 sprite clicks ~50 px,
+        # wa30 interactive objects ~30 px).  Threshold raised 5→25 in v31: cd82's
+        # progress bar changes only 1-6 px per place (from interleaved move
+        # completions shifting the bar), so the old 5 px threshold falsely fired
+        # and blocked null-place detection across windows 42-60.  Real sprite
+        # interactions are always 25+ px; UI-only updates stay well below 25 px.
         self._null_place_game: bool = False
-        self._any_place_change_large: bool = False  # any place ever changed > 5 px
+        self._any_place_change_large: bool = False  # any place ever changed > 25 px
         # v30: micro-move detection for games where moves only flip UI pixels (ft09
         # tile puzzle: every move changes a progress-bar by ~2 px, never more).
         # Signature: avg_move < 3 px AND no single move ever > 10 px after 100 samples.
@@ -907,7 +912,18 @@ class PrometheusARC3LiveEnv:
                 if nav_trust:
                     return act
 
-        return self._scanner.next_click()
+        # v31: final fallback — only use scanner when scanner conditions are active.
+        # Previously, this ALWAYS called scanner.next_click(), which caused physics/
+        # gravity games (vc33) to become place-dominated from window 2 onward: the
+        # ObjectExtractor can't find the agent in complex sprite layouts → nav solver
+        # returns None → scanner fires as fallback even at wwr=0 → 130+ useless
+        # places/window instead of the navigation that won window 1.
+        # Fix: when no scanner condition applies (early windows, not null-move), fall
+        # back to a random cardinal move instead so nav-family games stay move-dominated.
+        if self._null_move_game or self._micro_move_game or wwr >= 4 or force_scanner:
+            return self._scanner.next_click()
+        return ARC3Action(action_type=random.choice(
+            ["move_up", "move_down", "move_left", "move_right"]))
 
     def step(self, action):
         prev_stack = list(self.frame_stack); prev_lvl = self.total_levels
@@ -986,8 +1002,8 @@ class PrometheusARC3LiveEnv:
         elif action.action_type == "place":
             self._place_change_count += 1
             self._place_changes_sum += _n_changed
-            if _n_changed > 5:
-                self._any_place_change_large = True  # v29: significant place reaction
+            if _n_changed > 25:
+                self._any_place_change_large = True  # v31: raised 5→25 px (cd82 fix)
         
         # [M] Step 4: Curiosity (Intrinsic Reward from prediction surprise)
         from prometheus.wp71_arc_agi3 import _ACTION_TYPES
