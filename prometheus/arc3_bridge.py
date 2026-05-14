@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v31 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v32 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -852,6 +852,7 @@ class PrometheusARC3LiveEnv:
         if (not self._micro_move_game
                 and not self._null_move_game
                 and self._move_change_count >= 100
+                and self._any_move_change        # v32: must have seen at least one non-zero move
                 and not self._any_move_large
                 and avg_move < 3.0):
             self._micro_move_game = True
