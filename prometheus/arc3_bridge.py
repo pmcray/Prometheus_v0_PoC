@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v32 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v33 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -825,10 +825,14 @@ class PrometheusARC3LiveEnv:
                 and not self._any_move_change):
             self._null_move_game = True
 
-        # v29: null-place detection — if place actions consistently change almost
-        # nothing (avg < 2 px, never > 5 px) while moves change much more, the
-        # game ignores ACTION6 (cd82 ball-deflector: moves cycle deflector sprites
-        # by 10-30 px; places only flip 0-1 progress-bar pixels as a side-effect).
+        # v29: null-place detection — if place actions change exactly 0 px on average
+        # while moves change much more, the game ignores ACTION6 (cd82, ar25, tr87,
+        # wa30: avg_place = 0.00 px exactly).  Threshold is 0.05 px (v33: tightened
+        # from 2.0) to exclude click-based games that produce small but non-zero
+        # changes — sp80 (click-to-rotate) averages 0.18 px per place because each
+        # sprite click updates a progress bar by ~2 px but most clicks miss sprites.
+        # At 0.18 > 0.05 sp80 now runs the scanner at full rate and accumulates the
+        # 30 sprite-clicks needed to win.  True null-place games are always 0.00 px.
         # When flagged, scanner_prob drops 60% → 5% so nav solver dominates.
         # Guards: _null_move_game (lp85 needs full scanner), _any_place_change_large
         # (cn04/wa30 occasionally trigger large place reactions).
@@ -836,7 +840,7 @@ class PrometheusARC3LiveEnv:
                 and not self._null_move_game
                 and self._place_change_count >= 200
                 and self._move_change_count >= 50
-                and avg_place < 2.0
+                and avg_place < 0.05          # v33: tightened from 2.0 (sp80 fix)
                 and avg_move > avg_place * 10.0
                 and not self._any_place_change_large):
             self._null_place_game = True
