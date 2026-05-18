@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v33 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v34 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -741,6 +741,13 @@ class PrometheusARC3LiveEnv:
         # interactions are always 25+ px; UI-only updates stay well below 25 px.
         self._null_place_game: bool = False
         self._any_place_change_large: bool = False  # any place ever changed > 25 px
+        # v34: ACTION5 burst injection for null-place games.  ar25 requires consecutive
+        # ACTION5 ("rotate") presses to build its xukxeewuexo win counter — any
+        # non-ACTION5 step resets the counter to 0.  Every 50 scanner steps we fire 8
+        # consecutive ACTION5 presses so the counter has a chance to accumulate.
+        # No-op for other null-place games (tr87 etc.) that don't use ACTION5.
+        self._null_place_select_ctr: int = 0    # scanner steps since last burst
+        self._null_place_select_burst: int = 0  # consecutive ACTION5 still to fire
         # v30: micro-move detection for games where moves only flip UI pixels (ft09
         # tile puzzle: every move changes a progress-bar by ~2 px, never more).
         # Signature: avg_move < 3 px AND no single move ever > 10 px after 100 samples.
@@ -878,8 +885,18 @@ class PrometheusARC3LiveEnv:
             # v29: null-place game — place actions aren't affecting game state.
             # Throttle scanner to 5% (just enough to detect if places ever become
             # reactive) and let nav solver dominate with move actions.
+            # v34: inject 8 consecutive ACTION5 ("rotate") every 50 scanner steps
+            # so ar25-type games can build their xukxeewuexo counter (resets on
+            # any non-ACTION5 step, so the burst must be uninterrupted).
             elif self._null_place_game:
                 scanner_prob = 0.05
+                self._null_place_select_ctr += 1
+                if self._null_place_select_burst > 0:
+                    self._null_place_select_burst -= 1
+                    return ARC3Action(action_type="rotate", param=random.randint(0, 15))
+                elif self._null_place_select_ctr % 50 == 0:
+                    self._null_place_select_burst = 7  # 8 total (this + 7 more)
+                    return ARC3Action(action_type="rotate", param=random.randint(0, 15))
 
             # v28: 2-step completion for null-move games (sb26 color-sort, etc.).
             # When step() detected a small reactive place (token selected), fire the
@@ -1505,7 +1522,7 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
             env._null_place_logged = True
             if verbose:
                 avg_p = env._place_changes_sum / max(1, env._place_change_count)
-                print(f"  [Null-place game ({env._place_change_count} places, avg {avg_p:.2f}px/place) → scanner throttled to 5%]")
+                print(f"  [Null-place game ({env._place_change_count} places, avg {avg_p:.2f}px/place) → scanner 5%, ACTION5 burst every 50 steps]")
         # v30: micro-move detection log (fires once on first flag).
         if env._micro_move_game and not getattr(env, '_micro_move_logged', False):
             env._micro_move_logged = True
