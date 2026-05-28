@@ -2,6 +2,7 @@
 """
 Prometheus Triad: Ashby / Good / Hofstadter Auto-Evolution Demonstrator
 Unified Python script showcasing cybernetic auto-evolution.
+Enhanced with Causal Feedback loops (Intelligence Explosion) and enriched Gödelian sentences.
 """
 
 import os
@@ -15,9 +16,8 @@ from typing import List, Dict, Tuple, Optional
 # --- CONFIGURATION & CONSTANTS ---
 GRID_SIZE = 5
 VITAL_LIMIT = 100
-CRITICAL_THRESHOLD = 35
-METABOLIC_RATE = 3.0  # Energy lost per step
-SAFETY_DECAY = 1.0     # Safety lost per step
+METABOLIC_RATE = 3.0  # Base energy lost per step
+SAFETY_DECAY = 1.0     # Base safety lost per step
 OBSTACLE_DAMAGE = 20.0
 ENERGY_GAIN = 35.0
 
@@ -115,13 +115,20 @@ class CyberneticGridWorld:
             
         return energy_delta, safety_delta, log_msg
 
-# --- ASHBY HOMEOSTATIC ENGINE ---
+# --- ASHBY HOMEOSTATIC ENGINE WITH RECURSIVE OPTIMIZATION ---
 class AshbyHomeostaticController:
     def __init__(self):
         # Vital Variables
         self.energy = 80.0
         self.safety = 80.0
         self.efficiency = 90.0
+        
+        # Double-Loop threshold (initially 35.0, dynamically optimized via Causal Feedback)
+        self.double_loop_threshold = 35.0
+        # Shield absorption multiplier (lower = more absorption, optimized via causal feedback)
+        self.shield_coefficient = 0.4  # Starts at 60% reduction
+        # Metabolic penalty multiplier for diagonal movement (optimized via causal feedback)
+        self.diagonal_penalty = 1.0     # Starts at standard 100% cost
         
         self.loop_state = "FIRST_LOOP"  # FIRST_LOOP (Parameter Tuning), SECOND_LOOP (Structural Expansion)
         self.shield_active = False
@@ -130,14 +137,14 @@ class AshbyHomeostaticController:
         self.learning_rate = 0.1
         self.cycles_survived = 0
         
-    def check_homeostasis(self):
+    def check_homeostasis(self) -> str:
         """Monitors vital variables and triggers Double-Loop adaptation if needed."""
-        # Double-Loop Learning condition (Ashby)
-        if self.energy < CRITICAL_THRESHOLD or self.safety < CRITICAL_THRESHOLD:
+        # Double-Loop Learning condition (Ashby) using optimized threshold
+        if self.energy < self.double_loop_threshold or self.safety < self.double_loop_threshold:
             if self.loop_state == "FIRST_LOOP":
                 self.loop_state = "SECOND_LOOP"
                 self.activate_second_loop()
-                return "CRITICAL: Homeostatic bounds breached! Triggering Second-Loop structural shift."
+                return f"CRITICAL: Vitals below threshold ({self.double_loop_threshold:.1f}%)! Triggering Second-Loop structural shift."
         else:
             if self.loop_state == "SECOND_LOOP" and self.energy > 60.0 and self.safety > 60.0:
                 self.loop_state = "FIRST_LOOP"
@@ -150,8 +157,8 @@ class AshbyHomeostaticController:
         self.diagonal_moves_unlocked = True
         self.scan_range = 3
         self.shield_active = True
-        # Cost of higher structural variety is metabolic/efficiency penalty
-        self.efficiency -= 15.0
+        # Variety cost (mitigated by optimized efficiency)
+        self.efficiency -= (15.0 * self.diagonal_penalty)
 
     def deactivate_second_loop(self):
         """Returns to standard low-energy first-loop baseline."""
@@ -160,15 +167,49 @@ class AshbyHomeostaticController:
         self.shield_active = False
         self.efficiency += 10.0
 
-    def update_vitals(self, de: float, ds: float, shield_modifier: float = 1.0):
+    def apply_causal_feedback(self, k_mesh: Dict[str, float]):
+        """
+        Good's Intelligence Explosion (Recursive Self-Improvement).
+        Optimizes controller parameters dynamically based on calculated K(E:F) causal support weights.
+        """
+        # 1. Optimize double-loop threshold
+        # If Second-Loop is highly beneficial (high causal support), shift the trigger threshold
+        # upwards so the agent enters Second-Loop *earlier* to prevent rapid starvation.
+        k_second_loop = k_mesh.get("SECOND_LOOP", 0.0)
+        if k_second_loop > 0.05:
+            # Positive causal support pushes threshold up (max 55%)
+            self.double_loop_threshold = min(55.0, self.double_loop_threshold + 1.5 * k_second_loop)
+        elif k_second_loop < -0.05:
+            # Negative causal support pulls threshold down (min 20%)
+            self.double_loop_threshold = max(20.0, self.double_loop_threshold + 1.5 * k_second_loop)
+
+        # 2. Optimize shielding substrate metabolic cost
+        # Positive shield causal evidence reduces the metabolic shield leakage coefficient
+        k_shield = k_mesh.get("SHIELD", 0.0)
+        if k_shield > 0.05:
+            # Increases shield effectiveness (lower coefficient = higher absorption, min 0.15)
+            self.shield_coefficient = max(0.15, self.shield_coefficient - 0.04 * k_shield)
+
+        # 3. Optimize diagonal motor efficiency
+        # Positive diagonals causal evidence lowers metabolic costs for complex moves
+        k_diagonals = k_mesh.get("DIAGONALS", 0.0)
+        if k_diagonals > 0.05:
+            self.diagonal_penalty = max(0.4, self.diagonal_penalty - 0.06 * k_diagonals)
+
+    def update_vitals(self, de: float, ds: float):
         if de > 0:
             self.energy = min(VITAL_LIMIT, self.energy + de)
         else:
-            self.energy = max(0.0, self.energy + de)
+            # Metabolic penalty is modulated by diagonal movement efficiency if diagonal move was made
+            actual_de = de
+            if self.diagonal_moves_unlocked and de < -METABOLIC_RATE:
+                actual_de = de * self.diagonal_penalty
+            self.energy = max(0.0, self.energy + actual_de)
             
         actual_ds = ds
         if ds < 0 and self.shield_active:
-            actual_ds = ds * 0.4 * shield_modifier # 60% obstacle damage reduction
+            # Shield coefficient is optimized dynamically via causal feedback
+            actual_ds = ds * self.shield_coefficient
             
         if actual_ds > 0:
             self.safety = min(VITAL_LIMIT, self.safety + actual_ds)
@@ -238,24 +279,31 @@ class GoedelianSafetyGovernor:
         self.recursion_depth = 0
         
     def evaluate_modification(self, proposed_code: str) -> Tuple[bool, str]:
-        """Parses self-referential modifications and resolves halting paradoxes."""
+        """Parses complex self-referential Gödelian sentences and prevents halting loops."""
         self.recursion_depth += 1
         
-        # Check for self-referential liars paradox in the rule proposal
-        is_self_referential = "safety_level" in proposed_code and "proposed_code" in proposed_code
+        # Enriched Gödel sentence modeling: references its own unprovability / inconsistency
+        is_self_referential = (
+            "safety_level" in proposed_code and 
+            ("consistency" in proposed_code or "unprovable" in proposed_code or "proposed_code" in proposed_code)
+        )
         
         if is_self_referential:
-            # Epimenides Paradox simulated halt loop
-            log_msg = f"WARNING: Liar Paradox detected at recursion level {self.recursion_depth}. Undecidable hierarchy detected."
+            # Epimenides Paradox / Gödel Incompleteness simulated halt loop
+            log_msg = (
+                f"WARNING: Gödel Sentence Paradox detected at recursion level {self.recursion_depth}.\n"
+                f" -> Proposed Modification: '{proposed_code[:90]}...'\n"
+                f" -> Reason: Attempting to verify consistency inside the current formal system bounds."
+            )
             
-            # Gödelian metalinguistic leap: Stepping out of the formal system (Hofstadter strange loop resolution)
-            time.sleep(0.5)
+            # Gödelian metalinguistic leap (Hofstadter strange loop resolution)
+            time.sleep(0.4)
             log_msg += f"\n -> Executing Gödelian Transcendence. Stepping outside current formal system..."
-            time.sleep(0.5)
+            time.sleep(0.4)
             
             # Transcendence establishes a meta-rule resolving the self-reference
             self.recursion_depth = 0
-            return True, log_msg + "\n ✅ Paradox resolved: Meta-Safety Seal issued from outer loop."
+            return True, log_msg + "\n ✅ Meta-System Leap complete: Consistency proved from outer loop. Meta-Safety Seal issued."
             
         self.recursion_depth = 0
         return True, "Code modification cleared by standard security governor."
@@ -269,10 +317,12 @@ class HofstadterStrangeLoopEngine:
         """Triggers a meta-level self-assessment that loops back to inspect itself."""
         self.loop_depth += 1
         
-        # Propose a self-referential optimization rule
+        # Propose an enriched Gödelian self-referential consistency rule
         proposed_rule = (
-            "def check_safety(proposed_code):\n"
-            "    if safety_level < proposed_code.safety_level:\n"
+            "def verify_agent_safety(self):\n"
+            "    # This rule is valid if and only if the proof of its own consistency\n"
+            "    # cannot be found in the current system state safety_level bounds.\n"
+            "    if not self.governor.verify(self.proposed_code):\n"
             "        return False\n"
             "    return True"
         )
@@ -297,7 +347,7 @@ def get_best_action(agent_pos: Tuple[int, int], env: CyberneticGridWorld, scan_r
         if nx < 0 or nx >= env.size or ny < 0 or ny >= env.size:
             continue
             
-        # Compute expected utility based on active inference (simplistic proximity attraction / obstacle repulsion)
+        # Compute expected utility based on active inference (proximity attraction / obstacle repulsion)
         utility = 0.0
         
         # Distance to E-cells within scan range
@@ -330,7 +380,7 @@ def get_best_action(agent_pos: Tuple[int, int], env: CyberneticGridWorld, scan_r
 
 # --- ASCII DASHBOARD RENDERING ---
 def render_dashboard(env: CyberneticGridWorld, controller: AshbyHomeostaticController, evaluator: GoodianCausalEvaluator, strange_loop_msg: str, step_msg: str):
-    # Clear console (cross-platform)
+    # Clear console
     os.system('cls' if os.name == 'nt' else 'clear')
     
     # Title
@@ -362,8 +412,8 @@ def render_dashboard(env: CyberneticGridWorld, controller: AshbyHomeostaticContr
         bar = color + "█" * blocks + GRAY + "░" * (10 - blocks) + RESET
         return f"{bar} ({val:.1f})"
         
-    energy_color = GREEN if controller.energy > CRITICAL_THRESHOLD else RED
-    safety_color = BLUE if controller.safety > CRITICAL_THRESHOLD else RED
+    energy_color = GREEN if controller.energy > controller.double_loop_threshold else RED
+    safety_color = BLUE if controller.safety > controller.double_loop_threshold else RED
     
     print(f"{grid_lines[0]}        ENERGY     : {make_bar(controller.energy, energy_color)}")
     print(f"{grid_lines[1]}        SAFETY     : {make_bar(controller.safety, safety_color)}")
@@ -371,13 +421,21 @@ def render_dashboard(env: CyberneticGridWorld, controller: AshbyHomeostaticContr
     print(f"{grid_lines[3]}        SURVIVED   : {controller.cycles_survived} cycles")
     print(f"{grid_lines[4]}        DISTURBANCE: {BOLD}{YELLOW if env.disturbance_level == 'MEDIUM' else RED if env.disturbance_level == 'HIGH' else GREEN}{env.disturbance_level} (Variety: {env.disturbance_variety:.2f}){RESET}")
 
-    # 2. Ashby homeostatic loop indicator
-    print(f"\n{BOLD} [2] W. Ross Ashby: Double-Loop Learning Engine{RESET}")
+    # 2. Ashby homeostatic loop indicator & Mutated parameters
+    print(f"\n{BOLD} [2] W. Ross Ashby: Double-Loop Learning & Requisite Variety{RESET}")
     loop_str = f"{BOLD}{GREEN}FIRST_LOOP (Tuning Mode){RESET}" if controller.loop_state == "FIRST_LOOP" else f"{BOLD}{RED}SECOND_LOOP (Structural Expansion Active!){RESET}"
     print(f"    Current Cybernetic State : {loop_str}")
     print(f"    Unlocked Diagonal Moves   : {GREEN if controller.diagonal_moves_unlocked else GRAY}False{RESET}")
     print(f"    Optical Scanner Range     : {BOLD}{BLUE}{controller.scan_range} cells{RESET}")
     print(f"    Obstacle Shield Substrate : {GREEN if controller.shield_active else GRAY}Deactivated{RESET}")
+    
+    # Intelligence Explosion Telemetry (Good's recursive optimization)
+    print(f"    {BOLD}{CYAN}Recursive Optimization Status (Intelligence Explosion):{RESET}")
+    print(f"      -> Homeostatic Threshold : {BOLD}{YELLOW}{controller.double_loop_threshold:.2f}%{RESET} (Base: 35.0%)")
+    shield_pct = (1.0 - controller.shield_coefficient) * 100
+    print(f"      -> Shielding Absorption  : {BOLD}{GREEN}{shield_pct:.1f}%{RESET} (Base: 60.0%)")
+    diag_cost = controller.diagonal_penalty * 100
+    print(f"      -> Diagonal Motor Cost   : {BOLD}{PURPLE}{diag_cost:.1f}%{RESET} (Base: 100.0%)")
 
     # 3. Goodian Causal Evidence Mesh
     print(f"\n{BOLD} [3] I.J. Good: Metacognitive Causal Mesh K(E : F){RESET}")
@@ -395,7 +453,7 @@ def render_dashboard(env: CyberneticGridWorld, controller: AshbyHomeostaticContr
     print(f"\n{BOLD} [Event Log] {RESET}{step_msg}")
     print("-" * 58)
 
-# --- QUICK LOCAL EXECUTION LOOP ---
+# --- EXECUTION LOOP WITH CAUSAL FEEDBACK ---
 def run_simulation(max_steps: int = 40, delay: float = 0.8):
     env = CyberneticGridWorld()
     controller = AshbyHomeostaticController()
@@ -414,7 +472,7 @@ def run_simulation(max_steps: int = 40, delay: float = 0.8):
         
         # 3. Agent Active Inference decision making
         dx, dy = get_best_action(
-            controller.cycles_survived if hasattr(controller, 'agent_pos') else env.agent_pos,
+            env.agent_pos,
             env,
             controller.scan_range,
             controller.diagonal_moves_unlocked
@@ -425,8 +483,8 @@ def run_simulation(max_steps: int = 40, delay: float = 0.8):
         controller.update_vitals(de, ds)
         
         # 5. Goodian Causal Tracking
-        # Success = vitals strictly above critical bounds
-        success = controller.energy > CRITICAL_THRESHOLD and controller.safety > CRITICAL_THRESHOLD
+        # Success = vitals strictly above homeostatic bounds
+        success = controller.energy > controller.double_loop_threshold and controller.safety > controller.double_loop_threshold
         active_strategies = {
             "FIRST_LOOP": controller.loop_state == "FIRST_LOOP",
             "SECOND_LOOP": controller.loop_state == "SECOND_LOOP",
@@ -435,7 +493,13 @@ def run_simulation(max_steps: int = 40, delay: float = 0.8):
         }
         evaluator.record_step(active_strategies, success)
         
-        # 6. Periodic Hofstadter Strange Loop Self-Modification
+        # 6. Apply Causal-Feedback parameters modification (Good's Intelligence Explosion)
+        # Recalculates and adjusts active-inference tuning variables every 5 steps
+        if i > 0 and i % 5 == 0:
+            k_mesh = evaluator.get_mesh()
+            controller.apply_causal_feedback(k_mesh)
+        
+        # 7. Periodic Hofstadter Strange Loop Self-Modification
         if i > 0 and i % 10 == 0:
             strange_loop_msg = strange_loop_engine.trigger_self_modification_cycle()
         else:
@@ -450,7 +514,6 @@ def run_simulation(max_steps: int = 40, delay: float = 0.8):
     print(f"\n{BOLD}{GREEN} Demonstrator complete. Final cycles survived: {controller.cycles_survived}.{RESET}\n")
 
 if __name__ == "__main__":
-    # If run in Quick local mode or with custom steps
     steps = 40
     if len(sys.argv) > 1:
         try:
