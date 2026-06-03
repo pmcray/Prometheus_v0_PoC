@@ -283,12 +283,11 @@ if "prometheus_agent" in cells:
                             board_copy = GoBoard(size=board.size)
                             board_copy.board = board.board.copy()
                             board_copy.current_player = player
-                            board_copy.play_move(lib[0], lib[1], player)
+                            board_copy.play_move(lib[0], lib[1])
                             new_group = board_copy.get_group(r, c)
                             if board_copy.count_liberties(new_group) == 1:
                                 return lib
     return None
-
 
 """
         source_str = source_str[:target_pos] + ladder_fn_code + source_str[target_pos:]
