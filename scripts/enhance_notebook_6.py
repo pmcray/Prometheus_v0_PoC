@@ -17,9 +17,13 @@ cells = {c.get("id"): c for c in nb.get("cells", [])}
 if "intro" in cells:
     intro_source = cells["intro"]["source"]
     intro_str = "".join(intro_source)
-    # Update timestamp
-    intro_str = intro_str.replace("Last updated: 2026-06-01", "Last updated: 2026-06-02")
-    intro_str = intro_str.replace("Modified: 2026-06-01 18:33:40 PDT", "Modified: 2026-06-02 13:00:00 PDT")
+    # Update timestamp dynamically using regex
+    import re
+    intro_str = re.sub(
+        r"\*\*Last updated:.*PDT\)\*\*",
+        "**Last updated: 2026-06-02 (Modified: 2026-06-02 17:08:29 PDT)**",
+        intro_str
+    )
     cells["intro"]["source"] = [line + "\n" for line in intro_str.split("\n")]
     if cells["intro"]["source"][-1] == "\n":
         cells["intro"]["source"].pop()
