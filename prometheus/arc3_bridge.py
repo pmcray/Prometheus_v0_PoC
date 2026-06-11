@@ -1,4 +1,4 @@
-# -- Prometheus ARC-AGI-3 Bridge v34 (Production Module) ---------------------
+# -- Prometheus ARC-AGI-3 Bridge v35 (Production Module) ---------------------
 # Neural Latent Reasoning Architecture
 # Build: 2026-04-20 23:55:00 (v0.95)
 # ---------------------------------------------------------------------------
@@ -210,6 +210,119 @@ def visualize_latent_space(episodes):
 
 _TO_GA = {"move_up":"ACTION1","move_down":"ACTION2","move_left":"ACTION3","move_right":"ACTION4","rotate":"ACTION5","place":"ACTION6","undo":"ACTION7"}
 
+# ── v35 Item 1: Relational win memory (Hofstadter isomorphism) ───────────────
+class _WinRelation:
+    """Relational (isomorphic) description of a winning click.
+
+    Stores *role* (colour, relative position, size) rather than absolute
+    screen coordinates so that the same structural win can be replayed even
+    when sprite positions change between levels — a concrete Hofstadter
+    isomorphism across game states.
+    """
+    __slots__ = ("colour", "rel_x", "rel_y", "size_approx", "fallback")
+
+    def __init__(self, colour, rel_x, rel_y, size_approx, fallback):
+        self.colour = colour          # int: dominant colour of clicked object
+        self.rel_x = rel_x           # float in [0,1]: fractional col position
+        self.rel_y = rel_y           # float in [0,1]: fractional row position
+        self.size_approx = size_approx  # int: pixel count of matched object
+        self.fallback = fallback      # ARC3Action: absolute coords as last resort
+
+
+def _build_win_relation(action, extracted, grid_h, grid_w):
+    """Build a _WinRelation from a winning place action + current extraction."""
+    rx = action.x / max(grid_w, 1)
+    ry = action.y / max(grid_h, 1)
+    if extracted is None:
+        return _WinRelation(None, rx, ry, 0, action)
+    best_col, best_dist, best_size = None, float("inf"), 0
+    for col, positions in extracted.get("objects_by_colour", {}).items():
+        cy = sum(p[0] for p in positions) / len(positions)
+        cx = sum(p[1] for p in positions) / len(positions)
+        dist = abs(cy - action.y) + abs(cx - action.x)
+        if dist < best_dist:
+            best_col, best_dist, best_size = col, dist, len(positions)
+    return _WinRelation(best_col, rx, ry, best_size, action)
+
+
+# ── v35 Item 3: Strategy genome (Good's self-improvement) ────────────────────
+class _StrategyGenome:
+    """Good-inspired self-modifying strategy parameter vector.
+
+    Stores a mutable parameter dict ('active') and a baseline.  Every
+    EVAL_WINDOWS windows it compares the current parameter set's cumulative
+    fitness (level wins + 0.1×curiosity) against the baseline; keeps the
+    mutation if it is at least 95 % as good, otherwise reverts.  Then
+    applies a fresh Gaussian mutation for the next trial period.
+
+    This is Good's self-improvement loop: the system revises its own
+    decision parameters rather than having a human re-tune them.
+    """
+    EVAL_WINDOWS = 4
+
+    _DEFAULTS = {
+        "scanner_base_prob": 0.60,
+        "nav_dominant_prob": 0.15,
+        "null_place_prob":   0.05,
+        "micro_move_prob":   0.85,
+        "slow_game_cap":     0.10,
+        "burst_freq":        50.0,
+        "burst_size":        7.0,
+    }
+    _SIGMA = {
+        "scanner_base_prob": 0.08,
+        "nav_dominant_prob": 0.05,
+        "null_place_prob":   0.02,
+        "micro_move_prob":   0.07,
+        "slow_game_cap":     0.03,
+        "burst_freq":        8.0,
+        "burst_size":        2.0,
+    }
+    _BOUNDS = {
+        "scanner_base_prob": (0.10, 0.95),
+        "nav_dominant_prob": (0.05, 0.40),
+        "null_place_prob":   (0.01, 0.15),
+        "micro_move_prob":   (0.50, 0.99),
+        "slow_game_cap":     (0.03, 0.25),
+        "burst_freq":        (10.0, 120.0),
+        "burst_size":        (2.0,  20.0),
+    }
+
+    def __init__(self):
+        self.active = dict(self._DEFAULTS)
+        self._baseline = dict(self._DEFAULTS)
+        self._baseline_fitness = 0.0
+        self._trial_fitness = 0.0
+        self._window_count = 0
+        self.history: list = []  # (window_idx, params_snapshot, fitness)
+
+    def _mutate(self, params: dict) -> dict:
+        out = {}
+        for k, v in params.items():
+            lo, hi = self._BOUNDS[k]
+            out[k] = float(np.clip(v + random.gauss(0, self._SIGMA[k]), lo, hi))
+        return out
+
+    def record_window(self, levels_gained: int, curiosity: float):
+        """Accumulate fitness for the current trial period."""
+        self._trial_fitness += levels_gained + 0.1 * curiosity
+        self._window_count += 1
+
+    def maybe_evolve(self, window_idx: int):
+        """Hill-climb: keep mutation if fitness >= 95% baseline, then mutate again."""
+        if self._window_count < self.EVAL_WINDOWS:
+            return
+        self.history.append((window_idx, dict(self.active), self._trial_fitness))
+        if self._trial_fitness >= 0.95 * max(self._baseline_fitness, 1e-9):
+            self._baseline = dict(self.active)
+            self._baseline_fitness = self._trial_fitness
+        else:
+            self.active = dict(self._baseline)
+        self.active = self._mutate(self.active)
+        self._trial_fitness = 0.0
+        self._window_count = 0
+
+
 def _frame_to_grid(frame):
     raw = getattr(frame, "frame", None)
     if raw is None or not hasattr(raw, "__len__") or len(raw) == 0: 
@@ -305,6 +418,77 @@ class ObjectExtractor:
         }
 
 
+# ── v35 Item 2: Frontier navigator (BFS goal-directed coverage) ──────────────
+class FrontierNavigator:
+    """Coarse BFS navigator for systematic maze / map coverage.
+
+    Maintains a 16×16 coarse grid (each cell = 4×4 px in a 64×64 frame).
+    BFS finds the nearest unvisited cell and returns the first step direction.
+    If movement in a direction produces no position change it is added to the
+    blocked-directions set for the current cell to prevent wall-hammering.
+    """
+    CELL = 4  # pixels per coarse cell
+
+    def __init__(self, grid_cells: int = 16):
+        self._n = grid_cells
+        self._visited: set = set()
+        self._blocked: dict = {}   # (cr, cc) -> set of blocked directions
+        self._last_cell: Optional[tuple] = None
+        self._last_dir: Optional[str] = None
+
+    def _to_cell(self, py: float, px: float) -> tuple:
+        cr = min(self._n - 1, max(0, int(py / self.CELL)))
+        cc = min(self._n - 1, max(0, int(px / self.CELL)))
+        return (cr, cc)
+
+    def _bfs_next_dir(self, start: tuple) -> Optional[str]:
+        """Return direction of first step toward nearest unvisited cell."""
+        q: deque = deque()
+        seen = {start}
+        for dr, dc, direction in [(-1, 0, "move_up"), (1, 0, "move_down"),
+                                   (0, -1, "move_left"), (0, 1, "move_right")]:
+            nr, nc = start[0] + dr, start[1] + dc
+            if 0 <= nr < self._n and 0 <= nc < self._n:
+                blocked = self._blocked.get(start, set())
+                if direction not in blocked:
+                    q.append(((nr, nc), direction))
+                    seen.add((nr, nc))
+        while q:
+            (cr, cc), first_dir = q.popleft()
+            if (cr, cc) not in self._visited:
+                return first_dir
+            for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                nr, nc = cr + dr, cc + dc
+                if 0 <= nr < self._n and 0 <= nc < self._n and (nr, nc) not in seen:
+                    seen.add((nr, nc))
+                    q.append(((nr, nc), first_dir))
+        return None
+
+    def mark_blocked(self, cell: tuple, direction: str):
+        self._blocked.setdefault(cell, set()).add(direction)
+
+    def step(self, agent_y: float, agent_x: float, moved: bool) -> Optional[str]:
+        """Return direction string toward nearest unvisited cell, or None if full."""
+        cell = self._to_cell(agent_y, agent_x)
+        self._visited.add(cell)
+        if self._last_cell is not None and self._last_dir is not None and not moved:
+            self.mark_blocked(self._last_cell, self._last_dir)
+        self._last_cell = cell
+        direction = self._bfs_next_dir(cell)
+        self._last_dir = direction
+        return direction
+
+    @property
+    def coverage(self) -> float:
+        return len(self._visited) / (self._n * self._n)
+
+    def reset(self):
+        self._visited.clear()
+        self._blocked.clear()
+        self._last_cell = None
+        self._last_dir = None
+
+
 class GameTypeClassifier:
     """Classify a game family from the first few frames.
 
@@ -388,6 +572,9 @@ class NavigationSolver:
         self._target_key: Optional[tuple] = None
         self._target_steps: int = 0
         self._failed_targets: set = set()
+        # v35 Item 2: BFS frontier coverage when no explicit targets are visible
+        self._frontier_nav = FrontierNavigator()
+        self._last_direction_sent: Optional[str] = None
 
     def next_action(self, env, reward, extracted=None) -> Optional[ARC3Action]:
         grid = np.array(env.frame_stack[-1])
@@ -477,7 +664,14 @@ class NavigationSolver:
                 if abs(dy) > abs(dx):
                     return ARC3Action(action_type="move_up" if dy < 0 else "move_down")
                 return ARC3Action(action_type="move_left" if dx < 0 else "move_right")
-            # No targets found — fall through to raw-grid fallback
+            # No explicit targets — use BFS frontier coverage (v35 Item 2)
+            moved = (self._last_pos is None
+                     or abs(ay - self._last_pos[0]) + abs(ax - self._last_pos[1]) > 0.5)
+            fn_dir = self._frontier_nav.step(ay, ax, moved)
+            self._last_pos = (ay, ax)
+            if fn_dir is not None:
+                self._last_direction_sent = fn_dir
+                return ARC3Action(action_type=fn_dir)
 
         # --- Raw-grid fallback (when ObjectExtractor has no confirmed agent) ---
         field = grid
@@ -703,7 +897,10 @@ class PrometheusARC3LiveEnv:
         # Win-action replay: place actions that triggered extrinsic reward,
         # accumulated across windows so each new window re-plays them first.
         self._winning_actions: List[ARC3Action] = []
+        self._win_relations: List[_WinRelation] = []  # v35: relational counterpart
         self._replay_idx: int = 0
+        # v35 Item 3: strategy genome for Good's self-improvement loop
+        self._genome = _StrategyGenome()
         # Set True when first scanner window reveals place API calls take >1.2s avg.
         # Drops scanner_prob from 60% → 10% to stop burning budget on truly slow games.
         self._slow_game: bool = False
@@ -795,12 +992,34 @@ class PrometheusARC3LiveEnv:
         """Return the most recent object-level extraction dict."""
         return self._extracted
 
+    def _rebind_winning_action(self, rel: _WinRelation) -> ARC3Action:
+        """Rebind a stored win relation to the current frame (Hofstadter isomorphism).
+
+        Looks for the same colour role in the current extracted scene and
+        returns a place action aimed at its centroid.  Falls back to
+        normalised-coordinate rescaling, then absolute coords.
+        """
+        if rel.colour is not None and self._extracted:
+            objects = self._extracted.get("objects_by_colour", {})
+            if rel.colour in objects:
+                positions = objects[rel.colour]
+                cy = sum(p[0] for p in positions) / len(positions)
+                cx = sum(p[1] for p in positions) / len(positions)
+                return ARC3Action(action_type="place", x=int(cx), y=int(cy))
+        h, w = self.actual_h, self.actual_w
+        return ARC3Action(action_type="place",
+                          x=int(rel.rel_x * max(w, 1)),
+                          y=int(rel.rel_y * max(h, 1)))
+
     def solver_action(self, reward) -> Optional[ARC3Action]:
         """Returns a solver-guided action, or None to let the beam search decide."""
-        # Priority 0: replay place actions that triggered wins in previous windows.
-        # These are replayed from the start of every window to immediately re-solve
-        # known levels before spending steps on new discovery.
+        # Priority 0: replay winning actions with relational rebinding (v35 Item 1).
+        # Prefer win-relation rebinding (isomorphic replay) over raw absolute coords.
         if self._replay_idx < len(self._winning_actions):
+            if self._replay_idx < len(self._win_relations):
+                rel = self._win_relations[self._replay_idx]
+                self._replay_idx += 1
+                return self._rebind_winning_action(rel)
             act = self._winning_actions[self._replay_idx]
             self._replay_idx += 1
             return act
@@ -877,25 +1096,29 @@ class PrometheusARC3LiveEnv:
             # nav_dominant games (gravity, physics): keep scanner at 15% probe rate
             # so nav continues to do the heavy lifting.  All other games: 60% scanner.
             # Slow games (place API calls >1.2s): cap at 10% to save runtime.
-            base_prob = 0.10 if self._slow_game else 0.60
-            scanner_prob = 0.15 if nav_dominant else base_prob
+            # v35 Item 3: probabilities now come from the evolving strategy genome.
+            g = self._genome.active
+            base_prob = g["slow_game_cap"] if self._slow_game else g["scanner_base_prob"]
+            scanner_prob = g["nav_dominant_prob"] if nav_dominant else base_prob
             # v30: micro-move game — moves only flip UI pixels; scanner dominates.
             if self._micro_move_game:
-                scanner_prob = 0.85
+                scanner_prob = g["micro_move_prob"]
             # v29: null-place game — place actions aren't affecting game state.
-            # Throttle scanner to 5% (just enough to detect if places ever become
-            # reactive) and let nav solver dominate with move actions.
-            # v34: inject 8 consecutive ACTION5 ("rotate") every 50 scanner steps
-            # so ar25-type games can build their xukxeewuexo counter (resets on
-            # any non-ACTION5 step, so the burst must be uninterrupted).
+            # Throttle scanner to null_place_prob (genome-tuned, default 5%) and let
+            # nav solver dominate with move actions.
+            # v34: inject consecutive ACTION5 ("rotate") bursts so ar25-type games
+            # can build their xukxeewuexo counter; burst_freq and burst_size are
+            # now genome-tuned parameters instead of hard-coded 50/8.
             elif self._null_place_game:
-                scanner_prob = 0.05
+                scanner_prob = g["null_place_prob"]
                 self._null_place_select_ctr += 1
+                burst_freq = max(1, int(g["burst_freq"]))
+                burst_size = max(1, int(g["burst_size"]))
                 if self._null_place_select_burst > 0:
                     self._null_place_select_burst -= 1
                     return ARC3Action(action_type="rotate", param=random.randint(0, 15))
-                elif self._null_place_select_ctr % 50 == 0:
-                    self._null_place_select_burst = 7  # 8 total (this + 7 more)
+                elif self._null_place_select_ctr % burst_freq == 0:
+                    self._null_place_select_burst = burst_size
                     return ARC3Action(action_type="rotate", param=random.randint(0, 15))
 
             # v28: 2-step completion for null-move games (sb26 color-sort, etc.).
@@ -1548,9 +1771,17 @@ def run_live_game(game_id="ls20", n_windows=40, window_steps=120, mutation_rate=
                         if k not in existing_keys:
                             env._winning_actions.append(back_act)
                             existing_keys.add(k)
+                            # v35 Item 1: build relational descriptor for this win
+                            rel = _build_win_relation(
+                                back_act, env._extracted,
+                                env.actual_h, env.actual_w)
+                            env._win_relations.append(rel)
                         break  # take the most recent place before this reward
         else:
             env._windows_without_reward = getattr(env, '_windows_without_reward', 0) + 1
+        # v35 Item 3: accumulate fitness and hill-climb every EVAL_WINDOWS windows.
+        env._genome.record_window(int(ep.total_extrinsic), ep.total_intrinsic)
+        env._genome.maybe_evolve(win)
         if verbose:
             # Count steps where the grid changed (change_reward > 0)
             chg = sum(1 for _, _, r in ep.history
