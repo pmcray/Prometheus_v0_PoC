@@ -7,6 +7,10 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
 
+> **Branch note:** `main` is the trunk — branch from it and open pull requests against
+> it. The `master` and `v0.69` branches are a separate, retired history and are kept
+> for provenance only. See [docs/BRANCHES.md](docs/BRANCHES.md).
+
 ---
 
 ## Overview
