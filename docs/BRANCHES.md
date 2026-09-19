@@ -53,13 +53,32 @@ Naming the trunk `main` repairs two things that had been silently broken:
   `claude/codebase-status-check-*`, `claude/go-mcts-ogs-guide-*`** — stale topic
   branches predating the unification.
 
-## Pull requests
+## Pull requests — left open deliberately
 
-Pull requests #2 and #3 targeted `master` and had been open since August and November
-2025 respectively. Because their base is on the retired lineage, retargeting them at
-`main` would have produced a diff across unrelated histories rather than their actual
-change. They were closed with an explanation; the branches remain, so the work can be
-re-proposed against `main` if still wanted.
+Pull requests #2 and #3 target `master` and have been open since August and November
+2025. They were **not** closed, because the "lineage A is fully subsumed" claim holds
+at the level of *filenames* but **not** at the level of *file contents*.
+
+Both PR branches carry code that is missing from `main`:
+
+- **PR #3** (`claude/codebase-status-check-…`, 225 commits) — `main` adds 44,354 lines
+  over this branch but also **drops 208**, spread across 20 files. The most serious is
+  `prometheus/safety/mcs_supervisor.py`: on the PR branch it parses proposed code with
+  `ast.parse`, walks the tree, and rejects forbidden imports. On `main` the
+  `self.forbidden_imports` set is still declared but **nothing reads it** — the
+  `ast.parse`, `ast.walk` and enforcement branch are all absent. The safety check is
+  declared but not enforced.
+- **PR #2** (`feature/verify-v18-impl-and-fix-tests`, 18 commits) — conflicted
+  (`mergeable_state: dirty`) and dominated by committed build artifacts (`__pycache__`,
+  `.lake`, logs), which is why GitHub reports 7,271 changed files. Underneath that it
+  still holds content `main` lacks, including ~123 lines in
+  `prometheus/causal_attention.py`.
+
+Retargeting either at `main` would produce a diff across unrelated histories rather
+than the actual change, so that is not useful either. The correct resolution is to
+**port the missing hunks onto `main` deliberately**, starting with the
+`mcs_supervisor.py` enforcement gap, and only then close these PRs. Until that is done,
+leave them open — they are the only record of that code.
 
 ## One remaining manual step
 
