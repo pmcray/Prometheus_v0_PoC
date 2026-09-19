@@ -50,3 +50,6 @@ simulation_cache/
 # Generated reports (can regenerate)
 *_verification_report.json
 prometheus_demo_report_*.json
+
+# Written by test runs (timestamped model snapshots)
+/model_registry/
