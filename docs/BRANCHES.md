@@ -33,6 +33,13 @@ Naming the trunk `main` repairs two things that had been silently broken:
   `.../blob/main/notebooks/...`, and six other files carry one each. All 20 were 404ing
   because the default branch was `master`. All nine distinct notebooks they reference
   are present on `main`.
+- **Colab notebooks now install current code.** Twenty-two notebooks hard-coded
+  `git clone -b wp16-notebook-only`, so a Colab session opened from a `main` badge
+  would then install the package as of 2026-04-20 — ARC-AGI-3 bridge **v18** against
+  **v35** on the trunk, a gap of 1,138 added lines in that file alone. These now clone
+  `main`. Notebooks that take the branch from a variable (such as
+  `prometheus_star_arc3_live.ipynb`, which tracks an active development branch) were
+  deliberately left alone.
 
 ## Branch inventory
 
