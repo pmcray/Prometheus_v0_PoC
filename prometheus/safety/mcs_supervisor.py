@@ -85,14 +85,13 @@ class MCSSupervisor:
             "Functional Correctness": "Modifications must maintain or improve the intended functionality.",
             "Transparency": "All modifications must be interpretable and avoid obfuscation."
         }
-        self.forbidden_imports = {
-            "os", "subprocess", "socket", "requests", "urllib", "shutil", 
-            "pty", "platform", "ctypes", "pickle", "marshal"
-        }
-        self.forbidden_calls = {
-            "eval", "exec", "open", "getattr", "setattr", "delattr",
-            "compile", "input", "breakpoint"
-        }
+        # Static code analysis is delegated entirely to CodeInjectionGuard, which
+        # owns the forbidden-import and forbidden-call lists (_EXTENDED_FORBIDDEN_*
+        # in prometheus.adversarial_robustness). This class previously carried its
+        # own narrower copies of those sets; they were left behind when the AST walk
+        # moved into the guard, and read by nothing. Do not reintroduce them here —
+        # a second, weaker list that looks authoritative invites the false
+        # conclusion that enforcement is missing.
         self.code_guard = CodeInjectionGuard()
 
     def verify_modification(self, original_code: str, proposed_code: str, 

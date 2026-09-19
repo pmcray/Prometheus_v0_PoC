@@ -59,26 +59,41 @@ Pull requests #2 and #3 target `master` and have been open since August and Nove
 2025. They were **not** closed, because the "lineage A is fully subsumed" claim holds
 at the level of *filenames* but **not** at the level of *file contents*.
 
-Both PR branches carry code that is missing from `main`:
+`main` adds 44,354 lines over PR #3 but also **drops 208**, spread across 20 files, so
+each dropped hunk needs checking individually before these PRs can be retired.
 
-- **PR #3** (`claude/codebase-status-check-…`, 225 commits) — `main` adds 44,354 lines
-  over this branch but also **drops 208**, spread across 20 files. The most serious is
-  `prometheus/safety/mcs_supervisor.py`: on the PR branch it parses proposed code with
-  `ast.parse`, walks the tree, and rejects forbidden imports. On `main` the
-  `self.forbidden_imports` set is still declared but **nothing reads it** — the
-  `ast.parse`, `ast.walk` and enforcement branch are all absent. The safety check is
-  declared but not enforced.
-- **PR #2** (`feature/verify-v18-impl-and-fix-tests`, 18 commits) — conflicted
-  (`mergeable_state: dirty`) and dominated by committed build artifacts (`__pycache__`,
-  `.lake`, logs), which is why GitHub reports 7,271 changed files. Underneath that it
-  still holds content `main` lacks, including ~123 lines in
-  `prometheus/causal_attention.py`.
+**One such hunk has been checked and needs no action.** In
+`prometheus/safety/mcs_supervisor.py`, PR #3 parses proposed code with `ast.parse`,
+walks the tree and rejects forbidden imports and calls. On `main` that inline walk is
+gone — but it was **refactored, not deleted**: enforcement moved to
+`CodeInjectionGuard` in `prometheus.adversarial_robustness`, invoked via
+`self.code_guard.is_safe_with_report(...)`.
 
-Retargeting either at `main` would produce a diff across unrelated histories rather
-than the actual change, so that is not useful either. The correct resolution is to
-**port the missing hunks onto `main` deliberately**, starting with the
-`mcs_supervisor.py` enforcement gap, and only then close these PRs. Until that is done,
-leave them open — they are the only record of that code.
+The replacement is strictly stronger, verified by running it against every case the old
+code caught:
+
+- `_EXTENDED_FORBIDDEN_IMPORTS` and `_EXTENDED_FORBIDDEN_CALLS` are supersets of the
+  old sets, with nothing missing.
+- All 31 of PR #3's cases (11 imports × 2 syntaxes, 9 calls) are rejected; none slip
+  through.
+- Six bypass routes the old code allowed are now blocked: `importlib`, `__import__`,
+  `importlib.import_module`, `base64`, `globals()` and `sys`.
+- Benign code still passes, so the extra coverage costs no false positives.
+
+What actually misled the earlier reading: `MCSSupervisor` kept its own narrower
+`forbidden_imports` / `forbidden_calls` sets after the refactor, read by nothing, which
+made enforcement look absent. Those dead attributes have been removed.
+
+**PR #2** (`feature/verify-v18-impl-and-fix-tests`, 18 commits) is conflicted
+(`mergeable_state: dirty`) and dominated by committed build artifacts (`__pycache__`,
+`.lake`, logs), which is why GitHub reports 7,271 changed files. Underneath that it
+still holds content `main` lacks, including ~123 lines in
+`prometheus/causal_attention.py`. That has **not** been checked yet.
+
+Retargeting either PR at `main` would produce a diff across unrelated histories rather
+than the actual change. The remaining dropped hunks should each be checked the way the
+`mcs_supervisor.py` one was — refactored-elsewhere is at least as likely as lost — and
+only then should these PRs be closed. Until that is done, leave them open.
 
 ## One remaining manual step
 
